@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dbnd.Logic.Interfaces
+namespace Dbnd.Logic.Objects
 {
-    public interface IRepository
+    class Character
     {
-        
     }
 }
