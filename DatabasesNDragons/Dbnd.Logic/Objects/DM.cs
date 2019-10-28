@@ -6,5 +6,13 @@ namespace Dbnd.Logic.Objects
 {
     class DM
     {
+        public int DungeonMasterID { get; set; }
+        private List<Game> games = new List<Game>();
+
+        public List<Game> Games
+        {
+            get { return games; }
+            set { games = value; }
+        }
     }
 }
