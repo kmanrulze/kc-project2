@@ -6,6 +6,6 @@ namespace Dbnd.Data.Repository
 {
     public static class Mapper
     {
-
+        //Stuff
     }
 }
