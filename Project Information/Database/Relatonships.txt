@@ -1,0 +1,6 @@
+Relationships:
+
+-One and only one client can have 0 or one optional DungeonMasterID
+-One and only one client can have 0 or many characters
+-A character can have many games (Using a junction table with a candidate key based off of two foreign keys)
+-A DungeonMaster can have one or many games (Implying you cant have a DungeonMasterID until you create a game)

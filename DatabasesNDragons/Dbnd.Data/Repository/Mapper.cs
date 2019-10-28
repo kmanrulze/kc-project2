@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dbnd.Logic.Interfaces
+namespace Dbnd.Data.Repository
 {
-    public interface IRepository
+    public static class Mapper
     {
         
     }
