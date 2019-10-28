@@ -4,13 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dbnd.Data.Entities
 {
-    class Game
+    class CharacterGameXRef
     {
+        [ForeignKey("GameRefId")]
         [Key]
         public Guid GameId { get; set; }
-        [ForeignKey("DungeonMasterRefId")]
-        public Guid DungeonMasterId { get; set; }
-        public string TableName { get; set; }
+
+        [ForeignKey("ClientRefId")]
+        [Key]
+        public Guid ClientId { get; set; }
 
     }
 }
