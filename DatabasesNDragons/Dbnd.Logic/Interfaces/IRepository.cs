@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Dbnd.Logic.Interfaces
 {
-    interface IRepository
+    public interface IRepository
     {
+
     }
 }
