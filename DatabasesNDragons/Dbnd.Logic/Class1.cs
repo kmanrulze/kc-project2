@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DBND.BusinessLogic
+namespace Dbnd.Logic
 {
     public class Class1
     {

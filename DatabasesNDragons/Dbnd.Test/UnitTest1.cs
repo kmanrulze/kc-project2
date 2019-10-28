@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace DBND.Tests
+namespace Dbnd.Test
 {
     public class UnitTest1
     {
