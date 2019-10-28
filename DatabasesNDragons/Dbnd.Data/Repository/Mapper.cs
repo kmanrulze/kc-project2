@@ -18,11 +18,9 @@ namespace Dbnd.Data.Repository
             LogicClient.UserName = ContextClient.Username;
             LogicClient.PasswordHash = ContextClient.PasswordHash;
             LogicClient.Email = ContextClient.Email;
-            LogicClient.ClientID = ContextClient.ClientId;
+            LogicClient.ClientID = ContextClient.ClientId; 
 
-#warning Needs to be able to set what their DMID as well if any. Might need to add that to the Client entity, or otherwise do some checks outside of the mapper. 
-
-            return null;
+            return LogicClient;
         }
         public static DM MapDM()
         {

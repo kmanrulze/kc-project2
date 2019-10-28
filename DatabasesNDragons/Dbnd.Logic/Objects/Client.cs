@@ -11,7 +11,6 @@ namespace Dbnd.Logic.Objects
         private HashCode passwordHash = new HashCode();
         private Guid clientID = new Guid();
         private List<Character> characters = new List<Character>();
-        private DM dmID = new DM();
 
         public HashCode PasswordHash
         {
@@ -27,11 +26,6 @@ namespace Dbnd.Logic.Objects
         {
             get { return characters; }
             set { characters = value; }
-        }
-        public DM DMID
-        {
-            get { return dmID; }
-            set { dmID = value; }
         }
     }
 }
