@@ -15,7 +15,7 @@ namespace Dbnd.Data.Repository
             _context = context;
         }
 
-        public Character GetCharacterByPCID(int PCID)
+        public Logic.Objects.Character GetCharacterByPCID(int PCID)
         {
             throw new NotImplementedException();
         }
@@ -25,12 +25,12 @@ namespace Dbnd.Data.Repository
             throw new NotImplementedException();
         }
 
-        public DM GetDMByDungeonMasterID(int DungeonMasterID)
+        public Logic.Objects.DM GetDMByDungeonMasterID(int DungeonMasterID)
         {
             throw new NotImplementedException();
         }
 
-        public Game GetGameByGameID(int GameID)
+        public Logic.Objects.Game GetGameByGameID(int GameID)
         {
             throw new NotImplementedException();
         }
