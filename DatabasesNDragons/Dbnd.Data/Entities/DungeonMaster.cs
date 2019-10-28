@@ -1,15 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dbnd.Data.Entities
 {
-    public class Client
+    class DungeonMaster
     {
         [Key]
+        public Guid DungeonMasterId { get; set; }
+        [ForeignKey("ClientRefId")]
         public Guid ClientId { get; set; }
-        public string Username { get; set; }
-        public HashCode PasswordHash { get; set; }
-        public string Email { get; set; }
-
     }
 }
