@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dbnd.Logic.Objects
 {
-    class DM
+    public class DM
     {
         public int DungeonMasterID { get; set; }
         private List<Game> games = new List<Game>();
