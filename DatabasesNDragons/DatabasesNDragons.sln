@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dbnd.Logic", "Dbnd.Logic\Dbnd.Logic.csproj", "{3EBA5FB1-4769-4550-AD32-9AECF2F11EC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.Logic", "Dbnd.Logic\Dbnd.Logic.csproj", "{3EBA5FB1-4769-4550-AD32-9AECF2F11EC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dbnd.Test", "Dbnd.Test\Dbnd.Test.csproj", "{B0B0C95F-06CC-4F69-9227-552E7CED9144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.Test", "Dbnd.Test\Dbnd.Test.csproj", "{B0B0C95F-06CC-4F69-9227-552E7CED9144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dbnd.Data", "Dbnd.Data\Dbnd.Data.csproj", "{8D766DD3-E47A-409F-AFFA-1DB012F7FAAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.Data", "Dbnd.Data\Dbnd.Data.csproj", "{8D766DD3-E47A-409F-AFFA-1DB012F7FAAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dbnd.WebApp", "Dbnd.WebApp\Dbnd.WebApp.csproj", "{2663BA13-AAE6-4568-A339-4FAB92C314F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.WebApp", "Dbnd.WebApp\Dbnd.WebApp.csproj", "{2663BA13-AAE6-4568-A339-4FAB92C314F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

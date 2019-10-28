@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Dbnd.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+
+
 
 namespace Dbnd.WebApp
 {
@@ -26,6 +30,11 @@ namespace Dbnd.WebApp
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            // Connection for PostgreServer
+            services.AddDbContext<DbndContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("CodeFirstString")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
