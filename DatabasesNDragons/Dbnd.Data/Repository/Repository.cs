@@ -4,6 +4,8 @@ using System.Text;
 using Dbnd.Logic.Interfaces;
 using Dbnd.Data.Entities;
 using Dbnd.Logic.Objects;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Dbnd.Data.Repository
 {
@@ -17,12 +19,18 @@ namespace Dbnd.Data.Repository
 
         public Logic.Objects.Character GetCharacterByPCID(int PCID)
         {
-            throw new NotImplementedException();
+            Logic.Objects.Character LogicCharacter = new Logic.Objects.Character();
+
+            return null;
+
         }
 
-        public Logic.Objects.Client GetClientByID(int ClientID)
+        public Logic.Objects.Client GetClientByID(Guid ClientID)
         {
-            throw new NotImplementedException();
+
+            Logic.Objects.Client LogicClient = Mapper.Mapclient(_context.Client.First(c => c.ClientId == ClientID));
+            return LogicClient;
+
         }
 
         public Logic.Objects.DM GetDMByDungeonMasterID(int DungeonMasterID)
