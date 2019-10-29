@@ -20,7 +20,7 @@ namespace Dbnd.Data.Repository
 
         public async Task<Logic.Objects.Character> GetCharacterByPCID(int PCID)
         {
-            Logic.Objects.Character LogicCharacter = new Logic.Objects.Character();
+            //Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character)
 
             return null;
 
@@ -36,6 +36,7 @@ namespace Dbnd.Data.Repository
 
         public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterID(int DungeonMasterID)
         {
+            Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDM();
             throw new NotImplementedException();
         }
 
