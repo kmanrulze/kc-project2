@@ -36,8 +36,7 @@ namespace Dbnd.Data.Repository
 
         public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterID(int DungeonMasterID)
         {
-            Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDM();
-            throw new NotImplementedException();
+            Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDM(await _context.DungeonMaster);
         }
 
         public async Task<Logic.Objects.Game> GetGameByGameID(int GameID)
