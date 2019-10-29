@@ -8,9 +8,11 @@ namespace Dbnd.Data.Entities
     {
         [Key]
         public Guid GameId { get; set; }
-        [ForeignKey("DungeonMasterRefId")]
+        public string GameName { get; set; }
+
+        // Foreign Key for DungeonMaster
         public Guid DungeonMasterId { get; set; }
-        public string TableName { get; set; }
+        public DungeonMaster DungeonMaster { get; set; }
 
     }
 }

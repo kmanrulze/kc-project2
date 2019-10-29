@@ -6,8 +6,14 @@ namespace Dbnd.Logic.Objects
 {
     public class Character
     {
-        public int CharacterID { get; set; }
+        public Guid CharacterID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public Character()
+        {
+            CharacterID = Guid.NewGuid();
+        }
     }
+
 }

@@ -22,7 +22,7 @@ namespace Dbnd.Data.Repository
 
             return LogicClient;
         }
-        public static DM MapDM()
+        public static DungeonMaster MapDM()
         {
             return null;
         }

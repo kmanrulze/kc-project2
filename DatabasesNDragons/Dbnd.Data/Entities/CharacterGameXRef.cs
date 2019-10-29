@@ -6,13 +6,13 @@ namespace Dbnd.Data.Entities
 {
     class CharacterGameXRef
     {
-        [ForeignKey("GameRefId")]
         [Key]
         public Guid GameId { get; set; }
+        public Game Game { get; set; }
 
-        [ForeignKey("ClientRefId")]
         [Key]
         public Guid ClientId { get; set; }
+        public Client Client { get; set; }
 
     }
 }

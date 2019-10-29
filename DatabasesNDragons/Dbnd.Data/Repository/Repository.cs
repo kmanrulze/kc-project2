@@ -33,7 +33,7 @@ namespace Dbnd.Data.Repository
 
         }
 
-        public Logic.Objects.DM GetDMByDungeonMasterID(int DungeonMasterID)
+        public Logic.Objects.DungeonMaster GetDMByDungeonMasterID(int DungeonMasterID)
         {
             throw new NotImplementedException();
         }
