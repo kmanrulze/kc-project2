@@ -10,7 +10,7 @@ namespace Dbnd.Logic.Interfaces
     {
         Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID);
         Task<Character> GetCharacterByPCID(int PCID);
-        Task<DungeonMaster> GetDMByDungeonMasterID(int DungeonMasterID);
+        Task<DungeonMaster> GetDMByDungeonMasterID(Guid DungeonMasterID);
         Task<Game> GetGameByGameID(int GameID);
     }
 }

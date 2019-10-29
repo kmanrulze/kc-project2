@@ -34,9 +34,10 @@ namespace Dbnd.Data.Repository
 
         }
 
-        public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterID(int DungeonMasterID)
+        public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterID(Guid DungeonMasterID)
         {
-            Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDM(await _context.DungeonMaster);
+            Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDM(await _context.DungeonMaster.FirstAsync(dm => dm.DungeonMasterId == DungeonMasterID));
+            return LogicDungeonMaster;
         }
 
         public async Task<Logic.Objects.Game> GetGameByGameID(int GameID)

@@ -13,18 +13,25 @@ namespace Dbnd.Data.Repository
         }
         public static Client Mapclient(Entities.Client ContextClient)
         {
-            Client LogicClient = new Client();
-
-            LogicClient.UserName = ContextClient.Username;
-            LogicClient.PasswordHash = ContextClient.PasswordHash;
-            LogicClient.Email = ContextClient.Email;
-            LogicClient.ClientID = ContextClient.ClientId; 
+            Client LogicClient = new Client
+            {
+                UserName = ContextClient.Username,
+                PasswordHash = ContextClient.PasswordHash,
+                Email = ContextClient.Email,
+                ClientID = ContextClient.ClientId
+            };
 
             return LogicClient;
         }
-        public static DungeonMaster MapDM()
+        public static DungeonMaster MapDM(Entities.DungeonMaster ContextDungeonMaster)
         {
-            return null;
+            DungeonMaster LogicDungeonMaster = new DungeonMaster
+            {
+                DungeonMasterID = ContextDungeonMaster.DungeonMasterId
+            };
+
+
+            return LogicDungeonMaster;
         }
         public static Game MapGame()
         {
