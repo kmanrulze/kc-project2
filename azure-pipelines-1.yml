@@ -6,9 +6,9 @@
 trigger:
   branches:
     include:
-    - master
+    - Feature
     exclude:
-    - Feature/*
+    - master/*
     - KC/*
     - Shawn/*
     - Jacob/*
@@ -16,17 +16,15 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  buildConfiguration: 'Release'
-
 steps:
+
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'DBnD'
     organization: 'dbnd-project-2'
     scannerMode: 'MSBuild'
     projectKey: 'DBnD'
-    projectName: 'DBnD'
+    projectName: 'DBnD Feature'
     extraProperties: |
         sonar.exclusions=**/lib/**
 
@@ -35,11 +33,3 @@ steps:
   workingDirectory: './DatabasesNDragons'
 
 - task: SonarCloudAnalyze@1
-#- task: SonarCloudPrepare@1
-#  inputs:
-#    SonarCloud: 'kc-SonarCloud-Connection'
-#    organization: 'kc-revature-training'
-#    scannerMode: 'MSBuild'
-#    projectKey: 'kc-pipeline-project-test'
-#    extraProperties: |
-#        sonar.exclusions=**/lib/**
