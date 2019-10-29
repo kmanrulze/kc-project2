@@ -28,5 +28,15 @@ namespace Dbnd.Test
             testCharacter.LastName = "changed";
             Assert.Equal("changed", testCharacter.LastName);
         }
+        [Fact]
+        public void TestGUID()
+        {
+            Character testCharacter = new Character
+            {
+                CharacterID = Guid.NewGuid()
+            };
+            Guid guidResult;
+            Assert.True(Guid.TryParse(testCharacter.CharacterID.ToString(), out guidResult));
+        }
     }
 }

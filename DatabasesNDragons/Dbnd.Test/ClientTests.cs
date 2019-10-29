@@ -26,5 +26,15 @@ namespace Dbnd.Test
             newClient.Email = "changed@changed.com";
             Assert.Equal("changed@changed.com", newClient.Email);
         }
+        [Fact]
+        public void TestGUID()
+        {
+            Client testClinet = new Client
+            {
+                ClientID = Guid.NewGuid()
+            };
+            Guid guidResult;
+            Assert.True(Guid.TryParse(testClinet.ClientID.ToString(), out guidResult));
+        }
     }
 }

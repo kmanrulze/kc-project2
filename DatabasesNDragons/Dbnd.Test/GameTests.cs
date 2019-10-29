@@ -18,5 +18,15 @@ namespace Dbnd.Test
             testGame.GameName = "changed";
             Assert.Equal("changed", testGame.GameName);
         }
+        [Fact]
+        public void TestGUID()
+        {
+            Game testGame = new Game
+            {
+                GameId = Guid.NewGuid()
+            };
+            Guid guidResult;
+            Assert.True(Guid.TryParse(testGame.GameId.ToString(), out guidResult));
+        }
     }
 }

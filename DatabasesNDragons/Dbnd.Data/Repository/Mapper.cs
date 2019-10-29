@@ -44,8 +44,8 @@ namespace Dbnd.Data.Repository
         {
             Game LogicGame = new Game
             {
-                DungeonMasterID = ContextGame.DungeonMasterId,
-                GameID = ContextGame.GameId,
+                DungeonMasterId = ContextGame.DungeonMasterId,
+                GameId = ContextGame.GameId,
                 GameName = ContextGame.GameName
             };
             return LogicGame;
