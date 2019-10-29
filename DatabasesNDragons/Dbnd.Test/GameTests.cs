@@ -23,10 +23,10 @@ namespace Dbnd.Test
         {
             Game testGame = new Game
             {
-                GameId = Guid.NewGuid()
+                GameID = Guid.NewGuid()
             };
             Guid guidResult;
-            Assert.True(Guid.TryParse(testGame.GameId.ToString(), out guidResult));
+            Assert.True(Guid.TryParse(testGame.GameID.ToString(), out guidResult));
         }
     }
 }
