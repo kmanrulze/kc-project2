@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Dbnd.Logic.Objects
@@ -46,28 +47,61 @@ namespace Dbnd.Logic.Objects
         }
 
         // Valid email check
-        bool IsValidEmail()
+        // From Microsoft:
+        // docs.microsoft.com/en-us/dotnet/standard/base-types/how-to-verify-that-strings-are-in-valid-email-format
+        public bool IsValidEmail()
         {
+            var email = Email;
+
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
             try
             {
-                // This tries to make a valid email address out of the Email property.
-                // If it can't then the Email isn't valid and it throws and exception.
-                // The catch in our case will return false, which is what we want
-                // on this check for an invalid email of any sort.
-                var emailAddress = new System.Net.Mail.MailAddress(Email);
-                return emailAddress.Address == Email;
+                // Normalize the domain
+                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                        RegexOptions.None, TimeSpan.FromMilliseconds(200));
+
+                // Examines the domain part of the email and normalizes it.
+                string DomainMapper(Match match)
+                {
+                    // Use IdnMapping class to convert Unicode domain names.
+                    var idn = new IdnMapping();
+
+                    // Pull out and process domain name (throws ArgumentException on invalid)
+                    var domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    return match.Groups[1].Value + domainName;
+                }
             }
-            catch
+            catch (RegexMatchTimeoutException e)
             {
                 return false;
             }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+
+            try
+            {
+                return Regex.IsMatch(email,
+                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+
         }
 
         // Valid Username check
         // 8-20 alphanumeric . _ chars
         // . and _ can not be leading or trailing
         // no double . _
-        bool IsValidUserName()
+        public bool IsValidUserName()
         {
             Regex regex  = new Regex(@"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
             Match match = regex.Match(UserName);
@@ -82,17 +116,17 @@ namespace Dbnd.Logic.Objects
 
         // Valid PasswordHash check
         // 8-20 alphanumeric chars only
-        bool IsValidPasswordHash()
+        public bool IsValidPasswordHash()
         {
             Regex regex = new Regex(@"^(?=.{8,20}$)[a-zA-Z0-9]$");
             Match match = regex.Match(passwordHash);
             if (match.Success)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
     }
