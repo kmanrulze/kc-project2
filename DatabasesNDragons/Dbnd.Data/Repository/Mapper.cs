@@ -7,9 +7,16 @@ namespace Dbnd.Data.Repository
 {
     public static class Mapper
     {
-        public static Character MapCharacter()
+        public static Character MapCharacter(Entities.Character ContextCharacter)
         {
-            return null;
+            Character LogicCharacter = new Character
+            {
+                CharacterID = ContextCharacter.CharacterId,
+                FirstName = ContextCharacter.CharacterFirstName,
+                LastName = ContextCharacter.CharacterLastName
+
+            };
+            return LogicCharacter;
         }
         public static Client Mapclient(Entities.Client ContextClient)
         {

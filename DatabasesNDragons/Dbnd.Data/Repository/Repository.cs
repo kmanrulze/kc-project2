@@ -18,11 +18,11 @@ namespace Dbnd.Data.Repository
             _context = context;
         }
 
-        public async Task<Logic.Objects.Character> GetCharacterByPCID(int PCID)
+        public async Task<Logic.Objects.Character> GetCharacterByPCID(Guid CharacterID)
         {
-            //Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character)
+            Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterId == CharacterID));
 
-            return null;
+            return LogicCharacter;
 
         }
 
@@ -40,7 +40,7 @@ namespace Dbnd.Data.Repository
             return LogicDungeonMaster;
         }
 
-        public async Task<Logic.Objects.Game> GetGameByGameID(int GameID)
+        public async Task<Logic.Objects.Game> GetGameByGameID(Guid GameID)
         {
             throw new NotImplementedException();
         }
