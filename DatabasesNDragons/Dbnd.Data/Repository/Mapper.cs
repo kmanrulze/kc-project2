@@ -18,7 +18,7 @@ namespace Dbnd.Data.Repository
             };
             return LogicCharacter;
         }
-        public static Client Mapclient(Entities.Client ContextClient)
+        public static Client MapClient(Entities.Client ContextClient)
         {
             Client LogicClient = new Client
             {
@@ -30,7 +30,7 @@ namespace Dbnd.Data.Repository
 
             return LogicClient;
         }
-        public static DungeonMaster MapDM(Entities.DungeonMaster ContextDungeonMaster)
+        public static DungeonMaster MapDungeonMaster(Entities.DungeonMaster ContextDungeonMaster)
         {
             DungeonMaster LogicDungeonMaster = new DungeonMaster
             {
@@ -40,9 +40,15 @@ namespace Dbnd.Data.Repository
 
             return LogicDungeonMaster;
         }
-        public static Game MapGame()
+        public static Game MapGame(Entities.Game ContextGame)
         {
-            return null;
+            Game LogicGame = new Game
+            {
+                DungeonMasterId = ContextGame.DungeonMasterId,
+                GameId = ContextGame.GameId,
+                GameName = ContextGame.GameName
+            };
+            return LogicGame;
         }
     }
 }
