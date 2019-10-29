@@ -19,5 +19,6 @@ namespace Dbnd.Logic.Objects
         {
             DungeonMasterID = Guid.NewGuid();
         }
+        public Guid ClientId { get; set; }
     }
 }
