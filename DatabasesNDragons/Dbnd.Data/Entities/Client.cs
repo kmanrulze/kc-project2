@@ -8,7 +8,7 @@ namespace Dbnd.Data.Entities
         [Key]
         public Guid ClientId { get; set; }
         public string Username { get; set; }
-        public HashCode PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
         public string Email { get; set; }
 
     }

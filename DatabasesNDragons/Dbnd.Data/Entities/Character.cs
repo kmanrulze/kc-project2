@@ -8,10 +8,13 @@ namespace Dbnd.Data.Entities
     {
         [Key]
         public Guid CharacterId { get; set; }
-        [ForeignKey("ClientRefId")]
-        public Guid ClientId { get; set; }
+        
         public String CharacterFirstName { get; set; }
         public String CharacterLastName { get; set; }
+
+        // Foreign Key for Client
+        public Guid ClientId { get; set; }
+        public Client Client { get; set; }
 
     }
 }

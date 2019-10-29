@@ -11,11 +11,18 @@ namespace Dbnd.Data.Repository
         {
             return null;
         }
-        public static Client Mapclient()
+        public static Client Mapclient(Entities.Client ContextClient)
         {
-            return null;
+            Client LogicClient = new Client();
+
+            LogicClient.UserName = ContextClient.Username;
+            LogicClient.PasswordHash = ContextClient.PasswordHash;
+            LogicClient.Email = ContextClient.Email;
+            LogicClient.ClientID = ContextClient.ClientId; 
+
+            return LogicClient;
         }
-        public static DM MapDM()
+        public static DungeonMaster MapDM()
         {
             return null;
         }

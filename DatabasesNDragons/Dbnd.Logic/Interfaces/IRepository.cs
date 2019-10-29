@@ -7,9 +7,9 @@ namespace Dbnd.Logic.Interfaces
 {
     public interface IRepository
     {
-        public Client GetClientByID(int ClientID);
+        public Client GetClientByID(Guid ClientID);
         public Character GetCharacterByPCID(int PCID);
-        public DM GetDMByDungeonMasterID(int DungeonMasterID);
+        public DungeonMaster GetDMByDungeonMasterID(int DungeonMasterID);
         public Game GetGameByGameID(int GameID);
     }
 }

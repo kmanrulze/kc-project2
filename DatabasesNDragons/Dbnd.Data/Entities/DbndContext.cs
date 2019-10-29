@@ -11,9 +11,11 @@ namespace Dbnd.Data.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Client>()
-                .Property(b => b.ClientId)
-                .IsRequired();
+            modelBuilder.Entity<Client>();
+            modelBuilder.Entity<Character>();
+            modelBuilder.Entity<DungeonMaster>();
+            modelBuilder.Entity<Game>();
+            modelBuilder.Entity<CharacterGameXRef>();
         }
 
         public DbndContext(DbContextOptions<DbndContext> options)
