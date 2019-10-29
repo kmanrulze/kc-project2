@@ -16,6 +16,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  buildConfiguration: 'Release'
+
 steps:
 
 - task: SonarCloudPrepare@1
@@ -23,8 +26,7 @@ steps:
     SonarCloud: 'DBnD'
     organization: 'dbnd-project-2'
     scannerMode: 'MSBuild'
-    projectKey: 'DBnD'
-    projectName: 'DBnD Feature'
+    projectKey: 'FeatureBranch'
     extraProperties: |
         sonar.exclusions=**/lib/**
 
