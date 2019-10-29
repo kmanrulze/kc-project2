@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dbnd.Data.Entities
 {
@@ -35,14 +36,36 @@ namespace Dbnd.Data.Entities
             modelBuilder.Entity<DungeonMaster>()
                 .Property(p => p.DungeonMasterId)
                 .IsRequired();
-            //modelBuilder.Entity<DungeonMaster>()
-            //    .HasOne(p => p.ClientId)
-            //    .WithMany(b => b.DungeonMasterId)
-            //    .IsRequired();
+            modelBuilder.Entity<DungeonMaster>()
+                .Property(p => p.ClientId)
+                .IsRequired();
 
-            modelBuilder.Entity<Character>();
-            modelBuilder.Entity<Game>();
-            modelBuilder.Entity<CharacterGameXRef>();
+            modelBuilder.Entity<Character>()
+                .Property(p => p.CharacterId)
+                .IsRequired();
+            modelBuilder.Entity<Character>()
+                .Property(p => p.CharacterFirstName)
+                .HasMaxLength(75)
+                .IsRequired();
+            modelBuilder.Entity<Character>()
+                .Property(p => p.CharacterLastName)
+                .HasMaxLength(75)
+                .IsRequired();
+
+            modelBuilder.Entity<Game>()
+                .Property(p => p.GameId)
+                .IsRequired();
+            modelBuilder.Entity<Game>()
+                .Property(p => p.DungeonMasterId)
+                .IsRequired();
+            modelBuilder.Entity<Game>()
+                .Property(p => p.GameName)
+                .HasMaxLength(225)
+                .IsRequired();
+
+            // Setup Composite Key for this table
+            modelBuilder.Entity<CharacterGameXRef>()
+                .HasKey(k => new { k.GameId, k.ClientId });
         }
 
         public DbndContext(DbContextOptions<DbndContext> options)
