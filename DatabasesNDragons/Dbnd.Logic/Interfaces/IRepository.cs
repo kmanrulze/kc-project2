@@ -12,5 +12,6 @@ namespace Dbnd.Logic.Interfaces
         Task<Character> GetCharacterByCharacterID(Guid PCID);
         Task<DungeonMaster> GetDMByDungeonMasterID(Guid DungeonMasterID);
         Task<Game> GetGameByGameID(Guid GameID);
+        Task<List<Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID);
     }
 }

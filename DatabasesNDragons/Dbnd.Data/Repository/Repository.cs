@@ -18,6 +18,18 @@ namespace Dbnd.Data.Repository
             _context = context;
         }
 
+        public async Task<List<Logic.Objects.Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID)
+        {
+            List<Logic.Objects.Game> LogicGameList = new List<Logic.Objects.Game>();
+
+            foreach(Entities.Game ContextGame in _context.Game.Where(g => g.DungeonMasterId == DungeonMasterID))
+            {
+                LogicGameList.Add(await GetGameByGameID(ContextGame.GameId));
+            }
+            return LogicGameList;
+
+        }
+
         public async Task<Logic.Objects.Character> GetCharacterByCharacterID(Guid CharacterID)
         {
             Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterId == CharacterID));
