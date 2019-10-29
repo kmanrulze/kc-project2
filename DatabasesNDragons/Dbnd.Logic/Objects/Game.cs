@@ -6,16 +6,18 @@ namespace Dbnd.Logic.Objects
 {
     public class Game
     {
-        private Guid gameID = Guid.NewGuid();
-
-        public Guid GameId
-        {
-            get { return gameID; }
-            set { gameID = value; }
-        }
+        public Guid GameID { get; set; }
         public string GameName { get; set; }
 
         // Foreign Key for DungeonMaster
-        public Guid DungeonMasterId { get; set; }
+        public Guid DungeonMasterID { get; set; }
+
+        public Game()
+        {
+            GameID = Guid.NewGuid();
+            DungeonMasterID = Guid.NewGuid();
+        }
+
+
     }
 }
