@@ -2,14 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dbnd.Logic.Interfaces
 {
     public interface IRepository
     {
-        public Client GetClientByID(int ClientID);
-        public Character GetCharacterByPCID(int PCID);
-        public DM GetDMByDungeonMasterID(int DungeonMasterID);
-        public Game GetGameByGameID(int GameID);
+        Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID);
+        Task<Character> GetCharacterByCharacterID(Guid CharacterID);
+        Task<DungeonMaster> GetDMByDungeonMasterID(Guid DungeonMasterID);
+        Task<Game> GetGameByGameID(Guid GameID);
+        Task<List<Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID);
     }
 }
