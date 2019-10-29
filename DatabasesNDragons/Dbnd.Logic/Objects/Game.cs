@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Dbnd.Logic.Objects
 {
@@ -13,6 +14,10 @@ namespace Dbnd.Logic.Objects
             get { return gameID; }
             set { gameID = value; }
         }
+
+        // 8-20 alphanumeric . _ chars
+        // . and _ can not be leading or trailing
+        // no double . _
         public string GameName { get; set; }
         public Guid DungeonMasterId { get; set; }
 
@@ -26,6 +31,24 @@ namespace Dbnd.Logic.Objects
             else
             {
                 return true;
+            }
+        }
+
+        // Valid GameName checks
+        // 8-20 alphanumeric . _ chars
+        // . and _ can not be leading or trailing
+        // no double . _
+        bool IsValidFirstName()
+        {
+            Regex regex = new Regex(@"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            Match match = regex.Match(GameName);
+            if (match.Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

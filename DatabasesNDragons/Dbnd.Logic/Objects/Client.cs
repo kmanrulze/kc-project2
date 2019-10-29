@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Dbnd.Logic.Objects
 {
     public class Client
     {
+        // 8-20 alphanumeric . _ chars
+        // . and _ can not be leading or trailing
+        // no double . _
         public string UserName { get; set; }
         public string Email { get; set; }
         private string passwordHash;
         private Guid clientID = new Guid();
         private List<Character> characters = new List<Character>();
 
+        // 8-20 alphanumeric chars only
         public string PasswordHash
         {
             get { return passwordHash; }
@@ -37,6 +42,57 @@ namespace Dbnd.Logic.Objects
             else
             {
                 return true;
+            }
+        }
+
+        // Valid email check
+        bool IsValidEmail()
+        {
+            try
+            {
+                // This tries to make a valid email address out of the Email property.
+                // If it can't then the Email isn't valid and it throws and exception.
+                // The catch in our case will return false, which is what we want
+                // on this check for an invalid email of any sort.
+                var emailAddress = new System.Net.Mail.MailAddress(Email);
+                return emailAddress.Address == Email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Valid Username check
+        // 8-20 alphanumeric . _ chars
+        // . and _ can not be leading or trailing
+        // no double . _
+        bool IsValidUserName()
+        {
+            Regex regex  = new Regex(@"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            Match match = regex.Match(UserName);
+            if (match.Success)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
+        // Valid PasswordHash check
+        // 8-20 alphanumeric chars only
+        bool IsValidPasswordHash()
+        {
+            Regex regex = new Regex(@"^(?=.{8,20}$)[a-zA-Z0-9]$");
+            Match match = regex.Match(passwordHash);
+            if (match.Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
