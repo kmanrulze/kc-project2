@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.Test", "Dbnd.Test\Dbnd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.Data", "Dbnd.Data\Dbnd.Data.csproj", "{8D766DD3-E47A-409F-AFFA-1DB012F7FAAD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.WebApp", "Dbnd.WebApp\Dbnd.WebApp.csproj", "{2663BA13-AAE6-4568-A339-4FAB92C314F3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{8D766DD3-E47A-409F-AFFA-1DB012F7FAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D766DD3-E47A-409F-AFFA-1DB012F7FAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D766DD3-E47A-409F-AFFA-1DB012F7FAAD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2663BA13-AAE6-4568-A339-4FAB92C314F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2663BA13-AAE6-4568-A339-4FAB92C314F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2663BA13-AAE6-4568-A339-4FAB92C314F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2663BA13-AAE6-4568-A339-4FAB92C314F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

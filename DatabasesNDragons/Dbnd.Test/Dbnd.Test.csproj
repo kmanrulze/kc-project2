@@ -20,4 +20,9 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dbnd.Data\Dbnd.Data.csproj" />
+    <ProjectReference Include="..\Dbnd.Logic\Dbnd.Logic.csproj" />
+  </ItemGroup>
+
 </Project>
