@@ -20,6 +20,16 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'DBnD'
+    organization: 'dbnd-project-2'
+    scannerMode: 'MSBuild'
+    projectKey: 'DBnD'
+    projectName: 'DBnD'
+
+- task: SonarCloudAnalyze@1
 #- task: SonarCloudPrepare@1
 #  inputs:
 #    SonarCloud: 'kc-SonarCloud-Connection'
