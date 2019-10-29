@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dbnd.Data.Entities
 {
-    class DungeonMaster
+    public class DungeonMaster
     {
         [Key]
         public Guid DungeonMasterId { get; set; }
