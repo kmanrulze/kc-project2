@@ -24,7 +24,7 @@ steps:
     organization: 'dbnd-project-2'
     scannerMode: 'MSBuild'
     projectKey: 'DBnD'
-    projectName: 'DBnD'
+    projectName: 'DBnD Feature'
     extraProperties: |
         sonar.exclusions=**/lib/**
 
