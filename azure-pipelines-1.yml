@@ -16,8 +16,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
+variables:
+  buildConfiguration: 'Release'
 
+steps:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'DBnD'
