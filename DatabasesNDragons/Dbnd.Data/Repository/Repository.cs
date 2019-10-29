@@ -6,6 +6,7 @@ using Dbnd.Data.Entities;
 using Dbnd.Logic.Objects;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dbnd.Data.Repository
 {
@@ -25,10 +26,10 @@ namespace Dbnd.Data.Repository
 
         }
 
-        public Logic.Objects.Client GetClientByID(Guid ClientID)
+        public async Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID)
         {
 
-            Logic.Objects.Client LogicClient = Mapper.Mapclient(_context.Client.First(c => c.ClientId == ClientID));
+            Logic.Objects.Client LogicClient = Mapper.Mapclient(await _context.Client.FirstAsync(c => c.ClientId == ClientID));
             return LogicClient;
 
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Dbnd.Logic.Objects
 {
@@ -8,11 +7,11 @@ namespace Dbnd.Logic.Objects
     {
         public string UserName { get; set; }
         public string Email { get; set; }
-        private HashCode passwordHash = new HashCode();
+        private string passwordHash;
         private Guid clientID = new Guid();
         private List<Character> characters = new List<Character>();
 
-        public HashCode PasswordHash
+        public string PasswordHash
         {
             get { return passwordHash; }
             set { passwordHash = value; }
