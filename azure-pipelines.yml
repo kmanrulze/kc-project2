@@ -4,16 +4,27 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+  branches:
+    include:
+    - master
+    exclude:
+    - Feature/*
+    - KC/*
+    - Shawn/*
+    - Jacob/*
 
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:
+  buildConfiguration: 'Release'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+steps:
+#- task: SonarCloudPrepare@1
+#  inputs:
+#    SonarCloud: 'kc-SonarCloud-Connection'
+#    organization: 'kc-revature-training'
+#    scannerMode: 'MSBuild'
+#    projectKey: 'kc-pipeline-project-test'
+#    extraProperties: |
+#        sonar.exclusions=**/lib/**
