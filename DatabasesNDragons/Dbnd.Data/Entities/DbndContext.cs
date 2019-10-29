@@ -9,7 +9,11 @@ namespace Dbnd.Data.Entities
     public class DbndContext : DbContext
     {
         public DbSet<Client> Client { get; set; }
-
+        public DbSet<DungeonMaster> DungeonMaster { get; set; }
+        public DbSet<Character> Character { get; set; }
+        public DbSet<Game> Game { get; set; }
+        public DbSet<CharacterGameXRef > CharacterGameXRef { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
@@ -31,9 +35,10 @@ namespace Dbnd.Data.Entities
             modelBuilder.Entity<DungeonMaster>()
                 .Property(p => p.DungeonMasterId)
                 .IsRequired();
-            modelBuilder.Entity<DungeonMaster>()
-                .Property(p => p.ClientId)
-                .IsRequired();
+            //modelBuilder.Entity<DungeonMaster>()
+            //    .HasOne(p => p.ClientId)
+            //    .WithMany(b => b.DungeonMasterId)
+            //    .IsRequired();
 
             modelBuilder.Entity<Character>();
             modelBuilder.Entity<Game>();
