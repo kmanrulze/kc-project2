@@ -14,8 +14,6 @@ namespace Dbnd.Logic.Objects
             set { gameID = value; }
         }
         public string GameName { get; set; }
-
-        // Foreign Key for DungeonMaster
         public Guid DungeonMasterId { get; set; }
     }
 }

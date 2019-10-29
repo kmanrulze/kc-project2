@@ -20,5 +20,6 @@ namespace Dbnd.Logic.Objects
             get { return dungeonMasterID; }
             set { dungeonMasterID = value; }
         }
+        public Guid ClientId { get; set; }
     }
 }
