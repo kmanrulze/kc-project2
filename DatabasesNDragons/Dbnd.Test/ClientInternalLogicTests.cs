@@ -130,14 +130,17 @@ namespace Dbnd.Test
 
         }
 
-        [Fact]
-        public void IsValidPasswordHash_Valid()
+        [Theory]
+        [InlineData("Pa5$word1234")]
+        [InlineData("PA5$word1234")]
+        [InlineData("p@$$wOrdh3r3")]
+        public void IsValidPasswordHash_Valid(string password)
         {
             Logic.Objects.Client client = new Client
             {
                 UserName = "DnDMan13",
                 Email = "DnDMan13@yahoo.com",
-                PasswordHash = "Password1234"
+                PasswordHash = password
             };
 
             var result = client.IsValidPasswordHash();
@@ -148,7 +151,9 @@ namespace Dbnd.Test
 
         [Theory]
         [InlineData("Pass")]
-        [InlineData("Password...")]
+        [InlineData("Password1234")]
+        [InlineData("p@ssword1234")]
+        [InlineData("ThisIsmypa55")]
         public void IsValidPasswordHash_Invalid(string password)
         {
             Logic.Objects.Client client = new Client
