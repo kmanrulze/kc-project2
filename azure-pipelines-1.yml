@@ -29,6 +29,7 @@ steps:
     projectKey: 'DBnD'
     extraProperties: |
         sonar.exclusions=**/lib/**
+        sonar.exlusions=**/Migrations/**
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
