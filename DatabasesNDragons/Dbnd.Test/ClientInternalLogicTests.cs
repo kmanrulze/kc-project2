@@ -16,7 +16,7 @@ namespace Dbnd.Test
 
             var result = client.RequiredFieldsNotNull();
 
-            Assert.True(!result);
+            Assert.False(result);
 
         }
 
@@ -78,7 +78,7 @@ namespace Dbnd.Test
 
             var result = client.IsValidUserName();
 
-            Assert.True(!result);
+            Assert.False(result);
 
         }
 
@@ -126,7 +126,7 @@ namespace Dbnd.Test
 
             var result = client.IsValidEmail();
 
-            Assert.True(!result);
+            Assert.False(result);
 
         }
 
@@ -160,12 +160,8 @@ namespace Dbnd.Test
 
             var result = client.IsValidPasswordHash();
 
-            Assert.True(!result);
+            Assert.False(result);
 
         }
-
-
-
-
     }
 }

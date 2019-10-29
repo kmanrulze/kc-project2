@@ -17,7 +17,7 @@ namespace Dbnd.Test
 
             var result = character.RequiredFieldsNotNull();
 
-            Assert.True(!result);
+            Assert.False(result);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace Dbnd.Test
 
             var result = character.IsValidFirstName();
 
-            Assert.True(!result);
+            Assert.False(result);
 
         }
 
@@ -111,7 +111,7 @@ namespace Dbnd.Test
 
             var result = character.IsValidLastName();
 
-            Assert.True(!result);
+            Assert.False(result);
 
         }
 
