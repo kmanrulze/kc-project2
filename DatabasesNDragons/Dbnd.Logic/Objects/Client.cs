@@ -7,19 +7,12 @@ namespace Dbnd.Logic.Objects
     {
         public string UserName { get; set; }
         public string Email { get; set; }
-        private string passwordHash;
-        private Guid clientID;
+        public string PasswordHash { get; set; }
+        public Guid ClientID { get; set; }
         private List<Character> characters = new List<Character>();
-
-        public Guid ClientID
+        public Client()
         {
-            get { return clientID; }
-            set { clientID = value; }
-        }
-        public string PasswordHash
-        {
-            get { return passwordHash; }
-            set { passwordHash = value; }
+            ClientID = Guid.NewGuid();
         }
         public List<Character> Characters
         {
