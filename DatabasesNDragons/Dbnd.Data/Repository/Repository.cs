@@ -18,7 +18,7 @@ namespace Dbnd.Data.Repository
             _context = context;
         }
 
-        public async Task<Logic.Objects.Character> GetCharacterByPCID(Guid CharacterID)
+        public async Task<Logic.Objects.Character> GetCharacterByCharacterID(Guid CharacterID)
         {
             Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterId == CharacterID));
 
