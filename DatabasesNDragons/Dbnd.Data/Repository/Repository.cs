@@ -18,7 +18,7 @@ namespace Dbnd.Data.Repository
             _context = context;
         }
 
-        public Logic.Objects.Character GetCharacterByPCID(int PCID)
+        public async Task<Logic.Objects.Character> GetCharacterByPCID(int PCID)
         {
             Logic.Objects.Character LogicCharacter = new Logic.Objects.Character();
 
@@ -34,12 +34,12 @@ namespace Dbnd.Data.Repository
 
         }
 
-        public Logic.Objects.DungeonMaster GetDMByDungeonMasterID(int DungeonMasterID)
+        public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterID(int DungeonMasterID)
         {
             throw new NotImplementedException();
         }
 
-        public Logic.Objects.Game GetGameByGameID(int GameID)
+        public async Task<Logic.Objects.Game> GetGameByGameID(int GameID)
         {
             throw new NotImplementedException();
         }

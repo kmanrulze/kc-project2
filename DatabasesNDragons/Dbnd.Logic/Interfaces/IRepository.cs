@@ -9,8 +9,8 @@ namespace Dbnd.Logic.Interfaces
     public interface IRepository
     {
         Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID);
-        public Character GetCharacterByPCID(int PCID);
-        public DungeonMaster GetDMByDungeonMasterID(int DungeonMasterID);
-        public Game GetGameByGameID(int GameID);
+        Task<Character> GetCharacterByPCID(int PCID);
+        Task<DungeonMaster> GetDMByDungeonMasterID(int DungeonMasterID);
+        Task<Game> GetGameByGameID(int GameID);
     }
 }
