@@ -11,4 +11,3 @@ namespace Dbnd.Logic.Objects
         public string LastName { get; set; }
     }
 }
-//testing master pipe
