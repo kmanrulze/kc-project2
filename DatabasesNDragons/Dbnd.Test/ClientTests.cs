@@ -23,7 +23,7 @@ namespace Dbnd.Test
             {
                 Email = "test@test.com"
             };
-            newClient.UserName = "changed@changed.com";
+            newClient.Email = "changed@changed.com";
             Assert.Equal("changed@changed.com", newClient.Email);
         }
     }
