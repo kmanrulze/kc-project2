@@ -16,7 +16,12 @@ namespace Dbnd.Logic.Objects
         private Guid clientID = Guid.NewGuid();
         private List<Character> characters = new List<Character>();
 
-        // 8-20 alphanumeric chars only
+        // Valid PasswordHash check
+        // At least one upper case English letter, (?=.*?[A-Z])
+        // At least one lower case English letter, (?=.*?[a - z])
+        // At least one digit, (?=.*?[0 - 9])
+        // At least one special character, (?=.*?[#?!@$%^&*-])
+        // Minimum eight in length.{8,}
         public string PasswordHash
         {
             get { return passwordHash; }
@@ -115,18 +120,22 @@ namespace Dbnd.Logic.Objects
         }
 
         // Valid PasswordHash check
-        // 8-20 alphanumeric chars only
+        // At least one upper case English letter, (?=.*?[A-Z])
+        // At least one lower case English letter, (?=.*?[a - z])
+        // At least one digit, (?=.*?[0 - 9])
+        // At least one special character, (?=.*?[#?!@$%^&*-])
+        // Minimum eight in length.{8,}
         public bool IsValidPasswordHash()
         {
-            Regex regex = new Regex(@"^(?=.{8,20}$)[a-zA-Z0-9]$");
+            Regex regex = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
             Match match = regex.Match(passwordHash);
             if (match.Success)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
     }
