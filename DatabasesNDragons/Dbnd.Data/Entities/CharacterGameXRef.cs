@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dbnd.Data.Entities
 {
-    class CharacterGameXRef
+    public class CharacterGameXRef
     {
         [Key]
         public Guid GameId { get; set; }
