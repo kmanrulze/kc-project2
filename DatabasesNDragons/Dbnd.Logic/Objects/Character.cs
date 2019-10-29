@@ -15,5 +15,5 @@ namespace Dbnd.Logic.Objects
             CharacterID = Guid.NewGuid();
         }
     }
-
+    //Testing feature branch pipe
 }
