@@ -13,7 +13,7 @@ namespace Dbnd.Logic.Objects
         public string UserName { get; set; }
         public string Email { get; set; }
         private string passwordHash;
-        private Guid clientID = new Guid();
+        private Guid clientID = Guid.NewGuid();
         private List<Character> characters = new List<Character>();
 
         // 8-20 alphanumeric chars only

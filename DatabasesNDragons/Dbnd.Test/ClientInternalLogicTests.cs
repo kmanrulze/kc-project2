@@ -6,9 +6,8 @@ using Dbnd.Logic.Objects;
 
 namespace Dbnd.Test
 {
-    public class InternalLogicTests
+    public class ClientInternalLogicTests
     {
-        
 
         [Fact]
         public void RequiredFieldsNotNull_CheckNull()
