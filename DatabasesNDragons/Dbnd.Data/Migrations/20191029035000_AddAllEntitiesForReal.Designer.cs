@@ -3,15 +3,17 @@ using System;
 using Dbnd.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Dbnd.Data.Migrations
 {
     [DbContext(typeof(DbndContext))]
-    partial class DbndContextModelSnapshot : ModelSnapshot
+    [Migration("20191029035000_AddAllEntitiesForReal")]
+    partial class AddAllEntitiesForReal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,14 +28,10 @@ namespace Dbnd.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("CharacterFirstName")
-                        .IsRequired()
-                        .HasColumnType("character varying(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("text");
 
                     b.Property<string>("CharacterLastName")
-                        .IsRequired()
-                        .HasColumnType("character varying(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("text");
 
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uuid");
@@ -112,9 +110,7 @@ namespace Dbnd.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("GameName")
-                        .IsRequired()
-                        .HasColumnType("character varying(225)")
-                        .HasMaxLength(225);
+                        .HasColumnType("text");
 
                     b.HasKey("GameId");
 
