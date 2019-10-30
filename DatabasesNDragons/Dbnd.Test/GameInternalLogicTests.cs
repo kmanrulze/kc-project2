@@ -55,7 +55,7 @@ namespace Dbnd.Test
 
         [Theory]
         [InlineData("%Ragnar")]
-        [InlineData("AgN4r")]
+        [InlineData("A4")]
         [InlineData("R")]
         [InlineData("rr@gn@rr")]
         public void IsValidGameName_Invalid(string gameNameTest)

@@ -15,7 +15,7 @@ namespace Dbnd.Logic.Objects
             set { gameID = value; }
         }
 
-        // 6-20 alphanumeric . _ chars
+        // 3-20 alphanumeric . _ chars
         // . and _ can not be leading or trailing
         // no double . _
         public string GameName { get; set; }
@@ -40,7 +40,7 @@ namespace Dbnd.Logic.Objects
         // no double . _
         public bool IsValidGameName()
         {
-            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
+            Regex regex = new Regex(@"^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             Match match = regex.Match(GameName);
             if (match.Success)
             {

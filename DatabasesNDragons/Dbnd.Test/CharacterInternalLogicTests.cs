@@ -57,7 +57,7 @@ namespace Dbnd.Test
 
         [Theory]
         [InlineData("%Ragnar")]
-        [InlineData("AgN4r")]
+        [InlineData("A4")]
         [InlineData("R")]
         [InlineData("rr@gn@rr")]
         public void IsValidFirstName_Invalid(string firstNameTest)
@@ -97,7 +97,7 @@ namespace Dbnd.Test
 
         [Theory]
         [InlineData("%Ragnar")]
-        [InlineData("AgN4r")]
+        [InlineData("A4")]
         [InlineData("R")]
         [InlineData("rr@gn@rr")]
         public void IsValidLastName_Invalid(string lastNameTest)
