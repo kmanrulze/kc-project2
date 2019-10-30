@@ -25,10 +25,6 @@ jobs:
   steps:
   - script: echo Hello!
     condition: always()
-
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: 'dotnet build $(buildConfiguration)'
-    workingDirectory: './DatabasesNDragons'
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'DBnD'
@@ -38,6 +34,10 @@ jobs:
       extraProperties: |
           sonar.exclusions=**/lib/**
           sonar.exclusions=**/Migrations/**
+
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+    workingDirectory: './DatabasesNDragons'
   - task: DotNetCoreCLI@2
     continueOnError: true
     inputs:
@@ -67,7 +67,7 @@ jobs:
   dependsOn: Build
   steps:
   - script: echo Build failiure!
-    condition: succeeded()
+    condition: failed()
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
