@@ -68,7 +68,7 @@ jobs:
       content: 'Pipeline build task failed!'
 
 - job: BuildSucceed
-  dependsOn: Build and SonarAnalysis
+  dependsOn: Build
   steps:
   - script: echo Build success!
     condition: succeeded()
