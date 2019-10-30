@@ -13,7 +13,7 @@ namespace Dbnd.Test
     {
 
         [Fact]
-        public async Task GetAllGamesByDungeonMasterIDHasCorrectCountAsync()
+        public async Task GetAllGamesByDungeonMasterIDHasCorrectCountIDInDBAsync()
         {
             var testDungeonMasterID = Guid.NewGuid();
 
@@ -23,6 +23,43 @@ namespace Dbnd.Test
                 {
                     GameName = "EyeOfTheBeHolder",
                     DungeonMasterID = testDungeonMasterID,
+                    GameID = Guid.NewGuid()
+                },
+                new Logic.Objects.Game()
+                {
+                    GameName = "NeverwinterNights",
+                    DungeonMasterID = Guid.NewGuid(),
+                    GameID = Guid.NewGuid()
+                },
+                new Dbnd.Logic.Objects.Game()
+                {
+                    GameName = "DrunkenCampFireFollies",
+                    DungeonMasterID = testDungeonMasterID,
+                    GameID = Guid.NewGuid()
+                }
+            };
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.GetAllGamesByDungeonMasterID(testDungeonMasterID))
+                .Returns(() => Task.FromResult(listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+
+            var testList = (await mockRepository.Object.GetAllGamesByDungeonMasterID(testDungeonMasterID)).Count();
+
+            Assert.Equal(2, testList);
+        }
+
+        [Fact]
+        public async Task GetAllGamesByDungeonMasterIDHasCorrectCountIDNotInDBAsync()
+        {
+            var testDungeonMasterID = Guid.NewGuid();
+
+            var listOfGames = new List<Dbnd.Logic.Objects.Game>()
+            {
+                new Dbnd.Logic.Objects.Game()
+                {
+                    GameName = "EyeOfTheBeHolder",
+                    DungeonMasterID = Guid.NewGuid(),
                     GameID = Guid.NewGuid()
                 },
                 new Logic.Objects.Game()
