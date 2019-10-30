@@ -34,8 +34,13 @@ jobs:
       messageType: embeds
       embeds: |
         [{
-        "title": "Build Started!",
-        "description" : "Your build has begun within the pipe. You best hope it don't fail, son..."
+        "title": "Build Started",
+        "description": "Pipeline Build",
+        "url": "hhttps://dev.azure.com/kcguzman/Project-2",
+        "color": 5199950,
+        "thumbnail": { "url": "https://pbs.twimg.com/profile_images/1145617831905681408/XNKktHjN_400x400.png" },
+        "author": { "name": "Azure Devops Featured Pipeline", "url": "https://discordapp.com", "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"},
+        "fields": [{"name": "SonarCloud Organization Link", "value": "[SonarCloud (https://sonarcloud.io/dashboard?branch=Feature&id=DBnD)"}]
         }]
   - task: SonarCloudPrepare@1
     inputs:
@@ -65,8 +70,13 @@ jobs:
       messageType: embeds
       embeds: |
         [{
-        "title": "Build and test success!",
-        "description" : "Your build succeeded and tests ran, attempting to put it into SonarCloud."
+        "title": "Build Started",
+        "description": "Pipeline Build started. You best hope it works, son...",
+        "url": "hhttps://dev.azure.com/kcguzman/Project-2",
+        "color": 5199950,
+        "thumbnail": { "url": "https://pbs.twimg.com/profile_images/1145617831905681408/XNKktHjN_400x400.png" },
+        "author": { "name": "Azure Devops Featured Pipeline", "url": "https://discordapp.com", "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"},
+        "fields": [{"name": "SonarCloud Organization Link", "value": "[SonarCloud (https://sonarcloud.io/dashboard?branch=Feature&id=DBnD)"}]
         }]
 
   - task: SonarCloudAnalyze@1
@@ -87,10 +97,15 @@ jobs:
       messageType: embeds
       embeds: |
         [{
-        "title": "Pipe Success!",
-        "description" : "Your pipe succeeded and you should feel good about yourself!"
-        "fields" : [{"name" : "SonarCloud", "title" : "Analysis link", "url": "https://sonarcloud.io/organizations/dbnd-project-2/projects" }]
+        "title": "Build Started",
+        "description": "Pipeline Build",
+        "url": "hhttps://dev.azure.com/kcguzman/Project-2",
+        "color": 5199950,
+        "thumbnail": { "url": "https://pbs.twimg.com/profile_images/1145617831905681408/XNKktHjN_400x400.png" },
+        "author": { "name": "Azure Devops Featured Pipeline", "url": "https://discordapp.com", "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"},
+        "fields": [{"name": "SonarCloud Organization Link", "value": "[SonarCloud (https://sonarcloud.io/dashboard?branch=Feature&id=DBnD)"}]
         }]
+
     
 - job: PipeFailed
   dependsOn: Build
@@ -105,8 +120,13 @@ jobs:
       messageType: embeds
       embeds: |
         [{
-        "title": "Pipe Failed",
-        "description" : "Your pipe failed and you should feel bad!"
+        "title": "Build Started",
+        "description": "Pipeline Build",
+        "url": "hhttps://dev.azure.com/kcguzman/Project-2",
+        "color": 5199950,
+        "thumbnail": { "url": "https://pbs.twimg.com/profile_images/1145617831905681408/XNKktHjN_400x400.png" },
+        "author": { "name": "Azure Devops Featured Pipeline", "url": "https://discordapp.com", "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"},
+        "fields": [{"name": "SonarCloud Organization Link", "value": "[SonarCloud (https://sonarcloud.io/dashboard?branch=Feature&id=DBnD)"}]
         }]
 
 
