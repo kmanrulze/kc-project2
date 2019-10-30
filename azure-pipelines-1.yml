@@ -1,4 +1,5 @@
 # Starter pipeline
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -44,3 +45,10 @@ steps:
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
+
+- task: ado-discord-webhook@1
+  inputs:
+    channelId: '639181531809710090'
+    webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+    name: 'Azure'
+    messageType: content
