@@ -50,6 +50,7 @@ jobs:
             }
           }]
   - task: SonarCloudPrepare@1
+    continueOnError: false
     inputs:
       SonarCloud: 'DBnD'
       organization: '1909-sep30-net'
@@ -95,9 +96,9 @@ jobs:
           }]
 
   - task: SonarCloudAnalyze@1
-    continueOnError: true
+    continueOnError: false
   - task: SonarCloudPublish@1
-    continueOnError: true
+    continueOnError: false
 
 - job: PipeSucceed
   dependsOn: Build
