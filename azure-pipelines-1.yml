@@ -61,8 +61,11 @@ jobs:
       channelId: '639181531809710090'
       webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
       name: 'Azure'
-      messageType: content
-      content: 'Pipeline build task success!'
+      messageType: embeds
+      embeds: |
+        [{
+        "content": "Your build succeeded and you should feel good about yourself!"
+        }]
 - job: BuildFailed
   dependsOn: Build
   condition: failed()
@@ -73,8 +76,11 @@ jobs:
       channelId: '639181531809710090'
       webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
       name: 'Azure'
-      messageType: content
-      content: 'Pipeline build task failed!'
+      messageType: embeds
+      embeds: |
+        [{
+        "content": "Your build failed and you should feel bad!"
+        }]
 
 
 
