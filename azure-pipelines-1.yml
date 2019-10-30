@@ -64,7 +64,7 @@ jobs:
       messageType: embeds
       embeds: |
         [{
-        "title": "Build Success!"
+        "title": "Build Success!",
         "description" : "Your build succeeded and you should feel good about yourself!"
         }]
 - job: BuildFailed
@@ -80,7 +80,7 @@ jobs:
       messageType: embeds
       embeds: |
         [{
-        "title": "Build Failed"
+        "title": "Build Failed",
         "description" : "Your build failed and you should feel bad!"
         }]
 
