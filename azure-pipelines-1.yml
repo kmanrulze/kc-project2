@@ -23,8 +23,20 @@ variables:
 jobs:
 - job: Build
   steps:
-  - script: echo Hello!
+  - script: echo Started Build
     condition: always()
+
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639181531809710090'
+      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      name: 'Azure'
+      messageType: embeds
+      embeds: |
+        [{
+        "title": "Build Started!",
+        "description" : "Your build has begun within the pipe. You best hope it don't fail, son..."
+        }]
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'DBnD'
@@ -45,17 +57,28 @@ jobs:
       projects: '**/*Test/*.csproj'
       workingDirectory: './DatabasesNDragons'
       arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639181531809710090'
+      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      name: 'Azure'
+      messageType: embeds
+      embeds: |
+        [{
+        "title": "Build and test success!",
+        "description" : "Your build succeeded and tests ran, attempting to put it into SonarCloud."
+        }]
 
   - task: SonarCloudAnalyze@1
     continueOnError: true
   - task: SonarCloudPublish@1
     continueOnError: true
 
-- job: BuildSucceed
+- job: PipeSucceed
   dependsOn: Build
   condition: succeeded()
   steps:
-  - script: echo Build success!
+  - script: echo Pipe success!
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
@@ -64,14 +87,14 @@ jobs:
       messageType: embeds
       embeds: |
         [{
-        "title": "Build Success!",
-        "description" : "Your build succeeded and you should feel good about yourself!"
+        "title": "Pipe Success!",
+        "description" : "Your pipe succeeded and you should feel good about yourself!"
         }]
-- job: BuildFailed
+- job: PipeFailed
   dependsOn: Build
   condition: failed()
   steps:
-  - script: echo Build failiure!
+  - script: echo Pipe failiure!
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
@@ -80,8 +103,8 @@ jobs:
       messageType: embeds
       embeds: |
         [{
-        "title": "Build Failed",
-        "description" : "Your build failed and you should feel bad!"
+        "title": "Pipe Failed",
+        "description" : "Your pipe failed and you should feel bad!"
         }]
 
 
