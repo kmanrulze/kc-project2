@@ -18,10 +18,10 @@ namespace Dbnd.Data.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
-                .Property(p => p.ClientId)
+                .Property(p => p.ClientID)
                 .IsRequired();
             modelBuilder.Entity<Client>()
-                .Property(p => p.Username)
+                .Property(p => p.UserName)
                 .HasMaxLength(75)
                 .IsRequired();
             modelBuilder.Entity<Client>()
@@ -34,29 +34,29 @@ namespace Dbnd.Data.Entities
                 .IsRequired();
 
             modelBuilder.Entity<DungeonMaster>()
-                .Property(p => p.DungeonMasterId)
+                .Property(p => p.DungeonMasterID)
                 .IsRequired();
             modelBuilder.Entity<DungeonMaster>()
-                .Property(p => p.ClientId)
+                .Property(p => p.ClientID)
                 .IsRequired();
 
             modelBuilder.Entity<Character>()
-                .Property(p => p.CharacterId)
+                .Property(p => p.CharacterID)
                 .IsRequired();
             modelBuilder.Entity<Character>()
-                .Property(p => p.CharacterFirstName)
+                .Property(p => p.FirstName)
                 .HasMaxLength(75)
                 .IsRequired();
             modelBuilder.Entity<Character>()
-                .Property(p => p.CharacterLastName)
+                .Property(p => p.LastName)
                 .HasMaxLength(75)
                 .IsRequired();
 
             modelBuilder.Entity<Game>()
-                .Property(p => p.GameId)
+                .Property(p => p.GameID)
                 .IsRequired();
             modelBuilder.Entity<Game>()
-                .Property(p => p.DungeonMasterId)
+                .Property(p => p.DungeonMasterID)
                 .IsRequired();
             modelBuilder.Entity<Game>()
                 .Property(p => p.GameName)
@@ -65,7 +65,7 @@ namespace Dbnd.Data.Entities
 
             // Setup Composite Key for this table
             modelBuilder.Entity<CharacterGameXRef>()
-                .HasKey(k => new { k.GameId, k.ClientId });
+                .HasKey(k => new { k.GameID, k.ClientID });
         }
 
         public DbndContext(DbContextOptions<DbndContext> options)
