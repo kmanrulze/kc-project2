@@ -7,13 +7,13 @@ namespace Dbnd.Data.Entities
     public class Character
     {
         [Key]
-        public Guid CharacterId { get; set; }
+        public Guid CharacterID { get; set; }
         
-        public String CharacterFirstName { get; set; }
-        public String CharacterLastName { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
 
         // Foreign Key for Client
-        public Guid ClientId { get; set; }
+        public Guid ClientID { get; set; }
         public Client Client { get; set; }
 
     }
