@@ -49,19 +49,6 @@ jobs:
   - task: SonarCloudAnalyze@1
   - task: SonarCloudPublish@1
 
-- job: BuildFailed
-  dependsOn: Build
-  steps:
-  - script: echo Build failed!
-    condition: failed()
-  - task: ado-discord-webhook@1
-    inputs:
-      channelId: '639181531809710090'
-      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
-      name: 'Azure'
-      messageType: embeds
-      content: 'Pipeline build task failed!'
-
 - job: BuildSucceed
   dependsOn: Build
   steps:
