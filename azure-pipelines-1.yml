@@ -89,7 +89,9 @@ jobs:
         [{
         "title": "Pipe Success!",
         "description" : "Your pipe succeeded and you should feel good about yourself!"
+        "fields" : [{"name" : "SonarCloud", "title" : "Analysis link", "url": "https://sonarcloud.io/organizations/dbnd-project-2/projects" }]
         }]
+    
 - job: PipeFailed
   dependsOn: Build
   condition: failed()
