@@ -53,9 +53,9 @@ jobs:
 
 - job: BuildSucceed
   dependsOn: Build
+  condition: succeeded()
   steps:
   - script: echo Build success!
-    condition: succeeded()
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
@@ -65,9 +65,9 @@ jobs:
       content: 'Pipeline build task success!'
 - job: BuildFailed
   dependsOn: Build
+  condition: failed()
   steps:
   - script: echo Build failiure!
-    condition: failed()
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
