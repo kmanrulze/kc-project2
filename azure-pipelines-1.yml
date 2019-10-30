@@ -36,15 +36,12 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
   workingDirectory: './DatabasesNDragons'
 - task: DotNetCoreCLI@2
+  continueOnError: true
   inputs:
     command: 'test'
     projects: '**/*Test/*.csproj'
     workingDirectory: './DatabasesNDragons'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
-
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
 
 - task: ado-discord-webhook@1
   inputs:
@@ -52,3 +49,6 @@ steps:
     webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
     name: 'Azure'
     messageType: content
+    content: 'Pipeline success!'
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
