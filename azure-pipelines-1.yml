@@ -33,7 +33,6 @@ jobs:
       name: 'Azure'
       messageType: embeds
       embeds: |
-        {"embeds": 
           [{
             "title": "Pipeline Build",
             "description": "Build Pipeline started. You better hope this works...",
@@ -50,7 +49,6 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-        }
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'DBnD'
@@ -78,7 +76,6 @@ jobs:
       name: 'Azure'
       messageType: embeds
       embeds: |
-        {"embeds": 
           [{
             "title": "SonarCloud Analysis",
             "description": "Build and CLI Tests complete. Attempting to analyze with SonarCloud...",
@@ -95,7 +92,6 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-        }
 
   - task: SonarCloudAnalyze@1
     continueOnError: true
@@ -114,7 +110,6 @@ jobs:
       name: 'Azure'
       messageType: embeds
       embeds: |
-        {"embeds": 
           [{
             "title": "Build and Analysis Success!",
             "description": "Build and Analysis Successful! You can give yourself a pat on the back and feel good about yourself!",
@@ -136,7 +131,6 @@ jobs:
               "value": "https://sonarcloud.io/dashboard?branch=Feature&id=DBnD"
                   }]
           }]
-        }
 
     
 - job: PipeFailed
@@ -151,7 +145,6 @@ jobs:
       name: 'Azure'
       messageType: embeds
       embeds: |
-        {"embeds": 
           [{
             "title": "Pipeline Build and Analysis Failed",
             "description": "Your build was bad and you should feel bad! Things failed!",
@@ -168,4 +161,3 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-        }
