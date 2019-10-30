@@ -47,7 +47,9 @@ jobs:
       arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
   - task: SonarCloudAnalyze@1
+    continueOnError: true
   - task: SonarCloudPublish@1
+    continueOnError: true
 
 - job: BuildSucceed
   dependsOn: Build
