@@ -45,9 +45,11 @@ steps:
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
+
 - task: ado-discord-webhook@1
   inputs:
-    channelId: '638410573121323023'
-    webhookKey: 'gcVHF6p1ZiC-ZkV6BWAqPlLYHntPRrJuqmH1qsZj_BB6uE3dEwAV_UopR4Tjj7WbKVcI'
-    name: 'Azure Devops'
+    channelId: '639181531809710090'
+    webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+    name: 'Azure'
     messageType: 'embeds'
+    embeds: 'content'
