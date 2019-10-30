@@ -52,9 +52,10 @@ jobs:
   - task: SonarCloudPrepare@1
     inputs:
       SonarCloud: 'DBnD'
-      organization: 'dbnd-project-2'
+      organization: '1909-sep30-net'
       scannerMode: 'MSBuild'
-      projectKey: 'DBnD'
+      projectKey: 'KSJ-DBnD'
+      projectName: 'DBnD'
       extraProperties: |
           sonar.exclusions=**/lib/**
           sonar.exclusions=**/Migrations/**
@@ -128,7 +129,7 @@ jobs:
             "fields": 
             [{
               "name": "SonarCloud Metrics Link",
-              "value": "https://sonarcloud.io/dashboard?branch=Feature&id=DBnD"
+              "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
                   }]
           }]
 
