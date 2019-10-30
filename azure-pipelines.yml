@@ -129,7 +129,7 @@ jobs:
             "fields": 
             [{
               "name": "SonarCloud Metrics Link",
-              "value": "https://sonarcloud.io/dashboard?branch=Feature&id=DBnD"
+              "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
                   }]
           }]
 
