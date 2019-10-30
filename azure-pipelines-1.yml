@@ -49,5 +49,13 @@ steps:
 - task: SonarCloudPublish@1
   displayName: Publish SonarCloud quality gate result
 
+- task: ado-discord-webhook@1
+  inputs:
+    messageType: embeds
+    channelId: '638410573121323023'
+    webhookKey: 'https://ptb.discordapp.com/api/webhooks/639164927411486722/gcVHF6p1ZiC-ZkV6BWAqPlLYHntPRrJuqmH1qsZj_BB6uE3dEwAV_UopR4Tjj7WbKVcI'
+    name: 'Azure Pipelines'
+    avatar: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2c286cb5-cba5-41c8-b1a6-13dcf1919ac9/ddiliat-bcd623ad-d391-4afd-9279-e1ea2c0a0e88.png/v1/fill/w_865,h_924,q_70,strp/friendship_is_magic_by_ncmares_ddiliat-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MSIsInBhdGgiOiJcL2ZcLzJjMjg2Y2I1LWNiYTUtNDFjOC1iMWE2LTEzZGNmMTkxOWFjOVwvZGRpbGlhdC1iY2Q2MjNhZC1kMzkxLTRhZmQtOTI3OS1lMWVhMmMwYTBlODgucG5nIiwid2lkdGgiOiI8PTEyMDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.2qDl0UzJepofRlkkBHIpxRT-LNBQq_g5lfc4qjEQLAA'
+
 
 
