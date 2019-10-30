@@ -29,18 +29,33 @@ steps:
     projectKey: 'DBnD'
     extraProperties: |
         sonar.exclusions=**/lib/**
-        sonar.exclusions=**/Migrations/**
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
   workingDirectory: './DatabasesNDragons'
+
 - task: DotNetCoreCLI@2
+  displayName: dotnet test
   inputs:
     command: 'test'
-    projects: '**/*Test/*.csproj'
-    workingDirectory: './DatabasesNDragons'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+    projects: './DatabasesNDragons'
+    arguments: --configuration $(buildConfiguration) --collect "XPlat Code Coverage"
 
+- task: PublishCodeCoverageResults@1
+  displayName: Publish code coverage
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
 - task: SonarCloudAnalyze@1
-
 - task: SonarCloudPublish@1
+  displayName: Publish SonarCloud quality gate result
+
+- task: ado-discord-webhook@1
+  inputs:
+    messageType: embeds
+    channelId: '639164927411486722'
+    webhookKey: 'gcVHF6p1ZiC-ZkV6BWAqPlLYHntPRrJuqmH1qsZj_BB6uE3dEwAV_UopR4Tjj7WbKVcI'
+    name: 'Azure Pipeline'
+
+
+
