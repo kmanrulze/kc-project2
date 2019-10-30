@@ -13,6 +13,7 @@ namespace Dbnd.Data.Repository
     public class Repository : IRepository
     {
         private readonly DbndContext _context;
+
         public Repository(DbndContext context)
         {
             _context = context;
