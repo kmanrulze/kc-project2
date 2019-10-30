@@ -7,10 +7,10 @@ namespace Dbnd.Data.Entities
     public class DungeonMaster
     {
         [Key]
-        public Guid DungeonMasterId { get; set; }
+        public Guid DungeonMasterID { get; set; }
 
         // Foreign key for Client
-        public Guid ClientId { get; set; }
+        public Guid ClientID { get; set; }
         public Client Client { get; set; }
     }
 }

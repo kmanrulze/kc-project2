@@ -168,17 +168,17 @@ namespace Dbnd.Test
                 new Dbnd.Logic.Objects.DungeonMaster()
                 {
                     DungeonMasterID = testDungeonMasterID,
-                    ClientId = Guid.NewGuid()
+                    ClientID = Guid.NewGuid()
                 },
                 new Logic.Objects.DungeonMaster()
                 {
                     DungeonMasterID = Guid.NewGuid(),
-                    ClientId = Guid.NewGuid()
+                    ClientID = Guid.NewGuid()
                 },
                 new Dbnd.Logic.Objects.DungeonMaster()
                 {
                     DungeonMasterID = Guid.NewGuid(),
-                    ClientId = Guid.NewGuid()
+                    ClientID = Guid.NewGuid()
                 }
             };
 
@@ -203,17 +203,17 @@ namespace Dbnd.Test
                 new Dbnd.Logic.Objects.DungeonMaster()
                 {
                     DungeonMasterID = Guid.NewGuid(),
-                    ClientId = Guid.NewGuid()
+                    ClientID = Guid.NewGuid()
                 },
                 new Logic.Objects.DungeonMaster()
                 {
                     DungeonMasterID = Guid.NewGuid(),
-                    ClientId = Guid.NewGuid()
+                    ClientID = Guid.NewGuid()
                 },
                 new Dbnd.Logic.Objects.DungeonMaster()
                 {
                     DungeonMasterID = Guid.NewGuid(),
-                    ClientId = Guid.NewGuid()
+                    ClientID = Guid.NewGuid()
                 }
             };
 
