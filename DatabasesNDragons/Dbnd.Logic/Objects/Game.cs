@@ -38,9 +38,9 @@ namespace Dbnd.Logic.Objects
         // 6-20 alphanumeric . _ chars
         // . and _ can not be leading or trailing
         // no double . _
-        bool IsValidFirstName()
+        public bool IsValidGameName()
         {
-            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             Match match = regex.Match(GameName);
             if (match.Success)
             {

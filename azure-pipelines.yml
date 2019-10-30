@@ -14,7 +14,7 @@ trigger:
     - Jacob/*
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
@@ -26,20 +26,28 @@ steps:
     organization: 'dbnd-project-2'
     scannerMode: 'MSBuild'
     projectKey: 'DBnD'
-    projectName: 'DBnD'
     extraProperties: |
         sonar.exclusions=**/lib/**
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
   workingDirectory: './DatabasesNDragons'
+- task: DotNetCoreCLI@2
+  displayName: dotnet test
+  inputs:
+    command: 'test'
+    projects: './DatabasesNDragons'
+    arguments: --configuration $(buildConfiguration) --collect "XPlat Code Coverage"
 
+- task: PublishCodeCoverageResults@1
+  displayName: Publish code coverage
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
 - task: SonarCloudAnalyze@1
-#- task: SonarCloudPrepare@1
-#  inputs:
-#    SonarCloud: 'kc-SonarCloud-Connection'
-#    organization: 'kc-revature-training'
-#    scannerMode: 'MSBuild'
-#    projectKey: 'kc-pipeline-project-test'
-#    extraProperties: |
-#        sonar.exclusions=**/lib/**
+- task: SonarCloudPublish@1
+  displayName: Publish SonarCloud quality gate result
+
+
+
+
