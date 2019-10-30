@@ -43,11 +43,4 @@ steps:
 
 - task: SonarCloudAnalyze@1
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet publish + zip
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    zipAfterPublish: true
-
 - task: SonarCloudPublish@1
