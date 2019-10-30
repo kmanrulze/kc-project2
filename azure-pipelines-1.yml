@@ -20,35 +20,79 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-steps:
+jobs:
+- job: Build
+  steps:
+  - script: echo Hello!
+    condition: always()
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'DBnD'
+      organization: 'dbnd-project-2'
+      scannerMode: 'MSBuild'
+      projectKey: 'DBnD'
+      extraProperties: |
+          sonar.exclusions=**/lib/**
+          sonar.exclusions=**/Migrations/**
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'DBnD'
-    organization: 'dbnd-project-2'
-    scannerMode: 'MSBuild'
-    projectKey: 'DBnD'
-    extraProperties: |
-        sonar.exclusions=**/lib/**
-        sonar.exclusions=**/Migrations/**
-
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-  workingDirectory: './DatabasesNDragons'
-- task: DotNetCoreCLI@2
-  continueOnError: true
-  inputs:
-    command: 'test'
-    projects: '**/*Test/*.csproj'
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
     workingDirectory: './DatabasesNDragons'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+  - task: DotNetCoreCLI@2
+    continueOnError: true
+    inputs:
+      command: 'test'
+      projects: '**/*Test/*.csproj'
+      workingDirectory: './DatabasesNDragons'
+      arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
-- task: ado-discord-webhook@1
-  inputs:
-    channelId: '639181531809710090'
-    webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
-    name: 'Azure'
-    messageType: content
-    content: 'Pipeline success!'
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
+- job: SonarAnalysis
+  dependsOn: Build
+  steps:
+  - script: echo Hello!
+    condition: succeeded()
+  - task: SonarCloudAnalyze@1
+  - task: SonarCloudPublish@1
+
+- job: BuildFailed
+  dependsOn: Build
+  steps:
+  - script: echo Build failed!
+    condition: failed()
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639181531809710090'
+      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      name: 'Azure'
+      messageType: embeds
+      content: 'Pipeline build task failed!'
+
+- job: BuildSucceed
+  dependsOn: Build and SonarAnalysis
+  steps:
+  - script: echo Build success!
+    condition: succeeded()
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639181531809710090'
+      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      name: 'Azure'
+      messageType: embeds
+      content: 'Pipeline build task success!'
+
+- job: SonarSuccess
+  dependsOn: SonarAnalysis
+  steps:
+  - script: echo Build success!
+    condition: succeeded()
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639181531809710090'
+      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      name: 'Azure'
+      messageType: embeds
+      content: 'CodeSonar Analysis successfully made!'
+
+
+
+
