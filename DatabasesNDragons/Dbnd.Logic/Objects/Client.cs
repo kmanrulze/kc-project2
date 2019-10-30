@@ -108,7 +108,7 @@ namespace Dbnd.Logic.Objects
         // no double . _
         public bool IsValidUserName()
         {
-            Regex regex  = new Regex(@"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            Regex regex  = new Regex(@"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             Match match = regex.Match(UserName);
             if (match.Success)
             {
@@ -127,7 +127,7 @@ namespace Dbnd.Logic.Objects
         // Minimum eight in length.{8,}
         public bool IsValidPasswordHash()
         {
-            Regex regex = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+            Regex regex = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             Match match = regex.Match(passwordHash);
             if (match.Success)
             {

@@ -40,7 +40,7 @@ namespace Dbnd.Logic.Objects
         // no double . _
         public bool IsValidGameName()
         {
-            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             Match match = regex.Match(GameName);
             if (match.Success)
             {

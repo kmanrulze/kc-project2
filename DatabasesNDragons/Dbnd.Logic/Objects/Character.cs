@@ -39,7 +39,7 @@ namespace Dbnd.Logic.Objects
         // . and _ can not be leading or trailing
         public bool IsValidFirstName()
         {
-            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             Match match = regex.Match(FirstName);
             if (match.Success)
             {
@@ -52,7 +52,7 @@ namespace Dbnd.Logic.Objects
         }
         public bool IsValidLastName()
         {
-            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+            Regex regex = new Regex(@"^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             Match match = regex.Match(LastName);
             if (match.Success)
             {
