@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dbnd.Data.Entities;
 using Dbnd.Data.Repository;
 using Dbnd.Logic.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -29,10 +30,8 @@ namespace Dbnd.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<Data.Entities.DbndContext>();
-#warning we need to add our database context here. I think this works?
-
-            //Repo for data
+            services.AddDbContext<DbndContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DBString")));
             services.AddScoped<IRepository, Repository>();
         }
 

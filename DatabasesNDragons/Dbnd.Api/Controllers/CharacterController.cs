@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dbnd.Api.Models;
+using Dbnd.Data.Repository;
+using Dbnd.Logic.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Dbnd.Data.Repository;
 
 namespace Dbnd.Api.Controllers
 {
@@ -12,18 +14,29 @@ namespace Dbnd.Api.Controllers
     [ApiController]
     public class CharacterController : ControllerBase
     {
+        /*
         private readonly Repository _repository;
 
         public CharacterController(Repository repository)
         {
             _repository = repository;
-        }
-
-        // GET: api/Character
-        [HttpGet]
-        public IEnumerable<string> Get()
+        }*/
+            // GET: api/Character
+            [HttpGet]
+        public IEnumerable<Logic.Objects.Character> Get()
         {
-            return new string[] { "value1", "value2" };
+            
+            Character testChar = new Character
+            {
+                FirstName = "testfirst",
+                LastName ="testlast",
+                CharacterID = Guid.NewGuid(),
+                ClientID = Guid.NewGuid()
+            };
+            List<Character> testList = new List<Character>();
+            testList.Add(testChar);
+            
+            return testList;
         }
 
         // GET: api/Character/5
@@ -37,6 +50,7 @@ namespace Dbnd.Api.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+
         }
 
         // PUT: api/Character/5

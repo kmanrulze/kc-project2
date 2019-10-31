@@ -35,6 +35,16 @@ namespace Dbnd.Data.Repository
             }
         }
 
+        public IEnumerable<Logic.Objects.Character> GetCharacters()
+        {
+            List<Logic.Objects.Character> LogicCharList = new List<Logic.Objects.Character>();
+            foreach(Entities.Character ContextChar in _context.Character)
+            {
+                LogicCharList.Add(Mapper.MapCharacter(ContextChar));
+            }
+            return LogicCharList;
+        }
+
         public async Task<Logic.Objects.Character> GetCharacterByCharacterID(Guid CharacterID)
         {
             try
