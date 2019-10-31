@@ -31,7 +31,7 @@ jobs:
     displayName: Echoing Webhook name
   - task: ado-discord-webhook@1
     inputs:
-      channelId: '639181531809710090'
+      channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
       name: 'Azure'
       messageType: embeds
@@ -76,8 +76,8 @@ jobs:
       arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
   - task: ado-discord-webhook@1
     inputs:
-      channelId: '639181531809710090'
-      webhookKey: $Webhook
+      channelId: '639490810336903202'
+      webhookKey: $(Webhook)
       name: 'Azure'
       messageType: embeds
       embeds: |
