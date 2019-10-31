@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Dbnd.Data.Repository;
+using Dbnd.Api.Models;
 
 namespace Dbnd.Api.Controllers
 {
@@ -12,18 +13,20 @@ namespace Dbnd.Api.Controllers
     [ApiController]
     public class CharacterController : ControllerBase
     {
-        private readonly Repository _repository;
+        private readonly CharacterListModel _characters;
 
-        public CharacterController(Repository repository)
+        public CharacterController(CharacterListModel characters)
         {
-            _repository = repository;
+            _characters = characters ?? throw new ArgumentNullException(nameof(characters));
         }
 
         // GET: api/Character
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<CharacterModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            // with a return type like this, ASP.NET choose status code "200" for success,
+            // and serializes the return value for the response body.
+            return _characters.Characters;
         }
 
         // GET: api/Character/5
