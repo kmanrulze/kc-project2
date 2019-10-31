@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Dbnd.Data.Entities;
 
 namespace Dbnd.Api
 {
@@ -30,7 +31,8 @@ namespace Dbnd.Api
         {
             services.AddControllers();
 
-#warning we need to add our database context here
+            services.AddDbContext<DbndContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DBString")));
 
             //Repo for data
             services.AddScoped<IRepository, Repository>();
