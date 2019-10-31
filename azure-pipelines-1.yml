@@ -8,11 +8,6 @@ trigger:
   branches:
     include:
     - Feature
-    exclude:
-    - master/*
-    - KC/*
-    - Shawn/*
-    - Jacob/*
 
 pool:
   vmImage: 'windows-latest'
