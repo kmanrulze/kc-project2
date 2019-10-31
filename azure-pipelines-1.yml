@@ -27,6 +27,8 @@ jobs:
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: 'Webhook'
 
+  - script: echo $(Webhook)
+    displayName: Echoing Webhook name
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
