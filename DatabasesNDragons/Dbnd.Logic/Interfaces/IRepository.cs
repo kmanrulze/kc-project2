@@ -16,5 +16,6 @@ namespace Dbnd.Logic.Interfaces
         Task<Game> GetGameByGameID(Guid GameID);
         Task CreateGameAsync(Guid dungeonMasterID, string gameName);
         Task<List<Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID);
+        public IEnumerable<Logic.Objects.Character> GetCharacters();
     }
 }

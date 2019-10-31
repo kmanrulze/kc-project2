@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dbnd.Api.Models;
 using Dbnd.Data.Repository;
+using Dbnd.Logic.Interfaces;
 using Dbnd.Logic.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,29 +15,17 @@ namespace Dbnd.Api.Controllers
     [ApiController]
     public class CharacterController : ControllerBase
     {
-        /*
-        private readonly Repository _repository;
+        private readonly IRepository _repository;
 
-        public CharacterController(Repository repository)
+        public CharacterController(IRepository repository)
         {
             _repository = repository;
-        }*/
+        }
             // GET: api/Character
             [HttpGet]
         public IEnumerable<Logic.Objects.Character> Get()
-        {
-            
-            Character testChar = new Character
-            {
-                FirstName = "testfirst",
-                LastName ="testlast",
-                CharacterID = Guid.NewGuid(),
-                ClientID = Guid.NewGuid()
-            };
-            List<Character> testList = new List<Character>();
-            testList.Add(testChar);
-            
-            return testList;
+        {   
+            return _repository.GetCharacters();
         }
 
         // GET: api/Character/5
