@@ -30,7 +30,7 @@ jobs:
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
-      webhookKey: '$(Webhook)'
+      webhookKey: Webhook
       name: 'Azure'
       messageType: embeds
       embeds: |
@@ -75,7 +75,7 @@ jobs:
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
-      webhookKey: '$(Webhook)'
+      webhookKey: 'Webhook'
       name: 'Azure'
       messageType: embeds
       embeds: |
@@ -109,7 +109,7 @@ jobs:
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
-      webhookKey: '$(Webhook)'
+      webhookKey: Webhook
       name: 'Azure'
       messageType: embeds
       embeds: |
