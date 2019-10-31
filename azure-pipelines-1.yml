@@ -20,11 +20,16 @@ jobs:
   steps:
   - script: echo Started Build
     condition: always()
+  - task: AzureKeyVault@1
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: '*'
 
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
-      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      webhookKey: '$(Webhook)'
       name: 'Azure'
       messageType: embeds
       embeds: |
@@ -69,7 +74,7 @@ jobs:
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
-      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      webhookKey: '$(Webhook)'
       name: 'Azure'
       messageType: embeds
       embeds: |
@@ -103,7 +108,7 @@ jobs:
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
-      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      webhookKey: '$(Webhook)'
       name: 'Azure'
       messageType: embeds
       embeds: |
@@ -138,7 +143,7 @@ jobs:
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639181531809710090'
-      webhookKey: 'xNh4eYrr02Lki3xT25aFuerWFYR8vIKS4hYGcHxgrw2kDEJD6TKeWxnwYOWBBWK8klXc'
+      webhookKey: '$(Webhook)'
       name: 'Azure'
       messageType: embeds
       embeds: |
