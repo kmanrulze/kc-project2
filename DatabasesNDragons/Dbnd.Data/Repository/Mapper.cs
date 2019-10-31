@@ -1,7 +1,4 @@
 ﻿using Dbnd.Logic.Objects;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dbnd.Data.Repository
 {
