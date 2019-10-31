@@ -32,14 +32,16 @@ namespace Dbnd.Api.Controllers
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
-            return "value";
+            return "Value";
         }
 
         // POST: api/Character
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody, Bind("ClientID,FirstName,LastName")] Data.Entities.Character character)
         {
 
+            _repository.CreateCharacterAsync(character.ClientID, character.FirstName, character.LastName);
+            return CreatedAtRoute("Get", character.ClientID, character);
         }
 
         // PUT: api/Character/5
