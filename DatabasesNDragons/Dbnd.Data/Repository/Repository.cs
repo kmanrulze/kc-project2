@@ -52,8 +52,15 @@ namespace Dbnd.Data.Repository
 
         public async Task CreateCharacterAsync(Guid clientID, string firstName, string lastName)
         {
-            _context.Character.Add(Mapper.MapCharacter(new Logic.Objects.Character(clientID, firstName, lastName)));
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Character.Add(Mapper.MapCharacter(new Logic.Objects.Character(clientID, firstName, lastName)));
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldnt create character for some reason");
+            }
         }
 
         public async Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID)
@@ -71,8 +78,16 @@ namespace Dbnd.Data.Repository
         
         public async Task CreateClientAsync(string userName, string email, string passwordHash)
         {
-            _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email, passwordHash)));
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email, passwordHash)));
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldn't create client for some reason.");
+            }
+
         }
 
         public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterID(Guid DungeonMasterID)
@@ -90,8 +105,15 @@ namespace Dbnd.Data.Repository
 
         public async Task CreateDungeonMasterAsync(Guid clientID)
         {
-            _context.DungeonMaster.Add(Mapper.MapDungeonMaster(new Logic.Objects.DungeonMaster(clientID)));
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.DungeonMaster.Add(Mapper.MapDungeonMaster(new Logic.Objects.DungeonMaster(clientID)));
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldn't create DungeonMaster for some reason");
+            }
         }
 
         public async Task<Logic.Objects.Game> GetGameByGameID(Guid GameID)
@@ -108,8 +130,15 @@ namespace Dbnd.Data.Repository
         }
         public async Task CreateGameAsync(Guid dungeonMasterID, string gameName)
         {
-            _context.Game.Add(Mapper.MapGame(new Logic.Objects.Game(dungeonMasterID, gameName)));
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Game.Add(Mapper.MapGame(new Logic.Objects.Game(dungeonMasterID, gameName)));
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldnt create a game for some reason");
+            }
         }
     }
 }
