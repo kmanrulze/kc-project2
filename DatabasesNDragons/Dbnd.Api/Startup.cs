@@ -29,8 +29,8 @@ namespace Dbnd.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-#warning we need to add our database context here
+            services.AddDbContext<Data.Entities.DbndContext>();
+#warning we need to add our database context here. I think this works?
 
             //Repo for data
             services.AddScoped<IRepository, Repository>();
