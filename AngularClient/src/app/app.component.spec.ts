@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'DbnDngular'`, () => {
+  it(`should have as title 'AngularClient'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('DbnDngular');
+    expect(app.title).toEqual('AngularClient');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('DbnDngular app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('AngularClient app is running!');
   });
 });

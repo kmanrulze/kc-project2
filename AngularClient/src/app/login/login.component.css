@@ -1,0 +1,13 @@
+.main-group {
+    max-width: 320px;
+    
+    border:2px soild #eee;
+
+    margin: auto;
+    margin-top: 3cm;
+    padding: 20px;
+    
+    -webkit-box-shadow: 2px 3px 8px #eee;
+    -moz-box-shadow: 2px 3px 8px #eee;
+    box-shadow: 2px 3px 8px #eee;
+}
