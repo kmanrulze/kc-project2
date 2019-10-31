@@ -74,7 +74,7 @@ jobs:
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639490810336903202'
-      webhookKey: $(Webhook)
+      webhookKey: '$(Webhook)'
       name: 'Azure Devops'
       messageType: embeds
       embeds: |
@@ -108,7 +108,7 @@ jobs:
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639490810336903202'
-      webhookKey: $(Webhook)
+      webhookKey: '$(Webhook)'
       name: 'Azure Devops'
       messageType: embeds
       embeds: |
