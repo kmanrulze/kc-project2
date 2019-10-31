@@ -157,6 +157,19 @@ namespace Dbnd.Test
 
             await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetCharacterByCharacterID(testCharacterID));
         }
+        [Fact]
+    public async Task CreateCharacterAsyncSuccess()
+        {
+            var characterID = Guid.NewGuid();
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.CreateCharacterAsync(characterID, "Kimmuriel", "Oblodra"));
+
+            await mockRepository.Object.CreateCharacterAsync(characterID, "Kimmuriel", "Oblodra");
+            
+            mockRepository
+                .Verify(x => x.CreateCharacterAsync(characterID, "Kimmuriel", "Oblodra"), Times.Once());
+        }
 
     [Fact]
     public async Task GetDMbyDungeonMasterIDAsyncIdinDbReturnsCorrectDungeonMaster()
@@ -191,8 +204,6 @@ namespace Dbnd.Test
 
         Assert.Equal(testDungeonMasterID.ToString(), testDungeonMaster.DungeonMasterID.ToString());
     }
-
-
         [Fact]
         public async Task GetDMbyDungeonMasterIDAsyncIdNotinDbReturnsCorrectDungeonMaster()
         {
@@ -223,6 +234,20 @@ namespace Dbnd.Test
                 .Throws<Exception>();
 
             await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetDMByDungeonMasterID(testDungeonMasterID));
+        }
+
+        [Fact]
+        public async Task CreateDungeonMasterAsyncSuccess()
+        {
+            var clientID = Guid.NewGuid();
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.CreateDungeonMasterAsync(clientID));
+
+            await mockRepository.Object.CreateDungeonMasterAsync(clientID);
+
+            mockRepository
+                .Verify(x => x.CreateDungeonMasterAsync(clientID), Times.Once());
         }
 
         [Fact]
@@ -298,6 +323,21 @@ namespace Dbnd.Test
         }
 
         [Fact]
+        public async Task CreateGameAsyncSuccess()
+        {
+            var dungeonMasterID = Guid.NewGuid();
+            var gameName = "GameOfPhonesDLC";
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.CreateGameAsync(dungeonMasterID, gameName));
+
+            await mockRepository.Object.CreateGameAsync(dungeonMasterID, gameName);
+
+            mockRepository
+                .Verify(x => x.CreateGameAsync(dungeonMasterID, gameName), Times.Once());
+        }
+
+        [Fact]
         public async Task GetClientByIDAsyncIDInDbReturnsCorrectClient()
         {
             var testClientID = Guid.NewGuid();
@@ -368,5 +408,23 @@ namespace Dbnd.Test
 
             await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetClientByIDAsync(testClientID));
         }
+        [Fact]
+        public async Task CreateClientAsyncSuccess()
+        {
+            //string userName, string email, string passwordHash
+
+            var userName = "DnDDynomite";
+            var email = "DnDDynomite@gmail.com";
+            var passwordHash = "DnD_123456";
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.CreateClientAsync(userName, email, passwordHash));
+
+            await mockRepository.Object.CreateClientAsync(userName, email, passwordHash);
+
+            mockRepository
+                .Verify(x => x.CreateClientAsync(userName, email, passwordHash), Times.Once());
+        }
+
     }
 }

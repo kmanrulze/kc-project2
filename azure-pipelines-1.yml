@@ -34,7 +34,7 @@ jobs:
       messageType: embeds
       embeds: |
           [{
-            "title": "Pipeline Build",
+            "title": "Feature Pipeline Build",
             "description": "Build Pipeline started. You better hope this works...",
             "url": "https://discordapp.com",
             "color": 2247803,
@@ -79,7 +79,7 @@ jobs:
       messageType: embeds
       embeds: |
           [{
-            "title": "SonarCloud Analysis",
+            "title": "Feature SonarCloud Analysis",
             "description": "Build and CLI Tests complete. Attempting to analyze with SonarCloud...",
             "url": "https://discordapp.com",
             "color": 2247803,
@@ -113,7 +113,7 @@ jobs:
       messageType: embeds
       embeds: |
           [{
-            "title": "Build and Analysis Success!",
+            "title": "Feature Build and Analysis Success!",
             "description": "Build and Analysis Successful! You can give yourself a pat on the back and feel good about yourself!",
             "url": "https://discordapp.com",
             "color": 2247803,
@@ -148,7 +148,7 @@ jobs:
       messageType: embeds
       embeds: |
           [{
-            "title": "Pipeline Build and Analysis Failed",
+            "title": "Feature Pipeline Build and Analysis Failed",
             "description": "Your build was bad and you should feel bad! Things failed!",
             "url": "https://discordapp.com",
             "color": 2247803,
