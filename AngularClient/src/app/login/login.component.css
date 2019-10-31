@@ -1,13 +1,14 @@
 .main-group {
     max-width: 320px;
-    
-    border:2px soild #eee;
 
     margin: auto;
     margin-top: 3cm;
     padding: 20px;
+
+    border: 2px soild var(--lineColor);
+    background-color: var(--frontColor);
     
-    -webkit-box-shadow: 2px 3px 8px #eee;
-    -moz-box-shadow: 2px 3px 8px #eee;
-    box-shadow: 2px 3px 8px #eee;
+    -webkit-box-shadow: 2px 3px 8px var(--lineColor);
+    -moz-box-shadow: 2px 3px 8px var(--lineColor);
+    box-shadow: 2px 3px 8px var(--lineColor);
 }
