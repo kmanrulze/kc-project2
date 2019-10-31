@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dbnd.Api.Models;
-using Dbnd.Data.Repository;
 using Dbnd.Logic.Interfaces;
-using Dbnd.Logic.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,38 +10,35 @@ namespace Dbnd.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CharacterController : ControllerBase
+    public class ClientController : ControllerBase
     {
         private readonly IRepository _repository;
 
-        public CharacterController(IRepository repository)
+        public ClientController(IRepository repository)
         {
             _repository = repository;
         }
-        // GET: api/Character
+        // GET: api/Client
         [HttpGet]
-        public IEnumerable<Logic.Objects.Character> Get()
-        {   
-            return _repository.GetCharacters();
+        public IEnumerable<Logic.Objects.Client> Get()
+        {
+            return _repository.GetClients();
         }
 
-        // GET: api/Character/5
+        // GET: api/Client/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
-            return "Value";
+            return "value";
         }
 
-        // POST: api/Character
+        // POST: api/Client
         [HttpPost]
-        public ActionResult Post([FromBody, Bind("ClientID,FirstName,LastName")] Data.Entities.Character character)
+        public void Post([FromBody] string value)
         {
-
-            _repository.CreateCharacterAsync(character.ClientID, character.FirstName, character.LastName);
-            return CreatedAtRoute("Get", character.ClientID, character);
         }
 
-        // PUT: api/Character/5
+        // PUT: api/Client/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
