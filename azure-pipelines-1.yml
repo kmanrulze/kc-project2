@@ -30,7 +30,7 @@ jobs:
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
-      name: 'Azure'
+      name: 'Azure Devops'
       messageType: embeds
       embeds: |
           [{
@@ -75,7 +75,7 @@ jobs:
     inputs:
       channelId: '639490810336903202'
       webhookKey: $(Webhook)
-      name: 'Azure'
+      name: 'Azure Devops'
       messageType: embeds
       embeds: |
           [{
@@ -109,7 +109,7 @@ jobs:
     inputs:
       channelId: '639490810336903202'
       webhookKey: $(Webhook)
-      name: 'Azure'
+      name: 'Azure Devops'
       messageType: embeds
       embeds: |
           [{
@@ -144,7 +144,7 @@ jobs:
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
-      name: 'Azure'
+      name: 'Azure Devops'
       messageType: embeds
       embeds: |
           [{
