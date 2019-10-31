@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Dbnd.Data.Repository;
 using Dbnd.Api.Models;
+using Dbnd.Logic.Objects;
 
 namespace Dbnd.Api.Controllers
 {
@@ -14,10 +15,13 @@ namespace Dbnd.Api.Controllers
     public class CharacterController : ControllerBase
     {
         private readonly CharacterListModel _characters;
+        private readonly Repository _repository;
 
-        public CharacterController(CharacterListModel characters)
+        public CharacterController(CharacterListModel characters, Repository repository)
         {
+
             _characters = characters ?? throw new ArgumentNullException(nameof(characters));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         // GET: api/Character
@@ -31,9 +35,9 @@ namespace Dbnd.Api.Controllers
 
         // GET: api/Character/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public async Task<Character> GetAsync(Guid CharacterId)
         {
-            return "value";
+            return await _repository.GetCharacterByCharacterID(CharacterId);
         }
 
         // POST: api/Character
