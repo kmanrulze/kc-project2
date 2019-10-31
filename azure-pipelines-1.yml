@@ -27,7 +27,7 @@ jobs:
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: Webhook
 
-  - bash: echo $(Webhook)
+  - bash: echo $(Webhook.MyVar)
     displayName: Echoing Webhook name
   - task: ado-discord-webhook@1
     inputs:
