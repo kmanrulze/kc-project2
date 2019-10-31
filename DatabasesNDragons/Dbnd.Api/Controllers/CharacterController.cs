@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Dbnd.Data.Repository;
 using Dbnd.Api.Models;
 using Dbnd.Logic.Objects;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Dbnd.Api.Controllers
 {
@@ -14,30 +13,27 @@ namespace Dbnd.Api.Controllers
     [ApiController]
     public class CharacterController : ControllerBase
     {
-        private readonly CharacterListModel _characters;
-        private readonly Repository _repository;
-
-        public CharacterController(CharacterListModel characters, Repository repository)
-        {
-
-            _characters = characters ?? throw new ArgumentNullException(nameof(characters));
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
-
         // GET: api/Character
         [HttpGet]
-        public IEnumerable<CharacterModel> Get()
+        public IEnumerable<Character> Get()
         {
-            // with a return type like this, ASP.NET choose status code "200" for success,
-            // and serializes the return value for the response body.
-            return _characters.Characters;
+            Character testChar = new Character
+            {
+                FirstName = "testfirst",
+                LastName ="testlast",
+                CharacterID = Guid.NewGuid(),
+                ClientID = Guid.NewGuid()
+            };
+            List<Character> testList = new List<Character>();
+            testList.Add(testChar);
+            return testList;
         }
 
         // GET: api/Character/5
         [HttpGet("{id}", Name = "Get")]
-        public async Task<Character> GetAsync(Guid CharacterId)
+        public string Get(int id)
         {
-            return await _repository.GetCharacterByCharacterID(CharacterId);
+            return "value";
         }
 
         // POST: api/Character
