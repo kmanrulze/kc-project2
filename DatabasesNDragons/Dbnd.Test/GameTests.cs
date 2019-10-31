@@ -28,4 +28,3 @@ namespace Dbnd.Test
         }
     }
 }
-//Testing pipe
