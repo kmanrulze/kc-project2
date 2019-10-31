@@ -14,17 +14,18 @@ namespace Dbnd.Api.Controllers
     [ApiController]
     public class CharacterController : ControllerBase
     {
+        /*
         private readonly Repository _repository;
 
         public CharacterController(Repository repository)
         {
             _repository = repository;
-        }
+        }*/
             // GET: api/Character
             [HttpGet]
         public IEnumerable<Logic.Objects.Character> Get()
         {
-            /*
+            
             Character testChar = new Character
             {
                 FirstName = "testfirst",
@@ -34,8 +35,8 @@ namespace Dbnd.Api.Controllers
             };
             List<Character> testList = new List<Character>();
             testList.Add(testChar);
-            */
-            return _repository.GetCharacters();
+            
+            return testList;
         }
 
         // GET: api/Character/5
