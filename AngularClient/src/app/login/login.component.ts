@@ -10,15 +10,5 @@ import { User } from '../_models/user/user';
 })
 export class LoginComponent 
 {
-  model = new User('email', 'username', '');
-
-  logIn()
-  {
-
-  }
-
-  registerUser()
-  {
-
-  }
+  
 }

@@ -2,41 +2,12 @@
     <ngb-accordion [closeOthers]="true" activeIds="static-1">
         <ngb-panel id="static-1" title="Log In">
             <ng-template ngbPanelContent>
-                <form (ngSubmit)="logIn()" #loginForm="ngForm">
-                    <div class="form-group">
-                        <label for="username" >Username</label>
-                        <input [(ngModel)]="model.username" name="username" type="text" class="form-control" id="username" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input name="password" type="password" class="form-control" id="password" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-success" name="submitLogin">Submit</button>
-                </form>
+                
             </ng-template>
         </ngb-panel>
         <ngb-panel id="static-2" title="Register">
             <ng-template ngbPanelContent>
-                <form (ngSubmit)="registerUser()" #registerForm="ngForm">
-                    <div class="form-group">
-                            <label for="username" >Username</label>
-                            <input [(ngModel)]="model.username" name="username" type="text" class="form-control" id="username" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" >Email Address</label>
-                        <input [(ngModel)]="model.email" name="email" type="email" class="form-control" id="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" name="password" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-success" name="submitRegister">Submit</button>
-                </form>
+                
             </ng-template>
         </ngb-panel>
     </ngb-accordion>

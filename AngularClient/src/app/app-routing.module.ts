@@ -1,8 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from './_guards/auth/auth.guard';
 
-const routes: Routes = [];
+import { ProfileComponent } from './profile/profile.component'
+
+
+const routes: Routes = [
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

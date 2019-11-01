@@ -7,6 +7,11 @@
     --lineColor: white;
 }
 
+header {
+    margin: 2px 5px;
+    background-color: var(--frontColor);
+}
+
 body {
     background-color: var(--bgColor);
 }
