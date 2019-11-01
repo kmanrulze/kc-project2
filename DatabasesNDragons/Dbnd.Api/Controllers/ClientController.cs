@@ -6,7 +6,6 @@ using Dbnd.Logic.Interfaces;
 using Dbnd.Logic.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Dbnd.Logic.Objects;
 
 namespace Dbnd.Api.Controllers
 {
