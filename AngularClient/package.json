@@ -1,5 +1,5 @@
 {
-  "name": "dbn-dngular",
+  "name": "angular-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -19,7 +19,8 @@
     "@angular/platform-browser": "~8.2.11",
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
-    "ngx-toastr": "^11.1.2",
+    "@auth0/auth0-spa-js": "^1.5.0",
+    "@ng-bootstrap/ng-bootstrap": "^5.1.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

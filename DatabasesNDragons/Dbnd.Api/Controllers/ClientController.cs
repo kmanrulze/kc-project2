@@ -40,7 +40,7 @@ namespace Dbnd.Api.Controllers
         {
             _repository.CreateClientAsync(client.UserName, client.Email, client.PasswordHash);
 
-            return CreatedAtRoute("Get", client);
+            return Created("api/Client/", client);
         }
 
         // PUT: api/Client/5

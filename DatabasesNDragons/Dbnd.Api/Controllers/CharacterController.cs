@@ -29,19 +29,18 @@ namespace Dbnd.Api.Controllers
         }
 
         // GET: api/Character/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "Value";
-        //}
+        [HttpGet("{id}")]
+        public Task<Character> Get(Guid id)
+        {
+            return _repository.GetCharacterByCharacterIDAsync(id);
+        }
 
         // POST: api/Character
         [HttpPost]
-        public ActionResult Post([FromBody, Bind("ClientID,FirstName,LastName")] Data.Entities.Character character)
+        public ActionResult Post([FromBody, Bind("ClientID,FirstName,LastName")] Character character)
         {
-
             _repository.CreateCharacterAsync(character.ClientID, character.FirstName, character.LastName);
-            return CreatedAtRoute("Get", character.ClientID, character);
+            return Created("api/Character/", character);
         }
 
         // PUT: api/Character/5
