@@ -30,7 +30,7 @@ namespace Dbnd.Api.Controllers
 
         // GET: api/Character/5
         [HttpGet("{id}")]
-        public Task<Character> Get(Guid id)
+        public Task<Character> GetCharacter(Guid id)
         {
             return _repository.GetCharacterByCharacterIDAsync(id);
         }
