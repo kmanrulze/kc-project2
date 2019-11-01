@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.Test", "Dbnd.Test\Dbnd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.Data", "Dbnd.Data\Dbnd.Data.csproj", "{8D766DD3-E47A-409F-AFFA-1DB012F7FAAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dbnd.Api", "Dbnd.Api\Dbnd.Api.csproj", "{22F13CB4-FEA7-434B-8D56-52DBC457B642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbnd.Api", "Dbnd.Api\Dbnd.Api.csproj", "{22F13CB4-FEA7-434B-8D56-52DBC457B642}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

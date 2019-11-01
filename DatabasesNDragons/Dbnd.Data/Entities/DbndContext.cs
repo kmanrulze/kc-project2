@@ -60,7 +60,7 @@ namespace Dbnd.Data.Entities
 
             // Setup Composite Key for this table
             modelBuilder.Entity<CharacterGameXRef>()
-                .HasKey(k => new { k.GameID, k.ClientID });
+                .HasKey(k => new { k.GameID, k.CharacterID });
         }
 
         public DbndContext(DbContextOptions<DbndContext> options)

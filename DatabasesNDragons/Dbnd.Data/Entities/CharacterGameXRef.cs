@@ -9,8 +9,8 @@ namespace Dbnd.Data.Entities
         public Game Game { get; set; }
 
         // Foreign Key
-        public Guid ClientID { get; set; }
-        public Client Client { get; set; }
+        public Guid CharacterID { get; set; }
+        public Character Character { get; set; }
 
     }
 }

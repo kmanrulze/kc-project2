@@ -45,7 +45,7 @@ namespace Dbnd.Data.Repository
             return LogicCharList;
         }
 
-        public async Task<Logic.Objects.Character> GetCharacterByCharacterID(Guid CharacterID)
+        public async Task<Logic.Objects.Character> GetCharacterByCharacterIDAsync(Guid CharacterID)
         {
             try
             {
@@ -147,6 +147,16 @@ namespace Dbnd.Data.Repository
             {
                 throw new Exception("Couldnt create a game for some reason");
             }
+        }
+
+        public IEnumerable<Logic.Objects.Client> GetClients()
+        {
+            List<Logic.Objects.Client> LogicClientList = new List<Logic.Objects.Client>();
+            foreach (Entities.Client ContextClient in _context.Client)
+            {
+                LogicClientList.Add(Mapper.MapClient(ContextClient));
+            }
+            return LogicClientList;
         }
     }
 }
