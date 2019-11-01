@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dbnd.Logic.Interfaces;
+using Dbnd.Logic.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,12 @@ namespace Dbnd.Api.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IRepository _repository;
+        private readonly Dbnd.Data.Entities.DbndContext _context;
 
-        public ClientController(IRepository repository)
+        public ClientController(IRepository repository, Dbnd.Data.Entities.DbndContext context)
         {
             _repository = repository;
+            _context = context;
         }
         // GET: api/Client
         [HttpGet]
@@ -26,11 +29,12 @@ namespace Dbnd.Api.Controllers
         }
 
         // GET: api/Client/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}", Name = "Get")]
+        public ActionResult<Data.Entities.Client> Get(int id)
+        {
+            var client = _context.Client.Find(Guid.Parse(id.ToString()));
+            return client;
+        }
 
         // POST: api/Client
         [HttpPost]
