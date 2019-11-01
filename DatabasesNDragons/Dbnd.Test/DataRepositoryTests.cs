@@ -40,10 +40,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetAllGamesByDungeonMasterID(testDungeonMasterID))
-                .Returns(() => Task.FromResult(listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+                .Setup(x => x.GetGamesByDungeonMasterID(testDungeonMasterID))
+                .Returns(() => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList());
 
-            var testList = (await mockRepository.Object.GetAllGamesByDungeonMasterID(testDungeonMasterID)).Count();
+            var testList = (mockRepository.Object.GetGamesByDungeonMasterID(testDungeonMasterID)).Count();
 
             Assert.Equal(2, testList);
         }
@@ -77,10 +77,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetAllGamesByDungeonMasterID(testDungeonMasterID))
-                .Returns(() => Task.FromResult(listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+                .Setup(x => x.GetGamesByDungeonMasterID(testDungeonMasterID))
+                .Returns(() => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList());
 
-            var testList = (await mockRepository.Object.GetAllGamesByDungeonMasterID(testDungeonMasterID)).Count();
+            var testList = (mockRepository.Object.GetGamesByDungeonMasterID(testDungeonMasterID)).Count();
 
             Assert.Equal(0, testList);
         }
@@ -114,10 +114,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetCharacterByCharacterID(testCharacterID))
+                .Setup(x => x.GetCharacterByCharacterIDAsync(testCharacterID))
                 .Returns(() => Task.FromResult(listOfCharacters.Where(x => x.CharacterID == testCharacterID).Single()));
 
-            var testCharacter = (await mockRepository.Object.GetCharacterByCharacterID(testCharacterID));
+            var testCharacter = (await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID));
 
             Assert.Equal(testCharacterID.ToString(), testCharacter.CharacterID.ToString());
         }
@@ -151,10 +151,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetCharacterByCharacterID(testCharacterID))
+                .Setup(x => x.GetCharacterByCharacterIDAsync(testCharacterID))
                 .Throws<Exception>();
 
-            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetCharacterByCharacterID(testCharacterID));
+            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID));
         }
         [Fact]
     public async Task CreateCharacterAsyncSuccess()
@@ -196,10 +196,10 @@ namespace Dbnd.Test
 
         Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
         mockRepository
-            .Setup(x => x.GetDMByDungeonMasterID(testDungeonMasterID))
+            .Setup(x => x.GetDMByDungeonMasterIDAsync(testDungeonMasterID))
             .Returns(() => Task.FromResult(listOfDungeonMasters.Where(x => x.DungeonMasterID == testDungeonMasterID).Single()));
 
-        var testDungeonMaster = (await mockRepository.Object.GetDMByDungeonMasterID(testDungeonMasterID));
+        var testDungeonMaster = (await mockRepository.Object.GetDMByDungeonMasterIDAsync(testDungeonMasterID));
 
         Assert.Equal(testDungeonMasterID.ToString(), testDungeonMaster.DungeonMasterID.ToString());
     }
@@ -229,10 +229,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetDMByDungeonMasterID(testDungeonMasterID))
+                .Setup(x => x.GetDMByDungeonMasterIDAsync(testDungeonMasterID))
                 .Throws<Exception>();
 
-            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetDMByDungeonMasterID(testDungeonMasterID));
+            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetDMByDungeonMasterIDAsync(testDungeonMasterID));
         }
 
         [Fact]

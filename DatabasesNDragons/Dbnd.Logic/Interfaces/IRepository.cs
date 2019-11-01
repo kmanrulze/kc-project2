@@ -14,10 +14,11 @@ namespace Dbnd.Logic.Interfaces
         Task<DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID);
         Task<DungeonMaster> GetDMByClientIDAsync(Guid ClientID);
         Task CreateDungeonMasterAsync(Guid clientID);
+        IEnumerable<Logic.Objects.Game> GetGames();
         Task<Game> GetGameByGameID(Guid GameID);
+        List<Game> GetGamesByDungeonMasterID(Guid DungeonMasterID);
         IEnumerable<Logic.Objects.Client> GetClients();
         Task CreateGameAsync(Guid dungeonMasterID, string gameName);
-        Task<List<Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID);
         IEnumerable<Logic.Objects.Character> GetCharacters();
     }
 }

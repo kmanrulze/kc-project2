@@ -17,24 +17,6 @@ namespace Dbnd.Data.Repository
             _context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public async Task<List<Logic.Objects.Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID)
-        {
-            try
-            {
-                List<Logic.Objects.Game> LogicGameList = new List<Logic.Objects.Game>();
-
-                foreach (Entities.Game ContextGame in _context.Game.Where(g => g.DungeonMasterID == DungeonMasterID))
-                {
-                    LogicGameList.Add(await GetGameByGameID(ContextGame.GameID));
-                }
-                return LogicGameList;
-            }
-            catch
-            {
-                throw new Exception("Did not get DM from ID successfully");
-            }
-        }
-
         public IEnumerable<Logic.Objects.Character> GetCharacters()
         {
             List<Logic.Objects.Character> LogicCharList = new List<Logic.Objects.Character>();
@@ -137,6 +119,16 @@ namespace Dbnd.Data.Repository
             }
         }
 
+        public IEnumerable<Logic.Objects.Game> GetGames()
+        {
+            List<Logic.Objects.Game> LogicGameList = new List<Logic.Objects.Game>();
+            foreach (Entities.Game ContextGame in _context.Game)
+            {
+                LogicGameList.Add(Mapper.MapGame(ContextGame));
+            }
+            return LogicGameList;
+        }
+
         public async Task<Logic.Objects.Game> GetGameByGameID(Guid GameID)
         {
             try
@@ -149,6 +141,25 @@ namespace Dbnd.Data.Repository
                 throw new Exception("Did not get game successfully");
             }
         }
+
+        public List<Logic.Objects.Game> GetGamesByDungeonMasterID(Guid DungeonMasterID)
+        {
+            try
+            {
+                List<Logic.Objects.Game> LogicGameList = new List<Logic.Objects.Game>();
+
+                foreach (Entities.Game ContextGame in _context.Game.Where(g => g.DungeonMasterID == DungeonMasterID))
+                {
+                    LogicGameList.Add( Mapper.MapGame(ContextGame) );
+                }
+                return LogicGameList;
+            }
+            catch
+            {
+                throw new Exception("Did not get Game from DMID successfully");
+            }
+        }
+
         public async Task CreateGameAsync(Guid dungeonMasterID, string gameName)
         {
             try
