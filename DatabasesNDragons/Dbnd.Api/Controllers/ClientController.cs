@@ -46,12 +46,14 @@ namespace Dbnd.Api.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete([FromBody, Bind("UserName, Email, PasswordHash")] Client client)
         {
+            _repository.DeleteClientByIDAsync(client.ClientID);
         }
     }
 }

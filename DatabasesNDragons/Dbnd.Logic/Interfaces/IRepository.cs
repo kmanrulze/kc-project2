@@ -16,8 +16,12 @@ namespace Dbnd.Logic.Interfaces
         Task CreateDungeonMasterAsync(Guid clientID);
         Task<Game> GetGameByGameID(Guid GameID);
         IEnumerable<Logic.Objects.Client> GetClients();
-        Task CreateGameAsync(Guid dungeonMasterID, string gameName);
+        Task CreateGameAsync(Guid DungeonMasterID, string GameName);
         Task<List<Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID);
         IEnumerable<Logic.Objects.Character> GetCharacters();
+        Task DeleteClientByIDAsync(Guid ClientID);
+        Task DeleteCharacterByIDAsync(Guid CharacterID);
+        Task DeleteGameByIDAsync(Guid GameID);
+        Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID);
     }
 }
