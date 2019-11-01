@@ -37,7 +37,7 @@ namespace Dbnd.Api.Controllers
         [HttpPost]
         public ActionResult Post([FromBody, Bind("UserName, Email, PasswordHash")] Client client)
         {
-            _repository.CreateClientAsync(client.UserName, client.Email, client.PasswordHash);
+            _repository.CreateClientAsync(client.UserName, client.Email);
 
             return Created("api/Client/", client);
         }

@@ -8,7 +8,7 @@ namespace Dbnd.Logic.Interfaces
     public interface IRepository
     {
         Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID);
-        Task CreateClientAsync(string userName, string email, string passwordHash);
+        Task CreateClientAsync(string userName, string email);
         Task<Character> GetCharacterByCharacterIDAsync(Guid CharacterID);
         Task CreateCharacterAsync(Guid clientID, string firstName, string lastName);
         Task<DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID);

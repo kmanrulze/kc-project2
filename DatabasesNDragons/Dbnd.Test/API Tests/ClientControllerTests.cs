@@ -39,7 +39,7 @@ namespace Dbnd.Test
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup( x => x.GetClientByIDAsync(targetId))
-                .Returns(() => Task.Run( () => clients.Where(c => c.clientID == targetId).FirstOrDefault()));
+                .Returns(() => Task.Run( () => clients.Where(c => c.ClientID == targetId).FirstOrDefault()));
 
             var clientController = new ClientController(mockRepository.Object);
 
@@ -56,19 +56,19 @@ namespace Dbnd.Test
                 {
                     UserName = "Jacob",
                     Email = "jacobs.email@email.com",
-                    clientID = new Guid("518b9a19-bd55-4497-a01f-2e48f23d8d30")
+                    ClientID = new Guid("518b9a19-bd55-4497-a01f-2e48f23d8d30")
                 },
                 new Client
                 {
                     UserName = "KC",
                     Email = "kcs.email@email.com",
-                    clientID = new Guid("01eec648-89c6-4324-a732-165adcd430c6")
+                    ClientID = new Guid("01eec648-89c6-4324-a732-165adcd430c6")
                 },
                 new Client
                 {
                     UserName = "Shawn",
                     Email = "shawns.email@email.com",
-                    clientID = new Guid("174e181b-f482-4a77-a2c3-734c494616fa")
+                    ClientID = new Guid("174e181b-f482-4a77-a2c3-734c494616fa")
                 }
             };
         }
