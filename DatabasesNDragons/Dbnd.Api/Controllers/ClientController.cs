@@ -51,8 +51,9 @@ namespace Dbnd.Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete([FromBody, Bind("UserName, Email, PasswordHash")] Client client)
         {
+            _repository.DeleteClientByIDAsync(client.ClientID);
         }
     }
 }

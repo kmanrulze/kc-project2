@@ -171,5 +171,27 @@ namespace Dbnd.Data.Repository
             }
             return LogicClientList;
         }
+
+        public async Task DeleteClientByIDAsync(Guid clientID)
+        {
+            Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
+            _context.Remove(ContextClient);
+            await _context.SaveChangesAsync();
+        }
+
+        public Task DeleteCharacterByIDAsync(Guid CharacterID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteGameByIDAsync(Guid GameID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
