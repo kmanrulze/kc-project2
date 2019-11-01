@@ -6,6 +6,7 @@ using Dbnd.Logic.Interfaces;
 using Dbnd.Logic.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Dbnd.Logic.Objects;
 
 namespace Dbnd.Api.Controllers
 {
@@ -26,17 +27,20 @@ namespace Dbnd.Api.Controllers
             return _repository.GetClients();
         }
 
-        // GET: api/Client/5
+        //GET: api/Client/5
         [HttpGet("{id}", Name = "Get")]
-        public Task<Logic.Objects.Client> Get(Guid id)
+        public Task<Client> Get(Guid id)
         {
             return _repository.GetClientByIDAsync(id);
         }
 
         // POST: api/Client
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody, Bind("UserName, Email, PasswordHash")] Client client)
         {
+            _repository.CreateClientAsync(client.UserName, client.Email, client.PasswordHash);
+
+            return CreatedAtRoute("Get", client);
         }
 
         // PUT: api/Client/5
