@@ -13,13 +13,11 @@ namespace Dbnd.Api.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly IRepository _repository;
-        private readonly Dbnd.Data.Entities.DbndContext _context;
+        private IRepository _repository;
 
-        public ClientController(IRepository repository, Dbnd.Data.Entities.DbndContext context)
+        public ClientController(IRepository repository)
         {
             _repository = repository;
-            _context = context;
         }
         // GET: api/Client
         [HttpGet]
@@ -29,11 +27,11 @@ namespace Dbnd.Api.Controllers
         }
 
         // GET: api/Client/5
-        [HttpGet("{id}", Name = "Get")]
-        public ActionResult<Data.Entities.Client> Get(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Logic.Objects.Client>> GetAsync(Guid id)
         {
-            var client = _context.Client.Find(Guid.Parse(id.ToString()));
-            return client;
+            Logic.Objects.Client client = await _repository.GetClientByIDAsync(id);
+            return Ok(client);
         }
 
         // POST: api/Client
