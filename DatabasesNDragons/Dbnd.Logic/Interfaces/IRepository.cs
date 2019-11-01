@@ -17,11 +17,12 @@ namespace Dbnd.Logic.Interfaces
         Task<Game> GetGameByGameID(Guid GameID);
         IEnumerable<Logic.Objects.Client> GetClients();
         Task CreateGameAsync(Guid DungeonMasterID, string GameName);
-        Task<List<Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID);
+        List<Game> GetGamesByDungeonMasterID(Guid DungeonMasterID);
         IEnumerable<Logic.Objects.Character> GetCharacters();
         Task DeleteClientByIDAsync(Guid ClientID);
         Task DeleteCharacterByIDAsync(Guid CharacterID);
         Task DeleteGameByIDAsync(Guid GameID);
         Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID);
+        IEnumerable<Logic.Objects.Game> GetGames();
     }
 }
