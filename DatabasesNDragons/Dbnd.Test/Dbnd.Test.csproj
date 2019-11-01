@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dbnd.Api\Dbnd.Api.csproj" />
     <ProjectReference Include="..\Dbnd.Data\Dbnd.Data.csproj" />
     <ProjectReference Include="..\Dbnd.Logic\Dbnd.Logic.csproj" />
   </ItemGroup>
