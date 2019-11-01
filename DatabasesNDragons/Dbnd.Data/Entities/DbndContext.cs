@@ -20,12 +20,8 @@ namespace Dbnd.Data.Entities
                 .HasMaxLength(75)
                 .IsRequired();
             modelBuilder.Entity<Client>()
-                .Property(p => p.PasswordHash)
-                .HasMaxLength(25)
-                .IsRequired();
-            modelBuilder.Entity<Client>()
                 .Property(p => p.Email)
-                .HasMaxLength(75)
+                .HasMaxLength(175)
                 .IsRequired();
 
             modelBuilder.Entity<DungeonMaster>()
