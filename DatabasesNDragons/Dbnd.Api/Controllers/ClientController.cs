@@ -14,7 +14,7 @@ namespace Dbnd.Api.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private IRepository _repository;
+        private readonly IRepository _repository;
 
         public ClientController(IRepository repository)
         {
