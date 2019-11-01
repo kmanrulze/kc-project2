@@ -16,7 +16,8 @@ export class AuthService {
     createAuth0Client({
       domain: "dbnd.auth0.com",
       client_id: "7cgrbDfEj2bunK7qBIVtKotF89U0g5eh",
-      redirect_uri: `${window.location.origin}`
+      redirect_uri: `${window.location.origin}`,
+      audience: "/dbnd"
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -106,6 +107,12 @@ export class AuthService {
         this.router.navigate([targetRoute]);
       });
     }
+  }
+
+  getTokenSilently$(options?): Observable<string> {
+    return this.auth0Client$.pipe(
+      concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
+    );
   }
 
   logout() {
