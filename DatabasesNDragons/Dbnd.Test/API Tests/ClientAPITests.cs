@@ -10,7 +10,7 @@ namespace Dbnd.Test.API_Tests
     public class ClientAPITests
     {
         [Fact]
-        public async Task TestGetAllClientsAsync()
+        public void TestGetAllClients()
         {
             throw new NotImplementedException();
         }
