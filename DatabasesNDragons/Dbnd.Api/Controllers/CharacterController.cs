@@ -29,11 +29,11 @@ namespace Dbnd.Api.Controllers
         }
 
         // GET: api/Character/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "Value";
-        }
+        //[HttpGet("{id}", Name = "Get")]
+        //public string Get(int id)
+        //{
+        //    return "Value";
+        //}
 
         // POST: api/Character
         [HttpPost]

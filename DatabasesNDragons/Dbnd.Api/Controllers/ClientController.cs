@@ -26,11 +26,11 @@ namespace Dbnd.Api.Controllers
         }
 
         // GET: api/Client/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}", Name = "Get")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST: api/Client
         [HttpPost]
