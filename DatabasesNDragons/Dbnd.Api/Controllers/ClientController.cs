@@ -27,7 +27,7 @@ namespace Dbnd.Api.Controllers
         }
 
         //GET: api/Client/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Task<Client> Get(Guid id)
         {
             return _repository.GetClientByIDAsync(id);
@@ -39,7 +39,7 @@ namespace Dbnd.Api.Controllers
         {
             _repository.CreateClientAsync(client.UserName, client.Email, client.PasswordHash);
 
-            return CreatedAtRoute("Get", client);
+            return Created("api/Client/", client);
         }
 
         // PUT: api/Client/5

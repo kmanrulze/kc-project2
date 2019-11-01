@@ -45,7 +45,7 @@ namespace Dbnd.Data.Repository
             return LogicCharList;
         }
 
-        public async Task<Logic.Objects.Character> GetCharacterByCharacterID(Guid CharacterID)
+        public async Task<Logic.Objects.Character> GetCharacterByCharacterIDAsync(Guid CharacterID)
         {
             try
             {
