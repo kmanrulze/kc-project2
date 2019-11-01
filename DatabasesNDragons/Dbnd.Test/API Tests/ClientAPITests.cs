@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Dbnd.Api.Controllers;
+using System.Threading.Tasks;
+using System.Linq;
 using Xunit;
+using Moq;
 
 namespace Dbnd.Test.API_Tests
 {
     public class ClientAPITests
     {
         [Fact]
-        public void TestGetAllClients()
+        public async Task TestGetAllClientsAsync()
         {
             throw new NotImplementedException();
         }
