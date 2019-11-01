@@ -40,10 +40,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetAllGamesByDungeonMasterID(testDungeonMasterID))
-                .Returns(() => Task.FromResult(listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+                .Setup(x => x.GetGamesByDungeonMasterID(testDungeonMasterID))
+                .Returns(() => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList());
 
-            var testList = (await mockRepository.Object.GetAllGamesByDungeonMasterID(testDungeonMasterID)).Count();
+            var testList = (mockRepository.Object.GetGamesByDungeonMasterID(testDungeonMasterID)).Count();
 
             Assert.Equal(2, testList);
         }
@@ -77,10 +77,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetAllGamesByDungeonMasterID(testDungeonMasterID))
-                .Returns(() => Task.FromResult(listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+                .Setup(x => x.GetGamesByDungeonMasterID(testDungeonMasterID))
+                .Returns(() => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList());
 
-            var testList = (await mockRepository.Object.GetAllGamesByDungeonMasterID(testDungeonMasterID)).Count();
+            var testList = (mockRepository.Object.GetGamesByDungeonMasterID(testDungeonMasterID)).Count();
 
             Assert.Equal(0, testList);
         }
