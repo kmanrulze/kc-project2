@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Dbnd.Logic.Interfaces;
 using Dbnd.Data.Entities;
-using Dbnd.Logic.Objects;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -13,48 +11,142 @@ namespace Dbnd.Data.Repository
     public class Repository : IRepository
     {
         private readonly DbndContext _context;
-        public Repository(DbndContext context)
+
+        public Repository(DbndContext dbContext)
         {
-            _context = context;
+            _context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         public async Task<List<Logic.Objects.Game>> GetAllGamesByDungeonMasterID(Guid DungeonMasterID)
         {
-            List<Logic.Objects.Game> LogicGameList = new List<Logic.Objects.Game>();
-
-            foreach(Entities.Game ContextGame in _context.Game.Where(g => g.DungeonMasterId == DungeonMasterID))
+            try
             {
-                LogicGameList.Add(await GetGameByGameID(ContextGame.GameId));
-            }
-            return LogicGameList;
+                List<Logic.Objects.Game> LogicGameList = new List<Logic.Objects.Game>();
 
+                foreach (Entities.Game ContextGame in _context.Game.Where(g => g.DungeonMasterID == DungeonMasterID))
+                {
+                    LogicGameList.Add(await GetGameByGameID(ContextGame.GameID));
+                }
+                return LogicGameList;
+            }
+            catch
+            {
+                throw new Exception("Did not get DM from ID successfully");
+            }
+        }
+
+        public IEnumerable<Logic.Objects.Character> GetCharacters()
+        {
+            List<Logic.Objects.Character> LogicCharList = new List<Logic.Objects.Character>();
+            foreach(Entities.Character ContextChar in _context.Character)
+            {
+                LogicCharList.Add(Mapper.MapCharacter(ContextChar));
+            }
+            return LogicCharList;
         }
 
         public async Task<Logic.Objects.Character> GetCharacterByCharacterID(Guid CharacterID)
         {
-            Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterId == CharacterID));
-            return LogicCharacter;
+            try
+            {
+                Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterID == CharacterID));
+                return LogicCharacter;
+            }
+            catch
+            {
+                throw new Exception("Getting by ID did not complete successfully");
+            }
+        }
 
+        public async Task CreateCharacterAsync(Guid clientID, string firstName, string lastName)
+        {
+            try
+            {
+                _context.Character.Add(Mapper.MapCharacter(new Logic.Objects.Character(clientID, firstName, lastName)));
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldnt create character for some reason");
+            }
         }
 
         public async Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID)
         {
-
-            Logic.Objects.Client LogicClient = Mapper.MapClient(await _context.Client.FirstAsync(c => c.ClientId == ClientID));
-            return LogicClient;
+            try
+            {
+                Logic.Objects.Client LogicClient = Mapper.MapClient(await _context.Client.FirstAsync(c => c.ClientID == ClientID));
+                return LogicClient;
+            }
+            catch
+            {
+                throw new Exception("did not get client successfully");
+            }
+        }
+        
+        public async Task CreateClientAsync(string userName, string email, string passwordHash)
+        {
+            try
+            {
+                _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email, passwordHash)));
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldn't create client for some reason.");
+            }
 
         }
 
         public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterID(Guid DungeonMasterID)
         {
-            Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.DungeonMasterId == DungeonMasterID));
-            return LogicDungeonMaster;
+            try
+            {
+                Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.DungeonMasterID == DungeonMasterID));
+                return LogicDungeonMaster;
+            }
+            catch
+            {
+                throw new Exception("Did not get DM successfully");
+            }
+        }
+
+        public async Task CreateDungeonMasterAsync(Guid clientID)
+        {
+            try
+            {
+                _context.DungeonMaster.Add(Mapper.MapDungeonMaster(new Logic.Objects.DungeonMaster(clientID)));
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldn't create DungeonMaster for some reason");
+            }
         }
 
         public async Task<Logic.Objects.Game> GetGameByGameID(Guid GameID)
         {
-            Logic.Objects.Game LogicGame = Mapper.MapGame(await _context.Game.FirstAsync(g => g.GameId == GameID));
-            return LogicGame;
+            try
+            {
+                Logic.Objects.Game LogicGame = Mapper.MapGame(await _context.Game.FirstAsync(g => g.GameID == GameID));
+                return LogicGame;
+            }
+            catch
+            {
+                throw new Exception("Did not get game successfully");
+            }
+        }
+        public async Task CreateGameAsync(Guid dungeonMasterID, string gameName)
+        {
+            try
+            {
+                _context.Game.Add(Mapper.MapGame(new Logic.Objects.Game(dungeonMasterID, gameName)));
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldnt create a game for some reason");
+            }
         }
     }
 }

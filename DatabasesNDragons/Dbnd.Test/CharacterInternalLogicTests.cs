@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 using Dbnd.Logic.Objects;
 
 namespace Dbnd.Test
@@ -57,7 +54,7 @@ namespace Dbnd.Test
 
         [Theory]
         [InlineData("%Ragnar")]
-        [InlineData("AgN4r")]
+        [InlineData("A4")]
         [InlineData("R")]
         [InlineData("rr@gn@rr")]
         public void IsValidFirstName_Invalid(string firstNameTest)
@@ -97,7 +94,7 @@ namespace Dbnd.Test
 
         [Theory]
         [InlineData("%Ragnar")]
-        [InlineData("AgN4r")]
+        [InlineData("A4")]
         [InlineData("R")]
         [InlineData("rr@gn@rr")]
         public void IsValidLastName_Invalid(string lastNameTest)

@@ -44,9 +44,17 @@ steps:
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
+
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   displayName: Publish SonarCloud quality gate result
+
+- task: ado-discord-webhook@1
+  inputs:
+    messageType: embeds
+    channelId: '639164927411486722'
+    webhookKey: 'gcVHF6p1ZiC-ZkV6BWAqPlLYHntPRrJuqmH1qsZj_BB6uE3dEwAV_UopR4Tjj7WbKVcI'
+    name: 'Azure DevOps'
 
 
 
