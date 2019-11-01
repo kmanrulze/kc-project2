@@ -28,7 +28,7 @@ namespace Dbnd.Api.Controllers
         }
 
         //GET: api/Client/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Task<Client> Get(Guid id)
         {
             return _repository.GetClientByIDAsync(id);
