@@ -414,15 +414,14 @@ namespace Dbnd.Test
 
             var userName = "DnDDynomite";
             var email = "DnDDynomite@gmail.com";
-            var passwordHash = "DnD_123456";
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.CreateClientAsync(userName, email, passwordHash));
+                .Setup(x => x.CreateClientAsync(userName, email));
 
-            await mockRepository.Object.CreateClientAsync(userName, email, passwordHash);
+            await mockRepository.Object.CreateClientAsync(userName, email);
 
             mockRepository
-                .Verify(x => x.CreateClientAsync(userName, email, passwordHash), Times.Once());
+                .Verify(x => x.CreateClientAsync(userName, email), Times.Once());
         }
 
     }

@@ -28,7 +28,7 @@ namespace Dbnd.Data.Repository
 
         public static Client MapClient(Entities.Client ContextClient)
         {
-            Client LogicClient = new Client(ContextClient.UserName, ContextClient.Email, ContextClient.PasswordHash)
+            Client LogicClient = new Client(ContextClient.UserName, ContextClient.Email)
             {
                 ClientID = ContextClient.ClientID
             };
@@ -40,7 +40,6 @@ namespace Dbnd.Data.Repository
             Entities.Client EntitiesClient = new Entities.Client
             {
                 UserName = ContextClient.UserName,
-                PasswordHash = ContextClient.PasswordHash,
                 Email = ContextClient.Email,
                 ClientID = ContextClient.ClientID
             };
