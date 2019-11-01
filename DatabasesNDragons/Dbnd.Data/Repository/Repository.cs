@@ -84,11 +84,11 @@ namespace Dbnd.Data.Repository
             }
         }
         
-        public async Task CreateClientAsync(string userName, string email, string passwordHash)
+        public async Task CreateClientAsync(string userName, string email)
         {
             try
             {
-                _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email, passwordHash)));
+                _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email)));
                 await _context.SaveChangesAsync();
             }
             catch
