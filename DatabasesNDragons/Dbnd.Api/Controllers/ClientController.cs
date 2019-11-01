@@ -27,11 +27,10 @@ namespace Dbnd.Api.Controllers
         }
 
         // GET: api/Client/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Logic.Objects.Client>> GetAsync(Guid id)
+        [HttpGet("{id}", Name = "Get")]
+        public Task<Logic.Objects.Client> Get(Guid id)
         {
-            Logic.Objects.Client client = await _repository.GetClientByIDAsync(id);
-            return Ok(client);
+            return _repository.GetClientByIDAsync(id);
         }
 
         // POST: api/Client
