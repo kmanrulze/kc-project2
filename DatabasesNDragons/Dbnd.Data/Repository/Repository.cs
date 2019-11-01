@@ -98,11 +98,24 @@ namespace Dbnd.Data.Repository
 
         }
 
-        public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterID(Guid DungeonMasterID)
+        public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID)
         {
             try
             {
                 Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.DungeonMasterID == DungeonMasterID));
+                return LogicDungeonMaster;
+            }
+            catch
+            {
+                throw new Exception("Did not get DM successfully");
+            }
+        }
+
+        public async Task<Logic.Objects.DungeonMaster> GetDMByClientIDAsync(Guid ClientID)
+        {
+            try
+            {
+                Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.ClientID == ClientID));
                 return LogicDungeonMaster;
             }
             catch

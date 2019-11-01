@@ -11,7 +11,8 @@ namespace Dbnd.Logic.Interfaces
         Task CreateClientAsync(string userName, string email, string passwordHash);
         Task<Character> GetCharacterByCharacterIDAsync(Guid CharacterID);
         Task CreateCharacterAsync(Guid clientID, string firstName, string lastName);
-        Task<DungeonMaster> GetDMByDungeonMasterID(Guid DungeonMasterID);
+        Task<DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID);
+        Task<DungeonMaster> GetDMByClientIDAsync(Guid ClientID);
         Task CreateDungeonMasterAsync(Guid clientID);
         Task<Game> GetGameByGameID(Guid GameID);
         IEnumerable<Logic.Objects.Client> GetClients();
