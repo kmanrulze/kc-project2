@@ -5,12 +5,8 @@ using System.Linq;
 using Xunit;
 using Moq;
 
-using Dbnd.Logic.Objects;
-using Dbnd.Api.Controllers;
-
 namespace Dbnd.Test
 {
-
     public class DataRepositoryTests
     {
 
@@ -46,7 +42,8 @@ namespace Dbnd.Test
                 .Setup(x => x.GetGamesByDungeonMasterIDAsync(testDungeonMasterID))
                 .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
 
-            var listCount = (mockRepository.Object.GetGamesByDungeonMasterIDAsync(testDungeonMasterID)).Result.Count();
+            var ienumList = await mockRepository.Object.GetGamesByDungeonMasterIDAsync(testDungeonMasterID);
+            var listCount = ienumList.Count();
 
             Assert.Equal(2, listCount);
         }
@@ -83,10 +80,8 @@ namespace Dbnd.Test
                 .Setup(x => x.GetGamesByDungeonMasterIDAsync(testDungeonMasterID))
                 .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
 
-            var gameController = new GameController(mockRepository.Object);
-
-            var ienumReturn = await gameController.Get();
-            var listCount = ienumReturn.ToList().Count();
+            var ienumList = await mockRepository.Object.GetGamesByDungeonMasterIDAsync(testDungeonMasterID);
+            var listCount = ienumList.Count();
 
             Assert.Equal(0, listCount);
         }
@@ -123,7 +118,7 @@ namespace Dbnd.Test
                 .Setup(x => x.GetCharacterByCharacterIDAsync(testCharacterID))
                 .Returns(() => Task.FromResult(listOfCharacters.Where(x => x.CharacterID == testCharacterID).Single()));
 
-            var testCharacter = (await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID));
+            var testCharacter = await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID);
 
             Assert.Equal(testCharacterID.ToString(), testCharacter.CharacterID.ToString());
         }

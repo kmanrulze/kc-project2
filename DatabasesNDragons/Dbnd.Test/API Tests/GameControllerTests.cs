@@ -87,6 +87,43 @@ namespace Dbnd.Test.API_Tests
                 .Verify();
         }
 
+        [Fact]
+        public async Task UpdateGameAsyncSuccessfulVerification()
+        {
+            Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
+            Game changedGame = new Game();
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.UpdateGameAsync(targetId, changedGame))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var gameController = new GameController(mockRepository.Object);
+            var game = await gameController.Put(targetId, changedGame);
+
+            mockRepository
+                .Verify();
+        }
+
+        [Fact]
+        public async Task DeleteGameSuccessfulVerification()
+        {
+            Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.DeleteGameByIDAsync(targetId))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var gameController = new GameController(mockRepository.Object);
+            var game = await gameController.Delete(targetId);
+
+            mockRepository
+                .Verify();
+        }
+
         public List<Game> SetUpGames()
         {
             return new List<Logic.Objects.Game>
