@@ -24,7 +24,8 @@ namespace Dbnd.Test
 
             var clientController = new ClientController(mockRepository.Object);
 
-            var listCount = clientController.Get().Result.ToList().Count();
+            var ienumReturn = await clientController.Get();
+            var listCount = ienumReturn.ToList().Count();
 
             Assert.Equal(3, listCount);
         }

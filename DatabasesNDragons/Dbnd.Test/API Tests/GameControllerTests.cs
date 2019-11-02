@@ -24,7 +24,8 @@ namespace Dbnd.Test.API_Tests
 
             var gameController = new GameController(mockRepository.Object);
 
-            var listCount = gameController.Get().Result.ToList().Count();
+            var ienumReturn = await gameController.Get();
+            var listCount = ienumReturn.ToList().Count();
 
             Assert.Equal(3, listCount);
         }
@@ -48,21 +49,22 @@ namespace Dbnd.Test.API_Tests
         }
 
         [Fact]
-        public void GetSingleGameByDMIDHasCorrectCount()
+        public async Task GetSingleGameByDMIDHasCorrectCount()
         {
             var games = SetUpGames();
             Guid targetId = new Guid("2700fb0f-820d-4be6-9ea3-402fe335f57d");
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGamesByDungeonMasterID(targetId))
-                .Returns(() => games.Where(c => c.DungeonMasterID == targetId).ToList());
+                .Setup(x => x.GetGamesByDungeonMasterIDAsync(targetId))
+                .Returns(async () => await Task.Run( () => games.Where(c => c.DungeonMasterID == targetId).ToList()));
 
             var gameController = new GameController(mockRepository.Object);
 
-            var game = gameController.DungeonMasterID(targetId);
+            var ienumReturn = await gameController.DungeonMasterID(targetId);
+            var listCount = ienumReturn.ToList().Count();
 
-            Assert.Equal(2, game.Count());
+            Assert.Equal(2, listCount);
         }
 
         [Fact]
@@ -79,7 +81,7 @@ namespace Dbnd.Test.API_Tests
                     .Verifiable();
 
             var gameController = new GameController(mockRepository.Object);
-            var game = gameController.Post(newGame);
+            var game = await gameController.Post(newGame);
 
             mockRepository
                 .Verify();

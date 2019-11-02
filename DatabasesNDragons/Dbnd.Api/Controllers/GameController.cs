@@ -37,9 +37,9 @@ namespace Dbnd.Api.Controllers
 
         // GET: api/Game/DungeonMasterID/5
         [HttpGet("DungeonMasterID/{id}")]
-        public List<Game> DungeonMasterID(Guid id)
+        public async Task<List<Game>> DungeonMasterID(Guid id)
         {
-            return _repository.GetGamesByDungeonMasterID(id);
+            return await _repository.GetGamesByDungeonMasterIDAsync(id);
         }
 
         // Post: api/Game

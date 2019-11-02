@@ -61,7 +61,7 @@ namespace Dbnd.Test.API_Tests
                     .Verifiable();
 
             var dungeonMasterController = new DungeonMasterController(mockRepository.Object);
-            var dm = dungeonMasterController.Post(newDM);
+            var dm = await dungeonMasterController.Post(newDM);
 
             mockRepository
                 .Verify();

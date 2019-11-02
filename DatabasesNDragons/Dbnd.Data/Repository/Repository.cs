@@ -117,8 +117,15 @@ namespace Dbnd.Data.Repository
 
         public async Task<IEnumerable<Logic.Objects.Game>> GetGamesAsync()
         {
-            var entityGameList = await _context.Game.ToListAsync();
-            return entityGameList.Select(Mapper.MapGame);
+            try
+            {
+                var entityGameList = await _context.Game.ToListAsync();
+                return entityGameList.Select(Mapper.MapGame);
+            } 
+            catch
+            {
+                throw new Exception("Did not get all games successfully");
+            }
         }
 
         public async Task<Logic.Objects.Game> GetGameByGameID(Guid GameID)
@@ -134,17 +141,12 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public List<Logic.Objects.Game> GetGamesByDungeonMasterID(Guid DungeonMasterID)
+        public async Task<List<Logic.Objects.Game>> GetGamesByDungeonMasterIDAsync(Guid DungeonMasterID)
         {
             try
             {
-                List<Logic.Objects.Game> LogicGameList = new List<Logic.Objects.Game>();
-
-                foreach (Entities.Game ContextGame in _context.Game.Where(g => g.DungeonMasterID == DungeonMasterID))
-                {
-                    LogicGameList.Add( Mapper.MapGame(ContextGame) );
-                }
-                return LogicGameList;
+                var entityGameList = await _context.Game.Where(x => x.DungeonMasterID == DungeonMasterID).ToListAsync();
+                return entityGameList.Select(Mapper.MapGame).ToList();
             }
             catch
             {

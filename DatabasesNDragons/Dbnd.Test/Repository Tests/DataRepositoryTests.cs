@@ -5,6 +5,9 @@ using System.Linq;
 using Xunit;
 using Moq;
 
+using Dbnd.Logic.Objects;
+using Dbnd.Api.Controllers;
+
 namespace Dbnd.Test
 {
 
@@ -12,7 +15,7 @@ namespace Dbnd.Test
     {
 
         [Fact]
-        public async Task GetAllGamesByDungeonMasterIDHasCorrectCountIDInDBAsync()
+        public async Task GetAllGamesByDungeonMasterIDAsyncHasCorrectCountIDInDBAsync()
         {
             var testDungeonMasterID = Guid.NewGuid();
 
@@ -40,16 +43,16 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGamesByDungeonMasterID(testDungeonMasterID))
-                .Returns(() => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList());
+                .Setup(x => x.GetGamesByDungeonMasterIDAsync(testDungeonMasterID))
+                .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
 
-            var testList = (mockRepository.Object.GetGamesByDungeonMasterID(testDungeonMasterID)).Count();
+            var listCount = (mockRepository.Object.GetGamesByDungeonMasterIDAsync(testDungeonMasterID)).Result.Count();
 
-            Assert.Equal(2, testList);
+            Assert.Equal(2, listCount);
         }
 
         [Fact]
-        public async Task GetAllGamesByDungeonMasterIDHasCorrectCountIDNotInDBAsync()
+        public async Task GetAllGamesByDungeonMasterIDAsyncHasCorrectCountIDNotInDBAsync()
         {
             var testDungeonMasterID = Guid.NewGuid();
 
@@ -77,12 +80,15 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGamesByDungeonMasterID(testDungeonMasterID))
-                .Returns(() => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList());
+                .Setup(x => x.GetGamesByDungeonMasterIDAsync(testDungeonMasterID))
+                .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
 
-            var testList = (mockRepository.Object.GetGamesByDungeonMasterID(testDungeonMasterID)).Count();
+            var gameController = new GameController(mockRepository.Object);
 
-            Assert.Equal(0, testList);
+            var ienumReturn = await gameController.Get();
+            var listCount = ienumReturn.ToList().Count();
+
+            Assert.Equal(0, listCount);
         }
 
         [Fact]
