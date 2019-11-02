@@ -69,18 +69,21 @@ namespace Dbnd.Test.API_Tests
         [Fact]
         public async Task CreateGameSuccessfulCallCount()
         {
-            var games = SetUpGames();
             Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
             string targetName = "Novum_Ludum";
+            var newGame = new Game(targetId, targetName);
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.CreateGameAsync(targetId, targetName));
+                .Setup(x => x.CreateGameAsync(targetId, targetName))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
 
-            await mockRepository.Object.CreateGameAsync(targetId, targetName);
+            var gameController = new GameController(mockRepository.Object);
+            var game = gameController.Post(newGame);
 
             mockRepository
-                .Verify(x => x.CreateGameAsync(targetId, targetName), Times.Once());
+                .Verify();
         }
 
         public List<Game> SetUpGames()

@@ -38,9 +38,9 @@ namespace Dbnd.Api.Controllers
 
         // Post: api/DungeonMaster
         [HttpPost]
-        public ActionResult Post([FromBody, Bind("ClientID")] DungeonMaster dungeonMaster)
+        public async Task<ActionResult> Post([FromBody, Bind("ClientID")] DungeonMaster dungeonMaster)
         {
-            _repository.CreateDungeonMasterAsync(dungeonMaster.ClientID);
+            await _repository.CreateDungeonMasterAsync(dungeonMaster.ClientID);
             return Created("api/DungeonMaster/", dungeonMaster);
         }
     }

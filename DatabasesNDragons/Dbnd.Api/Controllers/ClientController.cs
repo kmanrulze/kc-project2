@@ -35,10 +35,9 @@ namespace Dbnd.Api.Controllers
 
         // POST: api/Client
         [HttpPost]
-        public ActionResult Post([FromBody, Bind("UserName, Email, PasswordHash")] Client client)
+        public async Task<ActionResult> Post([FromBody, Bind("UserName, Email")] Client client)
         {
-            _repository.CreateClientAsync(client.UserName, client.Email);
-
+            await _repository.CreateClientAsync(client.UserName, client.Email);
             return Created("api/Client/", client);
         }
 

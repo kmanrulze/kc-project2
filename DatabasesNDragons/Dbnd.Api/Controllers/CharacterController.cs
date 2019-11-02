@@ -37,9 +37,9 @@ namespace Dbnd.Api.Controllers
 
         // POST: api/Character
         [HttpPost]
-        public ActionResult Post([FromBody, Bind("ClientID,FirstName,LastName")] Character character)
+        public async Task<ActionResult> Post([FromBody, Bind("ClientID,FirstName,LastName")] Character character)
         {
-            _repository.CreateCharacterAsync(character.ClientID, character.FirstName, character.LastName);
+            await _repository.CreateCharacterAsync(character.ClientID, character.FirstName, character.LastName);
             return Created("api/Character/", character);
         }
 
