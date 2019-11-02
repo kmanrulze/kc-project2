@@ -48,6 +48,25 @@ namespace Dbnd.Test
             Assert.Equal("Jacob", client.UserName);
         }
 
+        [Fact]
+        public async Task CreateClientSuccessfulVerification()
+        {
+            string userName = "Novum_Usor";
+            string email = "Novum_Usor11@email.com";
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.CreateClientAsync(userName, email))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var clientController = new ClientController(mockRepository.Object);
+            var client = await clientController.Post(new Client(userName, email));
+
+            mockRepository
+                .Verify();
+        }
+
         public List<Client> SetUpClients()
         {
             return new List<Client>
