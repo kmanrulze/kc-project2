@@ -14,7 +14,8 @@ namespace Dbnd.Logic.Interfaces
         Task<DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID);
         Task<DungeonMaster> GetDMByClientIDAsync(Guid ClientID);
         Task CreateDungeonMasterAsync(Guid clientID);
-        Task<Game> GetGameByGameID(Guid GameID);
+        Task<Game> GetGameByGameIDAsync(Guid GameID);
+        Task UpdateGameAsync(Guid targetGameID, Game changedGame);
         Task<IEnumerable<Logic.Objects.Client>> GetClientsAsync();
         Task CreateGameAsync(Guid DungeonMasterID, string GameName);
         Task<List<Game>> GetGamesByDungeonMasterIDAsync(Guid DungeonMasterID);

@@ -128,7 +128,7 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public async Task<Logic.Objects.Game> GetGameByGameID(Guid GameID)
+        public async Task<Logic.Objects.Game> GetGameByGameIDAsync(Guid GameID)
         {
             try
             {
@@ -167,6 +167,39 @@ namespace Dbnd.Data.Repository
             }
         }
 
+        public async Task UpdateGameAsync(Guid targetGameID, Logic.Objects.Game changedGame)
+        {
+            try
+            {
+                var targetGame = await _context.Game.FirstAsync(g => g.GameID == targetGameID);
+
+                if (targetGame.GameName != changedGame.GameName) 
+                {
+                    targetGame.GameName = changedGame.GameName;
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch
+            {
+                throw new Exception("There was a problem updating the game for some reason");
+            }
+        }
+
+
+
+        public async Task DeleteGameByIDAsync(Guid gameID)
+        {
+            try 
+            {
+                _context.Remove(await _context.Game.FirstAsync(g => g.GameID == gameID));
+                await _context.SaveChangesAsync();
+            }
+            catch 
+            { 
+                throw new Exception("There was a problem deleting the game for some reason"); 
+            }
+        }
+
         public async Task<IEnumerable<Logic.Objects.Client>> GetClientsAsync()
         {
             var entityClientList = await _context.Client.ToListAsync();
@@ -181,11 +214,6 @@ namespace Dbnd.Data.Repository
         }
 
         public Task DeleteCharacterByIDAsync(Guid CharacterID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteGameByIDAsync(Guid GameID)
         {
             throw new NotImplementedException();
         }

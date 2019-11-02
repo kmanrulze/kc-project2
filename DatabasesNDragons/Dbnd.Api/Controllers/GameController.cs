@@ -30,9 +30,9 @@ namespace Dbnd.Api.Controllers
 
         // GET: api/Game/5
         [HttpGet("{id}")]
-        public Task<Game> Get(Guid id)
+        public async Task<Game> Get(Guid id)
         {
-            return _repository.GetGameByGameID(id);
+            return await _repository.GetGameByGameIDAsync(id);
         }
 
         // GET: api/Game/DungeonMasterID/5
@@ -48,6 +48,23 @@ namespace Dbnd.Api.Controllers
         {
             await _repository.CreateGameAsync(game.DungeonMasterID, game.GameName);
             return Created("api/Game/", game);
+        }
+
+        // PUT: api/Game/5
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(Guid id, [FromBody, Bind("GameName")] Game changedGame)
+        {
+            await _repository.UpdateGameAsync(id, changedGame);
+            var returnGame = await _repository.GetGameByGameIDAsync(id);
+            return AcceptedAtAction("Get", "Game", null, returnGame);
+        }
+
+        // DELETE: api/Game/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            await _repository.DeleteGameByIDAsync(id);
+            return NoContent();
         }
     }
 }
