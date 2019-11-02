@@ -38,7 +38,7 @@ namespace Dbnd.Test.API_Tests
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGameByGameID(targetId))
+                .Setup(x => x.GetGameByGameIDAsync(targetId))
                 .Returns(() => Task.Run(() => games.Where(c => c.GameID == targetId).FirstOrDefault()));
 
             var gameController = new GameController(mockRepository.Object);

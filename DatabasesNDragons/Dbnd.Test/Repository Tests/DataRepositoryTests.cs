@@ -284,10 +284,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGameByGameID(testGameID))
+                .Setup(x => x.GetGameByGameIDAsync(testGameID))
                 .Returns(() => Task.FromResult(listOfGames.Where(x => x.GameID == testGameID).Single()));
 
-            var testGame = (await mockRepository.Object.GetGameByGameID(testGameID));
+            var testGame = (await mockRepository.Object.GetGameByGameIDAsync(testGameID));
 
             Assert.Equal(testGameID.ToString(), testGame.GameID.ToString());
         }
@@ -321,10 +321,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGameByGameID(testGameID))
+                .Setup(x => x.GetGameByGameIDAsync(testGameID))
                 .Throws<Exception>();
 
-            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetGameByGameID(testGameID));
+            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetGameByGameIDAsync(testGameID));
         }
 
         [Fact]
