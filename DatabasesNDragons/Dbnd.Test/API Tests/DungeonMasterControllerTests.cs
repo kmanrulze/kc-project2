@@ -49,7 +49,7 @@ namespace Dbnd.Test.API_Tests
         }
 
         [Fact]
-        public async Task CreateDungeonMasterAsyncSuccessfulCall()
+        public async Task CreateDungeonMasterAsyncSuccessfulVerification()
         {
             Guid targetId = new Guid("01eec648-89c6-4324-a732-165adcd430c6");
             var newDM = new DungeonMaster(targetId);

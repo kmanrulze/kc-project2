@@ -13,21 +13,20 @@ namespace Dbnd.Test.API_Tests
     public class GameControllerTests
     {
         [Fact]
-        public void GetGameTestCount()
+        public async Task GetGameAsyncTestCount()
         {
             var games = SetUpGames();
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGames())
-                .Returns(() => games);
+                .Setup(x => x.GetGamesAsync())
+                .Returns( async () => await Task.Run( () => games.AsEnumerable() ));
 
             var gameController = new GameController(mockRepository.Object);
 
-            var listCount = gameController.Get().Count();
+            var listCount = gameController.Get().Result.ToList().Count();
 
             Assert.Equal(3, listCount);
-
         }
 
         [Fact]
@@ -67,7 +66,7 @@ namespace Dbnd.Test.API_Tests
         }
 
         [Fact]
-        public async Task CreateGameSuccessfulCallCount()
+        public async Task CreateGameSuccessfulVerification()
         {
             Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
             string targetName = "Novum_Ludum";

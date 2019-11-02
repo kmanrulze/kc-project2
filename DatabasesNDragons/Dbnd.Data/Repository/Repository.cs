@@ -17,14 +17,10 @@ namespace Dbnd.Data.Repository
             _context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public IEnumerable<Logic.Objects.Character> GetCharacters()
+        public async Task<IEnumerable<Logic.Objects.Character>> GetCharactersAsync()
         {
-            List<Logic.Objects.Character> LogicCharList = new List<Logic.Objects.Character>();
-            foreach(Entities.Character ContextChar in _context.Character)
-            {
-                LogicCharList.Add(Mapper.MapCharacter(ContextChar));
-            }
-            return LogicCharList;
+            var entityCharList = await _context.Character.ToListAsync();
+            return entityCharList.Select(Mapper.MapCharacter);
         }
 
         public async Task<Logic.Objects.Character> GetCharacterByCharacterIDAsync(Guid CharacterID)
@@ -119,14 +115,10 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public IEnumerable<Logic.Objects.Game> GetGames()
+        public async Task<IEnumerable<Logic.Objects.Game>> GetGamesAsync()
         {
-            List<Logic.Objects.Game> LogicGameList = new List<Logic.Objects.Game>();
-            foreach (Entities.Game ContextGame in _context.Game)
-            {
-                LogicGameList.Add(Mapper.MapGame(ContextGame));
-            }
-            return LogicGameList;
+            var entityGameList = await _context.Game.ToListAsync();
+            return entityGameList.Select(Mapper.MapGame);
         }
 
         public async Task<Logic.Objects.Game> GetGameByGameID(Guid GameID)
@@ -173,14 +165,10 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public IEnumerable<Logic.Objects.Client> GetClients()
+        public async Task<IEnumerable<Logic.Objects.Client>> GetClientsAsync()
         {
-            List<Logic.Objects.Client> LogicClientList = new List<Logic.Objects.Client>();
-            foreach (Entities.Client ContextClient in _context.Client)
-            {
-                LogicClientList.Add(Mapper.MapClient(ContextClient));
-            }
-            return LogicClientList;
+            var entityClientList = await _context.Client.ToListAsync();
+            return entityClientList.Select(Mapper.MapClient);
         }
 
         public async Task DeleteClientByIDAsync(Guid clientID)

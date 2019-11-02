@@ -23,9 +23,9 @@ namespace Dbnd.Api.Controllers
         }
         // GET: api/Character
         [HttpGet]
-        public IEnumerable<Logic.Objects.Character> Get()
+        public async Task<IEnumerable<Logic.Objects.Character>> Get()
         {   
-            return _repository.GetCharacters();
+            return await _repository.GetCharactersAsync();
         }
 
         // GET: api/Character/5

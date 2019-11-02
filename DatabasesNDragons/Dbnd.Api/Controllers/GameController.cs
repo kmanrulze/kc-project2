@@ -23,9 +23,9 @@ namespace Dbnd.Api.Controllers
         }
         // GET: Game
         [HttpGet]
-        public IEnumerable<Logic.Objects.Game> Get()
+        public async Task<IEnumerable<Logic.Objects.Game>> Get()
         {
-            return _repository.GetGames();
+            return await _repository.GetGamesAsync();
         }
 
         // GET: api/Game/5

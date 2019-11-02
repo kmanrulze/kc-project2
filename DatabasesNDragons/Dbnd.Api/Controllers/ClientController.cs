@@ -21,9 +21,9 @@ namespace Dbnd.Api.Controllers
         }
         // GET: api/Client
         [HttpGet]
-        public IEnumerable<Logic.Objects.Client> Get()
+        public async Task<IEnumerable<Logic.Objects.Client>> Get()
         {
-            return _repository.GetClients();
+            return await _repository.GetClientsAsync();
         }
 
         //GET: api/Client/5
