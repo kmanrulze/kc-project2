@@ -23,7 +23,7 @@ namespace Dbnd.Api.Controllers
         }
         // GET: Game
         [HttpGet]
-        public IEnumerable<Logic.Objects.Game> Index()
+        public IEnumerable<Logic.Objects.Game> Get()
         {
             return _repository.GetGames();
         }
