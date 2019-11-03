@@ -1,10 +1,22 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 using Dbnd.Logic.Objects;
 
 namespace Dbnd.Test
 {
     public class ClientInternalLogicTests
     {
+
+        [Fact]
+        public void ClientControllerGeneratesGUID()
+        {
+            string userName = "Novum_Usor";
+            string email = "Novum_Usor11@email.com";
+
+            Client client = new Client(userName, email);
+
+            Assert.True(Guid.TryParse(client.ClientID.ToString(), out var successGuid));
+        }
 
         [Fact]
         public void RequiredFieldsNotNull_CheckNull()
@@ -108,6 +120,7 @@ namespace Dbnd.Test
         [InlineData("email @domain")]    
         [InlineData("email@-domain.com")]
         [InlineData("email@domain..com")]
+        [InlineData("  ")]
         public void IsValidEmail_Invalid(string emailTest)
         {
             Logic.Objects.Client client = new Client

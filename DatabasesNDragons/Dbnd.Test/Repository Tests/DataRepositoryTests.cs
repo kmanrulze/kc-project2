@@ -7,12 +7,11 @@ using Moq;
 
 namespace Dbnd.Test
 {
-
     public class DataRepositoryTests
     {
 
         [Fact]
-        public async Task GetAllGamesByDungeonMasterIDHasCorrectCountIDInDBAsync()
+        public async Task GetAllGamesByDungeonMasterIDAsyncHasCorrectCountIDInDBAsync()
         {
             var testDungeonMasterID = Guid.NewGuid();
 
@@ -40,16 +39,17 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetAllGamesByDungeonMasterID(testDungeonMasterID))
-                .Returns(() => Task.FromResult(listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+                .Setup(x => x.GetGamesByDungeonMasterIDAsync(testDungeonMasterID))
+                .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
 
-            var testList = (await mockRepository.Object.GetAllGamesByDungeonMasterID(testDungeonMasterID)).Count();
+            var ienumList = await mockRepository.Object.GetGamesByDungeonMasterIDAsync(testDungeonMasterID);
+            var listCount = ienumList.Count();
 
-            Assert.Equal(2, testList);
+            Assert.Equal(2, listCount);
         }
 
         [Fact]
-        public async Task GetAllGamesByDungeonMasterIDHasCorrectCountIDNotInDBAsync()
+        public async Task GetAllGamesByDungeonMasterIDAsyncHasCorrectCountIDNotInDBAsync()
         {
             var testDungeonMasterID = Guid.NewGuid();
 
@@ -77,47 +77,27 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetAllGamesByDungeonMasterID(testDungeonMasterID))
-                .Returns(() => Task.FromResult(listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+                .Setup(x => x.GetGamesByDungeonMasterIDAsync(testDungeonMasterID))
+                .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
 
-            var testList = (await mockRepository.Object.GetAllGamesByDungeonMasterID(testDungeonMasterID)).Count();
+            var ienumList = await mockRepository.Object.GetGamesByDungeonMasterIDAsync(testDungeonMasterID);
+            var listCount = ienumList.Count();
 
-            Assert.Equal(0, testList);
+            Assert.Equal(0, listCount);
         }
 
         [Fact]
         public async Task GetCharacterByCharacterIDAsyncIDInDbReturnsCorrectCharacter()
         {
-            var testCharacterID = Guid.NewGuid();
-
-            var listOfCharacters = new List<Dbnd.Logic.Objects.Character>()
-            {
-                new Dbnd.Logic.Objects.Character()
-                {
-                    CharacterID = testCharacterID,
-                    FirstName = "Kaanyraa",
-                    LastName = "Vhokerson"
-                },
-                new Logic.Objects.Character()
-                {
-                    CharacterID = Guid.NewGuid(),
-                    FirstName = "Elaithyea",
-                    LastName = "Craulnober"
-                },
-                new Dbnd.Logic.Objects.Character()
-                {
-                    CharacterID = Guid.NewGuid(),
-                    FirstName = "Dinininin",
-                    LastName = "DoUrden"
-                }
-            };
+            var listOfCharacters = SetupCharacters();
+            var testCharacterID = listOfCharacters.First().CharacterID;
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.GetCharacterByCharacterIDAsync(testCharacterID))
                 .Returns(() => Task.FromResult(listOfCharacters.Where(x => x.CharacterID == testCharacterID).Single()));
 
-            var testCharacter = (await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID));
+            var testCharacter = await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID);
 
             Assert.Equal(testCharacterID.ToString(), testCharacter.CharacterID.ToString());
         }
@@ -127,28 +107,6 @@ namespace Dbnd.Test
         {
             var testCharacterID = Guid.NewGuid();
 
-            var listOfCharacters = new List<Dbnd.Logic.Objects.Character>()
-            {
-                new Dbnd.Logic.Objects.Character()
-                {
-                    CharacterID = Guid.NewGuid(),
-                    FirstName = "Kaanyraa",
-                    LastName = "Vhokerson"
-                },
-                new Logic.Objects.Character()
-                {
-                    CharacterID = Guid.NewGuid(),
-                    FirstName = "Elaithyea",
-                    LastName = "Craulnober"
-                },
-                new Dbnd.Logic.Objects.Character()
-                {
-                    CharacterID = Guid.NewGuid(),
-                    FirstName = "Dinininin",
-                    LastName = "DoUrden"
-                }
-            };
-
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.GetCharacterByCharacterIDAsync(testCharacterID))
@@ -157,7 +115,7 @@ namespace Dbnd.Test
             await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID));
         }
         [Fact]
-    public async Task CreateCharacterAsyncSuccess()
+        public async Task CreateCharacterAsyncSuccess()
         {
             var characterID = Guid.NewGuid();
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
@@ -170,62 +128,65 @@ namespace Dbnd.Test
                 .Verify(x => x.CreateCharacterAsync(characterID, "Kimmuriel", "Oblodra"), Times.Once());
         }
 
-    [Fact]
-    public async Task GetDMbyDungeonMasterIDAsyncIdinDbReturnsCorrectDungeonMaster()
-    {
-        var testDungeonMasterID = Guid.NewGuid();
-
-        var listOfDungeonMasters = new List<Dbnd.Logic.Objects.DungeonMaster>()
+        [Fact]
+        public async Task UpdateCharacterByIDAsyncGetsCalledOnce()
+        {
+            
+            var listOfCharacters = SetupCharacters();
+            var targetID = listOfCharacters.First().CharacterID;
+            var changedCharacter = new Logic.Objects.Character()
             {
-                new Dbnd.Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = testDungeonMasterID,
-                    ClientID = Guid.NewGuid()
-                },
-                new Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = Guid.NewGuid(),
-                    ClientID = Guid.NewGuid()
-                },
-                new Dbnd.Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = Guid.NewGuid(),
-                    ClientID = Guid.NewGuid()
-                }
+                FirstName = "Mutata",
+                LastName = "Cognomen"
             };
 
-        Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
-        mockRepository
-            .Setup(x => x.GetDMByDungeonMasterIDAsync(testDungeonMasterID))
-            .Returns(() => Task.FromResult(listOfDungeonMasters.Where(x => x.DungeonMasterID == testDungeonMasterID).Single()));
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.UpdateCharacterByIDAsync(targetID, changedCharacter));
 
-        var testDungeonMaster = (await mockRepository.Object.GetDMByDungeonMasterIDAsync(testDungeonMasterID));
+            await mockRepository.Object.UpdateCharacterByIDAsync(targetID, changedCharacter);
 
-        Assert.Equal(testDungeonMasterID.ToString(), testDungeonMaster.DungeonMasterID.ToString());
-    }
+            mockRepository
+                .Verify(x => x.UpdateCharacterByIDAsync(targetID, changedCharacter), Times.Once());
+        }
+
         [Fact]
-        public async Task GetDMbyDungeonMasterIDAsyncIdNotinDbReturnsCorrectDungeonMaster()
+        public async Task DeleteCharacterByIDAsyncGetsCalledOnce()
+        {
+
+            var listOfCharacters = SetupCharacters();
+            var targetID = listOfCharacters.First().CharacterID;
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.DeleteCharacterByIDAsync(targetID));
+
+            await mockRepository.Object.DeleteCharacterByIDAsync(targetID);
+
+            mockRepository
+                .Verify(x => x.DeleteCharacterByIDAsync(targetID), Times.Once());
+        }
+
+        [Fact]
+        public async Task GetDMbyDungeonMasterIDAsyncIdinDbReturnsCorrectDungeonMaster()
+        {
+            var listOfDungeonMasters = SetupDungeonMasters();
+            var testDungeonMasterID = listOfDungeonMasters.First().DungeonMasterID;
+            
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.GetDMByDungeonMasterIDAsync(testDungeonMasterID))
+                .Returns(() => Task.FromResult(listOfDungeonMasters.Where(x => x.DungeonMasterID == testDungeonMasterID).Single()));
+
+            var testDungeonMaster = (await mockRepository.Object.GetDMByDungeonMasterIDAsync(testDungeonMasterID));
+
+            Assert.Equal(testDungeonMasterID.ToString(), testDungeonMaster.DungeonMasterID.ToString());
+        }
+
+        [Fact]
+        public async Task GetDMbyDungeonMasterIDAsyncIdThrowsException()
         {
             var testDungeonMasterID = Guid.NewGuid();
-
-            var listOfDungeonMasters = new List<Dbnd.Logic.Objects.DungeonMaster>()
-            {
-                new Dbnd.Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = Guid.NewGuid(),
-                    ClientID = Guid.NewGuid()
-                },
-                new Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = Guid.NewGuid(),
-                    ClientID = Guid.NewGuid()
-                },
-                new Dbnd.Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = Guid.NewGuid(),
-                    ClientID = Guid.NewGuid()
-                }
-            };
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
@@ -247,6 +208,23 @@ namespace Dbnd.Test
 
             mockRepository
                 .Verify(x => x.CreateDungeonMasterAsync(clientID), Times.Once());
+        }
+
+        [Fact]
+        public async Task DeleteDungeonMasterByIDAsyncGetsCalledOnce()
+        {
+
+            var listOfDungeonMasters = SetupDungeonMasters();
+            var targetID = listOfDungeonMasters.First().DungeonMasterID;
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.DeleteDungeonMasterByIDAsync(targetID));
+
+            await mockRepository.Object.DeleteDungeonMasterByIDAsync(targetID);
+
+            mockRepository
+                .Verify(x => x.DeleteDungeonMasterByIDAsync(targetID), Times.Once());
         }
 
         [Fact]
@@ -278,10 +256,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGameByGameID(testGameID))
+                .Setup(x => x.GetGameByGameIDAsync(testGameID))
                 .Returns(() => Task.FromResult(listOfGames.Where(x => x.GameID == testGameID).Single()));
 
-            var testGame = (await mockRepository.Object.GetGameByGameID(testGameID));
+            var testGame = (await mockRepository.Object.GetGameByGameIDAsync(testGameID));
 
             Assert.Equal(testGameID.ToString(), testGame.GameID.ToString());
         }
@@ -315,10 +293,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGameByGameID(testGameID))
+                .Setup(x => x.GetGameByGameIDAsync(testGameID))
                 .Throws<Exception>();
 
-            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetGameByGameID(testGameID));
+            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetGameByGameIDAsync(testGameID));
         }
 
         [Fact]
@@ -422,6 +400,53 @@ namespace Dbnd.Test
 
             mockRepository
                 .Verify(x => x.CreateClientAsync(userName, email), Times.Once());
+        }
+
+        public List<Logic.Objects.DungeonMaster> SetupDungeonMasters()
+        {
+            return new List<Dbnd.Logic.Objects.DungeonMaster>()
+                {
+                    new Dbnd.Logic.Objects.DungeonMaster()
+                    {
+                        DungeonMasterID = Guid.NewGuid(),
+                        ClientID = Guid.NewGuid()
+                    },
+                    new Logic.Objects.DungeonMaster()
+                    {
+                        DungeonMasterID = Guid.NewGuid(),
+                        ClientID = Guid.NewGuid()
+                    },
+                    new Dbnd.Logic.Objects.DungeonMaster()
+                    {
+                        DungeonMasterID = Guid.NewGuid(),
+                        ClientID = Guid.NewGuid()
+                    }
+                };
+        }
+
+        public List<Logic.Objects.Character> SetupCharacters()
+        {
+            return new List<Logic.Objects.Character>()
+            {
+                new Dbnd.Logic.Objects.Character()
+                {
+                    CharacterID = Guid.NewGuid(),
+                    FirstName = "Kaanyraa",
+                    LastName = "Vhokerson"
+                },
+                new Logic.Objects.Character()
+                {
+                    CharacterID = Guid.NewGuid(),
+                    FirstName = "Elaithyea",
+                    LastName = "Craulnober"
+                },
+                new Dbnd.Logic.Objects.Character()
+                {
+                    CharacterID = Guid.NewGuid(),
+                    FirstName = "Dinininin",
+                    LastName = "DoUrden"
+                }
+            };
         }
 
     }

@@ -21,9 +21,9 @@ namespace Dbnd.Api.Controllers
         }
         // GET: api/Client
         [HttpGet]
-        public IEnumerable<Logic.Objects.Client> Get()
+        public async Task<IEnumerable<Logic.Objects.Client>> Get()
         {
-            return _repository.GetClients();
+            return await _repository.GetClientsAsync();
         }
 
         //GET: api/Client/5
@@ -35,10 +35,9 @@ namespace Dbnd.Api.Controllers
 
         // POST: api/Client
         [HttpPost]
-        public ActionResult Post([FromBody, Bind("UserName, Email, PasswordHash")] Client client)
+        public async Task<ActionResult> Post([FromBody, Bind("UserName, Email")] Client client)
         {
-            _repository.CreateClientAsync(client.UserName, client.Email);
-
+            await _repository.CreateClientAsync(client.UserName, client.Email);
             return Created("api/Client/", client);
         }
 

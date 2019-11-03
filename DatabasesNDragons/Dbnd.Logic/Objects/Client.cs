@@ -15,13 +15,6 @@ namespace Dbnd.Logic.Objects
         public Guid ClientID { get; set; } = Guid.NewGuid();
         public List<Character> Characters { get; set; } = new List<Character>();
 
-        // Valid PasswordHash check
-        // At least one upper case English letter, (?=.*?[A-Z])
-        // At least one lower case English letter, (?=.*?[a - z])
-        // At least one digit, (?=.*?[0 - 9])
-        // At least one special character, (?=.*?[#?!@$%^&*-])
-        // Minimum eight in length.{8,}
-
         public Client(string userName, string email)
         {
             UserName = userName;

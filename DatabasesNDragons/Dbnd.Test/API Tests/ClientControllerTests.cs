@@ -12,20 +12,20 @@ namespace Dbnd.Test
 {
     public class ClientControllerTests
     {
-        // As of writing, ClientController.Get() is not async
         [Fact]
-        public void GetAllClientsTestCount()
+        public async Task GetAllClientsAsyncTestCount()
         {
             var clients = SetUpClients();
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetClients())
-                .Returns(() => clients);
+                .Setup(x => x.GetClientsAsync())
+                .Returns(async () => await Task.Run( () => clients.AsEnumerable()) );
 
             var clientController = new ClientController(mockRepository.Object);
 
-            var listCount = clientController.Get().Count();
+            var ienumReturn = await clientController.Get();
+            var listCount = ienumReturn.ToList().Count();
 
             Assert.Equal(3, listCount);
         }
@@ -46,6 +46,25 @@ namespace Dbnd.Test
             var client = await clientController.Get(targetId);
 
             Assert.Equal("Jacob", client.UserName);
+        }
+
+        [Fact]
+        public async Task CreateClientSuccessfulVerification()
+        {
+            string userName = "Novum_Usor";
+            string email = "Novum_Usor11@email.com";
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.CreateClientAsync(userName, email))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var clientController = new ClientController(mockRepository.Object);
+            var client = await clientController.Post(new Client(userName, email));
+
+            mockRepository
+                .Verify();
         }
 
         public List<Client> SetUpClients()

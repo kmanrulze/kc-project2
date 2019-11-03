@@ -38,10 +38,18 @@ namespace Dbnd.Api.Controllers
 
         // Post: api/DungeonMaster
         [HttpPost]
-        public ActionResult Post([FromBody, Bind("ClientID")] DungeonMaster dungeonMaster)
+        public async Task<ActionResult> Post([FromBody, Bind("ClientID")] DungeonMaster dungeonMaster)
         {
-            _repository.CreateDungeonMasterAsync(dungeonMaster.ClientID);
+            await _repository.CreateDungeonMasterAsync(dungeonMaster.ClientID);
             return Created("api/DungeonMaster/", dungeonMaster);
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            await _repository.DeleteDungeonMasterByIDAsync(id);
+            return NoContent();
         }
     }
 }

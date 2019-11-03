@@ -23,6 +23,15 @@ namespace Dbnd.Test
             Guid guidResult;
             Assert.True(Guid.TryParse(testDM.DungeonMasterID.ToString(), out guidResult));
         }
+
+        [Fact]
+        public void DMGeneratesEmptyGameList()
+        {
+            DungeonMaster testDM = new DungeonMaster();
+            var listCount = testDM.Games.Count;
+
+            Assert.Equal(0, listCount);
+        }
     }
 
 }

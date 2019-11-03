@@ -23,9 +23,9 @@ namespace Dbnd.Api.Controllers
         }
         // GET: api/Character
         [HttpGet]
-        public IEnumerable<Logic.Objects.Character> Get()
+        public async Task<IEnumerable<Logic.Objects.Character>> Get()
         {   
-            return _repository.GetCharacters();
+            return await _repository.GetCharactersAsync();
         }
 
         // GET: api/Character/5
@@ -37,22 +37,27 @@ namespace Dbnd.Api.Controllers
 
         // POST: api/Character
         [HttpPost]
-        public ActionResult Post([FromBody, Bind("ClientID,FirstName,LastName")] Character character)
+        public async Task<ActionResult> Post([FromBody, Bind("ClientID,FirstName,LastName")] Character character)
         {
-            _repository.CreateCharacterAsync(character.ClientID, character.FirstName, character.LastName);
+            await _repository.CreateCharacterAsync(character.ClientID, character.FirstName, character.LastName);
             return Created("api/Character/", character);
         }
 
         // PUT: api/Character/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(Guid id, [FromBody, Bind("FirstName, LastName")] Character changedCharacter)
         {
+            await _repository.UpdateCharacterByIDAsync(id, changedCharacter);
+            var returnCharacter = await _repository.GetCharacterByCharacterIDAsync(id);
+            return AcceptedAtAction("Get", "Character", null, returnCharacter);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
+            await _repository.DeleteCharacterByIDAsync(id);
+            return NoContent();
         }
     }
 }
