@@ -213,6 +213,32 @@ namespace Dbnd.Data.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateCharacterByIDAsync(Guid targetCharacterID, Logic.Objects.Character changedCharacter)
+        {
+            try
+            {
+                var targetCharacter = await _context.Character.FirstAsync(g => g.CharacterID == targetCharacterID);
+                var madeChange = false;
+
+                if ( !String.IsNullOrEmpty(changedCharacter.FirstName) && targetCharacter.FirstName != changedCharacter.FirstName )
+                {
+                    targetCharacter.FirstName = changedCharacter.FirstName;
+                    madeChange = true;
+                }
+                if (!String.IsNullOrEmpty(changedCharacter.LastName) && targetCharacter.LastName != changedCharacter.LastName)
+                {
+                    targetCharacter.LastName = changedCharacter.LastName;
+                    madeChange = true;
+                }
+
+                if (madeChange) { await _context.SaveChangesAsync(); };
+            }
+            catch
+            {
+                throw new Exception("There was a problem updating the character for some reason");
+            }
+        }
+
         public async Task DeleteCharacterByIDAsync(Guid CharacterID)
         {
             Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == CharacterID);

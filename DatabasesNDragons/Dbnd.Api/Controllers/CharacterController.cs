@@ -45,14 +45,19 @@ namespace Dbnd.Api.Controllers
 
         // PUT: api/Character/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(Guid id, [FromBody, Bind("FirstName, LastName")] Character changedCharacter)
         {
+            await _repository.UpdateCharacterByIDAsync(id, changedCharacter);
+            var returnCharacter = await _repository.GetCharacterByCharacterIDAsync(id);
+            return AcceptedAtAction("Get", "Character", null, returnCharacter);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
+            await _repository.DeleteCharacterByIDAsync(id);
+            return NoContent();
         }
     }
 }
