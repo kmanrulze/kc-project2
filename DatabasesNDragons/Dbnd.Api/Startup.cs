@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dbnd.Data.Entities;
 using Dbnd.Data.Repository;
 using Dbnd.Logic.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,18 @@ namespace Dbnd.Api
             services.AddDbContext<DbndContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DBString")));
             services.AddScoped<IRepository, Repository>();
+
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = domain;
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

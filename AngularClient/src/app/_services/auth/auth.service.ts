@@ -4,6 +4,7 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DbndService } from '../dbnd/dbnd.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,10 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
-      domain: "dbnd.auth0.com",
-      client_id: "7cgrbDfEj2bunK7qBIVtKotF89U0g5eh",
+      domain: `${this.dbnd.domain}`,
+      client_id: `${this.dbnd.client_id}`,
       redirect_uri: `${window.location.origin}`,
-      audience: "/dbnd"
+      audience: `${this.dbnd.audience}`
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -38,7 +39,9 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) { }
+  currentId: string = "";
+
+  constructor(private router: Router, public dbnd: DbndService) { }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -57,6 +60,9 @@ export class AuthService {
         if (loggedIn) {
           // If authenticated, get user and set in app
           // NOTE: you could pass options here if needed
+          this.dbnd.getId$().subscribe( response => this.currentId = response.json().userId );
+          console.log(`Id retrieved: ${this.currentId}`);
+
           return this.getUser$();
         }
         // If not authenticated, return stream that emits 'false'
@@ -76,6 +82,9 @@ export class AuthService {
         redirect_uri: `${window.location.origin}`,
         appState: { target: redirectPath }
       });
+
+      this.dbnd.getId$().subscribe( response => this.currentId = response.json().userId );
+      console.log(`Id retrieved: ${this.currentId}`);
     });
   }
 
@@ -98,6 +107,7 @@ export class AuthService {
           ]);
         })
       );
+
       // Subscribe to authentication completion observable
       // Response will be an array of user and login status
       authComplete$.subscribe(([user, loggedIn]) => {
@@ -116,6 +126,7 @@ export class AuthService {
   logOut() {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
+      this.currentId = "";
       // Call method to log out
       client.logout({
         client_id: "7cgrbDfEj2bunK7qBIVtKotF89U0g5eh",

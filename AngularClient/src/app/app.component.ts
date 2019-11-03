@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './_services/auth/auth.service';
+import { DbndService } from './_services/dbnd/dbnd.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { AuthService } from './_services/auth/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private dbnd: DbndService) {}
 
   ngOnInit() {
     this.auth.localAuthSetup();
