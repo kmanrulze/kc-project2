@@ -67,6 +67,24 @@ namespace Dbnd.Test.API_Tests
                 .Verify();
         }
 
+        [Fact]
+        public async Task DeleteDungeonMasterSuccessfulVerification()
+        {
+            Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.DeleteDungeonMasterByIDAsync(targetId))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var dungeonMasterController = new DungeonMasterController(mockRepository.Object);
+            var dungeonMaster = await dungeonMasterController.Delete(targetId);
+
+            mockRepository
+                .Verify();
+        }
+
         public List<DungeonMaster> SetUpDMs()
         {
             return new List<DungeonMaster>

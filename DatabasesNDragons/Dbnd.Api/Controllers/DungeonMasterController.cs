@@ -43,5 +43,13 @@ namespace Dbnd.Api.Controllers
             await _repository.CreateDungeonMasterAsync(dungeonMaster.ClientID);
             return Created("api/DungeonMaster/", dungeonMaster);
         }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            await _repository.DeleteDungeonMasterByIDAsync(id);
+            return NoContent();
+        }
     }
 }

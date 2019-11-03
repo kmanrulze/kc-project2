@@ -76,6 +76,13 @@ namespace Dbnd.Data.Repository
 
         }
 
+        public async Task DeleteClientByIDAsync(Guid clientID)
+        {
+            Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
+            _context.Client.Remove(ContextClient);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID)
         {
             try
@@ -112,6 +119,20 @@ namespace Dbnd.Data.Repository
             catch
             {
                 throw new Exception("Couldn't create DungeonMaster for some reason");
+            }
+        }
+
+        public async Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
+        {
+            try
+            {
+                DungeonMaster ContextDungeonMaster = await _context.DungeonMaster.FirstAsync(d => d.DungeonMasterID == DungeonMasterID);
+                _context.DungeonMaster.Remove(ContextDungeonMaster);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("There was a problem deleting the DM for some reason");
             }
         }
 
@@ -185,8 +206,6 @@ namespace Dbnd.Data.Repository
             }
         }
 
-
-
         public async Task DeleteGameByIDAsync(Guid gameID)
         {
             try 
@@ -204,13 +223,6 @@ namespace Dbnd.Data.Repository
         {
             var entityClientList = await _context.Client.ToListAsync();
             return entityClientList.Select(Mapper.MapClient);
-        }
-
-        public async Task DeleteClientByIDAsync(Guid clientID)
-        {
-            Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
-            _context.Client.Remove(ContextClient);
-            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateCharacterByIDAsync(Guid targetCharacterID, Logic.Objects.Character changedCharacter)
@@ -241,16 +253,16 @@ namespace Dbnd.Data.Repository
 
         public async Task DeleteCharacterByIDAsync(Guid CharacterID)
         {
-            Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == CharacterID);
-            _context.Character.Remove(ContextCharacter);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
-        {
-            DungeonMaster ContextDungeonMaster = await _context.DungeonMaster.FirstAsync(d => d.DungeonMasterID == DungeonMasterID);
-            _context.DungeonMaster.Remove(ContextDungeonMaster);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == CharacterID);
+                _context.Character.Remove(ContextCharacter);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("There was a problem deleting the character for some reason");
+            }
         }
     }
 }

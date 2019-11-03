@@ -89,9 +89,8 @@ namespace Dbnd.Test
         [Fact]
         public async Task GetCharacterByCharacterIDAsyncIDInDbReturnsCorrectCharacter()
         {
-            var testCharacterID = Guid.NewGuid();
-
             var listOfCharacters = SetupCharacters();
+            var testCharacterID = listOfCharacters.First().CharacterID;
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
@@ -168,31 +167,12 @@ namespace Dbnd.Test
                 .Verify(x => x.DeleteCharacterByIDAsync(targetID), Times.Once());
         }
 
-
         [Fact]
         public async Task GetDMbyDungeonMasterIDAsyncIdinDbReturnsCorrectDungeonMaster()
         {
-            var testDungeonMasterID = Guid.NewGuid();
-
-            var listOfDungeonMasters = new List<Dbnd.Logic.Objects.DungeonMaster>()
-                {
-                    new Dbnd.Logic.Objects.DungeonMaster()
-                    {
-                        DungeonMasterID = testDungeonMasterID,
-                        ClientID = Guid.NewGuid()
-                    },
-                    new Logic.Objects.DungeonMaster()
-                    {
-                        DungeonMasterID = Guid.NewGuid(),
-                        ClientID = Guid.NewGuid()
-                    },
-                    new Dbnd.Logic.Objects.DungeonMaster()
-                    {
-                        DungeonMasterID = Guid.NewGuid(),
-                        ClientID = Guid.NewGuid()
-                    }
-                };
-
+            var listOfDungeonMasters = SetupDungeonMasters();
+            var testDungeonMasterID = listOfDungeonMasters.First().DungeonMasterID;
+            
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.GetDMByDungeonMasterIDAsync(testDungeonMasterID))
@@ -202,29 +182,11 @@ namespace Dbnd.Test
 
             Assert.Equal(testDungeonMasterID.ToString(), testDungeonMaster.DungeonMasterID.ToString());
         }
+
         [Fact]
-        public async Task GetDMbyDungeonMasterIDAsyncIdNotinDbReturnsCorrectDungeonMaster()
+        public async Task GetDMbyDungeonMasterIDAsyncIdThrowsException()
         {
             var testDungeonMasterID = Guid.NewGuid();
-
-            var listOfDungeonMasters = new List<Dbnd.Logic.Objects.DungeonMaster>()
-            {
-                new Dbnd.Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = Guid.NewGuid(),
-                    ClientID = Guid.NewGuid()
-                },
-                new Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = Guid.NewGuid(),
-                    ClientID = Guid.NewGuid()
-                },
-                new Dbnd.Logic.Objects.DungeonMaster()
-                {
-                    DungeonMasterID = Guid.NewGuid(),
-                    ClientID = Guid.NewGuid()
-                }
-            };
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
@@ -246,6 +208,23 @@ namespace Dbnd.Test
 
             mockRepository
                 .Verify(x => x.CreateDungeonMasterAsync(clientID), Times.Once());
+        }
+
+        [Fact]
+        public async Task DeleteDungeonMasterByIDAsyncGetsCalledOnce()
+        {
+
+            var listOfDungeonMasters = SetupDungeonMasters();
+            var targetID = listOfDungeonMasters.First().DungeonMasterID;
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.DeleteDungeonMasterByIDAsync(targetID));
+
+            await mockRepository.Object.DeleteDungeonMasterByIDAsync(targetID);
+
+            mockRepository
+                .Verify(x => x.DeleteDungeonMasterByIDAsync(targetID), Times.Once());
         }
 
         [Fact]
@@ -421,6 +400,28 @@ namespace Dbnd.Test
 
             mockRepository
                 .Verify(x => x.CreateClientAsync(userName, email), Times.Once());
+        }
+
+        public List<Logic.Objects.DungeonMaster> SetupDungeonMasters()
+        {
+            return new List<Dbnd.Logic.Objects.DungeonMaster>()
+                {
+                    new Dbnd.Logic.Objects.DungeonMaster()
+                    {
+                        DungeonMasterID = Guid.NewGuid(),
+                        ClientID = Guid.NewGuid()
+                    },
+                    new Logic.Objects.DungeonMaster()
+                    {
+                        DungeonMasterID = Guid.NewGuid(),
+                        ClientID = Guid.NewGuid()
+                    },
+                    new Dbnd.Logic.Objects.DungeonMaster()
+                    {
+                        DungeonMasterID = Guid.NewGuid(),
+                        ClientID = Guid.NewGuid()
+                    }
+                };
         }
 
         public List<Logic.Objects.Character> SetupCharacters()
