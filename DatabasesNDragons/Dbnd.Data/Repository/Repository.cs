@@ -209,18 +209,22 @@ namespace Dbnd.Data.Repository
         public async Task DeleteClientByIDAsync(Guid clientID)
         {
             Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
-            _context.Remove(ContextClient);
+            _context.Client.Remove(ContextClient);
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteCharacterByIDAsync(Guid CharacterID)
+        public async Task DeleteCharacterByIDAsync(Guid CharacterID)
         {
-            throw new NotImplementedException();
+            Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == CharacterID);
+            _context.Character.Remove(ContextCharacter);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
+        public async Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
         {
-            throw new NotImplementedException();
+            DungeonMaster ContextDungeonMaster = await _context.DungeonMaster.FirstAsync(d => d.DungeonMasterID == DungeonMasterID);
+            _context.DungeonMaster.Remove(ContextDungeonMaster);
+            await _context.SaveChangesAsync();
         }
     }
 }
