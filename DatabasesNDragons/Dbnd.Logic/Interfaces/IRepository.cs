@@ -9,6 +9,7 @@ namespace Dbnd.Logic.Interfaces
     {
         Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID);
         Task CreateClientAsync(string userName, string email);
+        Task UpdateClientByIDAsync(Guid targetClientID, Client changedClient);
         Task DeleteClientByIDAsync(Guid ClientID);
         Task<IEnumerable<Logic.Objects.Character>> GetCharactersAsync();
         Task<Character> GetCharacterByCharacterIDAsync(Guid CharacterID);
