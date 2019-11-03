@@ -7,11 +7,18 @@
 
     <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">Characters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">Tables</a>
+            </li>
             <li class="nav-item" ngbDropdown>
-                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown1" role="button">Profile</a>
-                <div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu dropdown-menu-right">
+                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarProfileDd" role="button">Profile</a>
+                <div ngbDropdownMenu aria-labelledby="navbarProfileDd" class="dropdown-menu dropdown-menu-right">
+                    <a *ngIf="auth.loggedIn" class="dropdown-item" href="/profile">Profile</a>
                     <a *ngIf="auth.loggedIn" class="dropdown-item" (click)="auth.logOut()">Log Out</a>
-                    <a *ngIf="!auth.loggedIn" class="dropdown-item" (click)="auth.logIn()">Log In</a>
+                    <a *ngIf="!auth.loggedIn" class="dropdown-item" (click)="auth.logIn();">Log In</a>
                 </div>
             </li>
         </ul>
