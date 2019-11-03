@@ -43,16 +43,19 @@ namespace Dbnd.Api.Controllers
 
         // PUT: api/Client/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(Guid id, [FromBody, Bind("UserName, Email")] Client changedClient)
         {
-
+            await _repository.UpdateClientByIDAsync(id, changedClient);
+            var returnClient = await _repository.GetClientByIDAsync(id);
+            return AcceptedAtAction("Get", "Client", null, returnClient);
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/Client/5
         [HttpDelete("{id}")]
-        public void Delete([FromBody, Bind("UserName, Email, PasswordHash")] Client client)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            _repository.DeleteClientByIDAsync(client.ClientID);
+            await _repository.DeleteClientByIDAsync(id);
+            return NoContent();
         }
     }
 }

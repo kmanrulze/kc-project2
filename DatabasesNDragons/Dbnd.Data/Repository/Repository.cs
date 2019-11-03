@@ -76,11 +76,44 @@ namespace Dbnd.Data.Repository
 
         }
 
+        public async Task UpdateClientByIDAsync(Guid targetClientID, Logic.Objects.Client changedClient)
+        {
+            try
+            {
+                var targetClient = await _context.Client.FirstAsync(g => g.ClientID == targetClientID);
+                var madeChange = false;
+
+                if (!String.IsNullOrEmpty(changedClient.UserName) && targetClient.UserName != changedClient.UserName)
+                {
+                    targetClient.UserName = changedClient.UserName;
+                    madeChange = true;
+                }
+                if (!String.IsNullOrEmpty(changedClient.Email) && targetClient.Email != changedClient.Email)
+                {
+                    targetClient.Email = changedClient.Email;
+                    madeChange = true;
+                }
+
+                if (madeChange) { await _context.SaveChangesAsync(); };
+            }
+            catch
+            {
+                throw new Exception("Couldn't update client for some reason.");
+            }
+        }
+
         public async Task DeleteClientByIDAsync(Guid clientID)
         {
-            Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
-            _context.Client.Remove(ContextClient);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
+                _context.Client.Remove(ContextClient);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldn't delete client for some reason.");
+            }
         }
 
         public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID)
