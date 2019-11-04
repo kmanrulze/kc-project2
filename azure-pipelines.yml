@@ -7,11 +7,6 @@ trigger:
   branches:
     include:
     - master
-    exclude:
-    - Feature/*
-    - KC/*
-    - Shawn/*
-    - Jacob/*
 
 pool:
   vmImage: 'windows-latest'
@@ -19,43 +14,162 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'DBnD'
-    organization: 'dbnd-project-2'
-    scannerMode: 'MSBuild'
-    projectKey: 'DBnD'
-    extraProperties: |
-        sonar.exclusions=**/lib/**
+jobs:
+- job: Build
+  steps:
+  - script: echo Started Build
+    condition: always()
 
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-  workingDirectory: './DatabasesNDragons'
-- task: DotNetCoreCLI@2
-  displayName: dotnet test
-  inputs:
-    command: 'test'
-    projects: './DatabasesNDragons'
-    arguments: --configuration $(buildConfiguration) --collect "XPlat Code Coverage"
+  - task: AzureKeyVault@1
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: Webhook
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639490810336903202'
+      webhookKey: '$(Webhook)'
+      name: 'Azure Devops'
+      messageType: embeds
+      embeds: |
+          [{
+            "title": "Master Pipeline Build",
+            "description": "Build Pipeline started. You better hope this works...",
+            "url": "https://discordapp.com",
+            "color": 2247803,
+            "thumbnail": 
+            {
+              "url": "https://static.thenounproject.com/png/266379-200.png"
+            },
+            "author": 
+            {
+              "name": "Azure Devops",
+              "url": "https://dev.azure.com/kcguzman/Project-2",
+              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+            }
+          }]
+  - task: SonarCloudPrepare@1
+    continueOnError: false
+    inputs:
+      SonarCloud: 'DBnD'
+      organization: '1909-sep30-net'
+      scannerMode: 'MSBuild'
+      projectKey: 'KSJ-DBnD'
+      projectName: 'DBnD'
+      extraProperties: |
+          sonar.exclusions=**/lib/**
+          sonar.exclusions=**/Migrations/**
 
-- task: PublishCodeCoverageResults@1
-  displayName: Publish code coverage
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+    workingDirectory: './DatabasesNDragons'
+  - task: DotNetCoreCLI@2
+    continueOnError: true
+    inputs:
+      command: 'test'
+      projects: '**/*Test/*.csproj'
+      workingDirectory: './DatabasesNDragons'
+      arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639490810336903202'
+      webhookKey: '$(Webhook)'
+      name: 'Azure Devops'
+      messageType: embeds
+      embeds: |
+          [{
+            "title": "Master SonarCloud Analysis",
+            "description": "Build and CLI Tests complete. Attempting to analyze with SonarCloud...",
+            "url": "https://discordapp.com",
+            "color": 2247803,
+            "thumbnail": 
+            {
+              "url": "https://static.thenounproject.com/png/266379-200.png"
+            },
+            "author": 
+            {
+              "name": "Azure Devops",
+              "url": "https://dev.azure.com/kcguzman/Project-2",
+              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+            }
+          }]
 
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
-  displayName: Publish SonarCloud quality gate result
+  - task: SonarCloudAnalyze@1
+    continueOnError: false
+  - task: SonarCloudPublish@1
+    continueOnError: false
 
-- task: ado-discord-webhook@1
-  inputs:
-    messageType: embeds
-    channelId: '639164927411486722'
-    webhookKey: 'gcVHF6p1ZiC-ZkV6BWAqPlLYHntPRrJuqmH1qsZj_BB6uE3dEwAV_UopR4Tjj7WbKVcI'
-    name: 'Azure DevOps'
+- job: PipeSucceed
+  dependsOn: Build
+  condition: succeeded()
+  steps:
+  - script: echo Pipe success!
 
+  - task: AzureKeyVault@1
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: Webhook
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639490810336903202'
+      webhookKey: '$(Webhook)'
+      name: 'Azure Devops'
+      messageType: embeds
+      embeds: |
+          [{
+            "title": "Master Build and Analysis Success!",
+            "description": "Build and Analysis Successful! You can give yourself a pat on the back and feel good about yourself!",
+            "url": "https://discordapp.com",
+            "color": 2247803,
+            "thumbnail": 
+            {
+              "url": "https://static.thenounproject.com/png/266379-200.png"
+            },
+            "author": 
+            {
+              "name": "Azure Devops",
+              "url": "https://dev.azure.com/kcguzman/Project-2",
+              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+            },
+            "fields": 
+            [{
+              "name": "SonarCloud Metrics Link",
+              "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
+                  }]
+          }]
 
-
-
+    
+- job: PipeFailed
+  dependsOn: Build
+  condition: failed()
+  steps:
+  - script: echo Pipe failiure!
+  - task: AzureKeyVault@1
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: Webhook
+  - task: ado-discord-webhook@1
+    inputs:
+      channelId: '639490810336903202'
+      webhookKey: '$(Webhook)'
+      name: 'Azure Devops'
+      messageType: embeds
+      embeds: |
+          [{
+            "title": "Master Pipeline Build and Analysis Failed",
+            "description": "Your build was bad and you should feel bad! Things failed!",
+            "url": "https://discordapp.com",
+            "color": 2247803,
+            "thumbnail": 
+            {
+              "url": "https://static.thenounproject.com/png/266379-200.png"
+            },
+            "author": 
+            {
+              "name": "Azure Devops",
+              "url": "https://dev.azure.com/kcguzman/Project-2",
+              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+            }
+          }]
