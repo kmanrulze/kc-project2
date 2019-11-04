@@ -51,9 +51,9 @@ namespace Dbnd.Data.Repository
                 _context.Character.Add(Mapper.MapCharacter(new Logic.Objects.Character(clientID, firstName, lastName)));
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldnt create character for some reason");
+                Console.WriteLine("Something went wrong within CreateCharacterAsync: " + e.Message);
             }
         }
 
@@ -86,9 +86,9 @@ namespace Dbnd.Data.Repository
                 _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email)));
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldn't create client for some reason.");
+                Console.WriteLine("Something went wrong within CreateClientAsync: " + e.Message);
             }
 
         }
@@ -113,9 +113,9 @@ namespace Dbnd.Data.Repository
 
                 if (madeChange) { await _context.SaveChangesAsync(); };
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldn't update client for some reason.");
+                Console.WriteLine("Something went wrong within UpdateClientByIDAsync: " + e.Message);
             }
         }
 
@@ -127,9 +127,9 @@ namespace Dbnd.Data.Repository
                 _context.Client.Remove(ContextClient);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldn't delete client for some reason.");
+                Console.WriteLine("Something went wrong within DeleteClientByIDAsync: " + e.Message);
             }
         }
 
@@ -182,9 +182,9 @@ namespace Dbnd.Data.Repository
                 _context.DungeonMaster.Add(Mapper.MapDungeonMaster(new Logic.Objects.DungeonMaster(clientID)));
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldn't create DungeonMaster for some reason");
+                Console.WriteLine("Something went wrong within CreateDungeonMasterAsync: " + e.Message);
             }
         }
 
@@ -196,9 +196,9 @@ namespace Dbnd.Data.Repository
                 _context.DungeonMaster.Remove(ContextDungeonMaster);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem deleting the DM for some reason");
+                Console.WriteLine("Something went wrong within DeleteDungeonMasterByIDAsync: " + e.Message);
             }
         }
 
@@ -402,9 +402,9 @@ namespace Dbnd.Data.Repository
                 _context.CharacterGameXRef.Remove(entryToRemove);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem removing the character from the game for some reason");
+                Console.WriteLine("Something went wrong within RemoveEntryToCharacterGameXRefAsync: " + e.Message);
             }
         }
     }
