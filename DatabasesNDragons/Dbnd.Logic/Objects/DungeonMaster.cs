@@ -5,7 +5,7 @@ namespace Dbnd.Logic.Objects
 {
     public class DungeonMaster
     {
-        private Guid dungeonMasterID = Guid.NewGuid();
+        public Guid dungeonMasterID { get; set; }
         public Guid DungeonMasterID 
         {
             get { return dungeonMasterID; }

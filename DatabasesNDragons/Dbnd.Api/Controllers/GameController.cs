@@ -67,7 +67,7 @@ namespace Dbnd.Api.Controllers
         [HttpGet("{id}/Characters")]
         public async Task<List<Character>> GetCharactersInGame(Guid id)
         {
-            return await _repository.GetAllCharactersInGamebyGameIDAsync(id);
+            return await _repository.GetAllCharactersInGameByGameIDAsync(id);
         }
 
         //Post: api/Game/5/AddCharacter/5
