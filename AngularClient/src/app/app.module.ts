@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CharactersComponent } from './characters/characters.component';
+import { TablesComponent } from './tables/tables.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     NavbarComponent,
     ProfileComponent,
+    CharactersComponent,
+    TablesComponent,
   ],
   imports: [
     BrowserModule,

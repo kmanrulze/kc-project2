@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
 
 :root {
     --bgColor: rgb(218, 253, 255);
@@ -14,4 +14,9 @@ header {
 
 body {
     background-color: var(--bgColor);
+}
+
+.logo {
+  width: 75px;
+  height: auto;
 }

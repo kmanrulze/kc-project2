@@ -67,6 +67,43 @@ namespace Dbnd.Test
                 .Verify();
         }
 
+        [Fact]
+        public async Task UpdateClientAsyncSuccessfulVerification()
+        {
+            Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
+            Client changedClient = new Client();
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.UpdateClientByIDAsync(targetId, changedClient))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var clientController = new ClientController(mockRepository.Object);
+            var client = await clientController.Put(targetId, changedClient);
+
+            mockRepository
+                .Verify();
+        }
+
+        [Fact]
+        public async Task DeleteClientSuccessfulVerification()
+        {
+            Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.DeleteClientByIDAsync(targetId))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var clientController = new ClientController(mockRepository.Object);
+            var client = await clientController.Delete(targetId);
+
+            mockRepository
+                .Verify();
+        }
+
         public List<Client> SetUpClients()
         {
             return new List<Client>

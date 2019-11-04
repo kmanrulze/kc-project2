@@ -69,6 +69,43 @@ namespace Dbnd.Test.API_Tests
                 .Verify();
         }
 
+        [Fact]
+        public async Task UpdateCharacterAsyncSuccessfulVerification()
+        {
+            Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
+            Character changedCharacter = new Character();
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.UpdateCharacterByIDAsync(targetId, changedCharacter))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var characterController = new CharacterController(mockRepository.Object);
+            var character = await characterController.Put(targetId, changedCharacter);
+
+            mockRepository
+                .Verify();
+        }
+
+        [Fact]
+        public async Task DeleteCharacterAsyncSuccessfulVerification()
+        {
+            Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.DeleteCharacterByIDAsync(targetId))
+                    .Returns(Task.CompletedTask)
+                    .Verifiable();
+
+            var characterController = new CharacterController(mockRepository.Object);
+            var character = await characterController.Delete(targetId);
+
+            mockRepository
+                .Verify();
+        }
+
         public List<Character> SetUpCharacters()
         {
             return new List<Logic.Objects.Character>
@@ -92,8 +129,6 @@ namespace Dbnd.Test.API_Tests
                     FirstName = "Leo",
                     LastName = "Bloom"
                 }
-
-
             };
         }
     }

@@ -1,7 +1,27 @@
 <header>
-    <a routerLink="/">Home</a>&nbsp;
-    <a routerLink="profile" *ngIf="auth.loggedIn">Profile</a>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <span class="navbar-brand"><img class="logo" src="../../assets/images/chest_t.png" alt="Chest Logo"></span>
+    <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <button (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
-    <button (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button>
+    <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">Characters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">Tables</a>
+            </li>
+            <li class="nav-item" ngbDropdown>
+                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarProfileDd" role="button">Profile</a>
+                <div ngbDropdownMenu aria-labelledby="navbarProfileDd" class="dropdown-menu dropdown-menu-right">
+                    <a *ngIf="auth.loggedIn" class="dropdown-item" href="/profile">Profile</a>
+                    <a *ngIf="auth.loggedIn" class="dropdown-item" (click)="auth.logOut()">Log Out</a>
+                    <a *ngIf="!auth.loggedIn" class="dropdown-item" (click)="auth.logIn();">Log In</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 </header>

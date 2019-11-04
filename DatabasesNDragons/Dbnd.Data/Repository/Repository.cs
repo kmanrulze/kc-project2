@@ -76,6 +76,46 @@ namespace Dbnd.Data.Repository
 
         }
 
+        public async Task UpdateClientByIDAsync(Guid targetClientID, Logic.Objects.Client changedClient)
+        {
+            try
+            {
+                var targetClient = await _context.Client.FirstAsync(g => g.ClientID == targetClientID);
+                var madeChange = false;
+
+                if (!String.IsNullOrEmpty(changedClient.UserName) && targetClient.UserName != changedClient.UserName)
+                {
+                    targetClient.UserName = changedClient.UserName;
+                    madeChange = true;
+                }
+                if (!String.IsNullOrEmpty(changedClient.Email) && targetClient.Email != changedClient.Email)
+                {
+                    targetClient.Email = changedClient.Email;
+                    madeChange = true;
+                }
+
+                if (madeChange) { await _context.SaveChangesAsync(); };
+            }
+            catch
+            {
+                throw new Exception("Couldn't update client for some reason.");
+            }
+        }
+
+        public async Task DeleteClientByIDAsync(Guid clientID)
+        {
+            try
+            {
+                Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
+                _context.Client.Remove(ContextClient);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Couldn't delete client for some reason.");
+            }
+        }
+
         public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID)
         {
             try
@@ -112,6 +152,20 @@ namespace Dbnd.Data.Repository
             catch
             {
                 throw new Exception("Couldn't create DungeonMaster for some reason");
+            }
+        }
+
+        public async Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
+        {
+            try
+            {
+                DungeonMaster ContextDungeonMaster = await _context.DungeonMaster.FirstAsync(d => d.DungeonMasterID == DungeonMasterID);
+                _context.DungeonMaster.Remove(ContextDungeonMaster);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("There was a problem deleting the DM for some reason");
             }
         }
 
@@ -185,8 +239,6 @@ namespace Dbnd.Data.Repository
             }
         }
 
-
-
         public async Task DeleteGameByIDAsync(Guid gameID)
         {
             try 
@@ -206,25 +258,108 @@ namespace Dbnd.Data.Repository
             return entityClientList.Select(Mapper.MapClient);
         }
 
-        public async Task DeleteClientByIDAsync(Guid clientID)
+        public async Task UpdateCharacterByIDAsync(Guid targetCharacterID, Logic.Objects.Character changedCharacter)
         {
-            Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
-            _context.Client.Remove(ContextClient);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var targetCharacter = await _context.Character.FirstAsync(g => g.CharacterID == targetCharacterID);
+                var madeChange = false;
+
+                if ( !String.IsNullOrEmpty(changedCharacter.FirstName) && targetCharacter.FirstName != changedCharacter.FirstName )
+                {
+                    targetCharacter.FirstName = changedCharacter.FirstName;
+                    madeChange = true;
+                }
+                if (!String.IsNullOrEmpty(changedCharacter.LastName) && targetCharacter.LastName != changedCharacter.LastName)
+                {
+                    targetCharacter.LastName = changedCharacter.LastName;
+                    madeChange = true;
+                }
+
+                if (madeChange) { await _context.SaveChangesAsync(); };
+            }
+            catch
+            {
+                throw new Exception("There was a problem updating the character for some reason");
+            }
         }
 
         public async Task DeleteCharacterByIDAsync(Guid CharacterID)
         {
-            Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == CharacterID);
-            _context.Character.Remove(ContextCharacter);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == CharacterID);
+                _context.Character.Remove(ContextCharacter);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("There was a problem deleting the character for some reason");
+            }
         }
 
-        public async Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
+        public async Task<List<Logic.Objects.Character>> GetAllCharactersInGamebyGameIDAsync(Guid gameID)
         {
-            DungeonMaster ContextDungeonMaster = await _context.DungeonMaster.FirstAsync(d => d.DungeonMasterID == DungeonMasterID);
-            _context.DungeonMaster.Remove(ContextDungeonMaster);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var listCharacterIds = await _context.CharacterGameXRef.Where(x => x.GameID == gameID).ToListAsync();
+                var listCharacters = new List<Logic.Objects.Character>();
+                foreach (var entry in listCharacterIds)
+                {
+                    listCharacters.Add(GetCharacterByCharacterIDAsync(entry.CharacterID).Result);
+                }
+
+                return listCharacters;
+            }
+            catch
+            {
+                throw new Exception("There was a problem getting a charactertablexref");
+            }
+
+        }
+
+        public async Task<CharacterGameXRef> GetEntryFromCharacterGameXRefByIDs(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                return await _context.CharacterGameXRef.FirstAsync(x => x.GameID == gameID && x.CharacterID == characterID);
+            }
+            catch
+            {
+                throw new Exception("There was a problem getting a charactertablexref");
+            }
+        }
+
+        public async Task AddEntryToCharacterGameXRef(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                var entryToAdd = new CharacterGameXRef()
+                {
+                    GameID = gameID,
+                    CharacterID = characterID
+                };
+                await _context.CharacterGameXRef.AddAsync(entryToAdd);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("There was a problem adding the character to the game for some reason");
+            }
+        }
+
+        public async Task RemoveEntryToCharacterGameXRefAsync(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                var entryToRemove = GetEntryFromCharacterGameXRefByIDs(gameID, characterID).Result;
+                _context.CharacterGameXRef.Remove(entryToRemove);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("There was a problem removing the character from the game for some reason");
+            }
         }
     }
 }

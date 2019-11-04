@@ -1,5 +1,3 @@
-// Generated at https://auth0.com/docs/quickstart/spa/angular2
-
 import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
@@ -68,7 +66,7 @@ export class AuthService {
     checkAuth$.subscribe();
   }
 
-  login(redirectPath: string = '/') {
+  logIn(redirectPath: string = '/') {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists
@@ -115,7 +113,7 @@ export class AuthService {
     );
   }
 
-  logout() {
+  logOut() {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
