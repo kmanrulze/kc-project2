@@ -303,10 +303,6 @@ namespace Dbnd.Data.Repository
             try
             {
                 var listCharacterIds = await _context.CharacterGameXRef.Where(x => x.GameID == gameID).ToListAsync();
-                //var listCharacters = (from c in _context.Character
-                //                      join g in listCharacterIds on c.CharacterID equals g.CharacterID
-                //                      select c).ToListAsync();
-
                 var listCharacters = new List<Logic.Objects.Character>();
                 foreach (var entry in listCharacterIds)
                 {
@@ -326,7 +322,6 @@ namespace Dbnd.Data.Repository
         {
             try
             {
-                
                 return await _context.CharacterGameXRef.FirstAsync(x => x.GameID == gameID && x.CharacterID == characterID);
             }
             catch

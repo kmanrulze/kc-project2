@@ -134,20 +134,5 @@ namespace Dbnd.Test
             Assert.False(result);
 
         }
-        [Theory]
-        [InlineData("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaX@email.com")]
-        public void IsValidEmail_EvilRegex(string emailTest)
-        {
-            Logic.Objects.Client client = new Client
-            {
-                UserName = "DnDMan13",
-                Email = emailTest,
-            };
-
-            var result = client.IsValidEmail();
-
-            Assert.False(result);
-
-        }
     }
 }
