@@ -132,7 +132,7 @@ namespace Dbnd.Test.API_Tests
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetAllCharactersInGamebyGameIDAsync(targetID))
+                .Setup(x => x.GetAllCharactersInGameByGameIDAsync(targetID))
                 .Verifiable();
 
             var gameController = new GameController(mockRepository.Object);

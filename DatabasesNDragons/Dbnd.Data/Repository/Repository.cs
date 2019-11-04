@@ -322,9 +322,9 @@ namespace Dbnd.Data.Repository
 
                 if (madeChange) { await _context.SaveChangesAsync(); };
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem updating the character for some reason");
+                Console.WriteLine("Something went wrong within UpdateCharacterByIDAsync: " + e.Message);
             }
         }
 
@@ -336,13 +336,13 @@ namespace Dbnd.Data.Repository
                 _context.Character.Remove(ContextCharacter);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem deleting the character for some reason");
+                Console.WriteLine("Something went wrong within DeleteCharacterByIDAsync: " + e.Message);
             }
         }
 
-        public async Task<List<Logic.Objects.Character>> GetAllCharactersInGamebyGameIDAsync(Guid gameID)
+        public async Task<List<Logic.Objects.Character>> GetAllCharactersInGameByGameIDAsync(Guid gameID)
         {
             try
             {
@@ -355,9 +355,10 @@ namespace Dbnd.Data.Repository
 
                 return listCharacters;
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem getting a charactertablexref");
+                Console.WriteLine("Something went wrong within GetAllCharactersInGameByGameIDAsync: " + e.Message);
+                return null;
             }
 
         }
@@ -368,9 +369,10 @@ namespace Dbnd.Data.Repository
             {
                 return await _context.CharacterGameXRef.FirstAsync(x => x.GameID == gameID && x.CharacterID == characterID);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem getting a charactertablexref");
+                Console.WriteLine("Something went wrong within GetEntryFromCharacterGameXRefByIDs: " + e.Message);
+                return null;
             }
         }
 
@@ -386,9 +388,9 @@ namespace Dbnd.Data.Repository
                 await _context.CharacterGameXRef.AddAsync(entryToAdd);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem adding the character to the game for some reason");
+                Console.WriteLine("Something went wrong within AddEntryToCharacterGameXRef: " + e.Message);
             }
         }
 
