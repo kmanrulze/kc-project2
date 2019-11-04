@@ -5,13 +5,7 @@ namespace Dbnd.Logic.Objects
 {
     public class Character
     {
-        private Guid characterID = Guid.NewGuid();
-
-        public Guid CharacterID
-        {
-            get { return characterID; }
-            set { characterID = value; }
-        }
+        public Guid CharacterID { get; set; }
         public Guid ClientID { get; set; }
 
         // 3-20 alphanumeric . _ chars
