@@ -194,7 +194,7 @@ namespace Dbnd.Data.Repository
                 _context.Remove(await _context.Game.FirstAsync(g => g.GameID == gameID));
                 await _context.SaveChangesAsync();
             }
-            catch 
+            catch
             { 
                 throw new Exception("There was a problem deleting the game for some reason"); 
             }
