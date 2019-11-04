@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+
+:root {
+    --bgColor: rgb(218, 253, 255);
+    --frontColor: azure;
+    --lineColor: white;
+}
+
+header {
+    margin: 2px 5px;
+    background-color: var(--frontColor);
+}
+
+body {
+    background-color: var(--bgColor);
+}
+
+.logo {
+  width: 75px;
+  height: auto;
+}

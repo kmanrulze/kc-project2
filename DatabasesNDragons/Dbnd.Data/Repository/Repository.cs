@@ -1,38 +1,411 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Dbnd.Logic.Interfaces;
 using Dbnd.Data.Entities;
-using Dbnd.Logic.Objects;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dbnd.Data.Repository
 {
     public class Repository : IRepository
     {
         private readonly DbndContext _context;
-        public Repository(DbndContext context)
+
+        public Repository(DbndContext dbContext)
         {
-            _context = context;
+            _context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public Character GetCharacterByPCID(int PCID)
+        public async Task<IEnumerable<Logic.Objects.Character>> GetCharactersAsync()
         {
-            throw new NotImplementedException();
+            var entityCharList = await _context.Character.ToListAsync();
+            return entityCharList.Select(Mapper.MapCharacter);
         }
 
-        public Logic.Objects.Client GetClientByID(int ClientID)
+        public async Task<Logic.Objects.Character> GetCharacterByCharacterIDAsync(Guid CharacterID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterID == CharacterID));
+                if (LogicCharacter == null)
+                {
+                    throw new ArgumentNullException("LogicCharacter null");
+                }
+                else
+                {
+                    return LogicCharacter;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetCharacterByCharacterIDAsync: " + e.Message);
+                return null;
+            }
         }
 
-        public DM GetDMByDungeonMasterID(int DungeonMasterID)
+        public async Task CreateCharacterAsync(Guid clientID, string firstName, string lastName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Character.Add(Mapper.MapCharacter(new Logic.Objects.Character(clientID, firstName, lastName)));
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within CreateCharacterAsync: " + e.Message);
+            }
         }
 
-        public Game GetGameByGameID(int GameID)
+        public async Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Logic.Objects.Client LogicClient = Mapper.MapClient(await _context.Client.FirstAsync(c => c.ClientID == ClientID));
+                if (LogicClient == null)
+                {
+                    throw new ArgumentNullException("LogicClient");
+                }
+                else
+                {
+                    return LogicClient;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetClientByIDAsync: " + e.Message);
+                return null;
+            }
+        }
+        
+        public async Task CreateClientAsync(string userName, string email)
+        {
+            try
+            {
+                _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email)));
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within CreateClientAsync: " + e.Message);
+            }
+
+        }
+
+        public async Task UpdateClientByIDAsync(Guid targetClientID, Logic.Objects.Client changedClient)
+        {
+            try
+            {
+                var targetClient = await _context.Client.FirstAsync(g => g.ClientID == targetClientID);
+                var madeChange = false;
+
+                if (!String.IsNullOrEmpty(changedClient.UserName) && targetClient.UserName != changedClient.UserName)
+                {
+                    targetClient.UserName = changedClient.UserName;
+                    madeChange = true;
+                }
+                if (!String.IsNullOrEmpty(changedClient.Email) && targetClient.Email != changedClient.Email)
+                {
+                    targetClient.Email = changedClient.Email;
+                    madeChange = true;
+                }
+
+                if (madeChange) { await _context.SaveChangesAsync(); };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within UpdateClientByIDAsync: " + e.Message);
+            }
+        }
+
+        public async Task DeleteClientByIDAsync(Guid clientID)
+        {
+            try
+            {
+                Client ContextClient = await _context.Client.FirstAsync(c => c.ClientID == clientID);
+                _context.Client.Remove(ContextClient);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within DeleteClientByIDAsync: " + e.Message);
+            }
+        }
+
+        public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID)
+        {
+            try
+            {
+                Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.DungeonMasterID == DungeonMasterID));
+                if (LogicDungeonMaster == null)
+                {
+                    throw new ArgumentNullException("LogicDungeonMaster");
+                }
+                else
+                {
+                    return LogicDungeonMaster;
+                }          
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetDMByDungeonMasterIDAsync: " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task<Logic.Objects.DungeonMaster> GetDMByClientIDAsync(Guid ClientID)
+        {
+            try
+            {
+                Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.ClientID == ClientID));
+                if (LogicDungeonMaster == null)
+                {
+                    throw new ArgumentNullException("LogicDungeonMaster");
+                }
+                else
+                {
+                    return LogicDungeonMaster;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetDMByClientIDAsync: " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task CreateDungeonMasterAsync(Guid clientID)
+        {
+            try
+            {
+                _context.DungeonMaster.Add(Mapper.MapDungeonMaster(new Logic.Objects.DungeonMaster(clientID)));
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within CreateDungeonMasterAsync: " + e.Message);
+            }
+        }
+
+        public async Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
+        {
+            try
+            {
+                DungeonMaster ContextDungeonMaster = await _context.DungeonMaster.FirstAsync(d => d.DungeonMasterID == DungeonMasterID);
+                _context.DungeonMaster.Remove(ContextDungeonMaster);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within DeleteDungeonMasterByIDAsync: " + e.Message);
+            }
+        }
+
+        public async Task<IEnumerable<Logic.Objects.Game>> GetGamesAsync()
+        {
+            try
+            {
+                var entityGameList = await _context.Game.ToListAsync();
+                return entityGameList.Select(Mapper.MapGame);
+            } 
+            catch(Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetGamesAsync: " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task<Logic.Objects.Game> GetGameByGameIDAsync(Guid GameID)
+        {
+            try
+            {
+                Logic.Objects.Game LogicGame = Mapper.MapGame(await _context.Game.FirstAsync(g => g.GameID == GameID));
+                if (LogicGame == null)
+                {
+                    throw new ArgumentNullException("LogicGame");
+                }
+                else
+                {
+                    return LogicGame;
+                }
+                
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetGameByGameIDAsync: " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task<List<Logic.Objects.Game>> GetGamesByDungeonMasterIDAsync(Guid DungeonMasterID)
+        {
+            try
+            {
+                var entityGameList = await _context.Game.Where(x => x.DungeonMasterID == DungeonMasterID).ToListAsync();
+                return entityGameList.Select(Mapper.MapGame).ToList();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetGamesByDungeonMasterIDAsync: " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task CreateGameAsync(Guid dungeonMasterID, string gameName)
+        {
+            try
+            {
+                _context.Game.Add(Mapper.MapGame(new Logic.Objects.Game(dungeonMasterID, gameName)));
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within CreateGameAsync: " + e.Message);
+            }
+        }
+
+        public async Task UpdateGameAsync(Guid targetGameID, Logic.Objects.Game changedGame)
+        {
+            try
+            {
+                var targetGame = await _context.Game.FirstAsync(g => g.GameID == targetGameID);
+
+                if (targetGame.GameName != changedGame.GameName) 
+                {
+                    targetGame.GameName = changedGame.GameName;
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within UpdateGameAsync: " + e.Message);
+            }
+        }
+
+        public async Task DeleteGameByIDAsync(Guid gameID)
+        {
+            try 
+            {
+                _context.Remove(await _context.Game.FirstAsync(g => g.GameID == gameID));
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within DeleteGameAsync: " + e.Message);
+            }
+        }
+
+        public async Task<IEnumerable<Logic.Objects.Client>> GetClientsAsync()
+        {
+            var entityClientList = await _context.Client.ToListAsync();
+            return entityClientList.Select(Mapper.MapClient);
+        }
+
+        public async Task UpdateCharacterByIDAsync(Guid targetCharacterID, Logic.Objects.Character changedCharacter)
+        {
+            try
+            {
+                var targetCharacter = await _context.Character.FirstAsync(g => g.CharacterID == targetCharacterID);
+                var madeChange = false;
+
+                if ( !String.IsNullOrEmpty(changedCharacter.FirstName) && targetCharacter.FirstName != changedCharacter.FirstName )
+                {
+                    targetCharacter.FirstName = changedCharacter.FirstName;
+                    madeChange = true;
+                }
+                if (!String.IsNullOrEmpty(changedCharacter.LastName) && targetCharacter.LastName != changedCharacter.LastName)
+                {
+                    targetCharacter.LastName = changedCharacter.LastName;
+                    madeChange = true;
+                }
+
+                if (madeChange) { await _context.SaveChangesAsync(); };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within UpdateCharacterByIDAsync: " + e.Message);
+            }
+        }
+
+        public async Task DeleteCharacterByIDAsync(Guid CharacterID)
+        {
+            try
+            {
+                Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == CharacterID);
+                _context.Character.Remove(ContextCharacter);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within DeleteCharacterByIDAsync: " + e.Message);
+            }
+        }
+
+        public async Task<List<Logic.Objects.Character>> GetAllCharactersInGameByGameIDAsync(Guid gameID)
+        {
+            try
+            {
+                var listCharacterIds = await _context.CharacterGameXRef.Where(x => x.GameID == gameID).ToListAsync();
+                var listCharacters = new List<Logic.Objects.Character>();
+                foreach (var entry in listCharacterIds)
+                {
+                    listCharacters.Add(GetCharacterByCharacterIDAsync(entry.CharacterID).Result);
+                }
+
+                return listCharacters;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetAllCharactersInGameByGameIDAsync: " + e.Message);
+                return null;
+            }
+
+        }
+
+        public async Task<CharacterGameXRef> GetEntryFromCharacterGameXRefByIDs(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                return await _context.CharacterGameXRef.FirstAsync(x => x.GameID == gameID && x.CharacterID == characterID);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetEntryFromCharacterGameXRefByIDs: " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task AddEntryToCharacterGameXRef(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                var entryToAdd = new CharacterGameXRef()
+                {
+                    GameID = gameID,
+                    CharacterID = characterID
+                };
+                await _context.CharacterGameXRef.AddAsync(entryToAdd);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within AddEntryToCharacterGameXRef: " + e.Message);
+            }
+        }
+
+        public async Task RemoveEntryToCharacterGameXRefAsync(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                var entryToRemove = GetEntryFromCharacterGameXRefByIDs(gameID, characterID).Result;
+                _context.CharacterGameXRef.Remove(entryToRemove);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within RemoveEntryToCharacterGameXRefAsync: " + e.Message);
+            }
         }
     }
 }

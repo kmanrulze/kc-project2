@@ -1,0 +1,50 @@
+﻿using System;
+using System.Threading.Tasks;
+using Dbnd.Logic.Interfaces;
+using Dbnd.Logic.Objects;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Dbnd.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class DungeonMasterController : Controller
+    {
+        private readonly IRepository _repository;
+
+        public DungeonMasterController(IRepository repository)
+        {
+            _repository = repository;
+        }
+
+        // GET: api/DungeonMaster/5
+        [HttpGet("{id}")]
+        public Task<DungeonMaster> Get(Guid id)
+        {
+            return _repository.GetDMByDungeonMasterIDAsync(id);
+        }
+
+        // GET: api/DungeonMaster/ClientID/5
+        [HttpGet("ClientID/{id}")]
+        public Task<DungeonMaster> ClientID(Guid id)
+        {
+            return _repository.GetDMByClientIDAsync(id);
+        }
+
+        // Post: api/DungeonMaster
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody, Bind("ClientID")] DungeonMaster dungeonMaster)
+        {
+            await _repository.CreateDungeonMasterAsync(dungeonMaster.ClientID);
+            return Created("api/DungeonMaster/", dungeonMaster);
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            await _repository.DeleteDungeonMasterByIDAsync(id);
+            return NoContent();
+        }
+    }
+}

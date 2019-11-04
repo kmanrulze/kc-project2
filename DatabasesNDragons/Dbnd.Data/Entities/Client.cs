@@ -6,8 +6,9 @@ namespace Dbnd.Data.Entities
     public class Client
     {
         [Key]
-        public Guid ClientId { get; set; }
-        public string ClientLogin { get; set; }
+        public Guid ClientID { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
 
     }
 }
