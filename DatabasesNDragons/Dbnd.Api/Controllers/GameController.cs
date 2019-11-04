@@ -38,6 +38,22 @@ namespace Dbnd.Api.Controllers
             return await _repository.GetGamesByDungeonMasterIDAsync(id);
         }
 
+        //Get: api/Game/5/Characters/
+        [HttpGet("{id}/Characters")]
+        public async Task<List<Character>> GetCharactersInGame(Guid id)
+        {
+            return await _repository.GetAllCharactersInGamebyGameIDAsync(id);
+        }
+
+        //Post: api/Game/5/AddCharacter/5
+        [HttpPost("{gameID}/AddCharacter/{characterID}")]
+        public async Task<ActionResult> AddCharacterToGame(Guid gameID, Guid characterID)
+        {
+            await _repository.AddEntryToCharacterGameXRef(gameID, characterID);
+            var returnGame = await _repository.GetGameByGameIDAsync(gameID);
+            return AcceptedAtAction("Get", "Game", null, returnGame);
+        }
+
         // Post: api/Game
         [HttpPost]
         public async Task<ActionResult> Post([FromBody, Bind("DungeonMasterID, GameName")] Game game)
@@ -61,6 +77,15 @@ namespace Dbnd.Api.Controllers
         {
             await _repository.DeleteGameByIDAsync(id);
             return NoContent();
+        }
+
+        //Delete: api/Game/5/RemoveCharacter/5
+        [HttpPost("{gameID}/AddCharacter/{characterID}")]
+        public async Task<ActionResult> RemoveCharacterFromGame(Guid gameID, Guid characterID)
+        {
+            await _repository.RemoveEntryToCharacterGameXRefAsync(gameID, characterID);
+            var returnGame = await _repository.GetGameByGameIDAsync(gameID);
+            return AcceptedAtAction("Get", "Game", null, returnGame);
         }
     }
 }

@@ -297,5 +297,74 @@ namespace Dbnd.Data.Repository
                 throw new Exception("There was a problem deleting the character for some reason");
             }
         }
+
+        public async Task<List<Logic.Objects.Character>> GetAllCharactersInGamebyGameIDAsync(Guid gameID)
+        {
+            try
+            {
+                var listCharacterIds = await _context.CharacterGameXRef.Where(x => x.GameID == gameID).ToListAsync();
+                //var listCharacters = (from c in _context.Character
+                //                      join g in listCharacterIds on c.CharacterID equals g.CharacterID
+                //                      select c).ToListAsync();
+
+                var listCharacters = new List<Logic.Objects.Character>();
+                foreach (var entry in listCharacterIds)
+                {
+                    listCharacters.Add(GetCharacterByCharacterIDAsync(entry.CharacterID).Result);
+                }
+
+                return listCharacters;
+            }
+            catch
+            {
+                throw new Exception("There was a problem getting a charactertablexref");
+            }
+
+        }
+
+        public async Task<CharacterGameXRef> GetEntryFromCharacterGameXRefByIDs(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                
+                return await _context.CharacterGameXRef.FirstAsync(x => x.GameID == gameID && x.CharacterID == characterID);
+            }
+            catch
+            {
+                throw new Exception("There was a problem getting a charactertablexref");
+            }
+        }
+
+        public async Task AddEntryToCharacterGameXRef(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                var entryToAdd = new CharacterGameXRef()
+                {
+                    GameID = gameID,
+                    CharacterID = characterID
+                };
+                await _context.CharacterGameXRef.AddAsync(entryToAdd);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("There was a problem adding the character to the game for some reason");
+            }
+        }
+
+        public async Task RemoveEntryToCharacterGameXRefAsync(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                var entryToRemove = GetEntryFromCharacterGameXRefByIDs(gameID, characterID).Result;
+                _context.CharacterGameXRef.Remove(entryToRemove);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("There was a problem removing the character from the game for some reason");
+            }
+        }
     }
 }
