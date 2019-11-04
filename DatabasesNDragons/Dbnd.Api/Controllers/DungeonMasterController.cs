@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Dbnd.Api.Models;
-using Dbnd.Data.Repository;
 using Dbnd.Logic.Interfaces;
 using Dbnd.Logic.Objects;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dbnd.Api.Controllers
