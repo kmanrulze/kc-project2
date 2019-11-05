@@ -233,6 +233,36 @@ namespace Dbnd.Test
         }
 
         [Fact]
+        public async Task GetClientByEmailAsyncIDInDbReturnsCorrectClient()
+        {
+            var listOfClients = SetupClients();
+            var targetID = listOfClients.First().Email;
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.GetClientByEmailAsync(targetID))
+                .Returns(() => Task.FromResult(listOfClients.Where(x => x.Email == targetID).Single()));
+
+            var testClient = (await mockRepository.Object.GetClientByEmailAsync(targetID));
+
+            Assert.Equal(targetID, testClient.Email);
+        }
+
+        [Fact]
+        public async Task GetClientByEmailAsyncIDNotInDbReturnsCorrectClient()
+        {
+            var listOfClients = SetupClients();
+            var targetID = "notallhere@gamil.com";
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.GetClientByEmailAsync(targetID))
+                .Throws<Exception>();
+
+            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetClientByEmailAsync(targetID));
+        }
+
+        [Fact]
         public async Task GetClientByIDAsyncIDInDbReturnsCorrectClient()
         {
             var listOfClients = SetupClients();
