@@ -13,21 +13,17 @@ namespace Dbnd.Test
     public class ClientControllerTests
     {
         [Fact]
-        public async Task GetAllClientsAsyncTestCount()
+        public async Task GetClientsByEmailAsyncThrowsException()
         {
             var clients = SetUpClients();
+            var email = SetUpClients().First().Email;
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetClientsAsync())
-                .Returns(async () => await Task.Run( () => clients.AsEnumerable()) );
+                .Setup(x => x.GetClientByEmailAsync(email))
+                .Throws<Exception>();
 
-            var clientController = new ClientController(mockRepository.Object);
-
-            var ienumReturn = await clientController.Get();
-            var listCount = ienumReturn.ToList().Count();
-
-            Assert.Equal(3, listCount);
+            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetClientByEmailAsync(email));
         }
 
         [Fact]
