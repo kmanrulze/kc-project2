@@ -61,17 +61,18 @@ namespace Dbnd.Test
         }
 
         [Fact]
-        public async Task GetCharacterByCharacterIDAsyncNoCharacterIDInDBReturnsCorrectCharacter()
+        public async Task GetCharacterByCharacterIDAsyncNoCharacterIDInDBReturnsException()
         {
             var testCharacterID = Guid.NewGuid();
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.GetCharacterByCharacterIDAsync(testCharacterID))
-                .Throws<Exception>();
+                .Returns( () => null);
 
-            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID));
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID));
         }
+
         [Fact]
         public async Task CreateCharacterAsyncSuccess()
         {

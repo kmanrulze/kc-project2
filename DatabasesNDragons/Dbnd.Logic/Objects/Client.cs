@@ -12,9 +12,10 @@ namespace Dbnd.Logic.Objects
         // no double . _
         public string UserName { get; set; }
         public string Email { get; set; }
-        public Guid ClientID { get; set; } = Guid.NewGuid();
+        public Guid ClientID { get; set; }
         public List<Character> Characters { get; set; } = new List<Character>();
 
+        //Might need to add >Guid clientID< to constructor? See Character logic class
         public Client(string userName, string email)
         {
             UserName = userName;

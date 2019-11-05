@@ -28,11 +28,19 @@ namespace Dbnd.Data.Repository
             try
             {
                 Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterID == CharacterID));
-                return LogicCharacter;
+                if (LogicCharacter == null)
+                {
+                    throw new ArgumentNullException("LogicCharacter null");
+                }
+                else
+                {
+                    return LogicCharacter;
+                }
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Getting by ID did not complete successfully");
+                Console.WriteLine("Something went wrong within GetCharacterByCharacterIDAsync: " + e.Message);
+                return null;
             }
         }
 
@@ -43,9 +51,9 @@ namespace Dbnd.Data.Repository
                 _context.Character.Add(Mapper.MapCharacter(new Logic.Objects.Character(clientID, firstName, lastName)));
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldnt create character for some reason");
+                Console.WriteLine("Something went wrong within CreateCharacterAsync: " + e.Message);
             }
         }
 
@@ -54,11 +62,20 @@ namespace Dbnd.Data.Repository
             try
             {
                 Logic.Objects.Client LogicClient = Mapper.MapClient(await _context.Client.FirstAsync(c => c.ClientID == ClientID));
-                return LogicClient;
+                if (LogicClient == null)
+                {
+                    throw new ArgumentNullException("LogicClient");
+                }
+                else
+                {
+                    return LogicClient;
+                }
+
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("did not get client successfully");
+                Console.WriteLine("Something went wrong within GetClientByIDAsync: " + e.Message);
+                return null;
             }
         }
 
@@ -82,9 +99,9 @@ namespace Dbnd.Data.Repository
                 _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email)));
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldn't create client for some reason.");
+                Console.WriteLine("Something went wrong within CreateClientAsync: " + e.Message);
             }
 
         }
@@ -109,9 +126,9 @@ namespace Dbnd.Data.Repository
 
                 if (madeChange) { await _context.SaveChangesAsync(); };
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldn't update client for some reason.");
+                Console.WriteLine("Something went wrong within UpdateClientByIDAsync: " + e.Message);
             }
         }
 
@@ -123,9 +140,9 @@ namespace Dbnd.Data.Repository
                 _context.Client.Remove(ContextClient);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldn't delete client for some reason.");
+                Console.WriteLine("Something went wrong within DeleteClientByIDAsync: " + e.Message);
             }
         }
 
@@ -134,11 +151,19 @@ namespace Dbnd.Data.Repository
             try
             {
                 Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.DungeonMasterID == DungeonMasterID));
-                return LogicDungeonMaster;
+                if (LogicDungeonMaster == null)
+                {
+                    throw new ArgumentNullException("LogicDungeonMaster");
+                }
+                else
+                {
+                    return LogicDungeonMaster;
+                }          
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Did not get DM successfully");
+                Console.WriteLine("Something went wrong within GetDMByDungeonMasterIDAsync: " + e.Message);
+                return null;
             }
         }
 
@@ -147,11 +172,19 @@ namespace Dbnd.Data.Repository
             try
             {
                 Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.ClientID == ClientID));
-                return LogicDungeonMaster;
+                if (LogicDungeonMaster == null)
+                {
+                    throw new ArgumentNullException("LogicDungeonMaster");
+                }
+                else
+                {
+                    return LogicDungeonMaster;
+                }
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Did not get DM successfully");
+                Console.WriteLine("Something went wrong within GetDMByClientIDAsync: " + e.Message);
+                return null;
             }
         }
 
@@ -162,9 +195,9 @@ namespace Dbnd.Data.Repository
                 _context.DungeonMaster.Add(Mapper.MapDungeonMaster(new Logic.Objects.DungeonMaster(clientID)));
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldn't create DungeonMaster for some reason");
+                Console.WriteLine("Something went wrong within CreateDungeonMasterAsync: " + e.Message);
             }
         }
 
@@ -176,9 +209,9 @@ namespace Dbnd.Data.Repository
                 _context.DungeonMaster.Remove(ContextDungeonMaster);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem deleting the DM for some reason");
+                Console.WriteLine("Something went wrong within DeleteDungeonMasterByIDAsync: " + e.Message);
             }
         }
 
@@ -189,9 +222,10 @@ namespace Dbnd.Data.Repository
                 var entityGameList = await _context.Game.ToListAsync();
                 return entityGameList.Select(Mapper.MapGame);
             } 
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Did not get all games successfully");
+                Console.WriteLine("Something went wrong within GetGamesAsync: " + e.Message);
+                return null;
             }
         }
 
@@ -200,11 +234,20 @@ namespace Dbnd.Data.Repository
             try
             {
                 Logic.Objects.Game LogicGame = Mapper.MapGame(await _context.Game.FirstAsync(g => g.GameID == GameID));
-                return LogicGame;
+                if (LogicGame == null)
+                {
+                    throw new ArgumentNullException("LogicGame");
+                }
+                else
+                {
+                    return LogicGame;
+                }
+                
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Did not get game successfully");
+                Console.WriteLine("Something went wrong within GetGameByGameIDAsync: " + e.Message);
+                return null;
             }
         }
 
@@ -215,9 +258,10 @@ namespace Dbnd.Data.Repository
                 var entityGameList = await _context.Game.Where(x => x.DungeonMasterID == DungeonMasterID).ToListAsync();
                 return entityGameList.Select(Mapper.MapGame).ToList();
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Did not get Game from DMID successfully");
+                Console.WriteLine("Something went wrong within GetGamesByDungeonMasterIDAsync: " + e.Message);
+                return null;
             }
         }
 
@@ -228,9 +272,9 @@ namespace Dbnd.Data.Repository
                 _context.Game.Add(Mapper.MapGame(new Logic.Objects.Game(dungeonMasterID, gameName)));
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Couldnt create a game for some reason");
+                Console.WriteLine("Something went wrong within CreateGameAsync: " + e.Message);
             }
         }
 
@@ -246,9 +290,9 @@ namespace Dbnd.Data.Repository
                     await _context.SaveChangesAsync();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem updating the game for some reason");
+                Console.WriteLine("Something went wrong within UpdateGameAsync: " + e.Message);
             }
         }
 
@@ -259,9 +303,9 @@ namespace Dbnd.Data.Repository
                 _context.Remove(await _context.Game.FirstAsync(g => g.GameID == gameID));
                 await _context.SaveChangesAsync();
             }
-            catch 
-            { 
-                throw new Exception("There was a problem deleting the game for some reason"); 
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within DeleteGameAsync: " + e.Message);
             }
         }
 
@@ -291,9 +335,9 @@ namespace Dbnd.Data.Repository
 
                 if (madeChange) { await _context.SaveChangesAsync(); };
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem updating the character for some reason");
+                Console.WriteLine("Something went wrong within UpdateCharacterByIDAsync: " + e.Message);
             }
         }
 
@@ -305,9 +349,75 @@ namespace Dbnd.Data.Repository
                 _context.Character.Remove(ContextCharacter);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("There was a problem deleting the character for some reason");
+                Console.WriteLine("Something went wrong within DeleteCharacterByIDAsync: " + e.Message);
+            }
+        }
+
+        public async Task<List<Logic.Objects.Character>> GetAllCharactersInGameByGameIDAsync(Guid gameID)
+        {
+            try
+            {
+                var listCharacterIds = await _context.CharacterGameXRef.Where(x => x.GameID == gameID).ToListAsync();
+                var listCharacters = new List<Logic.Objects.Character>();
+                foreach (var entry in listCharacterIds)
+                {
+                    listCharacters.Add(GetCharacterByCharacterIDAsync(entry.CharacterID).Result);
+                }
+
+                return listCharacters;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetAllCharactersInGameByGameIDAsync: " + e.Message);
+                return null;
+            }
+
+        }
+
+        public async Task<CharacterGameXRef> GetEntryFromCharacterGameXRefByIDs(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                return await _context.CharacterGameXRef.FirstAsync(x => x.GameID == gameID && x.CharacterID == characterID);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetEntryFromCharacterGameXRefByIDs: " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task AddEntryToCharacterGameXRef(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                var entryToAdd = new CharacterGameXRef()
+                {
+                    GameID = gameID,
+                    CharacterID = characterID
+                };
+                await _context.CharacterGameXRef.AddAsync(entryToAdd);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within AddEntryToCharacterGameXRef: " + e.Message);
+            }
+        }
+
+        public async Task RemoveEntryToCharacterGameXRefAsync(Guid gameID, Guid characterID)
+        {
+            try
+            {
+                var entryToRemove = GetEntryFromCharacterGameXRefByIDs(gameID, characterID).Result;
+                _context.CharacterGameXRef.Remove(entryToRemove);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within RemoveEntryToCharacterGameXRefAsync: " + e.Message);
             }
         }
     }

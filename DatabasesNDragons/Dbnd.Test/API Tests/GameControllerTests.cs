@@ -124,6 +124,65 @@ namespace Dbnd.Test.API_Tests
                 .Verify();
         }
 
+        [Fact]
+        public async Task GetCharactersInGameVerify()
+        {
+            var games = SetUpGames();
+            var targetID = games.First().GameID;
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.GetAllCharactersInGameByGameIDAsync(targetID))
+                .Verifiable();
+
+            var gameController = new GameController(mockRepository.Object);
+
+            var gameCharacterXRef = await gameController.GetCharactersInGame(targetID);
+
+            mockRepository
+                .Verify();
+        }
+
+        [Fact]
+        public async Task AddCharacterToGameVerify()
+        {
+            var games = SetUpGames();
+            var targetID = games.First().GameID;
+            var characterID = Guid.NewGuid();
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.AddEntryToCharacterGameXRef(targetID, characterID))
+                .Verifiable();
+
+            var gameController = new GameController(mockRepository.Object);
+
+            var gameCharacterXRef = await gameController.AddCharacterToGame(targetID, characterID);
+
+            mockRepository
+                .Verify();
+        }
+
+        [Fact]
+        public async Task RemoveCharacterFromGameVerify()
+        {
+            var games = SetUpGames();
+            var targetID = games.First().GameID;
+            var characterID = Guid.NewGuid();
+
+            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
+            mockRepository
+                .Setup(x => x.RemoveEntryToCharacterGameXRefAsync(targetID, characterID))
+                .Verifiable();
+
+            var gameController = new GameController(mockRepository.Object);
+
+            var gameCharacterXRef = await gameController.RemoveCharacterFromGame(targetID, characterID);
+
+            mockRepository
+                .Verify();
+        }
+
         public List<Game> SetUpGames()
         {
             return new List<Logic.Objects.Game>
@@ -145,6 +204,31 @@ namespace Dbnd.Test.API_Tests
                     GameName = "DrunkenCampFireFollies",
                     DungeonMasterID = Guid.NewGuid(),
                     GameID = Guid.NewGuid()
+                }
+            };
+        }
+        public List<Character> SetUpCharacters()
+        {
+            return new List<Logic.Objects.Character>
+            {
+                new Logic.Objects.Character()
+                {
+                    CharacterID = new Guid("d9beb26e-11e5-490f-a27f-1467ac5d6a68"),
+                    ClientID = new Guid("32f71873-125e-46b3-ade7-17b3e4fb936b"),
+                    FirstName = "Willy",
+                    LastName = "Wonka"
+                },
+                new Logic.Objects.Character()
+                {
+                    ClientID = new Guid("2700fb0f-820d-4be6-9ea3-402fe335f57d"),
+                    FirstName = "Skip",
+                    LastName = "Donahue"
+                },
+                new Dbnd.Logic.Objects.Character()
+                {
+                    ClientID = new Guid("3b5db8e2-466a-4972-983d-5679120fe589"),
+                    FirstName = "Leo",
+                    LastName = "Bloom"
                 }
             };
         }

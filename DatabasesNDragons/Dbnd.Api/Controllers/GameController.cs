@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Dbnd.Api.Models;
-using Dbnd.Data.Repository;
 using Dbnd.Logic.Interfaces;
 using Dbnd.Logic.Objects;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dbnd.Api.Controllers
@@ -65,6 +61,31 @@ namespace Dbnd.Api.Controllers
         {
             await _repository.DeleteGameByIDAsync(id);
             return NoContent();
+        }
+
+        //Get: api/Game/5/Characters/
+        [HttpGet("{id}/Characters")]
+        public async Task<List<Character>> GetCharactersInGame(Guid id)
+        {
+            return await _repository.GetAllCharactersInGameByGameIDAsync(id);
+        }
+
+        //Post: api/Game/5/AddCharacter/5
+        [HttpPost("{gameID}/AddCharacter/{characterID}")]
+        public async Task<ActionResult> AddCharacterToGame(Guid gameID, Guid characterID)
+        {
+            await _repository.AddEntryToCharacterGameXRef(gameID, characterID);
+            var returnGame = await _repository.GetGameByGameIDAsync(gameID);
+            return AcceptedAtAction("Get", "Game", null, returnGame);
+        }
+
+        //Delete: api/Game/5/RemoveCharacter/5
+        [HttpPost("{gameID}/AddCharacter/{characterID}")]
+        public async Task<ActionResult> RemoveCharacterFromGame(Guid gameID, Guid characterID)
+        {
+            await _repository.RemoveEntryToCharacterGameXRefAsync(gameID, characterID);
+            var returnGame = await _repository.GetGameByGameIDAsync(gameID);
+            return AcceptedAtAction("Get", "Game", null, returnGame);
         }
     }
 }

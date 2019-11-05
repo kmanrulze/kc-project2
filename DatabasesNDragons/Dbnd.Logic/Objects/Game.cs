@@ -5,13 +5,7 @@ namespace Dbnd.Logic.Objects
 {
     public class Game
     {
-        private Guid gameID = Guid.NewGuid();
-
-        public Guid GameID
-        {
-            get { return gameID; }
-            set { gameID = value; }
-        }
+        public Guid GameID { get; set; }
 
         // 3-20 alphanumeric . _ chars
         // . and _ can not be leading or trailing

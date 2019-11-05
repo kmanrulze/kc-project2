@@ -22,11 +22,14 @@ namespace Dbnd.Logic.Interfaces
         Task CreateDungeonMasterAsync(Guid clientID);
         Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID);
         Task<Game> GetGameByGameIDAsync(Guid GameID);
+        Task<List<Character>> GetAllCharactersInGameByGameIDAsync(Guid gameID);
         Task UpdateGameAsync(Guid targetGameID, Game changedGame);
+        Task AddEntryToCharacterGameXRef(Guid gameID, Guid characterID);
         Task<IEnumerable<Logic.Objects.Client>> GetClientsAsync();
         Task CreateGameAsync(Guid DungeonMasterID, string GameName);
         Task<List<Game>> GetGamesByDungeonMasterIDAsync(Guid DungeonMasterID);
         Task<IEnumerable<Logic.Objects.Game>> GetGamesAsync();
         Task DeleteGameByIDAsync(Guid GameID);
+        Task RemoveEntryToCharacterGameXRefAsync(Guid gameID, Guid characterID);
     }
 }
