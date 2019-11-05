@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Dbnd.Logic.Interfaces;
 using Dbnd.Logic.Objects;
@@ -16,10 +17,12 @@ namespace Dbnd.Api.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IRepository _repository;
+        private IHttpClientFactory _clientFactory;
 
-        public ClientController(IRepository repository)
+        public ClientController(IRepository repository, IHttpClientFactory clientFactory)
         {
             _repository = repository;
+            _clientFactory = clientFactory;
         }
         // GET: api/Client
         [HttpGet]
@@ -28,7 +31,8 @@ namespace Dbnd.Api.Controllers
         {
             try
             {
-                UserProfile userProfile = JsonConvert.DeserializeObject<UserProfile>(Request.Headers["Profile"]);
+                Auth0Requester a0r = new Auth0Requester(_clientFactory);
+                UserProfile userProfile = await a0r.GetUserProfile(Request.Headers["Authorization"].ToString());
 
                 try
                 {

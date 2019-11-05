@@ -39,6 +39,8 @@ namespace Dbnd.Api
                 options.Authority = domain;
                 options.Audience = Configuration["Auth0:ApiIdentifier"];
             });
+
+            services.AddHttpClient();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
