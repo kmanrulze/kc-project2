@@ -61,7 +61,20 @@ namespace Dbnd.Data.Repository
                 throw new Exception("did not get client successfully");
             }
         }
-        
+
+        public async Task<Logic.Objects.Client> GetClientByEmailAsync(string email)
+        {
+            try
+            {
+                Logic.Objects.Client LogicClient = Mapper.MapClient(await _context.Client.FirstAsync(c => c.Email == email));
+                return LogicClient;
+            }
+            catch
+            {
+                throw new Exception($"did not get client successfully: {email}");
+            }
+        }
+
         public async Task CreateClientAsync(string userName, string email)
         {
             try

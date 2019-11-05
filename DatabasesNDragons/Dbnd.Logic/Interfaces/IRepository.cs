@@ -8,6 +8,7 @@ namespace Dbnd.Logic.Interfaces
     public interface IRepository
     {
         Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID);
+        Task<Logic.Objects.Client> GetClientByEmailAsync(string email);
         Task CreateClientAsync(string userName, string email);
         Task UpdateClientByIDAsync(Guid targetClientID, Client changedClient);
         Task DeleteClientByIDAsync(Guid ClientID);

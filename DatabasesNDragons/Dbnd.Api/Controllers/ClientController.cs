@@ -4,8 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dbnd.Logic.Interfaces;
 using Dbnd.Logic.Objects;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Dbnd.Api.Controllers
 {
@@ -21,9 +24,29 @@ namespace Dbnd.Api.Controllers
         }
         // GET: api/Client
         [HttpGet]
-        public async Task<IEnumerable<Logic.Objects.Client>> Get()
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Get()
         {
-            return await _repository.GetClientsAsync();
+            try
+            {
+                UserProfile userProfile = JsonConvert.DeserializeObject<UserProfile>(Request.Headers["Profile"]);
+
+                try
+                {
+                    object rob = new {id = (await _repository.GetClientByEmailAsync(userProfile.email)).ClientID.ToString()};
+                    return Ok(rob);
+                }
+                catch
+                {
+                    await _repository.CreateClientAsync(userProfile.name, userProfile.email);
+                    object rob = new { id = (await _repository.GetClientByEmailAsync(userProfile.email)).ClientID.ToString() };
+                    return Ok(rob);
+                }
+            }
+            catch
+            {
+                throw new Exception("Failed to handle client login/fetch.");
+            }
         }
 
         //GET: api/Client/5

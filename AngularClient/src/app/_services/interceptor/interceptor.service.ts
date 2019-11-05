@@ -22,10 +22,14 @@ export class InterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    let profile: string;
+    this.auth.userProfile$.subscribe((res) => profile = JSON.stringify(res));
+
     return this.auth.getTokenSilently$().pipe(
       mergeMap(token => {
         const tokenReq = req.clone({
-          setHeaders: { Authorization: `Bearer ${token}` }
+          setHeaders: { Authorization: `Bearer ${token}`,
+            Profile: profile}
         });
         return next.handle(tokenReq);
       }),
