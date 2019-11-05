@@ -7,6 +7,11 @@ using Moq;
 
 using Dbnd.Logic.Objects;
 using Dbnd.Api.Controllers;
+using System.Net.Http;
+
+/* FOR FUTURE REFERENCE:
+ * Mocking IHttpClientFactory - https://stackoverflow.com/questions/54227487/how-to-mock-the-new-httpclientfactory-in-net-core-2-1-using-moq
+ */
 
 namespace Dbnd.Test
 {
@@ -37,7 +42,8 @@ namespace Dbnd.Test
                 .Setup( x => x.GetClientByIDAsync(targetId))
                 .Returns(() => Task.Run( () => clients.Where(c => c.ClientID == targetId).FirstOrDefault()));
 
-            var clientController = new ClientController(mockRepository.Object);
+            var mockFactory = new Mock<IHttpClientFactory>();
+            var clientController = new ClientController(mockRepository.Object, mockFactory.Object);
 
             var client = await clientController.Get(targetId);
 
@@ -56,7 +62,8 @@ namespace Dbnd.Test
                     .Returns(Task.CompletedTask)
                     .Verifiable();
 
-            var clientController = new ClientController(mockRepository.Object);
+            var mockFactory = new Mock<IHttpClientFactory>();
+            var clientController = new ClientController(mockRepository.Object, mockFactory.Object);
             var client = await clientController.Post(new Client(userName, email));
 
             mockRepository
@@ -75,7 +82,8 @@ namespace Dbnd.Test
                     .Returns(Task.CompletedTask)
                     .Verifiable();
 
-            var clientController = new ClientController(mockRepository.Object);
+            var mockFactory = new Mock<IHttpClientFactory>();
+            var clientController = new ClientController(mockRepository.Object, mockFactory.Object);
             var client = await clientController.Put(targetId, changedClient);
 
             mockRepository
@@ -93,7 +101,8 @@ namespace Dbnd.Test
                     .Returns(Task.CompletedTask)
                     .Verifiable();
 
-            var clientController = new ClientController(mockRepository.Object);
+            var mockFactory = new Mock<IHttpClientFactory>();
+            var clientController = new ClientController(mockRepository.Object, mockFactory.Object);
             var client = await clientController.Delete(targetId);
 
             mockRepository
