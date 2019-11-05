@@ -27,7 +27,7 @@ namespace Dbnd.Test
             Assert.Equal("changed", testCharacter.LastName);
         }
         [Fact]
-        public void TestGUID()
+        public void TestCharacterGUID()
         {
             Character testCharacter = new Character
             {
@@ -36,5 +36,17 @@ namespace Dbnd.Test
             Guid guidResult;
             Assert.True(Guid.TryParse(testCharacter.CharacterID.ToString(), out guidResult));
         }
+
+        [Fact]
+        public void TestClientGUID()
+        {
+            Character testCharacter = new Character
+            {
+                ClientID = Guid.NewGuid()
+            };
+            Guid guidResult;
+            Assert.True(Guid.TryParse(testCharacter.ClientID.ToString(), out guidResult));
+        }
+
     }
 }
