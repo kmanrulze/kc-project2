@@ -260,8 +260,6 @@ stages:
   - Publish_and_Test
   jobs:
   - job: Deploy_API
-    dependsOn: TestAndCoverage
-    condition: succeeded()
     steps:
     - script: echo Publishing steps started
 
