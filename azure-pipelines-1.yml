@@ -216,7 +216,7 @@ jobs:
 
     
 - job: PipeFailed
-  dependsOn: SonarCloud
+  dependsOn: TestAndCoverage
   condition: failed()
   steps:
   - script: echo Pipe failiure!
