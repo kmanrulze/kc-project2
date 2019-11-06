@@ -55,12 +55,15 @@ export class AuthService {
 
   async getClientId()
   {
-    if (this.clientId != "")
-      return this.clientId;
+    if (this.loggedIn)
+    {
+      if (this.clientId != "")
+        return this.clientId;
 
-    await this.dbnd.getId$().toPromise().then( (res: Response) => {
-      this.clientId = res["id"];
-    });
+      await this.dbnd.getId$().toPromise().then( (res: Response) => {
+        this.clientId = res["id"];
+      });
+    }
 
     return this.clientId;
   }
@@ -73,7 +76,6 @@ export class AuthService {
         if (loggedIn) {
           // If authenticated, get user and set in app
           // NOTE: you could pass options here if needed
-          //this.getClientId();
           return this.getUser$();
         }
         // If not authenticated, return stream that emits 'false'
@@ -83,13 +85,12 @@ export class AuthService {
     checkAuth$.subscribe();
   }
 
-  logIn(redirectPath: string = '/') {
+  logIn(redirectPath: string = '/profile') {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log in
-      //this.getClientId();
       client.loginWithRedirect({
         redirect_uri: `${window.location.origin}`,
         appState: { target: redirectPath }
@@ -106,7 +107,7 @@ export class AuthService {
         // Have client, now call method to handle auth callback redirect
         tap(cbRes => {
           // Get and set target redirect route from callback results
-          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
+          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/profile';
         }),
         concatMap(() => {
           // Redirect callback complete; get user and login status

@@ -10,256 +10,385 @@ trigger:
     - Feature
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
 
-jobs:
-- job: Build
-  steps:
-  - script: echo Started Build
-    condition: always()
+stages:
+- stage: Publish_and_Test
+  jobs:
+################################################################################################################################# BUILD
+  - job: Build
+    steps:
+    - script: echo Started Build
+      condition: always()
 
-  - task: AzureKeyVault@1
-    displayName: Azure Keyvault Access for Webhook
-    inputs:
-      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
-      KeyVaultName: 'DBnD-KeyVault'
-      SecretsFilter: Webhook
-  - task: ado-discord-webhook@1
-    displayName: Discord Webhook Message
-    inputs:
-      channelId: '639490810336903202'
-      webhookKey: '$(Webhook)'
-      name: 'Azure Devops'
-      messageType: embeds
-      embeds: |
-          [{
-            "title": "Feature Pipeline Build",
-            "description": "Build Pipeline started. You better hope this works...",
-            "url": "https://discordapp.com",
-            "color": 2247803,
-            "thumbnail": 
-            {
-              "url": "https://static.thenounproject.com/png/266379-200.png"
-            },
-            "author": 
-            {
-              "name": "Azure Devops",
-              "url": "https://dev.azure.com/kcguzman/Project-2",
-              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
-            }
-          }]
-
-  - task: DotNetCoreCLI@2
-    displayName: Dotnet Build
-    inputs:
-      command: 'build'
-      workingDirectory: './DatabasesNDragons'
-
-  - task: DotNetCoreCLI@2
-    displayName: Dotnet Publish
-    inputs:
-      command: 'publish'
-      publishWebProjects: true
-      workingDirectory: './DatabasesNDragons'
-      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-  
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Build Artifacts
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
-
-- job: TestAndCoverage
-  dependsOn: Build
-  condition: succeeded()
-  steps:
-  - script: echo Started CLI
-
-  - task: DownloadBuildArtifacts@0
-    displayName: Retrieving Build Artifacts
-    inputs:
-      buildType: 'current'
-      downloadType: 'single'
-      artifactName: 'drop'
-      downloadPath: '$(System.ArtifactsDirectory)'
-
-  - task: AzureKeyVault@1
-    displayName: Azure Keyvault Access for Webhook
-    inputs:
-      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
-      KeyVaultName: 'DBnD-KeyVault'
-      SecretsFilter: Webhook
-
-  - task: ado-discord-webhook@1
-    displayName: Discord Webhook Message
-    inputs:
-      channelId: '639490810336903202'
-      webhookKey: '$(Webhook)'
-      name: 'Azure Devops'
-      messageType: embeds
-      embeds: |
-          [{
-            "title": "Feature Pipeline CLI Tests",
-            "description": "Attempting to run CLI Tests...",
-            "url": "https://discordapp.com",
-            "color": 2247803,
-            "thumbnail": 
-            {
-              "url": "https://static.thenounproject.com/png/266379-200.png"
-            },
-            "author": 
-            {
-              "name": "Azure Devops",
-              "url": "https://dev.azure.com/kcguzman/Project-2",
-              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
-            }
-          }]
-  - task: DownloadBuildArtifacts@0
-    displayName: Downloading Build Artifacts
-    inputs:
-      buildType: 'current'
-      downloadType: 'single'
-      artifactName: 'drop'
-      downloadPath: '$(System.ArtifactsDirectory)'
-
-  - task: SonarCloudPrepare@1
-    displayName: Preparing SonarCloud
-    inputs:
-      SonarCloud: 'DBnD'
-      organization: '1909-sep30-net'
-      scannerMode: 'MSBuild'
-      projectKey: 'KSJ-DBnD'
-      projectName: 'DBnD'
-      extraProperties: |
-        sonar.exclusions=**/lib/**
-        sonar.exclusions=**/Migrations/**
-
-  - task: DotNetCoreCLI@2
-    displayName: xUnit Tests
-    continueOnError: true
-    inputs:
-      command: 'test'
-      projects: '**/*Test/*.csproj'
-      workingDirectory: './DatabasesNDragons'
-      arguments: --configuration $(buildConfiguration)
-                 --collect:"XPlat Code Coverage"
-
-
-  - task: ado-discord-webhook@1
-    displayName: Discord Webhook Message
-    inputs:
-      channelId: '639490810336903202'
-      webhookKey: '$(Webhook)'
-      name: 'Azure Devops'
-      messageType: embeds
-      embeds: |
-          [{
-            "title": "Feature SonarCloud Analysis",
-            "description": "Build and CLI Tests complete. Attempting to analyze with SonarCloud...",
-            "url": "https://discordapp.com",
-            "color": 2247803,
-            "thumbnail": 
-            {
-              "url": "https://static.thenounproject.com/png/266379-200.png"
-            },
-            "author": 
-            {
-              "name": "Azure Devops",
-              "url": "https://dev.azure.com/kcguzman/Project-2",
-              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
-            }
-          }]
-
-  - task: PublishCodeCoverageResults@1
-    displayName: Publish code coverage
-    inputs:
-      codeCoverageTool: 'Cobertura'
-      summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
-
-  - task: SonarCloudAnalyze@1
-
-  - task: SonarCloudPublish@1
-    displayName: Publish SonarCloud quality gate result
-
-- job: Tests_Succeeded
-  dependsOn: TestAndCoverage
-  condition: succeeded()
-  steps:
-  - script: echo Pipe success!
-
-  - task: AzureKeyVault@1
-    displayName: Azure Keyvault Access for Webhook
-    inputs:
-      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
-      KeyVaultName: 'DBnD-KeyVault'
-      SecretsFilter: Webhook
-  - task: ado-discord-webhook@1
-    displayName: Discord Webhook Message
-    inputs:
-      channelId: '639490810336903202'
-      webhookKey: '$(Webhook)'
-      name: 'Azure Devops'
-      messageType: embeds
-      embeds: |
-          [{
-            "title": "Feature Build and Analysis Success!",
-            "description": "Build and Analysis Successful! You can give yourself a pat on the back and feel good about yourself!",
-            "url": "https://discordapp.com",
-            "color": 2247803,
-            "thumbnail": 
-            {
-              "url": "https://static.thenounproject.com/png/266379-200.png"
-            },
-            "author": 
-            {
-              "name": "Azure Devops",
-              "url": "https://dev.azure.com/kcguzman/Project-2",
-              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
-            },
-            "fields": 
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
             [{
-              "name": "SonarCloud Metrics Link",
-              "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
-                  }]
-          }]
+              "title": "Feature Pipeline Build",
+              "description": "Build Pipeline started. You better hope this works...",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              }
+            }]
 
+    - task: DotNetCoreCLI@2
+      displayName: Dotnet Build
+      inputs:
+        command: 'build'
+        workingDirectory: './DatabasesNDragons'
+
+    - task: DotNetCoreCLI@2
+      displayName: Dotnet Publish
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        workingDirectory: './DatabasesNDragons'
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     
-- job: Tests_Failed
-  dependsOn: TestAndCoverage
-  condition: failed()
-  steps:
-  - script: echo Pipe failiure!
-  - task: AzureKeyVault@1
-    displayName: Azure Keyvault Access for Webhook
-    inputs:
-      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
-      KeyVaultName: 'DBnD-KeyVault'
-      SecretsFilter: Webhook
-  - task: ado-discord-webhook@1
-    displayName: Discord Webhook Message
-    inputs:
-      channelId: '639490810336903202'
-      webhookKey: '$(Webhook)'
-      name: 'Azure Devops'
-      messageType: embeds
-      embeds: |
-          [{
-            "title": "Feature Pipeline Build and Analysis Failed",
-            "description": "Your build was bad and you should feel bad! Things failed!",
-            "url": "https://discordapp.com",
-            "color": 2247803,
-            "thumbnail": 
-            {
-              "url": "https://static.thenounproject.com/png/266379-200.png"
-            },
-            "author": 
-            {
-              "name": "Azure Devops",
-              "url": "https://dev.azure.com/kcguzman/Project-2",
-              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
-            }
-          }]
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Dotnet Artifacts
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+################################################################################################################################# TEST
+  - job: TestAndCoverage
+    dependsOn: Build
+    condition: succeeded()
+    steps:
+    - script: echo Started CLI
+
+    - task: DownloadBuildArtifacts@0
+      displayName: Retrieving Build Artifacts
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Feature Pipeline CLI Tests",
+              "description": "Attempting to run CLI Tests...",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              }
+            }]
+
+    - task: SonarCloudPrepare@1
+      displayName: Preparing SonarCloud
+      inputs:
+        SonarCloud: 'DBnD'
+        organization: '1909-sep30-net'
+        scannerMode: 'MSBuild'
+        projectKey: 'KSJ-DBnD'
+        projectName: 'DBnD'
+        extraProperties: |
+          sonar.exclusions=**/lib/**
+          sonar.exclusions=**/Migrations/**
+
+    - task: DotNetCoreCLI@2
+      displayName: xUnit Tests
+      continueOnError: true
+      inputs:
+        command: 'test'
+        projects: '**/*Test/*.csproj'
+        workingDirectory: './DatabasesNDragons'
+        arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Feature SonarCloud Analysis",
+              "description": "Build and CLI Tests complete. Attempting to analyze with SonarCloud...",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              }
+            }]
+
+    - task: SonarCloudAnalyze@1
+      continueOnError: false
+    - task: SonarCloudPublish@1
+      continueOnError: false
+      displayName: Publish SonarCloud quality gate result
+################################################################################################################################# TEST SUCCEED
+  - job: Tests_Succeeded
+    dependsOn: TestAndCoverage
+    condition: succeeded()
+    steps:
+    - script: echo Pipe success!
+
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Feature Build and Analysis Success!",
+              "description": "Build and Analysis Successful! You can give yourself a pat on the back and feel good about yourself!",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              },
+              "fields": 
+              [{
+                "name": "SonarCloud Metrics Link",
+                "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
+                    }]
+            }]
+################################################################################################################################# TEST FAILED
+  - job: Tests_Failed
+    dependsOn: TestAndCoverage
+    condition: failed()
+    steps:
+    - script: echo Pipe failiure!
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Feature Pipeline Build and Analysis Failed",
+              "description": "Your build and tests were bad and you should feel bad! Things failed!",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              }
+            }]
+- stage: Deploy
+  dependsOn:
+  - Publish_and_Test
+  jobs:
+  - job: Deploy_API
+    steps:
+    - script: echo Publishing steps started
+
+    - task: DownloadBuildArtifacts@0
+      displayName: Retrieving Build Artifacts
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: DBString
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Feature Pipeline API App Service Deployment",
+              "description": "Attempting to deploy to app service...",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              }
+            }]
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        appType: 'webApp'
+        WebAppName: 'dbndapi'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+  - job: Deployment_Success
+    dependsOn: Deploy_API
+    condition: succeeded()
+    steps:
+    - script: echo Successfully deployed!
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Feature Build and Analysis Success!",
+              "description": "Your app has been deployed!",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              },
+              "fields": 
+              [{
+                "name": "SonarCloud Metrics Link",
+                "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
+                    }]
+            }]
+  - job: Deployment_Failed
+    dependsOn: Deploy_API
+    condition: failed()
+    steps:
+    - script: echo Unsuccessfully deployed...
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Feature Build and Analysis Success!",
+              "description": "Your app has failed to be deployed. I blame Fred.",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              },
+              "fields": 
+              [{
+                "name": "SonarCloud Metrics Link",
+                "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
+                    }]
+            }]
