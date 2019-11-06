@@ -286,6 +286,44 @@ jobs:
       downloadType: 'single'
       artifactName: 'drop'
       downloadPath: '$(System.ArtifactsDirectory)'
+
+  - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: DBString
+  - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: Webhook
+
+  - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
+    inputs:
+      channelId: '639490810336903202'
+      webhookKey: '$(Webhook)'
+      name: 'Azure Devops'
+      messageType: embeds
+      embeds: |
+          [{
+            "title": "Feature Pipeline API App Service Deployment",
+            "description": "Attempting to deploy to app service...",
+            "url": "https://discordapp.com",
+            "color": 2247803,
+            "thumbnail": 
+            {
+              "url": "https://static.thenounproject.com/png/266379-200.png"
+            },
+            "author": 
+            {
+              "name": "Azure Devops",
+              "url": "https://dev.azure.com/kcguzman/Project-2",
+              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+            }
+          }]
   - task: AzureRmWebAppDeployment@4
     inputs:
       ConnectionType: 'AzureRM'
