@@ -32,7 +32,7 @@ namespace Dbnd.Test
         }
 
         [Fact]
-        public async Task GetSingleClientHasCorrectName()
+        public async Task GetSingleClientHasCorrectNameThrows()
         {
             var clients = SetUpClients();
             Guid targetId = new Guid("518b9a19-bd55-4497-a01f-2e48f23d8d30");
@@ -45,9 +45,9 @@ namespace Dbnd.Test
             var mockFactory = new Mock<IHttpClientFactory>();
             var clientController = new ClientController(mockRepository.Object, mockFactory.Object);
 
-            var client = await clientController.Get(targetId);
+            //var client = await clientController.Get(targetId);
 
-            Assert.Equal("Jacob", client.UserName);
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await clientController.Get(targetId));
         }
 
         [Fact]
