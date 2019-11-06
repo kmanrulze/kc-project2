@@ -168,13 +168,10 @@ stages:
               }
             }]
 
-    - task: PublishCodeCoverageResults@1
-      displayName: Publish code coverage
-      inputs:
-        codeCoverageTool: 'Cobertura'
-        summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
-
+    - task: SonarCloudAnalyze@1
+      continueOnError: false
     - task: SonarCloudPublish@1
+      continueOnError: false
       displayName: Publish SonarCloud quality gate result
 ################################################################################################################################# TEST SUCCEED
   - job: Tests_Succeeded
