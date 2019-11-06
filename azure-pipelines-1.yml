@@ -70,7 +70,7 @@ jobs:
     inputs:
       buildType: 'current'
       downloadType: 'single'
-      downloadPath: '$(System.ArtifactsDirectory)'
+      downloadPath: '$(System.ArtifactsDirectory)/DBnDFeed'
 
   - task: AzureKeyVault@1
     inputs:
