@@ -65,11 +65,12 @@ jobs:
   condition: succeeded()
   steps:
   - script: echo Started CLI
+
   - task: DownloadBuildArtifacts@0
     inputs:
       buildType: 'current'
       downloadType: 'single'
-      downloadPath: '$(Build.ArtifactStagingDirectory)'
+      downloadPath: '$(System.ArtifactsDirectory)'
 
   - task: AzureKeyVault@1
     inputs:
