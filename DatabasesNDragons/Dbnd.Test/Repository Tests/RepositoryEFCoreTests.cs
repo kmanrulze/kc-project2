@@ -16,7 +16,7 @@ namespace Dbnd.Test.Repository_Tests
         public void GetClientWithValidEmail(string email)
         {
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd1")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -43,7 +43,7 @@ namespace Dbnd.Test.Repository_Tests
         public void GetClientWithInvalidEmail(string email)
         {
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd2")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -66,7 +66,7 @@ namespace Dbnd.Test.Repository_Tests
         public void GetAllClientsSuccess()
         {
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd3")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -90,7 +90,7 @@ namespace Dbnd.Test.Repository_Tests
         public async Task CreateClientsSuccess()
         {
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd4")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -116,7 +116,7 @@ namespace Dbnd.Test.Repository_Tests
             var targetID = Guid.NewGuid();
 
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd5")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -142,7 +142,7 @@ namespace Dbnd.Test.Repository_Tests
             var targetID = Guid.NewGuid();
 
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd6")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -169,7 +169,7 @@ namespace Dbnd.Test.Repository_Tests
             var targetID = Guid.NewGuid();
 
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd7")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -196,7 +196,7 @@ namespace Dbnd.Test.Repository_Tests
             var targetID = Guid.NewGuid();
 
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd8")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -222,7 +222,7 @@ namespace Dbnd.Test.Repository_Tests
             var targetID = Guid.NewGuid();
 
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd9")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -249,7 +249,7 @@ namespace Dbnd.Test.Repository_Tests
             var targetID = Guid.NewGuid();
 
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd10")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -275,7 +275,7 @@ namespace Dbnd.Test.Repository_Tests
         {
 
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd11")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -300,7 +300,7 @@ namespace Dbnd.Test.Repository_Tests
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd12")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -324,7 +324,7 @@ namespace Dbnd.Test.Repository_Tests
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd13")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -348,7 +348,7 @@ namespace Dbnd.Test.Repository_Tests
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd14")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -373,7 +373,7 @@ namespace Dbnd.Test.Repository_Tests
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd15")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -398,7 +398,7 @@ namespace Dbnd.Test.Repository_Tests
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd16")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -423,7 +423,7 @@ namespace Dbnd.Test.Repository_Tests
         public void GetAllCharactersSuccess()
         {
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd17")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -448,7 +448,7 @@ namespace Dbnd.Test.Repository_Tests
         public void GetCharacterByCharacterIDAsync()
         {
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd18")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -472,7 +472,7 @@ namespace Dbnd.Test.Repository_Tests
         public async Task CreateCharacterAsyncSuccessful()
         {
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd19")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -499,7 +499,7 @@ namespace Dbnd.Test.Repository_Tests
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd20")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -526,7 +526,7 @@ namespace Dbnd.Test.Repository_Tests
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd21")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -553,7 +553,7 @@ namespace Dbnd.Test.Repository_Tests
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd22")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -582,7 +582,7 @@ namespace Dbnd.Test.Repository_Tests
             var targetGameID = Guid.NewGuid();
             var targetCharID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd")
+            .UseInMemoryDatabase(databaseName: "Dbnd23")
             .Options;
 
             using (var context = new DbndContext(options))
@@ -605,34 +605,35 @@ namespace Dbnd.Test.Repository_Tests
             }
         }
 
-        //[Fact]
-        //public async Task GetEntryFromCharacterGameXRefByIDsSuccess()
-        //{
-        //    var targetGameID = Guid.NewGuid();
-        //    var targetCharID = Guid.NewGuid();
-        //    var options = new DbContextOptionsBuilder<DbndContext>()
-        //    .UseInMemoryDatabase(databaseName: "Dbnd")
-        //    .Options;
+        [Fact]
+        public async Task GetEntryFromCharacterGameXRefByIDsSuccess()
+        {
+            var targetGameID = Guid.NewGuid();
+            var targetCharID = Guid.NewGuid();
+            var options = new DbContextOptionsBuilder<DbndContext>()
+            .UseInMemoryDatabase(databaseName: "Dbnd24")
+            .Options;
 
-        //    using (var context = new DbndContext(options))
-        //    {
-        //        context.CharacterGameXRef.Add(new CharacterGameXRef { GameID = targetGameID, CharacterID = targetCharID });
-        //        context.CharacterGameXRef.Add(new CharacterGameXRef { GameID = Guid.NewGuid(), CharacterID = Guid.NewGuid() });
-        //        context.CharacterGameXRef.Add(new CharacterGameXRef { GameID = Guid.NewGuid(), CharacterID = Guid.NewGuid() });
-        //        context.CharacterGameXRef.Add(new CharacterGameXRef { GameID = Guid.NewGuid(), CharacterID = Guid.NewGuid() });
+            using (var context = new DbndContext(options))
+            {
+                context.CharacterGameXRef.Add(new CharacterGameXRef { GameID = targetGameID, CharacterID = targetCharID });
+                context.CharacterGameXRef.Add(new CharacterGameXRef { GameID = Guid.NewGuid(), CharacterID = Guid.NewGuid() });
+                context.CharacterGameXRef.Add(new CharacterGameXRef { GameID = Guid.NewGuid(), CharacterID = Guid.NewGuid() });
+                context.CharacterGameXRef.Add(new CharacterGameXRef { GameID = Guid.NewGuid(), CharacterID = Guid.NewGuid() });
 
-        //        context.SaveChanges();
-        //    }
+                context.SaveChanges();
+            }
 
-        //    using (var context = new DbndContext(options))
-        //    {
-        //        Repository repository = new Repository(context);
-        //        await repository.GetEntryFromCharacterGameXRefByIDs(targetGameID, targetCharID);
-        //        var xref = context.CharacterGameXRef.FirstAsync(x => x.CharacterID == targetGameID && x.GameID == targetGameID).Result;
-                
-        //        Assert.Equal(targetGameID, xref.GameID);
-        //    }
-        //}
+            using (var context = new DbndContext(options))
+            {
+                Repository repository = new Repository(context);
+                await repository.GetEntryFromCharacterGameXRefByIDs(targetGameID, targetCharID);
+                var xref = context.CharacterGameXRef.FirstAsync(x => x.CharacterID == targetCharID && x.GameID == targetGameID).Result;
+
+                Assert.Equal(targetGameID, xref.GameID);
+                Assert.Equal(targetCharID, xref.CharacterID);
+            }
+        }
 
     }
 }
