@@ -57,7 +57,7 @@ jobs:
     ###Publishes Build Artificts to be used in other jobs
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '/Dbnd.WebApp/bin'
+      PathtoPublish: './Dbnd.WebApp/bin'
       ArtifactName: 'drop'
       publishLocation: 'Container'
 - job: Test
