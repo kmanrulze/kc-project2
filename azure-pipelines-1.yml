@@ -119,6 +119,16 @@ jobs:
             }
           }]
 
+############# Might not need this? #########################
+  - task: DotNetCoreCLI@2
+    displayName: Dotnet Publish
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+      workingDirectory: './DatabasesNDragons'
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+###########################################################
+
   - task: SonarCloudPrepare@1
     displayName: Preparing SonarCloud
     inputs:
@@ -130,16 +140,15 @@ jobs:
       extraProperties: |
         sonar.exclusions=**/lib/**
         sonar.exclusions=**/Migrations/**
-
   - task: DotNetCoreCLI@2
     displayName: xUnit Tests
+    continueOnError: true
     inputs:
       command: 'test'
       projects: '**/*Test/*.csproj'
-      arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
-      testRunTitle: 'xUnit Tests'
-      workingDirectory: '"./DatabasesNDragons"'
-
+      workingDirectory: './DatabasesNDragons'
+      arguments: --configuration $(buildConfiguration)
+                 --collect:"XPlat Code Coverage"
 
   - task: ado-discord-webhook@1
     displayName: Discord Webhook Message
