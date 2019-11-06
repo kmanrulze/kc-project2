@@ -35,17 +35,17 @@ namespace Dbnd.Test.API_Tests
                 email_verified = true
             };
 
-            Assert.Equal(userProfile.sub, "stringCheck");
-            Assert.Equal(userProfile.name, "stringCheck");
+            Assert.Equal("stringCheck", userProfile.sub);
+            Assert.Equal("stringCheck", userProfile.name);
             //Assert.Equal(userProfile.given_name, "stringCheck");
             //Assert.Equal(userProfile.family_name, "stringCheck");
             //Assert.Equal(userProfile.middle_name, "stringCheck");
-            Assert.Equal(userProfile.nickname, "stringCheck");
+            Assert.Equal("stringCheck", userProfile.nickname);
             //Assert.Equal(userProfile.preferred_username, "stringCheck");
             //Assert.Equal(userProfile.profile, "stringCheck");
-            //Assert.Equal(userProfile.picture, "stringCheck");
+            Assert.Equal("stringCheck", userProfile.picture);
             //Assert.Equal(userProfile.website, "stringCheck");
-            Assert.Equal(userProfile.email, "stringCheck");
+            Assert.Equal("stringCheck", userProfile.email);
             //Assert.Equal(userProfile.gender, "stringCheck");
             //Assert.Equal(userProfile.birthdate, "stringCheck");
             //Assert.Equal(userProfile.zoneinfo, "stringCheck");
@@ -53,7 +53,7 @@ namespace Dbnd.Test.API_Tests
             //Assert.Equal(userProfile.phone_number, "stringCheck");
             //Assert.Equal(userProfile.updated_at, "stringCheck");
             //Assert.Equal(userProfile.phone_number_verified, true);
-            Assert.Equal(userProfile.email_verified, true);
+            Assert.True(userProfile.email_verified);
             
     }
 
