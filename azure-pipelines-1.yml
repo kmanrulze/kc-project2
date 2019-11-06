@@ -58,18 +58,21 @@ jobs:
     inputs:
       command: 'build'
       workingDirectory: './DatabasesNDragons'
+
   - task: DotNetCoreCLI@2
     inputs:
       command: 'publish'
       publishWebProjects: true
       workingDirectory: './DatabasesNDragons'
+      arguments: --configuration $(buildConfiguration)
+      zipAfterPublish: true
 
-    ###Publishes Build Artificts to be used in other jobs
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
       publishLocation: 'Container'
+
 - job: Test
   dependsOn: Build
   condition: succeeded()
