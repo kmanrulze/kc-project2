@@ -51,20 +51,6 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-
-
-  - task: SonarCloudPrepare@1
-    displayName: Preparing SonarCloud
-    inputs:
-      SonarCloud: 'DBnD'
-      organization: '1909-sep30-net'
-      scannerMode: 'MSBuild'
-      projectKey: 'KSJ-DBnD'
-      projectName: 'DBnD'
-      extraProperties: |
-        sonar.exclusions=**/lib/**
-        sonar.exclusions=**/Migrations/**
-
   - task: DotNetCoreCLI@2
     displayName: Dotnet Build
     inputs:
@@ -91,6 +77,18 @@ jobs:
   condition: succeeded()
   steps:
   - script: echo Started CLI
+  
+  - task: SonarCloudPrepare@1
+    displayName: Preparing SonarCloud
+    inputs:
+      SonarCloud: 'DBnD'
+      organization: '1909-sep30-net'
+      scannerMode: 'MSBuild'
+      projectKey: 'KSJ-DBnD'
+      projectName: 'DBnD'
+      extraProperties: |
+        sonar.exclusions=**/lib/**
+        sonar.exclusions=**/Migrations/**
 
   - task: DownloadBuildArtifacts@0
     displayName: Retrieving Build Artifacts
