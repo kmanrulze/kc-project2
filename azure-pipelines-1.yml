@@ -50,14 +50,24 @@ jobs:
             }
           }]
     ###Builds
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: 'dotnet build $(buildConfiguration)'
-    workingDirectory: './DatabasesNDragons'
+#  - script: dotnet build --configuration $(buildConfiguration)
+#    displayName: 'dotnet build $(buildConfiguration)'
+#    workingDirectory: './DatabasesNDragons'
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      workingDirectory: './DatabasesNDragons'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+      workingDirectory: './DatabasesNDragons'
 
     ###Publishes Build Artificts to be used in other jobs
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/**/*.zip'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
       publishLocation: 'Container'
 - job: Test
