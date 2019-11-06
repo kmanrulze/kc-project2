@@ -16,7 +16,7 @@ variables:
   buildConfiguration: 'Release'
 
 jobs:
-- job: Build
+- job: BuildAndAnalyze
   steps:
   - script: echo Started Build
     condition: always()
@@ -151,7 +151,7 @@ jobs:
     displayName: Publish SonarCloud quality gate result
 
 - job: Tests_Succeeded
-  dependsOn: TestAndCoverage
+  dependsOn: BuildAndAnalyze
   condition: succeeded()
   steps:
   - script: echo Pipe success!
@@ -194,7 +194,7 @@ jobs:
 
     
 - job: Tests_Failed
-  dependsOn: TestAndCoverage
+  dependsOn: BuildAndAnalyze
   condition: failed()
   steps:
   - script: echo Pipe failiure!
@@ -229,7 +229,7 @@ jobs:
             }
           }]
 - job: Deploy_API
-  dependsOn: TestAndCoverage
+  dependsOn: BuildAndAnalyze
   condition: succeeded()
   steps:
   - script: echo Publishing steps started
