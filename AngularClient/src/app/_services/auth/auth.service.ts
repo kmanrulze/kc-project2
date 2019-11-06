@@ -55,12 +55,15 @@ export class AuthService {
 
   async getClientId()
   {
-    if (this.clientId != "")
-      return this.clientId;
+    if (this.loggedIn)
+    {
+      if (this.clientId != "")
+        return this.clientId;
 
-    await this.dbnd.getId$().toPromise().then( (res: Response) => {
-      this.clientId = res["id"];
-    });
+      await this.dbnd.getId$().toPromise().then( (res: Response) => {
+        this.clientId = res["id"];
+      });
+    }
 
     return this.clientId;
   }
@@ -73,7 +76,6 @@ export class AuthService {
         if (loggedIn) {
           // If authenticated, get user and set in app
           // NOTE: you could pass options here if needed
-          //this.getClientId();
           return this.getUser$();
         }
         // If not authenticated, return stream that emits 'false'
@@ -89,7 +91,6 @@ export class AuthService {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log in
-      //this.getClientId();
       client.loginWithRedirect({
         redirect_uri: `${window.location.origin}`,
         appState: { target: redirectPath }
