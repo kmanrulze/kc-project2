@@ -10,6 +10,7 @@
     --dnsalmon: #c37b7b;
     --dngrey: #80827f;
     --dnbrown: #786b62;
+    --dnonyx: #353839;
 }
 
 header {
@@ -44,7 +45,7 @@ body {
   display:flex;
   flex-direction: column;
   align-items: center;
-  color: #593C97;
+  color: var(--dnonyx);
   background-color: var(--dngreen);
   padding: 0px;
   border-radius: 15px;
@@ -55,8 +56,6 @@ body {
   font-family: 'MedievalSharp', sans-serif;
   font-weight: bold;
   margin: 5px 0 0 0;
-  text-transform: uppercase;
-
 }
 
 .main p {
@@ -75,15 +74,15 @@ body {
 }
 
 .homelink {
-  color: #593C97;
+  color: var(--dnonyx);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: color .8s, border-bottom 1s;
 }
 
 .homelink:hover {
-  color: #013220;
-  border-bottom: 1px solid #013220;
+  color: var(--dnonyx);
+  border-bottom: 1px solid var(--dnonyx);
   cursor: pointer;
 }
 
@@ -134,7 +133,7 @@ body {
   height: 100%;
   top: 0;
   left:0;
-  background-image: radial-gradient(var(--dngrey),var(--dnbrown));
+  background-image: radial-gradient(var(--dngrey),var(--dnonyx));
   opacity: .5;
 }
 
@@ -152,4 +151,9 @@ body {
 #main-app {
   width: 100vw;
   height:100vh;
+}
+
+nav {
+  border-bottom: 3px solid var(--dnred);
+  background-color: var(--dnsalmon);
 }
