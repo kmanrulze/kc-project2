@@ -1,9 +1,3 @@
-# Starter pipeline
-
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
   branches:
     include:
@@ -140,8 +134,10 @@ stages:
       inputs:
         command: 'publish'
         publishWebProjects: true
+        zipAfterPublish: true
         workingDirectory: './DatabasesNDragons'
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        
     
     - task: PublishBuildArtifacts@1
       displayName: Publish Dotnet Artifacts
@@ -228,9 +224,11 @@ stages:
                 "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
               }
             }]
+############################################################################################################################# DEPLOY
 - stage: Deploy
   dependsOn:
   - Build_and_Test
+  condition: succeeded()
   jobs:
   - job: Deploy_API
     steps:
@@ -281,6 +279,7 @@ stages:
                 "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
               }
             }]
+########################### DEPLOY TASK
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
