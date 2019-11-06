@@ -22,11 +22,13 @@ jobs:
     condition: always()
 
   - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: Webhook
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
@@ -51,11 +53,13 @@ jobs:
           }]
 
   - task: DotNetCoreCLI@2
+    displayName: Dotnet Build
     inputs:
       command: 'build'
       workingDirectory: './DatabasesNDragons'
 
   - task: DotNetCoreCLI@2
+    displayName: Dotnet Publish
     inputs:
       command: 'publish'
       publishWebProjects: true
@@ -63,6 +67,7 @@ jobs:
       arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
   
   - task: PublishBuildArtifacts@1
+    displayName: Publish Build Artifacts
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
@@ -75,6 +80,7 @@ jobs:
   - script: echo Started CLI
 
   - task: DownloadBuildArtifacts@0
+    displayName: Retrieving Build Artifacts
     inputs:
       buildType: 'current'
       downloadType: 'single'
@@ -82,12 +88,14 @@ jobs:
       downloadPath: '$(System.ArtifactsDirectory)'
 
   - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: Webhook
 
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
@@ -111,13 +119,27 @@ jobs:
             }
           }]
   - task: DownloadBuildArtifacts@0
+    displayName: Downloading Build Artifacts
     inputs:
       buildType: 'current'
       downloadType: 'single'
       artifactName: 'drop'
       downloadPath: '$(System.ArtifactsDirectory)'
 
+  - task: SonarCloudPrepare@1
+    displayName: Preparing SonarCloud
+    inputs:
+      SonarCloud: 'DBnD'
+      organization: '1909-sep30-net'
+      scannerMode: 'MSBuild'
+      projectKey: 'KSJ-DBnD'
+      projectName: 'DBnD'
+      extraProperties: |
+        sonar.exclusions=**/lib/**
+        sonar.exclusions=**/Migrations/**
+
   - task: DotNetCoreCLI@2
+    displayName: xUnit Tests
     continueOnError: true
     inputs:
       command: 'test'
@@ -125,6 +147,7 @@ jobs:
       workingDirectory: './DatabasesNDragons'
       arguments: '-c $(buildConfiguration) --collect "XPlat Code Coverage"'
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
@@ -147,17 +170,7 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-  - task: SonarCloudPrepare@1
-    inputs:
-      SonarCloud: 'DBnD'
-      organization: '1909-sep30-net'
-      scannerMode: 'MSBuild'
-      projectKey: 'KSJ-DBnD'
-      projectName: 'DBnD'
-      extraProperties: |
-        sonar.exclusions=**/lib/**
-        sonar.exclusions=**/Migrations/**
-        
+
   - task: PublishCodeCoverageResults@1
     displayName: Publish code coverage
     inputs:
@@ -165,7 +178,7 @@ jobs:
       summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
 
   - task: SonarCloudAnalyze@1
-    displayName: Run SonarCloud analysis
+    displayName: Run SonarCloud Analysis
 
   - task: SonarCloudPublish@1
     displayName: Publish SonarCloud quality gate result
@@ -177,11 +190,13 @@ jobs:
   - script: echo Pipe success!
 
   - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: Webhook
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
@@ -217,11 +232,13 @@ jobs:
   steps:
   - script: echo Pipe failiure!
   - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: Webhook
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
