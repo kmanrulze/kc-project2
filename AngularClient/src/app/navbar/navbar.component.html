@@ -1,7 +1,44 @@
 <header>
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <span class="navbar-brand"><img class="logo" src="../../assets/images/chest_t.png" alt="Chest Logo"></span>
-    <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+<nav class="navbar navbar-expand-md navbar-light bg-light nav-fill">
+    <span class="navbar-brand">
+      <div class="row">
+          <div class="col-4">
+            <img class="logo" src="../../assets/images/chest_t.png" alt="Chest Logo">
+          </div>
+          <div class="col-4 mx-3 my-auto">
+            <div class="text-center navbar-logo-text">DnD</div>
+            <div class="text-center  navbar-logo-text">Trunk</div>
+          </div>
+        </div>
+    </span>
+
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item nav-mid">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">
+            <div><div><img class="navbar-icon" src="../../assets/images/scarecrow_t.png" alt=""></div><div class="navbar-icon-text">Characters</div></div>
+          </a>
+        </li>
+        <li class="nav-item nav-mid">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">
+            <div class="navbar-icon-effects"><div><img class="navbar-icon" src="../../assets/images/map_t.png" alt=""></div><div class="navbar-icon-text">Tables</div></div>
+          </a>
+        </li>
+        <li class="nav-item nav-mid">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" href="/profile">
+            <div class="navbar-icon-effects"><div><img class="navbar-icon" src="../../assets/images/crown_t.png" alt=""></div><div class="navbar-icon-text">Profile</div></div>
+          </a>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="auth.logOut()">
+            <div><div><img class="navbar-icon" src="../../assets/images/exit_t.png" alt=""></div><div class="navbar-icon-text">Logout</div></div>
+          </a>
+        </li>
+    </ul>
+
+    <!-- <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -22,6 +59,6 @@
                 </div>
             </li>
         </ul>
-    </div>
+    </div> -->
 </nav>
 </header>
