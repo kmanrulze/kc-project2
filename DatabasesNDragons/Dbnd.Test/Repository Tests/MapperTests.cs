@@ -208,5 +208,105 @@ namespace Dbnd.Test.Repository_Tests
             Assert.Equal(expected.GameName, value.GameName);
             Assert.Equal(expected.DungeonMasterID, value.DungeonMasterID);
         }
+
+        [Fact]
+        public void MapOverviewEntityToObject()
+        {
+            var gameID = Guid.NewGuid();
+            var typeID = Guid.NewGuid();
+
+            var mappableObject = new Data.Entities.Overview()
+            {
+                TypeID = typeID,
+                GameID = gameID
+            };
+
+            var expected = new Logic.Objects.Overview()
+            {
+                TypeID = typeID,
+                GameID = gameID
+            };
+
+            var value = Data.Repository.Mapper.MapOverview(mappableObject);
+
+            Assert.IsType<Logic.Objects.Overview>(value);
+            Assert.IsType<Guid>(value.OverviewID);
+            Assert.Equal(expected.TypeID, value.TypeID);
+            Assert.Equal(expected.GameID, value.GameID);
+
+        }
+
+        [Fact]
+        public void MapOverviewObjectToEntity()
+        {
+            var gameID = Guid.NewGuid();
+            var typeID = Guid.NewGuid();
+
+            var mappableObject = new Logic.Objects.Overview()
+            {
+                TypeID = typeID,
+                GameID = gameID
+            };
+
+            var expected = new Data.Entities.Overview()
+            {
+                TypeID = typeID,
+                GameID = gameID
+            };
+
+            var value = Data.Repository.Mapper.MapOverview(mappableObject);
+
+            Assert.IsType<Data.Entities.Overview>(value);
+            Assert.IsType<Guid>(value.OverviewID);
+            Assert.Equal(expected.TypeID, value.TypeID);
+            Assert.Equal(expected.GameID, value.GameID);
+        }
+
+        [Fact]
+        public void MapOverviewTypeEntityToObject()
+        {
+            var gameID = Guid.NewGuid();
+            var typeID = Guid.NewGuid();
+
+            var mappableObject = new Data.Entities.OverviewType()
+            {
+                TypeID = typeID
+            };
+
+            var expected = new Logic.Objects.OverviewType()
+            {
+                TypeID = typeID
+            };
+
+            var value = Data.Repository.Mapper.MapOverviewType(mappableObject);
+
+            Assert.IsType<Logic.Objects.OverviewType>(value);
+            Assert.IsType<Guid>(value.TypeID);
+            Assert.Equal(expected.TypeID, value.TypeID);
+
+        }
+
+        [Fact]
+        public void MapOverviewTypeObjectToEntity()
+        {
+            var gameID = Guid.NewGuid();
+            var typeID = Guid.NewGuid();
+
+            var mappableObject = new Logic.Objects.OverviewType()
+            {
+                TypeID = typeID
+            };
+
+            var expected = new Data.Entities.OverviewType()
+            {
+                TypeID = typeID
+            };
+
+            var value = Data.Repository.Mapper.MapOverviewType(mappableObject);
+
+            Assert.IsType<Data.Entities.OverviewType>(value);
+            Assert.IsType<Guid>(value.TypeID);
+            Assert.Equal(expected.TypeID, value.TypeID);
+        }
     }
 }

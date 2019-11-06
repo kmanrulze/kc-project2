@@ -3,15 +3,17 @@ using System;
 using Dbnd.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Dbnd.Data.Migrations
 {
     [DbContext(typeof(DbndContext))]
-    partial class DbndContextModelSnapshot : ModelSnapshot
+    [Migration("20191106041534_OverviewRefactored")]
+    partial class OverviewRefactored
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

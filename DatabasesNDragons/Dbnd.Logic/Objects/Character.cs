@@ -15,6 +15,7 @@ namespace Dbnd.Logic.Objects
 
         public Character(Guid clientID, string firstName, string lastName)
         {
+            CharacterID = Guid.NewGuid();
             ClientID = clientID;
             FirstName = firstName;
             LastName = lastName;
