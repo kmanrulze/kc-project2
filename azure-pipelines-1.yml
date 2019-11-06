@@ -52,6 +52,19 @@ jobs:
             }
           }]
 
+
+  - task: SonarCloudPrepare@1
+    displayName: Preparing SonarCloud
+    inputs:
+      SonarCloud: 'DBnD'
+      organization: '1909-sep30-net'
+      scannerMode: 'MSBuild'
+      projectKey: 'KSJ-DBnD'
+      projectName: 'DBnD'
+      extraProperties: |
+        sonar.exclusions=**/lib/**
+        sonar.exclusions=**/Migrations/**
+
   - task: DotNetCoreCLI@2
     displayName: Dotnet Build
     inputs:
@@ -118,29 +131,6 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-
-############# Might not need this? #########################
-  - task: DotNetCoreCLI@2
-    displayName: Dotnet Publish
-    inputs:
-      command: 'publish'
-      publishWebProjects: true
-      workingDirectory: './DatabasesNDragons'
-      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-###########################################################
-
-  - task: SonarCloudPrepare@1
-    displayName: Preparing SonarCloud
-    inputs:
-      SonarCloud: 'DBnD'
-      organization: '1909-sep30-net'
-      scannerMode: 'MSBuild'
-      projectKey: 'KSJ-DBnD'
-      projectName: 'DBnD'
-      extraProperties: |
-        sonar.exclusions=**/lib/**
-        sonar.exclusions=**/Migrations/**
-  - task: SonarCloudAnalyze@1
   - task: DotNetCoreCLI@2
     displayName: xUnit Tests
     continueOnError: true
@@ -175,7 +165,7 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-
+  - task: SonarCloudAnalyze@1
   - task: PublishCodeCoverageResults@1
     displayName: Publish code coverage
     inputs:
