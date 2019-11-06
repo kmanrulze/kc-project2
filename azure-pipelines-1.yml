@@ -67,7 +67,7 @@ jobs:
       arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
   
   - task: PublishBuildArtifacts@1
-    displayName: Publish Dotnet Publish Artifacts
+    displayName: Publish Dotnet Artifacts
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
@@ -118,13 +118,16 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-  - task: DownloadBuildArtifacts@0
-    displayName: Downloading Build Artifacts
+
+############# Might not need this? #########################
+  - task: DotNetCoreCLI@2
+    displayName: Dotnet Publish
     inputs:
-      buildType: 'current'
-      downloadType: 'single'
-      artifactName: 'drop'
-      downloadPath: '$(System.ArtifactsDirectory)'
+      command: 'publish'
+      publishWebProjects: true
+      workingDirectory: './DatabasesNDragons'
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+###########################################################
 
   - task: SonarCloudPrepare@1
     displayName: Preparing SonarCloud
@@ -256,7 +259,7 @@ jobs:
       embeds: |
           [{
             "title": "Feature Pipeline Build and Analysis Failed",
-            "description": "Your build was bad and you should feel bad! Things failed!",
+            "description": "Your build and tests were bad and you should feel bad! Things failed!",
             "url": "https://discordapp.com",
             "color": 2247803,
             "thumbnail": 
@@ -270,3 +273,23 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
+- job: Tests_Failed
+  dependsOn: TestAndCoverage
+  condition: succeeded()
+  steps:
+  - script: echo Publishing steps started
+  
+  - task: DownloadBuildArtifacts@0
+    displayName: Retrieving Build Artifacts
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'drop'
+      downloadPath: '$(System.ArtifactsDirectory)'
+  - task: AzureRmWebAppDeployment@4
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      appType: 'webApp'
+      WebAppName: 'dbndapi'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
