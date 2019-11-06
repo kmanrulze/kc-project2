@@ -16,13 +16,25 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-- stage: Publish_and_Test
+- stage: Build_and_Test
   jobs:
 ################################################################################################################################# BUILD
   - job: Build
     steps:
     - script: echo Started Build
       condition: always()
+
+    - task: SonarCloudPrepare@1
+      displayName: Preparing SonarCloud
+      inputs:
+        SonarCloud: 'DBnD'
+        organization: '1909-sep30-net'
+        scannerMode: 'MSBuild'
+        projectKey: 'KSJ-DBnD'
+        projectName: 'DBnD'
+        extraProperties: |
+          sonar.exclusions=**/lib/**
+          sonar.exclusions=**/Migrations/**
 
     - task: AzureKeyVault@1
       displayName: Azure Keyvault Access for Webhook
@@ -57,46 +69,10 @@ stages:
 
     - task: DotNetCoreCLI@2
       displayName: Dotnet Build
+      continueOnError: false
       inputs:
         command: 'build'
         workingDirectory: './DatabasesNDragons'
-
-    - task: DotNetCoreCLI@2
-      displayName: Dotnet Publish
-      inputs:
-        command: 'publish'
-        publishWebProjects: true
-        workingDirectory: './DatabasesNDragons'
-        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    
-    - task: PublishBuildArtifacts@1
-      displayName: Publish Dotnet Artifacts
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
-################################################################################################################################# TEST
-  - job: TestAndCoverage
-    dependsOn: Build
-    condition: succeeded()
-    steps:
-    - script: echo Started CLI
-
-    - task: DownloadBuildArtifacts@0
-      displayName: Retrieving Build Artifacts
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'drop'
-        downloadPath: '$(System.ArtifactsDirectory)'
-
-    - task: AzureKeyVault@1
-      displayName: Azure Keyvault Access for Webhook
-      inputs:
-        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
-        KeyVaultName: 'DBnD-KeyVault'
-        SecretsFilter: Webhook
-
     - task: ado-discord-webhook@1
       displayName: Discord Webhook Message
       inputs:
@@ -106,8 +82,8 @@ stages:
         messageType: embeds
         embeds: |
             [{
-              "title": "Feature Pipeline CLI Tests",
-              "description": "Attempting to run CLI Tests...",
+              "title": "Unit Testing",
+              "description": "Running xUnit tests...",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
@@ -121,22 +97,8 @@ stages:
                 "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
               }
             }]
-
-    - task: SonarCloudPrepare@1
-      displayName: Preparing SonarCloud
-      inputs:
-        SonarCloud: 'DBnD'
-        organization: '1909-sep30-net'
-        scannerMode: 'MSBuild'
-        projectKey: 'KSJ-DBnD'
-        projectName: 'DBnD'
-        extraProperties: |
-          sonar.exclusions=**/lib/**
-          sonar.exclusions=**/Migrations/**
-
     - task: DotNetCoreCLI@2
-      displayName: xUnit Tests
-      continueOnError: true
+      continueOnError: false
       inputs:
         command: 'test'
         projects: '**/*Test/*.csproj'
@@ -153,7 +115,7 @@ stages:
         embeds: |
             [{
               "title": "Feature SonarCloud Analysis",
-              "description": "Build and CLI Tests complete. Attempting to analyze with SonarCloud...",
+              "description": "Publishing to SonarCloud...",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
@@ -172,10 +134,25 @@ stages:
       continueOnError: false
     - task: SonarCloudPublish@1
       continueOnError: false
-      displayName: Publish SonarCloud quality gate result
+
+    - task: DotNetCoreCLI@2
+      displayName: Dotnet Publish
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        workingDirectory: './DatabasesNDragons'
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Dotnet Artifacts
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
 ################################################################################################################################# TEST SUCCEED
   - job: Tests_Succeeded
-    dependsOn: TestAndCoverage
+    dependsOn: Build
     condition: succeeded()
     steps:
     - script: echo Pipe success!
@@ -195,8 +172,8 @@ stages:
         messageType: embeds
         embeds: |
             [{
-              "title": "Feature Build and Analysis Success!",
-              "description": "Build and Analysis Successful! You can give yourself a pat on the back and feel good about yourself!",
+              "title": "Feature Pipeline Success!",
+              "description": "The pipe passed all build and analysis processes! You can give yourself a pat on the back and feel good about yourself!",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
@@ -217,7 +194,7 @@ stages:
             }]
 ################################################################################################################################# TEST FAILED
   - job: Tests_Failed
-    dependsOn: TestAndCoverage
+    dependsOn: Build
     condition: failed()
     steps:
     - script: echo Pipe failiure!
@@ -236,8 +213,8 @@ stages:
         messageType: embeds
         embeds: |
             [{
-              "title": "Feature Pipeline Build and Analysis Failed",
-              "description": "Your build and tests were bad and you should feel bad! Things failed!",
+              "title": "Feature Pipeline Failed",
+              "description": "Pipeline failiure due to process above",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
@@ -253,7 +230,7 @@ stages:
             }]
 - stage: Deploy
   dependsOn:
-  - Publish_and_Test
+  - Build_and_Test
   jobs:
   - job: Deploy_API
     steps:
