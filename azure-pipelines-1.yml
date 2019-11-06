@@ -273,12 +273,12 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-- job: Tests_Failed
+- job: Deploy_API
   dependsOn: TestAndCoverage
   condition: succeeded()
   steps:
   - script: echo Publishing steps started
-  
+
   - task: DownloadBuildArtifacts@0
     displayName: Retrieving Build Artifacts
     inputs:
