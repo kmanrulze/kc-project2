@@ -59,9 +59,8 @@ jobs:
     inputs:
       command: 'publish'
       publishWebProjects: true
-      packDirectory: '$(Build.ArtifactStagingDirectory)'
       workingDirectory: './DatabasesNDragons'
-      arguments: --configuration $(buildConfiguration)
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
       
 #  - task: CopyFiles@2
 #    inputs:
