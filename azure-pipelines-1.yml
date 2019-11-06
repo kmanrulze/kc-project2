@@ -145,7 +145,10 @@ jobs:
       command: 'test'
       projects: '**/*Test/*.csproj'
       workingDirectory: './DatabasesNDragons'
-      arguments: '-c $(buildConfiguration) --collect "XPlat Code Coverage"'
+      arguments: --configuration $(buildConfiguration)
+                 --collect:"XPlat Code Coverage"
+
+
   - task: ado-discord-webhook@1
     displayName: Discord Webhook Message
     inputs:
@@ -178,7 +181,6 @@ jobs:
       summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
 
   - task: SonarCloudAnalyze@1
-    displayName: Run SonarCloud Analysis
 
   - task: SonarCloudPublish@1
     displayName: Publish SonarCloud quality gate result
