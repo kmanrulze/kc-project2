@@ -145,18 +145,10 @@ jobs:
     displayName: xUnit Tests
     inputs:
       command: 'test'
+      projects: '**/*Test/*.csproj'
       arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
       testRunTitle: 'xUnit Tests'
       workingDirectory: '"./DatabasesNDragons"'
-#  - task: DotNetCoreCLI@2
-#    displayName: xUnit Tests
-#    continueOnError: true
-#    inputs:
-#      command: 'test'
-#      projects: '**/*Test/*.csproj'
-#      workingDirectory: './DatabasesNDragons'
-#      arguments: --configuration $(buildConfiguration)
-#                 --collect:"XPlat Code Coverage"
 
 
   - task: ado-discord-webhook@1
