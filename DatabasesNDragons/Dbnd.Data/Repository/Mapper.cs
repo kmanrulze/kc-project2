@@ -87,5 +87,43 @@ namespace Dbnd.Data.Repository
             };
             return EntityGame;
         }
+        public static Overview MapOverview(Entities.Overview ContextOverview)
+        {
+            Overview LogicOverview = new Overview()
+            {
+                GameID = ContextOverview.GameID,
+                OverviewID = ContextOverview.OverviewID,
+                TypeID = ContextOverview.TypeID
+            };
+            return LogicOverview;
+        }
+
+        public static Entities.Overview MapOverview(Overview ContextOverview)
+        {
+            Entities.Overview EntityOverview = new Entities.Overview
+            {
+                GameID = ContextOverview.GameID,
+                OverviewID = ContextOverview.OverviewID,
+                TypeID = ContextOverview.TypeID
+            };
+            return EntityOverview;
+        }
+        public static OverviewType MapOverviewType(Entities.OverviewType ContextOverviewType)
+        {
+            OverviewType LogicOverviewType = new OverviewType()
+            {
+                TypeID = ContextOverviewType.TypeID
+            };
+            return LogicOverviewType;
+        }
+
+        public static Entities.OverviewType MapOverviewType(OverviewType ContextOverviewType)
+        {
+            Entities.OverviewType EntityOverviewType = new Entities.OverviewType
+            {
+                TypeID = ContextOverviewType.TypeID
+            };
+            return EntityOverviewType;
+        }
     }
 }

@@ -15,5 +15,7 @@ namespace Dbnd.Logic.Objects
             TypeID = typeID;
         }
 
+        public Overview() { }
+
     }
 }
