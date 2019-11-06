@@ -57,7 +57,7 @@ jobs:
     ###Publishes Build Artificts to be used in other jobs
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/bin/WebApp'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
       publishLocation: 'Container'
 - job: Test
@@ -69,7 +69,7 @@ jobs:
     inputs:
       buildType: 'current'
       downloadType: 'single'
-      downloadPath: '$(System.DefaultWorkingDirectory)/Dbnd.WebApp/bin'
+      downloadPath: '$(Build.ArtifactStagingDirectory)'
 
   - task: AzureKeyVault@1
     inputs:
