@@ -72,10 +72,11 @@ jobs:
       downloadPath: '$(System.ArtifactsDirectory)'
 
   - task: AzureKeyVault@1
-inputs:
-  azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
-  KeyVaultName: 'DBnD-KeyVault'
-  SecretsFilter: Webhook
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: Webhook
+
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639490810336903202'
