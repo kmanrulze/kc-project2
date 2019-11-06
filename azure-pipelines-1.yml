@@ -74,7 +74,7 @@ jobs:
       ArtifactName: 'drop'
       publishLocation: 'Container'
 
-- job: Test
+- job: TestAndCoverage
   dependsOn: Build
   condition: succeeded()
   steps:
@@ -116,7 +116,13 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-    
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'drop'
+      downloadPath: '$(System.ArtifactsDirectory)'
+
   - task: DotNetCoreCLI@2
     continueOnError: true
     inputs:
@@ -124,24 +130,6 @@ jobs:
       projects: '**/*Test/*.csproj'
       workingDirectory: './DatabasesNDragons'
       arguments: '-c $(buildConfiguration) --collect "XPlat Code Coverage"'
-      
-- job: SonarCloud
-  dependsOn: Build
-  condition: succeeded()
-  steps:
-  - script: echo Started SonarCloud Publish
-
-  - task: DownloadBuildArtifacts@0
-    inputs:
-      buildType: 'current'
-      downloadType: 'single'
-      artifactName: 'drop'
-      downloadPath: '$(System.ArtifactsDirectory)'
-  - task: AzureKeyVault@1
-    inputs:
-      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
-      KeyVaultName: 'DBnD-KeyVault'
-      SecretsFilter: Webhook
   - task: ado-discord-webhook@1
     inputs:
       channelId: '639490810336903202'
@@ -175,8 +163,6 @@ jobs:
       extraProperties: |
         sonar.exclusions=**/lib/**
         sonar.exclusions=**/Migrations/**
-
-###Publishes to SonarCloud
   - task: SonarCloudPublish@1
     displayName: Publish SonarCloud quality gate result
     inputs:
@@ -189,7 +175,7 @@ jobs:
       summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
 - job: PipeSucceed
-  dependsOn: SonarCloud
+  dependsOn: TestAndCoverage
   condition: succeeded()
   steps:
   - script: echo Pipe success!
