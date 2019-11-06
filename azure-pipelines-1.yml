@@ -61,12 +61,6 @@ jobs:
       publishWebProjects: true
       workingDirectory: './DatabasesNDragons'
       arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-      
-#  - task: CopyFiles@2
-#    inputs:
-#      SourceFolder: '$(Build.SourcesDirectory)'
-#      Contents: '**'
-#      TargetFolder: '$(Build.ArtifactStagingDirectory)'
   
   - task: PublishBuildArtifacts@1
     inputs:
@@ -163,16 +157,18 @@ jobs:
       extraProperties: |
         sonar.exclusions=**/lib/**
         sonar.exclusions=**/Migrations/**
-  - task: SonarCloudPublish@1
-    displayName: Publish SonarCloud quality gate result
-    inputs:
-      pollingTimeoutSec: '300'
-
+        
   - task: PublishCodeCoverageResults@1
     displayName: Publish code coverage
     inputs:
       codeCoverageTool: 'Cobertura'
       summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
+
+  - task: SonarCloudAnalyze@1
+    displayName: Run SonarCloud analysis
+
+  - task: SonarCloudPublish@1
+    displayName: Publish SonarCloud quality gate result
 
 - job: Tests_Succeeded
   dependsOn: TestAndCoverage
