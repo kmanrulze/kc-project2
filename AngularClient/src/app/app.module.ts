@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { LoginComponent } from './login/login.component';
+import { LoginSplashComponent } from './login-splash/login-splash.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CharactersComponent } from './characters/characters.component';
@@ -17,12 +17,13 @@ import { WelcomeSplashComponent } from './welcome-splash/welcome-splash.componen
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    LoginSplashComponent,
     NavbarComponent,
     ProfileComponent,
     CharactersComponent,
     TablesComponent,
     WelcomeSplashComponent,
+    LoginSplashComponent,
   ],
   imports: [
     BrowserModule,

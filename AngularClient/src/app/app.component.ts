@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { AuthService } from './_services/auth/auth.service';
 import { DbndService } from './_services/dbnd/dbnd.service';
 
@@ -9,11 +11,12 @@ import { DbndService } from './_services/dbnd/dbnd.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private auth: AuthService, private dbnd: DbndService) {}
+  constructor(private router: Router, private auth: AuthService, private dbnd: DbndService) {}
 
   ngOnInit() {
     this.auth.localAuthSetup();
     this.auth.handleAuthCallback();
+    this.router.navigate(["login-splash"]);
   }
 
 }
