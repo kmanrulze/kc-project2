@@ -1,4 +1,3 @@
-<header>
 <nav class="navbar navbar-expand-md navbar-light bg-light nav-fill">
     <span class="navbar-brand">
       <div class="row">
@@ -13,26 +12,26 @@
     </span>
 
     <ul class="navbar-nav mx-auto">
-        <li class="nav-item nav-mid">
-          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">
+        <li class="nav-mid">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">
             <div><div><img class="navbar-icon" src="../../assets/images/scarecrow_t.png" alt=""></div><div class="navbar-icon-text">Characters</div></div>
           </a>
         </li>
-        <li class="nav-item nav-mid">
+        <li class="nav-mid">
           <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">
             <div class="navbar-icon-effects"><div><img class="navbar-icon" src="../../assets/images/map_t.png" alt=""></div><div class="navbar-icon-text">Tables</div></div>
           </a>
         </li>
-        <li class="nav-item nav-mid">
-          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" href="/profile">
+        <li class="nav-mid">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarProfile" *ngIf="auth.loggedIn" href="/profile">
             <div class="navbar-icon-effects"><div><img class="navbar-icon" src="../../assets/images/crown_t.png" alt=""></div><div class="navbar-icon-text">Profile</div></div>
           </a>
         </li>
     </ul>
 
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="auth.logOut()">
+        <li class="nav-mid">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarLogout" *ngIf="auth.loggedIn" (click)="auth.logOut()">
             <div><div><img class="navbar-icon" src="../../assets/images/exit_t.png" alt=""></div><div class="navbar-icon-text">Logout</div></div>
           </a>
         </li>
@@ -61,4 +60,3 @@
         </ul>
     </div> -->
 </nav>
-</header>

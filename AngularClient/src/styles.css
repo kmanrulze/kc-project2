@@ -49,6 +49,7 @@ body {
 
 .nav-mid {
   margin: auto 25px;
+  padding: 0;
 }
 
 .main{
@@ -142,6 +143,7 @@ body {
 }
 
 .body-splash-container {
+  z-index: -1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -179,4 +181,6 @@ body {
 nav {
   border-bottom: 3px solid var(--dnred);
   background-color: var(--dnsalmon);
+
+  margin-bottom: 15px;;
 }
