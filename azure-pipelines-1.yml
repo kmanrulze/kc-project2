@@ -62,8 +62,9 @@ jobs:
     inputs:
       command: 'publish'
       publishWebProjects: true
-      workingDirectory: './DatabasesNDragons'
       arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: false
+      workingDirectory: './DatabasesNDragons'
   
   - task: PublishBuildArtifacts@1
     displayName: Publish Dotnet Artifacts
@@ -77,7 +78,7 @@ jobs:
   condition: succeeded()
   steps:
   - script: echo Started CLI
-  
+
   - task: SonarCloudPrepare@1
     displayName: Preparing SonarCloud
     inputs:
@@ -138,6 +139,12 @@ jobs:
       workingDirectory: './DatabasesNDragons'
       arguments: --configuration $(buildConfiguration)
                  --collect:"XPlat Code Coverage"
+                 
+  - task: DotNetCoreCLI@2
+    displayName: Dotnet Build
+    inputs:
+      command: 'build'
+      workingDirectory: './DatabasesNDragons'
 
   - task: ado-discord-webhook@1
     displayName: Discord Webhook Message
