@@ -67,7 +67,7 @@ jobs:
       arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
   
   - task: PublishBuildArtifacts@1
-    displayName: Publish Build Artifacts
+    displayName: Publish Dotnet Publish Artifacts
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
@@ -140,13 +140,20 @@ jobs:
 
   - task: DotNetCoreCLI@2
     displayName: xUnit Tests
-    continueOnError: true
     inputs:
       command: 'test'
-      projects: '**/*Test/*.csproj'
-      workingDirectory: './DatabasesNDragons'
-      arguments: --configuration $(buildConfiguration)
-                 --collect:"XPlat Code Coverage"
+      arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
+      testRunTitle: 'xUnit Tests'
+      workingDirectory: '"./DatabasesNDragons"'
+#  - task: DotNetCoreCLI@2
+#    displayName: xUnit Tests
+#    continueOnError: true
+#    inputs:
+#      command: 'test'
+#      projects: '**/*Test/*.csproj'
+#      workingDirectory: './DatabasesNDragons'
+#      arguments: --configuration $(buildConfiguration)
+#                 --collect:"XPlat Code Coverage"
 
 
   - task: ado-discord-webhook@1
