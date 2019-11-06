@@ -16,7 +16,7 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-- stage: Build_and_Test
+- stage: Publish_and_Test
   jobs:
 ################################################################################################################################# BUILD
   - job: Build
@@ -256,6 +256,8 @@ stages:
               }
             }]
 - stage: Deploy
+  dependsOn:
+  - Publish_and_Test
   jobs:
   - job: Deploy_API
     dependsOn: TestAndCoverage
