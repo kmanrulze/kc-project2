@@ -1,3 +1,13 @@
+GO
+
+Delete
+From "Overview"
+
+GO
+
+Delete
+From "OverviewType"
+
 Delete
 From "CharacterGameXRef"
 
@@ -21,16 +31,6 @@ GO
 
 Delete
 From "Client"
-
-GO
-
-Delete
-From "Overview"
-
-GO
-
-Delete
-From "OverviewType"
 
 GO
 
