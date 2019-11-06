@@ -10,7 +10,7 @@ trigger:
     - Feature
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
@@ -133,7 +133,6 @@ stages:
         extraProperties: |
           sonar.exclusions=**/lib/**
           sonar.exclusions=**/Migrations/**
-          sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
 
     - task: DotNetCoreCLI@2
       displayName: xUnit Tests
@@ -142,8 +141,7 @@ stages:
         command: 'test'
         projects: '**/*Test/*.csproj'
         workingDirectory: './DatabasesNDragons'
-        arguments: --configuration $(buildConfiguration)
-                  --collect:"XPlat Code Coverage"
+        arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
     - task: ado-discord-webhook@1
       displayName: Discord Webhook Message
@@ -175,8 +173,6 @@ stages:
       inputs:
         codeCoverageTool: 'Cobertura'
         summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
-    - task: SonarCloudAnalyze@1
-      displayName: Run SonarCloud analysis
 
     - task: SonarCloudPublish@1
       displayName: Publish SonarCloud quality gate result
