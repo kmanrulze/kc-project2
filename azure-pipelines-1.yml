@@ -133,6 +133,7 @@ stages:
         extraProperties: |
           sonar.exclusions=**/lib/**
           sonar.exclusions=**/Migrations/**
+          sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
 
     - task: DotNetCoreCLI@2
       displayName: xUnit Tests
