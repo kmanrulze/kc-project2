@@ -16,7 +16,7 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-- stage: Build and Test
+- stage: Build_and_Test
   jobs:
 ################################################################################################################################# BUILD
   - job: Build
