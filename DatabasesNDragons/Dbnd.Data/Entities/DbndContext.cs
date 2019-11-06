@@ -65,12 +65,6 @@ namespace Dbnd.Data.Entities
             modelBuilder.Entity<Overview>()
                 .Property(p => p.OverviewID)
                 .IsRequired();
-            modelBuilder.Entity<Overview>()
-                .Property(p => p.TypeID)
-                .IsRequired();
-            modelBuilder.Entity<Overview>()
-                .Property(p => p.GameID)
-                .IsRequired();
 
             modelBuilder.Entity<OverviewType>()
                 .Property(p => p.TypeID)
