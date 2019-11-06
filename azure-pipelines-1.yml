@@ -119,16 +119,6 @@ jobs:
             }
           }]
 
-############# Might not need this? #########################
-  - task: DotNetCoreCLI@2
-    displayName: Dotnet Publish
-    inputs:
-      command: 'publish'
-      publishWebProjects: true
-      workingDirectory: './DatabasesNDragons'
-      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-###########################################################
-
   - task: SonarCloudPrepare@1
     displayName: Preparing SonarCloud
     inputs:
