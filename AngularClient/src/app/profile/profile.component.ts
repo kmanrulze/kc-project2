@@ -12,10 +12,17 @@ export class ProfileComponent implements OnInit {
 
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
-  ngOnInit() {
-    this.dbnd.getId$().subscribe( (res: Response) => {
-      var guid = res["id"];
-      document.getElementById("idDiv").innerHTML = `Id: ${guid}`;
+  dbndProfText: string = "";
+
+  async ngOnInit() {
+    /*this.dbnd.getId$().subscribe((res: Response) => {
+      this.dbnd.getUser$(res["id"]).subscribe( (res: Response) => {
+        this.dbndProfText = JSON.stringify(res);
+      })
+    })*/
+
+    this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
+      this.dbndProfText = JSON.stringify(res);
     });
   }
 

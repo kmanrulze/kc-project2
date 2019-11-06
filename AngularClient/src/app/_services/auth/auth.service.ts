@@ -5,6 +5,8 @@ import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+import { DbndService } from '../dbnd/dbnd.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -38,9 +40,9 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  currentId: string = "";
+  clientId: string = "";
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dbnd: DbndService) { }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -51,6 +53,18 @@ export class AuthService {
     );
   }
 
+  async getClientId()
+  {
+    if (this.clientId != "")
+      return this.clientId;
+
+    await this.dbnd.getId$().toPromise().then( (res: Response) => {
+      this.clientId = res["id"];
+    });
+
+    return this.clientId;
+  }
+
   localAuthSetup() {
     // This should only be called on app initialization
     // Set up local authentication streams
@@ -59,6 +73,7 @@ export class AuthService {
         if (loggedIn) {
           // If authenticated, get user and set in app
           // NOTE: you could pass options here if needed
+          //this.getClientId();
           return this.getUser$();
         }
         // If not authenticated, return stream that emits 'false'
@@ -74,6 +89,7 @@ export class AuthService {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log in
+      //this.getClientId();
       client.loginWithRedirect({
         redirect_uri: `${window.location.origin}`,
         appState: { target: redirectPath }
@@ -119,7 +135,7 @@ export class AuthService {
   logOut() {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
-      this.currentId = "";
+      this.clientId = "";
       // Call method to log out
       client.logout({
         client_id: "7cgrbDfEj2bunK7qBIVtKotF89U0g5eh",

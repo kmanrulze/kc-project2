@@ -18,11 +18,13 @@ namespace Dbnd.Api.Controllers
     {
         private readonly IRepository _repository;
         private IHttpClientFactory _clientFactory;
+        private Authorizer _auth;
 
         public ClientController(IRepository repository, IHttpClientFactory clientFactory)
         {
             _repository = repository;
             _clientFactory = clientFactory;
+            _auth = new Authorizer(_clientFactory);
         }
         // GET: api/Client
         [HttpGet]
@@ -31,8 +33,7 @@ namespace Dbnd.Api.Controllers
         {
             try
             {
-                Auth0Requester a0r = new Auth0Requester(_clientFactory);
-                UserProfile userProfile = await a0r.GetUserProfile(Request.Headers["Authorization"].ToString());
+                UserProfile userProfile = await _auth.GetUserProfile(Request.Headers["Authorization"].ToString());
 
                 try
                 {
@@ -54,13 +55,20 @@ namespace Dbnd.Api.Controllers
 
         //GET: api/Client/5
         [HttpGet("{id}")]
-        public Task<Client> Get(Guid id)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> Get(Guid id)
         {
-            return _repository.GetClientByIDAsync(id);
+            if (!await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString()))
+                return Forbid();
+
+            Client client = await _repository.GetClientByIDAsync(id);
+            return Ok(client);
         }
 
+        // Not accessible via current flow; deprecated
         // POST: api/Client
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Post([FromBody, Bind("UserName, Email")] Client client)
         {
             await _repository.CreateClientAsync(client.UserName, client.Email);
@@ -69,8 +77,12 @@ namespace Dbnd.Api.Controllers
 
         // PUT: api/Client/5
         [HttpPut("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Put(Guid id, [FromBody, Bind("UserName, Email")] Client changedClient)
         {
+            if (!await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString()))
+                return Forbid();
+
             await _repository.UpdateClientByIDAsync(id, changedClient);
             var returnClient = await _repository.GetClientByIDAsync(id);
             return AcceptedAtAction("Get", "Client", null, returnClient);
@@ -78,8 +90,12 @@ namespace Dbnd.Api.Controllers
 
         // DELETE: api/Client/5
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Delete(Guid id)
         {
+            if (!await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString()))
+                return Forbid();
+
             await _repository.DeleteClientByIDAsync(id);
             return NoContent();
         }

@@ -10,7 +10,7 @@ trigger:
     - Feature
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
   buildConfiguration: 'Release'
@@ -22,11 +22,13 @@ jobs:
     condition: always()
 
   - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: Webhook
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
@@ -49,8 +51,83 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
+
+  - task: DotNetCoreCLI@2
+    displayName: Dotnet Build
+    inputs:
+      command: 'build'
+      workingDirectory: './DatabasesNDragons'
+
+  - task: DotNetCoreCLI@2
+    displayName: Dotnet Publish
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+      workingDirectory: './DatabasesNDragons'
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+  
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Build Artifacts
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+
+- job: TestAndCoverage
+  dependsOn: Build
+  condition: succeeded()
+  steps:
+  - script: echo Started CLI
+
+  - task: DownloadBuildArtifacts@0
+    displayName: Retrieving Build Artifacts
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'drop'
+      downloadPath: '$(System.ArtifactsDirectory)'
+
+  - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: Webhook
+
+  - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
+    inputs:
+      channelId: '639490810336903202'
+      webhookKey: '$(Webhook)'
+      name: 'Azure Devops'
+      messageType: embeds
+      embeds: |
+          [{
+            "title": "Feature Pipeline CLI Tests",
+            "description": "Attempting to run CLI Tests...",
+            "url": "https://discordapp.com",
+            "color": 2247803,
+            "thumbnail": 
+            {
+              "url": "https://static.thenounproject.com/png/266379-200.png"
+            },
+            "author": 
+            {
+              "name": "Azure Devops",
+              "url": "https://dev.azure.com/kcguzman/Project-2",
+              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+            }
+          }]
+  - task: DownloadBuildArtifacts@0
+    displayName: Downloading Build Artifacts
+    inputs:
+      buildType: 'current'
+      downloadType: 'single'
+      artifactName: 'drop'
+      downloadPath: '$(System.ArtifactsDirectory)'
+
   - task: SonarCloudPrepare@1
-    continueOnError: false
+    displayName: Preparing SonarCloud
     inputs:
       SonarCloud: 'DBnD'
       organization: '1909-sep30-net'
@@ -58,20 +135,22 @@ jobs:
       projectKey: 'KSJ-DBnD'
       projectName: 'DBnD'
       extraProperties: |
-          sonar.exclusions=**/lib/**
-          sonar.exclusions=**/Migrations/**
+        sonar.exclusions=**/lib/**
+        sonar.exclusions=**/Migrations/**
 
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: 'dotnet build $(buildConfiguration)'
-    workingDirectory: './DatabasesNDragons'
   - task: DotNetCoreCLI@2
+    displayName: xUnit Tests
     continueOnError: true
     inputs:
       command: 'test'
       projects: '**/*Test/*.csproj'
       workingDirectory: './DatabasesNDragons'
-      arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+      arguments: --configuration $(buildConfiguration)
+                 --collect:"XPlat Code Coverage"
+
+
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
@@ -95,23 +174,31 @@ jobs:
             }
           }]
 
-  - task: SonarCloudAnalyze@1
-    continueOnError: false
-  - task: SonarCloudPublish@1
-    continueOnError: false
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish code coverage
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
 
-- job: PipeSucceed
-  dependsOn: Build
+  - task: SonarCloudAnalyze@1
+
+  - task: SonarCloudPublish@1
+    displayName: Publish SonarCloud quality gate result
+
+- job: Tests_Succeeded
+  dependsOn: TestAndCoverage
   condition: succeeded()
   steps:
   - script: echo Pipe success!
 
   - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: Webhook
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'
@@ -141,17 +228,19 @@ jobs:
           }]
 
     
-- job: PipeFailed
-  dependsOn: Build
+- job: Tests_Failed
+  dependsOn: TestAndCoverage
   condition: failed()
   steps:
   - script: echo Pipe failiure!
   - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: Webhook
   - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
     inputs:
       channelId: '639490810336903202'
       webhookKey: '$(Webhook)'

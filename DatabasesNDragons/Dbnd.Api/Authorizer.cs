@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dbnd.Logic.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Dbnd.Api
 {
-    public class Auth0Requester
+    public class Authorizer
     {
         IHttpClientFactory _clientFactory;
-        public Auth0Requester(IHttpClientFactory clientFactory)
+        public Authorizer(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }
@@ -26,6 +27,13 @@ namespace Dbnd.Api
             HttpResponseMessage response = client.SendAsync(request).Result;
 
             return JsonConvert.DeserializeObject<UserProfile>(await response.Content.ReadAsStringAsync());
+        }
+        public async Task<bool> Authorized(IRepository context, string bearerString, string requesterId)
+        {
+            UserProfile userProfile = await GetUserProfile(bearerString);
+            string userId = (await context.GetClientByEmailAsync(userProfile.email)).ClientID.ToString();
+
+            return userId == requesterId;
         }
     }
 }
