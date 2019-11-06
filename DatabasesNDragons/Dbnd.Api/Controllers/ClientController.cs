@@ -61,7 +61,8 @@ namespace Dbnd.Api.Controllers
             if (!await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString()))
                 return Forbid();
 
-            return Ok(_repository.GetClientByIDAsync(id));
+            Client client = await _repository.GetClientByIDAsync(id);
+            return Ok(client);
         }
 
         // Not accessible via current flow; deprecated

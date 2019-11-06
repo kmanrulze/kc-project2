@@ -1,6 +1,7 @@
 <h3>Profile</h3>
 <div id="idDiv">
-    Id: [empty]
+    <p>Id: {{ auth.clientId }}</p>
+    <p>{{dbndProfText}}</p>
 </div>
 <pre *ngIf="auth.userProfile$ | async as profile">
     <code>{{ profile | json }}</code>
