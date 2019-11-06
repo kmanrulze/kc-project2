@@ -15,6 +15,7 @@ namespace Dbnd.Logic.Objects
 
         public Game(Guid dungeonMasterID, string gameName)
         {
+            GameID = Guid.NewGuid();
             DungeonMasterID = dungeonMasterID;
             GameName = gameName;
         }
