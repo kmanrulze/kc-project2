@@ -65,7 +65,6 @@ jobs:
       publishWebProjects: true
       workingDirectory: './DatabasesNDragons'
       arguments: --configuration $(buildConfiguration)
-      zipAfterPublish: true
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)'
@@ -88,6 +87,7 @@ jobs:
     inputs:
       buildType: 'current'
       downloadType: 'single'
+      artifactName: 'drop'
       downloadPath: '$(System.ArtifactsDirectory)'
 
   - task: AzureKeyVault@1
