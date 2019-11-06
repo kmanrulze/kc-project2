@@ -140,6 +140,7 @@ jobs:
       extraProperties: |
         sonar.exclusions=**/lib/**
         sonar.exclusions=**/Migrations/**
+  - task: SonarCloudAnalyze@1
   - task: DotNetCoreCLI@2
     displayName: xUnit Tests
     continueOnError: true
@@ -180,8 +181,6 @@ jobs:
     inputs:
       codeCoverageTool: 'Cobertura'
       summaryFileLocation: '$(Agent.TempDirectory)/*/coverage.cobertura.xml'
-
-  - task: SonarCloudAnalyze@1
 
   - task: SonarCloudPublish@1
     displayName: Publish SonarCloud quality gate result
@@ -322,3 +321,84 @@ jobs:
       appType: 'webApp'
       WebAppName: 'dbndapi'
       packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+- job: Deployment_Success
+  dependsOn: Deploy_API
+  condition: succeeded()
+  steps:
+  - script: echo Successfully deployed!
+  - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: Webhook
+  - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
+    inputs:
+      channelId: '639490810336903202'
+      webhookKey: '$(Webhook)'
+      name: 'Azure Devops'
+      messageType: embeds
+      embeds: |
+          [{
+            "title": "Feature Build and Analysis Success!",
+            "description": "Your app has been deployed!",
+            "url": "https://discordapp.com",
+            "color": 2247803,
+            "thumbnail": 
+            {
+              "url": "https://static.thenounproject.com/png/266379-200.png"
+            },
+            "author": 
+            {
+              "name": "Azure Devops",
+              "url": "https://dev.azure.com/kcguzman/Project-2",
+              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+            },
+            "fields": 
+            [{
+              "name": "SonarCloud Metrics Link",
+              "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
+                  }]
+          }]
+- job: Deployment_Failed
+  dependsOn: Deploy_API
+  condition: failed()
+  steps:
+  - script: echo Unsuccessfully deployed...
+  - task: AzureKeyVault@1
+    displayName: Azure Keyvault Access for Webhook
+    inputs:
+      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      KeyVaultName: 'DBnD-KeyVault'
+      SecretsFilter: Webhook
+  - task: ado-discord-webhook@1
+    displayName: Discord Webhook Message
+    inputs:
+      channelId: '639490810336903202'
+      webhookKey: '$(Webhook)'
+      name: 'Azure Devops'
+      messageType: embeds
+      embeds: |
+          [{
+            "title": "Feature Build and Analysis Success!",
+            "description": "Your app has failed to be deployed. I blame Fred.",
+            "url": "https://discordapp.com",
+            "color": 2247803,
+            "thumbnail": 
+            {
+              "url": "https://static.thenounproject.com/png/266379-200.png"
+            },
+            "author": 
+            {
+              "name": "Azure Devops",
+              "url": "https://dev.azure.com/kcguzman/Project-2",
+              "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+            },
+            "fields": 
+            [{
+              "name": "SonarCloud Metrics Link",
+              "value": "https://sonarcloud.io/dashboard?id=KSJ-DBnD"
+                  }]
+          }]
