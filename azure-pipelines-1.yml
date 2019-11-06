@@ -49,10 +49,6 @@ jobs:
               "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
             }
           }]
-    ###Builds
-#  - script: dotnet build --configuration $(buildConfiguration)
-#    displayName: 'dotnet build $(buildConfiguration)'
-#    workingDirectory: './DatabasesNDragons'
 
   - task: DotNetCoreCLI@2
     inputs:
@@ -63,13 +59,15 @@ jobs:
     inputs:
       command: 'publish'
       publishWebProjects: true
+      packDirectory: '$(Build.ArtifactStagingDirectory)'
       workingDirectory: './DatabasesNDragons'
       arguments: --configuration $(buildConfiguration)
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: '$(Build.SourcesDirectory)'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      
+#  - task: CopyFiles@2
+#    inputs:
+#      SourceFolder: '$(Build.SourcesDirectory)'
+#      Contents: '**'
+#      TargetFolder: '$(Build.ArtifactStagingDirectory)'
   
   - task: PublishBuildArtifacts@1
     inputs:
