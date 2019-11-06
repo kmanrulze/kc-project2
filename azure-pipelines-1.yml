@@ -58,7 +58,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'workingBuild'
+      ArtifactName: 'drop'
       publishLocation: 'Container'
 - job: Test
   dependsOn: Build
