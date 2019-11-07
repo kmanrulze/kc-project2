@@ -368,7 +368,7 @@ namespace Dbnd.Data.Repository
             }
             catch (Exception e)
             {
-                Console.WriteLine("Something went wrong within CreateOverviewAsync: " + e.Message);
+                Console.WriteLine("Something went wrong within DeleteOverviewByIDAsync: " + e.Message);
             }
         }
         #endregion
