@@ -21,26 +21,26 @@
 </ng-template>
 
 <ng-template #joinTable let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Create Table</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label for="tableName">Table GUID</label>
-                    <div class="input-group">
-                    <input id="joinTableId" type="text" placeholder="Table GUID...">
-                    </div>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Create Table</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="tableName">Table GUID</label>
+                <div class="input-group">
+                <input id="joinTableId" type="text" placeholder="Table GUID...">
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-        </div>
-    </ng-template>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
 
 <div>
     <div class="input-group">

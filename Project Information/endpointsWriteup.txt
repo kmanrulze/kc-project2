@@ -1,0 +1,32 @@
+HTTP Endpoints
+11/7/2019
+
+Clients:
+	[Because of Auth0's flow, we only create clients when validated tokens with new email addresses arrive, 
+		so we don't need an endpoint to create clients.]
+	[I don't see a reason for deletion, either.]
+	GET     Get client's id from token: api/clients
+	GET     Get client info: api/clients/{clientId}
+	PUT     Update client info: api/clients/update/{clientId}
+
+Games (of a client):
+	POST    Create new game: api/clients/{clientId}/games/new
+	GET     Get client's games: api/clients/{clientId}/games
+	GET     Get game info: api/clients/{clientId}/games/{gameId}
+	PUT     Add character to game: api/clients/{clientId}/games/{gameId}/addCharacter/
+	PUT     Update game info: api/clients/{clientId}/games/update/{gameId}
+	DELETE  Delete game: api/clients/{clientId}/games/delete/{gameId}
+
+Characters (of a client):
+	POST    Create new character: api/clients/{clientId}/characters/new
+	GET     Get all characters: api/clients/{clientId}/characters
+	GET     Get character info: api/clients/{clientId}/characters/{characterId}
+	PUT     Update character info: api/clients/{clientId}/characters/update/{characterId}
+	DELETE  Delete character: api/clients/{clientId}/characters/delete/{characterId}
+
+Overviews (of a game):
+	POST    Create overview: api/clients/{clientId}/games/{gameId}/overviews/new
+	GET     Get all overviews of a game: api/clients/{clientId}/games/{gameId}/overviews
+	GET     Get overview info: api/clients/{clientId}/games/{gameId}/overviews/{overviewId}
+	PUT     Update overview: api/clients/{clientId}/games/{gameId}/overviews/update/{overviewId}
+	DELETE  Remove overview: api/clients/{clientId}/games/{gameId}/overviews/delete/{overviewId}

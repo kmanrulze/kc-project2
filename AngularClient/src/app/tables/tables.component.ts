@@ -14,6 +14,9 @@ export class TablesComponent {
 
   openCreate(createTable) {
     this.modalService.open(createTable, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      // POST form data to /api/games (or something)
+      // Create alert upon success
+      // Update list on page
       this.closeResult = `Closed with: ${result}`;
       console.log(this.closeResult);
     }, (reason) => {
@@ -21,8 +24,15 @@ export class TablesComponent {
     });
   }
 
+  submitCreate() {
+    
+  }
+
   openJoin(joinTable) {
     this.modalService.open(joinTable, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      // POST form data to /api/games/join/{id} (or something)
+      // Create alert upon success
+      // Update list on page
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
