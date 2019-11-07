@@ -330,9 +330,17 @@ namespace Dbnd.Data.Repository
         #endregion
 
         #region Overview
-        public async Task CreateOverviewAsync(Guid gameID, string name, string content)
+        public async Task CreateOverviewAsync(Guid gameID, Guid typeID, string name, string content)
         {
-
+            try
+            {
+                _context.Overview.Add(Mapper.MapOverview(new Logic.Objects.Overview(gameID, typeID, name, content)));
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within CreateOverviewAsync: " + e.Message);
+            }
         }
         public async Task<Logic.Objects.Overview> GetOverviewByIDAsync(Guid overviewID)
         {

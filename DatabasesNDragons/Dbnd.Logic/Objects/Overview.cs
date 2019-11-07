@@ -7,12 +7,17 @@ namespace Dbnd.Logic.Objects
         public Guid OverviewID { get; set; }
         public Guid GameID { get; set; }
         public Guid TypeID { get; set; }
+        public string OverviewName { get; set; }
+        public string OverviewContent { get; set; }
 
-        public Overview(Guid gameID, Guid typeID)
+        public Overview(Guid gameID, Guid typeID, string overviewName, string overviewContent)
         {
             OverviewID = Guid.NewGuid();
             GameID = gameID;
             TypeID = typeID;
+            OverviewName = overviewName;
+            OverviewContent = overviewContent;
+
         }
 
         public Overview() { }
