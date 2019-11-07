@@ -44,7 +44,7 @@ stages:
         embeds: |
             [{
               "title": "Master Pipeline Build",
-              "description": "Build Pipeline started. You better hope this works...",
+              "description": "API Build started...",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
@@ -75,7 +75,7 @@ stages:
         embeds: |
             [{
               "title": "Unit Testing",
-              "description": "Running xUnit tests...",
+              "description": "Running API xUnit tests...",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
@@ -107,7 +107,7 @@ stages:
         embeds: |
             [{
               "title": "Master SonarCloud Analysis",
-              "description": "Publishing to SonarCloud...",
+              "description": "Publishing API Analysis to SonarCloud...",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
@@ -166,8 +166,8 @@ stages:
         messageType: embeds
         embeds: |
             [{
-              "title": "Master Pipeline Success!",
-              "description": "The pipe passed all build and analysis processes! You can give yourself a pat on the back and feel good about yourself!",
+              "title": "Master API Build Success!",
+              "description": "The pipe's API passed all build and analysis processes! You can give yourself a pat on the back and feel good about yourself!",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
@@ -222,14 +222,14 @@ stages:
                 "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
               }
             }]
-############################################################################################################################# Build and test Angular proj
-- stage: Deploy
+############################################################################################################################# Build and Deploy Angular proj
+- stage: Deploy_Angular
   pool:
     vmImage: 'ubuntu-latest'
   variables: 
     appDir: AngularClient
   jobs:
-  - job: BuildAndTestAngular
+  - job: Build_And_Deploy_Angular
     steps:
     - script: echo Beginning process
     - task: NodeTool@0
@@ -268,12 +268,88 @@ stages:
       displayName: Publish SonarCloud quality gate result
 
     - task: AzureRmWebAppDeployment@4
+      displayName: Azure WebApp Deployment
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         appType: 'webApp'
         WebAppName: 'dbnd'
         packageForLinux: '$(appDir)/dist/*'
+########################################################################################################################### WEB APP DEPLOYED
+  - job: Deployment_Success
+    dependsOn: Build_And_Deploy_Angular
+    condition: succeeded()
+    steps:
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Web App Successfully Deployed!",
+              "description": "The DBnD Web App has been successfully deployed!",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              },
+              "fields": 
+              [{
+                "name": "Web Application Link",
+                "value": "https://dbnd.azurewebsites.net/"
+                    }]
+            }]
+  - job: Deployment_Failiure
+    dependsOn: Build_And_Deploy_Angular
+    condition: failed()
+    steps:
+    - script: echo Pipe failiure!
+    - task: AzureKeyVault@1
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Web App Unsuccessfully Deployed...",
+              "description": "Deployment failed. Updated Master API will not attempt to be deployed alongside the app.",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              }
+            }]
 
 
 
