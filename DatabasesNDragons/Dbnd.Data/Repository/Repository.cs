@@ -344,15 +344,32 @@ namespace Dbnd.Data.Repository
         }
         public async Task<Logic.Objects.Overview> GetOverviewByIDAsync(Guid overviewID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Mapper.MapOverview(await _context.Overview.FirstAsync(o => o.OverviewID == overviewID));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetOverviewByIDAsync: " + e.Message);
+                return null;
+            }
         }
-        public async Task UpdateOverviewByIDAsync(Guid targetCharacterID, Logic.Objects.Overview changedOverview)
+        public async Task UpdateOverviewByIDAsync(Guid targetOverviewID, Logic.Objects.Overview changedOverview)
         {
 
         }
-        public async Task DeleteOverviewByIDAsync(Guid characterID)
+        public async Task DeleteOverviewByIDAsync(Guid overviewID)
         {
-
+            try
+            {
+                Overview ContextOverview = await _context.Overview.FirstAsync(o => o.OverviewID == overviewID);
+                _context.Overview.Remove(ContextOverview);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within CreateOverviewAsync: " + e.Message);
+            }
         }
         #endregion
 
