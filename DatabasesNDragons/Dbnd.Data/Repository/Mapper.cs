@@ -47,30 +47,11 @@ namespace Dbnd.Data.Repository
             return EntitiesClient;
         }
 
-        public static DungeonMaster MapDungeonMaster(Entities.DungeonMaster ContextDungeonMaster)
-        {
-            DungeonMaster LogicDungeonMaster = new DungeonMaster(ContextDungeonMaster.ClientID)
-            {
-                DungeonMasterID = ContextDungeonMaster.DungeonMasterID
-            };
-            return LogicDungeonMaster;
-        }
-
-        public static Entities.DungeonMaster MapDungeonMaster(DungeonMaster ContextDungeonMaster)
-        {
-            Entities.DungeonMaster EntityDungeonMaster = new Entities.DungeonMaster
-            {
-                DungeonMasterID = ContextDungeonMaster.DungeonMasterID,
-                ClientID = ContextDungeonMaster.ClientID
-            };
-            return EntityDungeonMaster;
-        }
-
         public static Game MapGame(Entities.Game ContextGame)
         {
             Game LogicGame = new Game
             {
-                DungeonMasterID = ContextGame.DungeonMasterID,
+                ClientID = ContextGame.ClientID,
                 GameID = ContextGame.GameID,
                 GameName = ContextGame.GameName
             };
@@ -83,7 +64,7 @@ namespace Dbnd.Data.Repository
             {
                 GameID = ContextGame.GameID,
                 GameName = ContextGame.GameName,
-                DungeonMasterID = ContextGame.DungeonMasterID
+                ClientID = ContextGame.ClientID
             };
             return EntityGame;
         }

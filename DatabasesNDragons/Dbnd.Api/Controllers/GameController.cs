@@ -31,18 +31,18 @@ namespace Dbnd.Api.Controllers
             return await _repository.GetGameByGameIDAsync(id);
         }
 
-        // GET: api/Game/DungeonMasterID/5
-        [HttpGet("DungeonMasterID/{id}")]
-        public async Task<List<Game>> DungeonMasterID(Guid id)
+        // GET: api/Game/ClientID/5
+        [HttpGet("ClientID/{id}")]
+        public async Task<List<Game>> ClientID(Guid id)
         {
-            return await _repository.GetGamesByDungeonMasterIDAsync(id);
+            return await _repository.GetGamesByClientIDAsync(id);
         }
 
         // Post: api/Game
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody, Bind("DungeonMasterID, GameName")] Game game)
+        public async Task<ActionResult> Post([FromBody, Bind("ClientID, GameName")] Game game)
         {
-            await _repository.CreateGameAsync(game.DungeonMasterID, game.GameName);
+            await _repository.CreateGameAsync(game.ClientID, game.GameName);
             return Created("api/Game/", game);
         }
 

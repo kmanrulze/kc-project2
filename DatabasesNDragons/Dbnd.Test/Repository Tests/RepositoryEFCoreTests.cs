@@ -164,113 +164,6 @@ namespace Dbnd.Test.Repository_Tests
         }
 
         [Fact]
-        public void GetDungeonMasterByIDSuccess()
-        {
-            var targetID = Guid.NewGuid();
-
-            var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd7")
-            .Options;
-
-            using (var context = new DbndContext(options))
-            {
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = targetID, ClientID = Guid.NewGuid() });
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = Guid.NewGuid() });
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = Guid.NewGuid() });
-                context.SaveChanges();
-            }
-
-            using (var context = new DbndContext(options))
-            {
-                Repository repository = new Repository(context);
-                var dungeonmaster = repository.GetDMByDungeonMasterIDAsync(targetID).Result;
-
-                Assert.Equal(targetID, dungeonmaster.DungeonMasterID);
-
-            }
-        }
-
-        [Fact]
-        public void GetDungeonMasterByClientIDSuccess()
-        {
-            var targetID = Guid.NewGuid();
-
-            var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd8")
-            .Options;
-
-            using (var context = new DbndContext(options))
-            {
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = targetID });
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = Guid.NewGuid() });
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = Guid.NewGuid() });
-                context.SaveChanges();
-            }
-
-            using (var context = new DbndContext(options))
-            {
-                Repository repository = new Repository(context);
-                var dungeonmaster = repository.GetDMByClientIDAsync(targetID).Result;
-
-                Assert.Equal(targetID, dungeonmaster.ClientID);
-
-            }
-        }
-        [Fact]
-        public async Task CreateDungeonMasterSuccess()
-        {
-            var targetID = Guid.NewGuid();
-
-            var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd9")
-            .Options;
-
-            using (var context = new DbndContext(options))
-            {
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = targetID });
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = Guid.NewGuid() });
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = Guid.NewGuid() });
-                context.SaveChanges();
-            }
-
-            using (var context = new DbndContext(options))
-            {
-                Repository repository = new Repository(context);
-                await repository.CreateDungeonMasterAsync(targetID);
-                var dungeonmaster = repository.GetDMByClientIDAsync(targetID).Result;
-
-                Assert.Equal(targetID, dungeonmaster.ClientID);
-
-            }
-        }
-        [Fact]
-        public async Task DeleteDungeonMasterSuccess()
-        {
-            var targetID = Guid.NewGuid();
-
-            var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd10")
-            .Options;
-
-            using (var context = new DbndContext(options))
-            {
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = targetID, ClientID = Guid.NewGuid() });
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = Guid.NewGuid() });
-                context.DungeonMaster.Add(new DungeonMaster { DungeonMasterID = Guid.NewGuid(), ClientID = Guid.NewGuid() });
-                context.SaveChanges();
-            }
-
-            using (var context = new DbndContext(options))
-            {
-                Repository repository = new Repository(context);
-                await repository.DeleteDungeonMasterByIDAsync(targetID);
-                var dungeonmasters = await context.DungeonMaster.ToListAsync();
-                var count = dungeonmasters.Count();
-                Assert.Equal(2, count);
-            }
-        }
-
-        [Fact]
         public void GetGamesSuccess()
         {
 
@@ -280,9 +173,9 @@ namespace Dbnd.Test.Repository_Tests
 
             using (var context = new DbndContext(options))
             {
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "DragonBreath" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "LionWhisper" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "HorseTooth" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "DragonBreath" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "LionWhisper" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "HorseTooth" });
                 context.SaveChanges();
             }
 
@@ -305,9 +198,9 @@ namespace Dbnd.Test.Repository_Tests
 
             using (var context = new DbndContext(options))
             {
-                context.Game.Add(new Game { GameID = targetID, DungeonMasterID = Guid.NewGuid(), GameName = "DragonBreath" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "LionWhisper" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "HorseTooth" });
+                context.Game.Add(new Game { GameID = targetID, ClientID = Guid.NewGuid(), GameName = "DragonBreath" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "LionWhisper" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "HorseTooth" });
                 context.SaveChanges();
             }
 
@@ -320,7 +213,7 @@ namespace Dbnd.Test.Repository_Tests
         }
 
         [Fact]
-        public void GetGamesByDungeonMasterIDAsyncSuccess()
+        public void GetGamesByClientIDAsyncSuccess()
         {
             var targetID = Guid.NewGuid();
             var options = new DbContextOptionsBuilder<DbndContext>()
@@ -329,16 +222,16 @@ namespace Dbnd.Test.Repository_Tests
 
             using (var context = new DbndContext(options))
             {
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = targetID, GameName = "DragonBreath" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = targetID, GameName = "LionWhisper" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "HorseTooth" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = targetID, GameName = "DragonBreath" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = targetID, GameName = "LionWhisper" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "HorseTooth" });
                 context.SaveChanges();
             }
 
             using (var context = new DbndContext(options))
             {
                 Repository repository = new Repository(context);
-                var games = repository.GetGamesByDungeonMasterIDAsync(targetID).Result;
+                var games = repository.GetGamesByClientIDAsync(targetID).Result;
                 var count = games.Count();
                 Assert.Equal(2, count);
             }
@@ -353,9 +246,9 @@ namespace Dbnd.Test.Repository_Tests
 
             using (var context = new DbndContext(options))
             {
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = targetID, GameName = "DragonBreath" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = targetID, GameName = "LionWhisper" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "HorseTooth" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = targetID, GameName = "DragonBreath" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = targetID, GameName = "LionWhisper" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "HorseTooth" });
                 context.SaveChanges();
             }
 
@@ -363,7 +256,7 @@ namespace Dbnd.Test.Repository_Tests
             {
                 Repository repository = new Repository(context);
                 await repository.CreateGameAsync(targetID, "BirdFeatherFall");
-                var games = context.Game.Where(x => x.DungeonMasterID == targetID);
+                var games = context.Game.Where(x => x.ClientID == targetID);
                 var count = games.Count();
                 Assert.Equal(3, count);
             }
@@ -378,9 +271,9 @@ namespace Dbnd.Test.Repository_Tests
 
             using (var context = new DbndContext(options))
             {
-                context.Game.Add(new Game { GameID = targetID, DungeonMasterID = Guid.NewGuid(), GameName = "DragonBreath" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "LionWhisper" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "HorseTooth" });
+                context.Game.Add(new Game { GameID = targetID, ClientID = Guid.NewGuid(), GameName = "DragonBreath" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "LionWhisper" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "HorseTooth" });
                 context.SaveChanges();
             }
 
@@ -403,9 +296,9 @@ namespace Dbnd.Test.Repository_Tests
 
             using (var context = new DbndContext(options))
             {
-                context.Game.Add(new Game { GameID = targetID, DungeonMasterID = Guid.NewGuid(), GameName = "DragonBreath" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "LionWhisper" });
-                context.Game.Add(new Game { GameID = Guid.NewGuid(), DungeonMasterID = Guid.NewGuid(), GameName = "HorseTooth" });
+                context.Game.Add(new Game { GameID = targetID, ClientID = Guid.NewGuid(), GameName = "DragonBreath" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "LionWhisper" });
+                context.Game.Add(new Game { GameID = Guid.NewGuid(), ClientID = Guid.NewGuid(), GameName = "HorseTooth" });
                 context.SaveChanges();
             }
 
