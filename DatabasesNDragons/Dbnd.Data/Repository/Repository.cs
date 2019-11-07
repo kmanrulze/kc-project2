@@ -24,11 +24,11 @@ namespace Dbnd.Data.Repository
             return entityCharList.Select(Mapper.MapCharacter);
         }
 
-        public async Task<Logic.Objects.Character> GetCharacterByCharacterIDAsync(Guid CharacterID)
+        public async Task<Logic.Objects.Character> GetCharacterByCharacterIDAsync(Guid characterID)
         {
             try
             {
-                Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterID == CharacterID));
+                Logic.Objects.Character LogicCharacter = Mapper.MapCharacter(await _context.Character.FirstAsync(pc => pc.CharacterID == characterID));
                 if (LogicCharacter == null)
                 {
                     throw new ArgumentNullException("LogicCharacter null");
@@ -83,11 +83,11 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public async Task DeleteCharacterByIDAsync(Guid CharacterID)
+        public async Task DeleteCharacterByIDAsync(Guid characterID)
         {
             try
             {
-                Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == CharacterID);
+                Character ContextCharacter = await _context.Character.FirstAsync(c => c.CharacterID == characterID);
                 _context.Character.Remove(ContextCharacter);
                 await _context.SaveChangesAsync();
             }
@@ -99,11 +99,11 @@ namespace Dbnd.Data.Repository
         #endregion
 
         #region Client
-        public async Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID)
+        public async Task<Logic.Objects.Client> GetClientByIDAsync(Guid clientID)
         {
             try
             {
-                Logic.Objects.Client LogicClient = Mapper.MapClient(await _context.Client.FirstAsync(c => c.ClientID == ClientID));
+                Logic.Objects.Client LogicClient = Mapper.MapClient(await _context.Client.FirstAsync(c => c.ClientID == clientID));
                 if (LogicClient == null)
                 {
                     throw new ArgumentNullException("LogicClient");
@@ -204,11 +204,11 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public async Task<Logic.Objects.Game> GetGameByIDAsync(Guid GameID)
+        public async Task<Logic.Objects.Game> GetGameByIDAsync(Guid gameID)
         {
             try
             {
-                Logic.Objects.Game LogicGame = Mapper.MapGame(await _context.Game.FirstAsync(g => g.GameID == GameID));
+                Logic.Objects.Game LogicGame = Mapper.MapGame(await _context.Game.FirstAsync(g => g.GameID == gameID));
                 if (LogicGame == null)
                 {
                     throw new ArgumentNullException("LogicGame");
