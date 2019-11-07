@@ -12,7 +12,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CharactersComponent } from './characters/characters.component';
 import { TablesComponent } from './tables/tables.component';
-import { WelcomeSplashComponent } from './welcome-splash/welcome-splash.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { WelcomeSplashComponent } from './welcome-splash/welcome-splash.componen
     ProfileComponent,
     CharactersComponent,
     TablesComponent,
-    WelcomeSplashComponent,
-    LoginSplashComponent,
+    LoginSplashComponent
   ],
   imports: [
     BrowserModule,

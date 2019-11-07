@@ -13,50 +13,27 @@
 
     <ul class="navbar-nav mx-auto">
         <li class="nav-mid">
-          <a class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters" href="/characters">
+          <a routerLink="/characters" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
             <div><div><img class="navbar-icon" src="../../assets/images/scarecrow_t.png" alt=""></div><div class="navbar-icon-text">Characters</div></div>
           </a>
         </li>
         <li class="nav-mid">
-          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" href="/tables">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" routerLink="/tables">
             <div class="navbar-icon-effects"><div><img class="navbar-icon" src="../../assets/images/map_t.png" alt=""></div><div class="navbar-icon-text">Tables</div></div>
           </a>
         </li>
         <li class="nav-mid">
-          <a class="nav-link" style="cursor: pointer" role="button" id="navbarProfile" href="/profile">
+          <a class="nav-link" style="cursor: pointer" role="button" id="navbarProfile" routerLink="/profile">
             <div class="navbar-icon-effects"><div><img class="navbar-icon" src="../../assets/images/crown_t.png" alt=""></div><div class="navbar-icon-text">Profile</div></div>
           </a>
         </li>
     </ul>
 
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav pull-right">
         <li class="nav-mid">
           <a class="nav-link" style="cursor: pointer" role="button" id="navbarLogout" (click)="auth.logOut()">
             <div><div><img class="navbar-icon" src="../../assets/images/exit_t.png" alt=""></div><div class="navbar-icon-text">Logout</div></div>
           </a>
         </li>
     </ul>
-
-    <!-- <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">Characters</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="cursor: pointer" role="button" id="navbarTables" *ngIf="auth.loggedIn" (click)="$event.preventDefault()">Tables</a>
-            </li>
-            <li class="nav-item" ngbDropdown>
-                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarProfileDd" role="button">Profile</a>
-                <div ngbDropdownMenu aria-labelledby="navbarProfileDd" class="dropdown-menu dropdown-menu-right">
-                    <a *ngIf="auth.loggedIn" class="dropdown-item" href="/profile">Profile</a>
-                    <a *ngIf="auth.loggedIn" class="dropdown-item" (click)="auth.logOut()">Log Out</a>
-                    <a *ngIf="!auth.loggedIn" class="dropdown-item" (click)="auth.logIn();">Log In</a>
-                </div>
-            </li>
-        </ul>
-    </div> -->
 </nav>
