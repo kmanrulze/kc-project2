@@ -18,9 +18,6 @@ namespace Dbnd.Logic.Objects
         // Overviews in game
         public List<Overview> Overviews { get; set; }
 
-        public List<Character> Characters { get; set; } = new List<Character>();
-        public List<Overview> Overviews { get; set; } = new List<Overview>();
-
         public Game(Guid clientID, string gameName)
         {
             GameID = Guid.NewGuid();

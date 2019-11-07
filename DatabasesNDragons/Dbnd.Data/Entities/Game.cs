@@ -19,8 +19,5 @@ namespace Dbnd.Data.Entities
         // Overviews in game
         public virtual ICollection<Overview> Overviews { get; set; }
 
-        public virtual ICollection<Character> Characters { get; set; }
-        public virtual ICollection<Overview> Overviews { get; set; }
-
     }
 }
