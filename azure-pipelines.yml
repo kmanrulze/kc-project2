@@ -146,7 +146,7 @@ stages:
 
 ################################################################################################################################# TEST SUCCEED
   - job: Tests_Succeeded
-    dependsOn: Build
+    dependsOn: BuildAPI
     condition: succeeded()
     steps:
     - script: echo Pipe success!
@@ -188,7 +188,7 @@ stages:
             }]
 ################################################################################################################################# TEST FAILED
   - job: Tests_Failed
-    dependsOn: Build
+    dependsOn: BuildAPI
     condition: failed()
     steps:
     - script: echo Pipe failiure!
