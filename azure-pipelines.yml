@@ -227,7 +227,7 @@ stages:
   pool:
     vmImage: 'ubuntu-latest'
   variables: 
-    appDir: intro-app
+    appDir: AngularClient
   jobs:
   - job: BuildAndTestAngular
     steps:
