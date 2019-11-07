@@ -1,0 +1,40 @@
+
+.logo {
+  width: 75px;
+  height: auto;
+}
+
+.navbar-logo-text {
+  text-align: center;
+  font-family: 'MedievalSharp';
+  font-weight: bold;
+  color: var(--dnonyx);
+  font-size: 24px;
+  padding: 0px;
+}
+
+.navbar-icon {
+  width: 80px;
+  height: auto;
+}
+
+.navbar-icon-text {
+  text-align: center;
+  font-family: 'Quicksand';
+  font-weight: bold;
+  color: var(--dnonyx);
+  font-size: 20px;
+}
+
+.nav-mid {
+  margin: auto 25px;
+  padding: 0;
+}
+
+nav {
+  border-bottom: 3px solid var(--dnred);
+  background-color: var(--dnsalmon);
+  margin-bottom: 15px;
+  padding: 0px 4px 0px 16px;
+}
+
