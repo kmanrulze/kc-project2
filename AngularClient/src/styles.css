@@ -22,3 +22,40 @@ body {
     background-color: var(--bgColor);
     height: 100vh;
 }
+
+
+.body-splash-container {
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+}
+
+.body-wash{
+  z-index: -2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left:0;
+  background-image: radial-gradient(var(--dngrey),var(--dnonyx));
+  opacity: .5;
+}
+
+.body-img {
+  z-index: -3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left:0;
+  background: center / 45% no-repeat url("./assets/images/chest_t.png");
+  filter: grayscale(70%) blur(3px);
+}
+
+#main-app {
+  width: 100vw;
+  height:100vh;
+}
