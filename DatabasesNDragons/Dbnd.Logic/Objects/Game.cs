@@ -23,7 +23,7 @@ namespace Dbnd.Logic.Objects
             GameID = Guid.NewGuid();
             ClientID = clientID;
             GameName = gameName;
-            GameCharacters = new List<Character>();
+            Characters = new List<Character>();
         }
 
         public Game() { }
