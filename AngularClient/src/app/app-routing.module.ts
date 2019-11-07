@@ -8,6 +8,7 @@ import { InterceptorService } from './_services/interceptor/interceptor.service'
 import { ProfileComponent } from './profile/profile.component';
 import { TablesComponent } from './tables/tables.component';
 import { LoginSplashComponent } from './login-splash/login-splash.component';
+import { CharactersComponent } from './characters/characters.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'tables',
     component: TablesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'characters',
+    component: CharactersComponent,
     canActivate: [AuthGuard]
   }
 ];

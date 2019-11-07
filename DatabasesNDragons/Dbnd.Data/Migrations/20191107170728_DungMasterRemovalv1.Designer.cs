@@ -3,15 +3,17 @@ using System;
 using Dbnd.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Dbnd.Data.Migrations
 {
     [DbContext(typeof(DbndContext))]
-    partial class DbndContextModelSnapshot : ModelSnapshot
+    [Migration("20191107170728_DungMasterRemovalv1")]
+    partial class DungMasterRemovalv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +35,6 @@ namespace Dbnd.Data.Migrations
                         .HasColumnType("character varying(75)")
                         .HasMaxLength(75);
 
-                    b.Property<Guid?>("GameID")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("character varying(75)")
@@ -44,8 +43,6 @@ namespace Dbnd.Data.Migrations
                     b.HasKey("CharacterID");
 
                     b.HasIndex("ClientID");
-
-                    b.HasIndex("GameID");
 
                     b.ToTable("Character");
                 });
@@ -96,9 +93,6 @@ namespace Dbnd.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("CharacterID")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("ClientID")
                         .HasColumnType("uuid");
 
@@ -110,8 +104,6 @@ namespace Dbnd.Data.Migrations
                     b.HasKey("GameID");
 
                     b.HasAlternateKey("GameName");
-
-                    b.HasIndex("CharacterID");
 
                     b.HasIndex("ClientID");
 
@@ -156,14 +148,10 @@ namespace Dbnd.Data.Migrations
             modelBuilder.Entity("Dbnd.Data.Entities.Character", b =>
                 {
                     b.HasOne("Dbnd.Data.Entities.Client", "Client")
-                        .WithMany("Characters")
+                        .WithMany()
                         .HasForeignKey("ClientID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Dbnd.Data.Entities.Game", null)
-                        .WithMany("Characters")
-                        .HasForeignKey("GameID");
                 });
 
             modelBuilder.Entity("Dbnd.Data.Entities.CharacterGameXRef", b =>
@@ -183,12 +171,8 @@ namespace Dbnd.Data.Migrations
 
             modelBuilder.Entity("Dbnd.Data.Entities.Game", b =>
                 {
-                    b.HasOne("Dbnd.Data.Entities.Character", null)
-                        .WithMany("Games")
-                        .HasForeignKey("CharacterID");
-
                     b.HasOne("Dbnd.Data.Entities.Client", "Client")
-                        .WithMany("Games")
+                        .WithMany()
                         .HasForeignKey("ClientID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -197,7 +181,7 @@ namespace Dbnd.Data.Migrations
             modelBuilder.Entity("Dbnd.Data.Entities.Overview", b =>
                 {
                     b.HasOne("Dbnd.Data.Entities.Game", "Game")
-                        .WithMany("Overviews")
+                        .WithMany()
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

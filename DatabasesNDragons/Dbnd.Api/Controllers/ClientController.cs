@@ -58,7 +58,7 @@ namespace Dbnd.Api.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Get(Guid id)
         {
-            if (!await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString()))
+            if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString())))
                 return Forbid();
 
             Client client = await _repository.GetClientByIDAsync(id);

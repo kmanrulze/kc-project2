@@ -13,13 +13,18 @@ namespace Dbnd.Logic.Objects
         public string UserName { get; set; }
         public string Email { get; set; }
         public Guid ClientID { get; set; }
-        public List<Character> Characters { get; set; } = new List<Character>();
+        // Owned Characters
+        public List<Character> Characters { get; set; }
+        // Owned Games
+        public List<Game> Games { get; set; }
 
         public Client(string userName, string email)
         {
             ClientID = Guid.NewGuid();
             UserName = userName;
             Email = email;
+            Characters = new List<Character>();
+            Games = new List<Game>();
         }
         public Client() { }
 

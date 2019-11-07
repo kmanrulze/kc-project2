@@ -18,31 +18,31 @@ namespace Dbnd.Api.Controllers
             _repository = repository;
         }
         // GET: Game
-        [HttpGet]
+        /*[HttpGet]
         public async Task<IEnumerable<Logic.Objects.Game>> Get()
         {
             return await _repository.GetGamesAsync();
-        }
+        }*/
 
         // GET: api/Game/5
         [HttpGet("{id}")]
         public async Task<Game> Get(Guid id)
         {
-            return await _repository.GetGameByGameIDAsync(id);
+            return await _repository.GetGameByIDAsync(id);
         }
 
-        // GET: api/Game/DungeonMasterID/5
-        [HttpGet("DungeonMasterID/{id}")]
-        public async Task<List<Game>> DungeonMasterID(Guid id)
+        // GET: api/Game/ClientID/5
+        [HttpGet("ClientID/{id}")]
+        public async Task<List<Game>> ClientID(Guid id)
         {
-            return await _repository.GetGamesByDungeonMasterIDAsync(id);
+            return await _repository.GetGamesByClientIDAsync(id);
         }
 
         // Post: api/Game
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody, Bind("DungeonMasterID, GameName")] Game game)
+        public async Task<ActionResult> Post([FromBody, Bind("ClientID, GameName")] Game game)
         {
-            await _repository.CreateGameAsync(game.DungeonMasterID, game.GameName);
+            await _repository.CreateGameAsync(game.ClientID, game.GameName);
             return Created("api/Game/", game);
         }
 
@@ -51,7 +51,7 @@ namespace Dbnd.Api.Controllers
         public async Task<ActionResult> Put(Guid id, [FromBody, Bind("GameName")] Game changedGame)
         {
             await _repository.UpdateGameAsync(id, changedGame);
-            var returnGame = await _repository.GetGameByGameIDAsync(id);
+            var returnGame = await _repository.GetGameByIDAsync(id);
             return AcceptedAtAction("Get", "Game", null, returnGame);
         }
 
@@ -63,6 +63,7 @@ namespace Dbnd.Api.Controllers
             return NoContent();
         }
 
+        /* NEEDS WORK - BELOW:
         //Get: api/Game/5/Characters/
         [HttpGet("{id}/Characters")]
         public async Task<List<Character>> GetCharactersInGame(Guid id)
@@ -87,5 +88,6 @@ namespace Dbnd.Api.Controllers
             var returnGame = await _repository.GetGameByGameIDAsync(gameID);
             return AcceptedAtAction("Get", "Game", null, returnGame);
         }
+        */
     }
 }

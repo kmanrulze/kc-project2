@@ -5,7 +5,6 @@ namespace Dbnd.Data.Entities
     public class DbndContext : DbContext
     {
         public DbSet<Client> Client { get; set; }
-        public DbSet<DungeonMaster> DungeonMaster { get; set; }
         public DbSet<Character> Character { get; set; }
         public DbSet<Game> Game { get; set; }
         public DbSet<CharacterGameXRef> CharacterGameXRef { get; set; }
@@ -30,13 +29,6 @@ namespace Dbnd.Data.Entities
             modelBuilder.Entity<Client>()
                 .HasAlternateKey(p => p.Email); // Unique
 
-            modelBuilder.Entity<DungeonMaster>()
-                .Property(p => p.DungeonMasterID)
-                .IsRequired();
-            modelBuilder.Entity<DungeonMaster>()
-                .Property(p => p.ClientID)
-                .IsRequired();
-
             modelBuilder.Entity<Character>()
                 .Property(p => p.CharacterID)
                 .IsRequired();
@@ -48,12 +40,11 @@ namespace Dbnd.Data.Entities
                 .Property(p => p.LastName)
                 .HasMaxLength(75)
                 .IsRequired();
+            modelBuilder.Entity<Character>()
+                .HasMany(p => p.Games);
 
             modelBuilder.Entity<Game>()
                 .Property(p => p.GameID)
-                .IsRequired();
-            modelBuilder.Entity<Game>()
-                .Property(p => p.DungeonMasterID)
                 .IsRequired();
             modelBuilder.Entity<Game>()
                 .Property(p => p.GameName)
@@ -61,6 +52,10 @@ namespace Dbnd.Data.Entities
                 .IsRequired();
             modelBuilder.Entity<Game>()
                 .HasAlternateKey(p => p.GameName); // Unique
+            modelBuilder.Entity<Game>()
+                .HasMany(p => p.Characters);
+            modelBuilder.Entity<Game>()
+                .HasMany(p => p.Overviews);
 
             modelBuilder.Entity<Overview>()
                 .Property(p => p.OverviewID)

@@ -28,6 +28,18 @@ namespace Dbnd.Api
                 options.UseNpgsql(Configuration.GetConnectionString("DBString")));
             services.AddScoped<IRepository, Repository>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngular",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
+
             string domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
             {
@@ -56,6 +68,8 @@ namespace Dbnd.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
