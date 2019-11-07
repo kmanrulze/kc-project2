@@ -13,15 +13,17 @@ namespace Dbnd.Logic.Objects
         // no double . _
         public string GameName { get; set; }
         public Guid ClientID { get; set; }
-
-        public List<Character> Characters { get; set; } = new List<Character>();
-        public List<Overview> Overviews { get; set; } = new List<Overview>();
+        //Characters in game
+        public List<Character> Characters { get; set; }
+        // Overviews in game
+        public List<Overview> Overviews { get; set; }
 
         public Game(Guid clientID, string gameName)
         {
             GameID = Guid.NewGuid();
             ClientID = clientID;
             GameName = gameName;
+            Characters = new List<Character>();
         }
 
         public Game() { }

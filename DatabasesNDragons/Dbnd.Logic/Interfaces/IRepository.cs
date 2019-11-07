@@ -37,10 +37,10 @@ namespace Dbnd.Logic.Interfaces
         #endregion
 
         #region Overview
-        Task CreateOverviewAsync(Guid gameID, string name, string content);
+        Task CreateOverviewAsync(Guid gameID, Guid typeID, string name, string content);
         Task<Overview> GetOverviewByIDAsync(Guid overviewID);
-        Task UpdateOverviewByIDAsync(Guid targetCharacterID, Overview changedOverview);
-        Task DeleteOverviewByIDAsync(Guid characterID);
+        Task UpdateOverviewByIDAsync(Guid targetOverviewID, Overview changedOverview);
+        Task DeleteOverviewByIDAsync(Guid overviewID);
         #endregion
     }
 }
