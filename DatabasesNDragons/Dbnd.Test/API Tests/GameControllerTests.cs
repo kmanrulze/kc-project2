@@ -49,25 +49,6 @@ namespace Dbnd.Test.API_Tests
         }
 
         [Fact]
-        public async Task GetSingleGameByDMIDHasCorrectCount()
-        {
-            var games = SetUpGames();
-            Guid targetId = new Guid("2700fb0f-820d-4be6-9ea3-402fe335f57d");
-
-            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
-            mockRepository
-                .Setup(x => x.GetGamesByDungeonMasterIDAsync(targetId))
-                .Returns(async () => await Task.Run( () => games.Where(c => c.DungeonMasterID == targetId).ToList()));
-
-            var gameController = new GameController(mockRepository.Object);
-
-            var ienumReturn = await gameController.DungeonMasterID(targetId);
-            var listCount = ienumReturn.ToList().Count();
-
-            Assert.Equal(2, listCount);
-        }
-
-        [Fact]
         public async Task CreateGameSuccessfulVerification()
         {
             Guid targetId = new Guid("8a122045-114d-42c6-8351-df28f6b4339c");
@@ -190,19 +171,19 @@ namespace Dbnd.Test.API_Tests
                 new Logic.Objects.Game()
                 {
                     GameName = "EyeOfTheBeHolder",
-                    DungeonMasterID = new Guid("2700fb0f-820d-4be6-9ea3-402fe335f57d"),
+                    ClientID = new Guid("2700fb0f-820d-4be6-9ea3-402fe335f57d"),
                     GameID = new Guid("32f71873-125e-46b3-ade7-17b3e4fb936b")
                 },
                 new Logic.Objects.Game()
                 {
                     GameName = "NeverwinterNights",
-                    DungeonMasterID = new Guid("2700fb0f-820d-4be6-9ea3-402fe335f57d"),
+                    ClientID = new Guid("2700fb0f-820d-4be6-9ea3-402fe335f57d"),
                     GameID = Guid.NewGuid()
                 },
                 new Dbnd.Logic.Objects.Game()
                 {
                     GameName = "DrunkenCampFireFollies",
-                    DungeonMasterID = Guid.NewGuid(),
+                    ClientID = Guid.NewGuid(),
                     GameID = Guid.NewGuid()
                 }
             };

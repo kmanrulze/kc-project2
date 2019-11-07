@@ -11,34 +11,34 @@ namespace Dbnd.Test
     {
 
         [Fact]
-        public async Task GetAllGamesByDungeonMasterIDAsyncHasCorrectCountIDInDBAsync()
+        public async Task GetAllGamesByClientMasterIDAsyncHasCorrectCountIDInDBAsync()
         {
             var listOfGames = SetUpGames();
-            var testDungeonMasterID = listOfGames.First().DungeonMasterID;
+            var testClientID = listOfGames.First().ClientID;
             
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGamesByDungeonMasterIDAsync(testDungeonMasterID))
-                .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+                .Setup(x => x.GetGamesByClientIDAsync(testClientID))
+                .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.ClientID == testClientID).ToList()));
 
-            var ienumList = await mockRepository.Object.GetGamesByDungeonMasterIDAsync(testDungeonMasterID);
+            var ienumList = await mockRepository.Object.GetGamesByClientIDAsync(testClientID);
             var listCount = ienumList.Count();
 
             Assert.Equal(2, listCount);
         }
 
         [Fact]
-        public async Task GetAllGamesByDungeonMasterIDAsyncHasCorrectCountIDNotInDBAsync()
+        public async Task GetAllGamesByClientIDAsyncHasCorrectCountIDNotInDBAsync()
         {
-            var testDungeonMasterID = Guid.NewGuid();
+            var testClientID = Guid.NewGuid();
             var listOfGames = SetUpGames();
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetGamesByDungeonMasterIDAsync(testDungeonMasterID))
-                .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.DungeonMasterID == testDungeonMasterID).ToList()));
+                .Setup(x => x.GetGamesByClientIDAsync(testClientID))
+                .Returns(async () => await Task.Run( () => listOfGames.Where(x => x.ClientID == testClientID).ToList()));
 
-            var ienumList = await mockRepository.Object.GetGamesByDungeonMasterIDAsync(testDungeonMasterID);
+            var ienumList = await mockRepository.Object.GetGamesByClientIDAsync(testClientID);
             var listCount = ienumList.Count();
 
             Assert.Equal(0, listCount);
@@ -127,66 +127,6 @@ namespace Dbnd.Test
         }
 
         [Fact]
-        public async Task GetDMbyDungeonMasterIDAsyncIdinDbReturnsCorrectDungeonMaster()
-        {
-            var listOfDungeonMasters = SetupDungeonMasters();
-            var testDungeonMasterID = listOfDungeonMasters.First().DungeonMasterID;
-            
-            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
-            mockRepository
-                .Setup(x => x.GetDMByDungeonMasterIDAsync(testDungeonMasterID))
-                .Returns(() => Task.FromResult(listOfDungeonMasters.Where(x => x.DungeonMasterID == testDungeonMasterID).Single()));
-
-            var testDungeonMaster = (await mockRepository.Object.GetDMByDungeonMasterIDAsync(testDungeonMasterID));
-
-            Assert.Equal(testDungeonMasterID.ToString(), testDungeonMaster.DungeonMasterID.ToString());
-        }
-
-        [Fact]
-        public async Task GetDMbyDungeonMasterIDAsyncIdThrowsException()
-        {
-            var testDungeonMasterID = Guid.NewGuid();
-
-            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
-            mockRepository
-                .Setup(x => x.GetDMByDungeonMasterIDAsync(testDungeonMasterID))
-                .Throws<Exception>();
-
-            await Assert.ThrowsAsync<Exception>(async () => await mockRepository.Object.GetDMByDungeonMasterIDAsync(testDungeonMasterID));
-        }
-
-        [Fact]
-        public async Task CreateDungeonMasterAsyncSuccess()
-        {
-            var clientID = Guid.NewGuid();
-            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
-            mockRepository
-                .Setup(x => x.CreateDungeonMasterAsync(clientID));
-
-            await mockRepository.Object.CreateDungeonMasterAsync(clientID);
-
-            mockRepository
-                .Verify(x => x.CreateDungeonMasterAsync(clientID), Times.Once());
-        }
-
-        [Fact]
-        public async Task DeleteDungeonMasterByIDAsyncGetsCalledOnce()
-        {
-
-            var listOfDungeonMasters = SetupDungeonMasters();
-            var targetID = listOfDungeonMasters.First().DungeonMasterID;
-
-            Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
-            mockRepository
-                .Setup(x => x.DeleteDungeonMasterByIDAsync(targetID));
-
-            await mockRepository.Object.DeleteDungeonMasterByIDAsync(targetID);
-
-            mockRepository
-                .Verify(x => x.DeleteDungeonMasterByIDAsync(targetID), Times.Once());
-        }
-
-        [Fact]
         public async Task GetGameByGameId()
         {
             var listOfGames = SetUpGames();
@@ -220,16 +160,16 @@ namespace Dbnd.Test
         [Fact]
         public async Task CreateGameAsyncSuccess()
         {
-            var dungeonMasterID = Guid.NewGuid();
+            var clientID = Guid.NewGuid();
             var gameName = "GameOfPhonesDLC";
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.CreateGameAsync(dungeonMasterID, gameName));
+                .Setup(x => x.CreateGameAsync(clientID, gameName));
 
-            await mockRepository.Object.CreateGameAsync(dungeonMasterID, gameName);
+            await mockRepository.Object.CreateGameAsync(clientID, gameName);
 
             mockRepository
-                .Verify(x => x.CreateGameAsync(dungeonMasterID, gameName), Times.Once());
+                .Verify(x => x.CreateGameAsync(clientID, gameName), Times.Once());
         }
 
         [Fact]
@@ -346,28 +286,6 @@ namespace Dbnd.Test
                 .Verify(x => x.DeleteClientByIDAsync(targetID), Times.Once());
         }
 
-        public List<Logic.Objects.DungeonMaster> SetupDungeonMasters()
-        {
-            return new List<Dbnd.Logic.Objects.DungeonMaster>()
-                {
-                    new Dbnd.Logic.Objects.DungeonMaster()
-                    {
-                        DungeonMasterID = Guid.NewGuid(),
-                        ClientID = Guid.NewGuid()
-                    },
-                    new Logic.Objects.DungeonMaster()
-                    {
-                        DungeonMasterID = Guid.NewGuid(),
-                        ClientID = Guid.NewGuid()
-                    },
-                    new Dbnd.Logic.Objects.DungeonMaster()
-                    {
-                        DungeonMasterID = Guid.NewGuid(),
-                        ClientID = Guid.NewGuid()
-                    }
-                };
-        }
-
         public List<Logic.Objects.Character> SetupCharacters()
         {
             return new List<Logic.Objects.Character>()
@@ -427,19 +345,19 @@ namespace Dbnd.Test
                 new Dbnd.Logic.Objects.Game()
                 {
                     GameName = "EyeOfTheBeHolder",
-                    DungeonMasterID = sameGuildMasterID,
+                    ClientID = sameGuildMasterID,
                     GameID = Guid.NewGuid()
                 },
                 new Logic.Objects.Game()
                 {
                     GameName = "NeverwinterNights",
-                    DungeonMasterID = Guid.NewGuid(),
+                    ClientID = Guid.NewGuid(),
                     GameID = Guid.NewGuid()
                 },
                 new Dbnd.Logic.Objects.Game()
                 {
                     GameName = "DrunkenCampFireFollies",
-                    DungeonMasterID = sameGuildMasterID,
+                    ClientID = sameGuildMasterID,
                     GameID = Guid.NewGuid()
                 }
             };

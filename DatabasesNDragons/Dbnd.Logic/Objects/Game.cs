@@ -11,12 +11,12 @@ namespace Dbnd.Logic.Objects
         // . and _ can not be leading or trailing
         // no double . _
         public string GameName { get; set; }
-        public Guid DungeonMasterID { get; set; }
+        public Guid ClientID { get; set; }
 
-        public Game(Guid dungeonMasterID, string gameName)
+        public Game(Guid clientID, string gameName)
         {
             GameID = Guid.NewGuid();
-            DungeonMasterID = dungeonMasterID;
+            ClientID = clientID;
             GameName = gameName;
         }
 

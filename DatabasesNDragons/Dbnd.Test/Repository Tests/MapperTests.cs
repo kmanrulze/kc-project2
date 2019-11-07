@@ -114,65 +114,20 @@ namespace Dbnd.Test.Repository_Tests
         }
 
         [Fact]
-        public void MapDungeonMasterEntityToObject()
-        {
-            var clientID = Guid.NewGuid();
-
-            var mappableObject = new Data.Entities.DungeonMaster()
-            {
-                ClientID = clientID
-            };
-
-            var expected = new Logic.Objects.DungeonMaster()
-            {
-                ClientID = clientID
-            };
-
-            var value = Data.Repository.Mapper.MapDungeonMaster(mappableObject);
-
-            Assert.IsType<Logic.Objects.DungeonMaster>(value);
-            Assert.IsType<Guid>(value.DungeonMasterID);
-            Assert.Equal(expected.ClientID, value.ClientID);
-
-        }
-
-        [Fact]
-        public void MapDungeonMasterObjectToEntity()
-        {
-            var clientID = Guid.NewGuid();
-
-            var mappableObject = new Logic.Objects.DungeonMaster()
-            {
-                ClientID = clientID
-            };
-
-            var expected = new Data.Entities.DungeonMaster()
-            {
-                ClientID = clientID
-            };
-
-            var value = Data.Repository.Mapper.MapDungeonMaster(mappableObject);
-
-            Assert.IsType<Data.Entities.DungeonMaster>(value);
-            Assert.IsType<Guid>(value.DungeonMasterID);
-            Assert.Equal(expected.ClientID, value.ClientID);
-        }
-
-        [Fact]
         public void MapGameEntityToObject()
         {
-            var dungeonMasterID = Guid.NewGuid();
+            var clientID = Guid.NewGuid();
 
             var mappableObject = new Data.Entities.Game()
             {
                 GameName = "Toph",
-                DungeonMasterID = dungeonMasterID
+                ClientID = clientID
             };
 
             var expected = new Logic.Objects.Game()
             {
                 GameName = "Toph",
-                DungeonMasterID = dungeonMasterID
+                ClientID = clientID
             };
 
             var value = Data.Repository.Mapper.MapGame(mappableObject);
@@ -180,25 +135,25 @@ namespace Dbnd.Test.Repository_Tests
             Assert.IsType<Logic.Objects.Game>(value);
             Assert.IsType<Guid>(value.GameID);
             Assert.Equal(expected.GameName, value.GameName);
-            Assert.Equal(expected.DungeonMasterID, value.DungeonMasterID);
+            Assert.Equal(expected.ClientID, value.ClientID);
 
         }
 
         [Fact]
         public void MapGameObjectToEntity()
         {
-            var dungeonMasterID = Guid.NewGuid();
+            var clientID = Guid.NewGuid();
 
             var mappableObject = new Logic.Objects.Game()
             {
                 GameName = "Toph",
-                DungeonMasterID = dungeonMasterID
+                ClientID = clientID
             };
 
             var expected = new Data.Entities.Game()
             {
                 GameName = "Toph",
-                DungeonMasterID = dungeonMasterID
+                ClientID = clientID
             };
 
             var value = Data.Repository.Mapper.MapGame(mappableObject);
@@ -206,7 +161,7 @@ namespace Dbnd.Test.Repository_Tests
             Assert.IsType<Data.Entities.Game>(value);
             Assert.IsType<Guid>(value.GameID);
             Assert.Equal(expected.GameName, value.GameName);
-            Assert.Equal(expected.DungeonMasterID, value.DungeonMasterID);
+            Assert.Equal(expected.ClientID, value.ClientID);
         }
 
         [Fact]

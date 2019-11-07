@@ -146,75 +146,6 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public async Task<Logic.Objects.DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID)
-        {
-            try
-            {
-                Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.DungeonMasterID == DungeonMasterID));
-                if (LogicDungeonMaster == null)
-                {
-                    throw new ArgumentNullException("LogicDungeonMaster");
-                }
-                else
-                {
-                    return LogicDungeonMaster;
-                }          
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("Something went wrong within GetDMByDungeonMasterIDAsync: " + e.Message);
-                return null;
-            }
-        }
-
-        public async Task<Logic.Objects.DungeonMaster> GetDMByClientIDAsync(Guid ClientID)
-        {
-            try
-            {
-                Logic.Objects.DungeonMaster LogicDungeonMaster = Mapper.MapDungeonMaster(await _context.DungeonMaster.FirstAsync(dm => dm.ClientID == ClientID));
-                if (LogicDungeonMaster == null)
-                {
-                    throw new ArgumentNullException("LogicDungeonMaster");
-                }
-                else
-                {
-                    return LogicDungeonMaster;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Something went wrong within GetDMByClientIDAsync: " + e.Message);
-                return null;
-            }
-        }
-
-        public async Task CreateDungeonMasterAsync(Guid clientID)
-        {
-            try
-            {
-                _context.DungeonMaster.Add(Mapper.MapDungeonMaster(new Logic.Objects.DungeonMaster(clientID)));
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Something went wrong within CreateDungeonMasterAsync: " + e.Message);
-            }
-        }
-
-        public async Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID)
-        {
-            try
-            {
-                DungeonMaster ContextDungeonMaster = await _context.DungeonMaster.FirstAsync(d => d.DungeonMasterID == DungeonMasterID);
-                _context.DungeonMaster.Remove(ContextDungeonMaster);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Something went wrong within DeleteDungeonMasterByIDAsync: " + e.Message);
-            }
-        }
-
         public async Task<IEnumerable<Logic.Objects.Game>> GetGamesAsync()
         {
             try
@@ -251,25 +182,25 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public async Task<List<Logic.Objects.Game>> GetGamesByDungeonMasterIDAsync(Guid DungeonMasterID)
+        public async Task<List<Logic.Objects.Game>> GetGamesByClientIDAsync(Guid clientID)
         {
             try
             {
-                var entityGameList = await _context.Game.Where(x => x.DungeonMasterID == DungeonMasterID).ToListAsync();
+                var entityGameList = await _context.Game.Where(x => x.ClientID == clientID).ToListAsync();
                 return entityGameList.Select(Mapper.MapGame).ToList();
             }
             catch(Exception e)
             {
-                Console.WriteLine("Something went wrong within GetGamesByDungeonMasterIDAsync: " + e.Message);
+                Console.WriteLine("Something went wrong within GetGamesByClientIDAsync: " + e.Message);
                 return null;
             }
         }
 
-        public async Task CreateGameAsync(Guid dungeonMasterID, string gameName)
+        public async Task CreateGameAsync(Guid clientID, string gameName)
         {
             try
             {
-                _context.Game.Add(Mapper.MapGame(new Logic.Objects.Game(dungeonMasterID, gameName)));
+                _context.Game.Add(Mapper.MapGame(new Logic.Objects.Game(clientID, gameName)));
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)

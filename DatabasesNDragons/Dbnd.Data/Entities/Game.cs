@@ -9,9 +9,9 @@ namespace Dbnd.Data.Entities
         public Guid GameID { get; set; }
         public string GameName { get; set; }
 
-        // Foreign Key for DungeonMaster
-        public Guid DungeonMasterID { get; set; }
-        public DungeonMaster DungeonMaster { get; set; }
+        // Foreign Key for Client
+        public Guid ClientID { get; set; }
+        public Client Client { get; set; }
 
     }
 }
