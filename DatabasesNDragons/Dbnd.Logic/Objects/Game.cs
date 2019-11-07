@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Dbnd.Logic.Objects
@@ -12,6 +13,9 @@ namespace Dbnd.Logic.Objects
         // no double . _
         public string GameName { get; set; }
         public Guid ClientID { get; set; }
+
+        public List<Character> Characters { get; set; } = new List<Character>();
+        public List<Overview> Overviews { get; set; } = new List<Overview>();
 
         public Game(Guid clientID, string gameName)
         {

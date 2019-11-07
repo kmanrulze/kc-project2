@@ -12,7 +12,7 @@ namespace Dbnd.Test.API_Tests
 {
     public class CharacterControllerTests
     {
-        [Fact]
+        /*[Fact]
         public async Task GetCharactersTestCount()
         {
             var characters = SetUpCharacters();
@@ -28,7 +28,7 @@ namespace Dbnd.Test.API_Tests
             var listCount = ienumReturn.ToList().Count();
 
             Assert.Equal(3, listCount);
-        }
+        }*/
 
         [Fact]
         public async Task GetCharacterByCharacterIDAsyncHasCorrectID()

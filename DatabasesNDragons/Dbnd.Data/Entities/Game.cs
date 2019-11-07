@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dbnd.Data.Entities
@@ -12,6 +13,9 @@ namespace Dbnd.Data.Entities
         // Foreign Key for Client
         public Guid ClientID { get; set; }
         public Client Client { get; set; }
+
+        public virtual ICollection<Character> Characters { get; set; }
+        public virtual ICollection<Overview> Overviews { get; set; }
 
     }
 }

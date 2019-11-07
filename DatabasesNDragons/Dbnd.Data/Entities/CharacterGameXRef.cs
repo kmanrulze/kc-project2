@@ -11,6 +11,5 @@ namespace Dbnd.Data.Entities
         // Foreign Key
         public Guid CharacterID { get; set; }
         public Character Character { get; set; }
-
     }
 }
