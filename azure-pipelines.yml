@@ -3,17 +3,15 @@ trigger:
     include:
     - master
 
-pool:
-  vmImage: 'windows-latest'
-
-variables:
-  buildConfiguration: 'Release'
-
 stages:
 - stage: Build_and_Test_Master
+  pool:
+    vmImage: 'windows-latest'
+  variables:
+    buildConfiguration: 'Release'
   jobs:
 ################################################################################################################################# BUILD
-  - job: Build
+  - job: BuildAPI
     steps:
     - script: echo Started Build
       condition: always()
@@ -224,12 +222,60 @@ stages:
                 "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
               }
             }]
-############################################################################################################################# DEPLOY
+############################################################################################################################# Build and test Angular proj
 - stage: Deploy
-  dependsOn:
-  - Build_and_Test_Master
-  condition: succeeded()
+  pool:
+    vmImage: 'ubuntu-latest'
+  variables: 
+    appDir: intro-app
   jobs:
-  - job: Deploy_API
+  - job: BuildAndTestAngular
     steps:
-    - script: echo Publishing steps started
+    - script: echo Beginning process
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '12.x'
+      displayName: 'Install Node.js'
+
+    - script: npm ci
+      displayName: npm install
+      workingDirectory: $(appDir)
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'DBnD'
+        organization: '1909-sep30-net'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'DBnDAngular'
+        cliProjectName: 'DBnDAngular'
+        cliSources: '$(appDir)/src'
+        extraProperties: |
+          sonar.coverage.exclusions=**/*.spec.ts
+          sonar.typescript.lcov.reportPaths=$(appDir)/coverage/$(appDir)/lcov.info
+
+    - script: npx ng build --prod
+      displayName: ng build
+      workingDirectory: $(appDir)
+
+    - script: npm run lint
+      displayName: ng lint
+      workingDirectory: $(appDir)
+
+    - task: SonarCloudAnalyze@1
+      displayName: Run SonarCloud analysis
+
+    - task: SonarCloudPublish@1
+      displayName: Publish SonarCloud quality gate result
+
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        appType: 'webApp'
+        WebAppName: 'dbnd'
+        packageForLinux: '$(appDir)/dist/*'
+
+
+
+
+
