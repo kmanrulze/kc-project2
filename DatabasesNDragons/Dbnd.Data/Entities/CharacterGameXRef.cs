@@ -12,8 +12,5 @@ namespace Dbnd.Data.Entities
         public Guid CharacterID { get; set; }
         public Character Character { get; set; }
 
-        public virtual Character CharacterInfo { get; set; }
-        public virtual Game GameInfo { get; set; }
-
     }
 }

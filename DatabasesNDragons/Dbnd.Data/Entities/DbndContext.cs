@@ -40,6 +40,8 @@ namespace Dbnd.Data.Entities
                 .Property(p => p.LastName)
                 .HasMaxLength(75)
                 .IsRequired();
+            modelBuilder.Entity<Character>()
+                .HasMany(p => p.Games);
 
             modelBuilder.Entity<Game>()
                 .Property(p => p.GameID)
@@ -50,6 +52,10 @@ namespace Dbnd.Data.Entities
                 .IsRequired();
             modelBuilder.Entity<Game>()
                 .HasAlternateKey(p => p.GameName); // Unique
+            modelBuilder.Entity<Game>()
+                .HasMany(p => p.Characters);
+            modelBuilder.Entity<Game>()
+                .HasMany(p => p.Overviews);
 
             modelBuilder.Entity<Overview>()
                 .Property(p => p.OverviewID)
