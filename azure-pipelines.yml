@@ -227,7 +227,7 @@ stages:
 ############################################################################################################################# DEPLOY
 - stage: Deploy
   dependsOn:
-  - Build_and_Test
+  - Build_and_Test_Master
   condition: succeeded()
   jobs:
   - job: Deploy_API
