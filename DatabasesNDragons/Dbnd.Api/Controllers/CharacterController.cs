@@ -18,11 +18,11 @@ namespace Dbnd.Api.Controllers
             _repository = repository;
         }
         // GET: api/Character
-        [HttpGet]
+        /*[HttpGet]
         public async Task<IEnumerable<Logic.Objects.Character>> Get()
         {   
             return await _repository.GetCharactersAsync();
-        }
+        }*/
 
         // GET: api/Character/5
         [HttpGet("{id}")]

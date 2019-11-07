@@ -207,7 +207,7 @@ namespace Dbnd.Test.Repository_Tests
             using (var context = new DbndContext(options))
             {
                 Repository repository = new Repository(context);
-                var game = repository.GetGameByGameIDAsync(targetID).Result;
+                var game = repository.GetGameByIDAsync(targetID).Result;
                 Assert.Equal(targetID, game.GameID);
             }
         }

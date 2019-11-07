@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
@@ -16,6 +17,9 @@ namespace Dbnd.Data.Entities
         // Characters in game
         public virtual ICollection<Character> Characters { get; set; }
         // Overviews in game
+        public virtual ICollection<Overview> Overviews { get; set; }
+
+        public virtual ICollection<Character> Characters { get; set; }
         public virtual ICollection<Overview> Overviews { get; set; }
 
     }
