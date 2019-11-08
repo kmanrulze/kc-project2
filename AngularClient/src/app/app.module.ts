@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { HttpClientModule } from '@angular/common/http'
 
+import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -17,6 +18,17 @@ import { NewtableComponent } from './tables/newtable/newtable.component';
 import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
 import { MonsterComponent } from './monster/monster.component';
 
+const appRoutes: Routes = [
+  {
+    path: 'products',
+    component: MonsterComponent,
+    data: { title: 'Monster List' }
+  },
+  { path: '',
+    redirectTo: '/monsters',
+    pathMatch: 'full'
+  }
+];
 
 @NgModule({
   declarations: [
@@ -33,6 +45,7 @@ import { MonsterComponent } from './monster/monster.component';
     MonsterComponent
   ],
   imports: [
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
