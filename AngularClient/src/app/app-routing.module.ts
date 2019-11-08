@@ -9,7 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { TablesComponent } from './tables/tables.component';
 import { LoginSplashComponent } from './login-splash/login-splash.component';
 import { CharactersComponent } from './characters/characters.component';
-
+import { NewFormComponent } from './characters/newform/newform.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login-splash', pathMatch: 'full' },
@@ -31,7 +31,14 @@ const routes: Routes = [
     path: 'characters',
     component: CharactersComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'characters/new',
+    component: NewFormComponent,
+    canActivate: [AuthGuard]
   }
+
+
 ];
 
 @NgModule({

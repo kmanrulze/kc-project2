@@ -34,7 +34,7 @@
 nav {
   border-bottom: 3px solid var(--dnred);
   background-color: var(--dnsalmon);
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   padding: 0px 4px 0px 16px;
 }
 
