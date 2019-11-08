@@ -26,7 +26,6 @@ form{
 }
 
 .cat-background{
-  border-radius: 5%;
   padding: 5px;
   border: 1px solid var(--dnred);
   background-color: rgba(53,56,57, .9);
