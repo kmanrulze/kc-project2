@@ -278,6 +278,7 @@ stages:
               }
             }]
 ########################### DEPLOY TASK
+
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
