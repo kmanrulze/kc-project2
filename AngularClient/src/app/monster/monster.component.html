@@ -1,1 +1,10 @@
-<p>monster works!</p>
+<h2>Monster List</h2>
+
+<ul class="monsters">
+    <li *ngFor="let m of monsters; let i=index;">
+        <a routerLink="/monsters/{{m._id}}">
+            <span class="badge">{{i+1}}</span>{{m.name}}
+        </a>
+    </li>
+</ul>
+
