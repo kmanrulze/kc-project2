@@ -57,7 +57,7 @@ jobs:
     displayName: Azure WebApp Deployment
     inputs:
       ConnectionType: 'AzureRM'
-      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      azureSubscription: '1c63de0c-061e-43b5-b714-e2cc3b4d71a2'
       appType: 'webApp'
       WebAppName: 'dbnd'
       packageForLinux: '$(appDir)/dist/*'
