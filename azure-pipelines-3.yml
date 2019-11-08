@@ -70,7 +70,7 @@ jobs:
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
-      SecretsFilter: Webhook
+      SecretsFilter: 'Webhook'
   - task: ado-discord-webhook@1
     displayName: Discord Webhook Message
     inputs:
@@ -110,7 +110,7 @@ jobs:
     inputs:
       azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
-      SecretsFilter: Webhook
+      SecretsFilter: 'Webhook'
   - task: ado-discord-webhook@1
     displayName: Discord Webhook Message
     inputs:
