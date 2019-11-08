@@ -30,18 +30,31 @@ namespace Dbnd.Data.Repository
                 return null;
             }
         }
-        public async Task<bool> CreateCharacterAsync(Guid clientID, string firstName, string lastName)
+        public async Task<IEnumerable<Logic.Objects.Character>> GetClientCharactersAsync(Guid clientId)
         {
             try
             {
-                _context.Character.Add(Mapper.MapCharacter(new Logic.Objects.Character(clientID, firstName, lastName)));
+                return _context.Character.Select(Mapper.MapCharacter).Where(c => c.ClientID == clientId).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong within GetClientCharactersAsync: " + e.Message);
+                return null;
+            }
+        }
+        public async Task<Logic.Objects.Character> CreateCharacterAsync(Guid clientID, string firstName, string lastName)
+        {
+            try
+            {
+                Logic.Objects.Character character = new Logic.Objects.Character(clientID, firstName, lastName);
+                _context.Character.Add(Mapper.MapCharacter(character));
                 await _context.SaveChangesAsync();
-                return true;
+                return character;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong within CreateCharacterAsync: " + e.Message);
-                return false;
+                return null;
             }
         }
         public async Task<bool> UpdateCharacterByIDAsync(Guid targetCharacterID, Logic.Objects.Character changedCharacter)
@@ -112,18 +125,19 @@ namespace Dbnd.Data.Repository
                 return null;
             }
         }
-        public async Task<bool> CreateClientAsync(string userName, string email)
+        public async Task<Logic.Objects.Client> CreateClientAsync(string userName, string email)
         {
             try
             {
-                _context.Client.Add(Mapper.MapClient(new Logic.Objects.Client(userName, email)));
+                Logic.Objects.Client client = new Logic.Objects.Client(userName, email);
+                _context.Client.Add(Mapper.MapClient(client));
                 await _context.SaveChangesAsync();
-                return true;
+                return client;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong within CreateClientAsync: " + e.Message);
-                return false;
+                return null;
             }
 
         }
@@ -197,18 +211,19 @@ namespace Dbnd.Data.Repository
             }
         }
 
-        public async Task<bool> CreateGameAsync(Guid clientID, string gameName)
+        public async Task<Logic.Objects.Game> CreateGameAsync(Guid clientID, string gameName)
         {
             try
             {
-                _context.Game.Add(Mapper.MapGame(new Logic.Objects.Game(clientID, gameName)));
+                Logic.Objects.Game game = new Logic.Objects.Game(clientID, gameName);
+                _context.Game.Add(Mapper.MapGame(game));
                 await _context.SaveChangesAsync();
-                return true;
+                return game;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong within CreateGameAsync: " + e.Message);
-                return false;
+                return null;
             }
         }
 
@@ -255,18 +270,19 @@ namespace Dbnd.Data.Repository
 
         #region Overview
         // Taking out the type stuff until its fleshed out more
-        public async Task<bool> CreateOverviewAsync(Guid gameID, string name, string content)
+        public async Task<Logic.Objects.Overview> CreateOverviewAsync(Guid gameID, string name, string content)
         {
             try
             {
-                _context.Overview.Add(Mapper.MapOverview(new Logic.Objects.Overview(gameID, name, content)));
+                Logic.Objects.Overview overview = new Logic.Objects.Overview(gameID, name, content);
+                _context.Overview.Add(Mapper.MapOverview(overview));
                 await _context.SaveChangesAsync();
-                return true;
+                return overview;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong within CreateOverviewAsync: " + e.Message);
-                return false;
+                return null;
             }
         }
         public async Task<Logic.Objects.Overview> GetOverviewByIDAsync(Guid overviewID)

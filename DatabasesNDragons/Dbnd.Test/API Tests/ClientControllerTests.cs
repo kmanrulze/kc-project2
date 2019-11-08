@@ -45,7 +45,7 @@ namespace Dbnd.Test
             var mockFactory = new Mock<IHttpClientFactory>();
             var clientController = new ClientController(mockRepository.Object, mockFactory.Object);
             
-            await Assert.ThrowsAsync<NullReferenceException>(async () => await clientController.Get(targetId));
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await clientController.GetClient(targetId));
         }
 
         /* [Fact]
@@ -83,7 +83,7 @@ namespace Dbnd.Test
             var mockFactory = new Mock<IHttpClientFactory>();
             var clientController = new ClientController(mockRepository.Object, mockFactory.Object);
 
-            await Assert.ThrowsAsync<NullReferenceException>(async () => await clientController.Get(targetId));
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await clientController.GetClient(targetId));
         }
 
         [Fact]
@@ -100,7 +100,7 @@ namespace Dbnd.Test
             var mockFactory = new Mock<IHttpClientFactory>();
             var clientController = new ClientController(mockRepository.Object, mockFactory.Object);
 
-            await Assert.ThrowsAsync<NullReferenceException>(async () => await clientController.Get(targetId));
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await clientController.GetClient(targetId));
         }
 
         public List<Client> SetUpClients()
