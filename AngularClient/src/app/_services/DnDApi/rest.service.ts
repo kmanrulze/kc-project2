@@ -22,7 +22,7 @@ export class RestService {
     return body || { };
   }
   getMonsters(): Observable<any> {
-    return this.http.get(endpoint + 'monsters').pipe(
+    return this.http.get(endpoint + 'monsters/').pipe(
       map(this.extractData));
   }
   getMonster(id): Observable<any> {

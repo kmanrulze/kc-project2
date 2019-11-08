@@ -23,17 +23,22 @@ export class InterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let profile: string;
-    this.auth.userProfile$.subscribe((res) => profile = JSON.stringify(res));
 
-    return this.auth.getTokenSilently$().pipe(
-      mergeMap(token => {
-        const tokenReq = req.clone({
-          setHeaders: { Authorization: `Bearer ${token}`,
-            Profile: profile}
-        });
-        return next.handle(tokenReq);
-      }),
-      catchError(err => throwError(err))
-    );
+    if (req.url.indexOf("dnd5eapi") === -1)
+    {
+      this.auth.userProfile$.subscribe((res) => profile = JSON.stringify(res));
+
+      return this.auth.getTokenSilently$().pipe(
+        mergeMap(token => {
+          const tokenReq = req.clone({
+            setHeaders: { Authorization: `Bearer ${token}`,
+              Profile: profile}
+          });
+          return next.handle(tokenReq);
+        }),
+        catchError(err => throwError(err))
+      );
+    }
+    else return next.handle(req);
   }
 }
