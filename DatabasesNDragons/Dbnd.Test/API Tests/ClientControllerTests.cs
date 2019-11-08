@@ -57,7 +57,7 @@ namespace Dbnd.Test
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.CreateClientAsync(userName, email))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var mockFactory = new Mock<IHttpClientFactory>();
@@ -77,7 +77,7 @@ namespace Dbnd.Test
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.UpdateClientByIDAsync(targetId, changedClient))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var mockFactory = new Mock<IHttpClientFactory>();
@@ -94,7 +94,7 @@ namespace Dbnd.Test
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.DeleteClientByIDAsync(targetId))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var mockFactory = new Mock<IHttpClientFactory>();

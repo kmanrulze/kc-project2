@@ -217,7 +217,7 @@ namespace Dbnd.Test.Repository_Tests
             Assert.Equal(expected.GameID, value.GameID);
         }
 
-        [Fact]
+        /* [Fact]
         public void MapOverviewTypeEntityToObject()
         {
             var gameID = Guid.NewGuid();
@@ -239,7 +239,7 @@ namespace Dbnd.Test.Repository_Tests
             Assert.IsType<Guid>(value.TypeID);
             Assert.Equal(expected.TypeID, value.TypeID);
 
-        }
+        } 
 
         [Fact]
         public void MapOverviewTypeObjectToEntity()
@@ -262,6 +262,6 @@ namespace Dbnd.Test.Repository_Tests
             Assert.IsType<Data.Entities.OverviewType>(value);
             Assert.IsType<Guid>(value.TypeID);
             Assert.Equal(expected.TypeID, value.TypeID);
-        }
+        } */
     }
 }

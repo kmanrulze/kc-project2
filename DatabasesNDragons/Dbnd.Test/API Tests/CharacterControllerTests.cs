@@ -38,7 +38,7 @@ namespace Dbnd.Test.API_Tests
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetCharacterByCharacterIDAsync(targetId))
+                .Setup(x => x.GetCharacterByIDAsync(targetId))
                 .Returns(async () => await Task.Run(() => characters.Where(c => c.CharacterID == targetId).FirstOrDefault()));
 
             var characterController = new CharacterController(mockRepository.Object);
@@ -59,7 +59,7 @@ namespace Dbnd.Test.API_Tests
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.CreateCharacterAsync(targetId, targetFirstName, targetLastName))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var characterController = new CharacterController(mockRepository.Object);
@@ -78,7 +78,7 @@ namespace Dbnd.Test.API_Tests
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.UpdateCharacterByIDAsync(targetId, changedCharacter))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var characterController = new CharacterController(mockRepository.Object);
@@ -96,7 +96,7 @@ namespace Dbnd.Test.API_Tests
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.DeleteCharacterByIDAsync(targetId))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var characterController = new CharacterController(mockRepository.Object);

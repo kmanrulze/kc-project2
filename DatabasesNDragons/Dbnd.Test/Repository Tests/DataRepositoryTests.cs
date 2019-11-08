@@ -52,10 +52,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetCharacterByCharacterIDAsync(testCharacterID))
+                .Setup(x => x.GetCharacterByIDAsync(testCharacterID))
                 .Returns(() => Task.FromResult(listOfCharacters.Where(x => x.CharacterID == testCharacterID).Single()));
 
-            var testCharacter = await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID);
+            var testCharacter = await mockRepository.Object.GetCharacterByIDAsync(testCharacterID);
 
             Assert.Equal(testCharacterID.ToString(), testCharacter.CharacterID.ToString());
         }
@@ -67,10 +67,10 @@ namespace Dbnd.Test
 
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
-                .Setup(x => x.GetCharacterByCharacterIDAsync(testCharacterID))
+                .Setup(x => x.GetCharacterByIDAsync(testCharacterID))
                 .Returns( () => null);
 
-            await Assert.ThrowsAsync<NullReferenceException>(async () => await mockRepository.Object.GetCharacterByCharacterIDAsync(testCharacterID));
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await mockRepository.Object.GetCharacterByIDAsync(testCharacterID));
         }
 
         [Fact]

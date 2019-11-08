@@ -28,7 +28,7 @@ namespace Dbnd.Api.Controllers
         [HttpGet("{id}")]
         public Task<Character> GetCharacter(Guid id)
         {
-            return _repository.GetCharacterByCharacterIDAsync(id);
+            return _repository.GetCharacterByIDAsync(id);
         }
 
         // POST: api/Character
@@ -44,7 +44,7 @@ namespace Dbnd.Api.Controllers
         public async Task<ActionResult> Put(Guid id, [FromBody, Bind("FirstName, LastName")] Character changedCharacter)
         {
             await _repository.UpdateCharacterByIDAsync(id, changedCharacter);
-            var returnCharacter = await _repository.GetCharacterByCharacterIDAsync(id);
+            var returnCharacter = await _repository.GetCharacterByIDAsync(id);
             return AcceptedAtAction("Get", "Character", null, returnCharacter);
         }
 
