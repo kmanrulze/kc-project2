@@ -24,22 +24,18 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let profile: string;
 
-    // If the outgoing request is not to dbndapi.co
-    if (req.url.indexOf("dnd5eapi") === -1)
-    {
-      this.auth.userProfile$.subscribe((res) => profile = JSON.stringify(res));
+    this.auth.userProfile$.subscribe((res) => profile = JSON.stringify(res));
 
-      return this.auth.getTokenSilently$().pipe(
-        mergeMap(token => {
-          const tokenReq = req.clone({
-            setHeaders: { Authorization: `Bearer ${token}`,
-              Profile: profile}
-          });
-          return next.handle(tokenReq);
-        }),
-        catchError(err => throwError(err))
-      );
-    }
-    else return next.handle(req);
+    return this.auth.getTokenSilently$().pipe(
+      mergeMap(token => {
+        const tokenReq = req.clone({
+          setHeaders: { Authorization: `Bearer ${token}`,
+            Profile: profile,
+          }
+        });
+        return next.handle(tokenReq);
+      }),
+      catchError(err => throwError(err))
+    );
   }
 }
