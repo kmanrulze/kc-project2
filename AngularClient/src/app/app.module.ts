@@ -15,6 +15,8 @@ import { TablesComponent } from './tables/tables.component';
 import { NewFormComponent } from './characters/newform/newform.component';
 import { NewtableComponent } from './tables/newtable/newtable.component';
 import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
+import { MonsterComponent } from './monster/monster.component';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { ListcharactersComponent } from './characters/listcharacters/listcharact
     LoginSplashComponent,
     NewFormComponent,
     NewtableComponent,
-    ListcharactersComponent
+    ListcharactersComponent,
+    MonsterComponent
   ],
   imports: [
     BrowserModule,

@@ -26,7 +26,7 @@ export class RestService {
       map(this.extractData));
   }
   getMonster(id): Observable<any> {
-    return this.http.get(endpoint + 'products/' + id).pipe(
+    return this.http.get(endpoint + 'monsters/' + id).pipe(
       map(this.extractData));
   }
 }
