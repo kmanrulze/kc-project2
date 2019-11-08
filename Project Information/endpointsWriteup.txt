@@ -9,6 +9,13 @@ Clients:
 	GET     Get client info: api/clients/{clientId}
 	PUT     Update client info: api/clients/update/{clientId}
 
+Characters (of a client):
+	POST    Create new character: api/clients/{clientId}/characters/new
+	GET     Get all characters: api/clients/{clientId}/characters
+	GET     Get character info: api/clients/{clientId}/characters/{characterId}
+	PUT     Update character info: api/clients/{clientId}/characters/update/{characterId}
+	DELETE  Delete character: api/clients/{clientId}/characters/delete/{characterId}
+
 Games (of a client):
 	POST    Create new game: api/clients/{clientId}/games/new
 	GET     Get client's games: api/clients/{clientId}/games
@@ -16,13 +23,6 @@ Games (of a client):
 	PUT     Add character to game: api/clients/{clientId}/games/{gameId}/addCharacter/
 	PUT     Update game info: api/clients/{clientId}/games/update/{gameId}
 	DELETE  Delete game: api/clients/{clientId}/games/delete/{gameId}
-
-Characters (of a client):
-	POST    Create new character: api/clients/{clientId}/characters/new
-	GET     Get all characters: api/clients/{clientId}/characters
-	GET     Get character info: api/clients/{clientId}/characters/{characterId}
-	PUT     Update character info: api/clients/{clientId}/characters/update/{characterId}
-	DELETE  Delete character: api/clients/{clientId}/characters/delete/{characterId}
 
 Overviews (of a game):
 	POST    Create overview: api/clients/{clientId}/games/{gameId}/overviews/new

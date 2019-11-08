@@ -30,7 +30,7 @@ namespace Dbnd.Test.API_Tests
             Assert.Equal(3, listCount);
         }*/
 
-        [Fact]
+        /*[Fact]
         public async Task GetSingleGameHasCorrectID()
         {
             var games = SetUpGames();
@@ -58,7 +58,7 @@ namespace Dbnd.Test.API_Tests
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.CreateGameAsync(targetId, targetName))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var gameController = new GameController(mockRepository.Object);
@@ -77,7 +77,7 @@ namespace Dbnd.Test.API_Tests
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.UpdateGameAsync(targetId, changedGame))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var gameController = new GameController(mockRepository.Object);
@@ -95,7 +95,7 @@ namespace Dbnd.Test.API_Tests
             Mock<Logic.Interfaces.IRepository> mockRepository = new Mock<Logic.Interfaces.IRepository>();
             mockRepository
                 .Setup(x => x.DeleteGameByIDAsync(targetId))
-                    .Returns(Task.CompletedTask)
+                    .Returns(Task.FromResult(true))
                     .Verifiable();
 
             var gameController = new GameController(mockRepository.Object);
@@ -103,7 +103,7 @@ namespace Dbnd.Test.API_Tests
 
             mockRepository
                 .Verify();
-        }
+        } */
 
         /* [Fact]
         public async Task GetCharactersInGameVerify()

@@ -1,0 +1,81 @@
+form{
+  font-family: var(--dnnormal);
+  color: white !important;
+}
+
+.form-title{
+  font-family: var(--dnnormal);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.icon-submit-front {
+  margin-top: -25;
+}
+.icon-submit-back {
+  margin-bottom: -5;
+}
+
+.icon-submit{
+  width: 75px;
+}
+
+.icon-submit:focus {
+  outline: none;
+}
+
+
+
+.cat-background{
+  padding: 5px;
+  border: 1px solid var(--dnred);
+  background-color: rgba(53,56,57, .9);
+}
+
+
+.main-padding {
+  display:flex;
+  flex-direction: row;
+  width:100%;
+}
+
+.main-tack {
+  font-size: 24px;
+  color: var(--dnred);
+  flex-grow: 1;
+}
+
+.right{
+  padding-right: 5px;
+  text-align: right;
+  align-content: right;
+}
+
+.left{
+  padding-left: 5px;
+  text-align: left;
+  align-content: left;
+}
+
+.table{
+  font-family: var(--dnnormal);
+  color: white;
+  font-weight: bold;
+
+}
+
+.icon-submit-use{
+  width: 36px;
+}
+.icon-submit-edit{
+  width: 42px;
+}
+
+.icon-submit-use, .icon-submit-edit :focus {
+  outline: none;
+}
+
+table.table-hover tbody tr:hover {
+  background-color: rgba(145, 195, 106, .3);
+}

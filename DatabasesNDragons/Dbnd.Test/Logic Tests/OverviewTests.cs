@@ -9,7 +9,7 @@ namespace Dbnd.Test.Logic_Tests
         [Fact]
         public void OverviewInitCorrectly()
         {
-            var overview = new Overview(Guid.NewGuid(), Guid.NewGuid());
+            var overview = new Overview(Guid.NewGuid(), "test", "");
 
             Assert.IsType<Guid>(overview.GameID);
             Assert.IsType<Guid>(overview.TypeID);

@@ -1,20 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { NavbarComponent } from './navbar.component';
+// import { NewformComponent } from './newform.component';
 
-// describe('NavbarComponent', () => {
-//   let component: NavbarComponent;
-//   let fixture: ComponentFixture<NavbarComponent>;
+// describe('NewformComponent', () => {
+//   let component: NewformComponent;
+//   let fixture: ComponentFixture<NewformComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ NavbarComponent ]
+//       declarations: [ NewformComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(NavbarComponent);
+//     fixture = TestBed.createComponent(NewformComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

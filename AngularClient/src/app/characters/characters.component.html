@@ -1,31 +1,16 @@
-<p>characters works!</p>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Info</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let country of countries">
-    <th scope="row">{{ country.id }}</th>
-    <td>
-      <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
-      {{ country.name }}
-    </td>
-    <td>{{ country.area | number}}</td>
-    <td>{{ country.population | number }}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="container-flex text-center cat-heading">
+  Characters
+</div>
 
-<div class="d-flex justify-content-between p-2">
-  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
-  </ngb-pagination>
+<div class="container-flex">
+  <div class="class row d-flex justify-content-center">
 
-  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
-    <option [ngValue]="2">2 items per page</option>
-    <option [ngValue]="4">4 items per page</option>
-    <option [ngValue]="6">6 items per page</option>
-  </select>
+    <div class="class col-5 text-center cat-col">
+        <app-newform></app-newform>
+    </div>
+
+    <div class="class col-5 text-center">
+      <app-listcharacters></app-listcharacters>
+    </div>
+  </div>
 </div>
