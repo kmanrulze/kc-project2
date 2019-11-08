@@ -32,12 +32,14 @@ stages:
 
 
     - task: AzureKeyVault@1
+      continueOnError: true
       displayName: Azure Keyvault Access for Webhook
       inputs:
         azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
         SecretsFilter: 'Webhook'
     - task: ado-discord-webhook@1
+      continueOnError: true
       displayName: Discord Webhook Message
       inputs:
         channelId: '639490810336903202'
@@ -69,6 +71,7 @@ stages:
         command: 'build'
         workingDirectory: './DatabasesNDragons'
     - task: ado-discord-webhook@1
+      continueOnError: true
       displayName: Discord Webhook Message
       inputs:
         channelId: '639490810336903202'
@@ -101,6 +104,7 @@ stages:
         arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
     - task: ado-discord-webhook@1
+      continueOnError: true
       displayName: Discord Webhook Message
       inputs:
         channelId: '639490810336903202'
@@ -155,12 +159,14 @@ stages:
     - script: echo Pipe success!
 
     - task: AzureKeyVault@1
+      continueOnError: true
       displayName: Azure Keyvault Access for Webhook
       inputs:
         azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
         SecretsFilter: Webhook
     - task: ado-discord-webhook@1
+      continueOnError: true
       displayName: Discord Webhook Message
       inputs:
         channelId: '639490810336903202'
@@ -196,12 +202,14 @@ stages:
     steps:
     - script: echo Pipe failiure!
     - task: AzureKeyVault@1
+      continueOnError: true
       displayName: Azure Keyvault Access for Webhook
       inputs:
         azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
         SecretsFilter: Webhook
     - task: ado-discord-webhook@1
+      continueOnError: true
       displayName: Discord Webhook Message
       inputs:
         channelId: '639490810336903202'
@@ -248,12 +256,14 @@ stages:
         Contents: '**'
         TargetFolder: '$(System.DefaultWorkingDirectory)'
     - task: AzureKeyVault@1
+      continueOnError: true
       displayName: Azure Keyvault Access for Webhook
       inputs:
         azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
         SecretsFilter: Webhook
     - task: ado-discord-webhook@1
+      continueOnError: true
       displayName: Discord Webhook Message
       inputs:
         channelId: '639490810336903202'
@@ -293,12 +303,14 @@ stages:
     steps:
     - script: echo Successfully deployed!
     - task: AzureKeyVault@1
+      continueOnError: true
       displayName: Azure Keyvault Access for Webhook
       inputs:
         azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
         SecretsFilter: Webhook
     - task: ado-discord-webhook@1
+      continueOnError: true
       displayName: Discord Webhook Message
       inputs:
         channelId: '639490810336903202'
@@ -333,12 +345,14 @@ stages:
     steps:
     - script: echo Unsuccessfully deployed...
     - task: AzureKeyVault@1
+      continueOnError: true
       displayName: Azure Keyvault Access for Webhook
       inputs:
         azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
         SecretsFilter: Webhook
     - task: ado-discord-webhook@1
+      continueOnError: true
       displayName: Discord Webhook Message
       inputs:
         channelId: '639490810336903202'
