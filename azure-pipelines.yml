@@ -31,9 +31,9 @@ stages:
     - task: AzureKeyVault@1
       displayName: Azure Keyvault Access for Webhook
       inputs:
-        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
-        SecretsFilter: Webhook
+        SecretsFilter: 'Webhook'
     - task: ado-discord-webhook@1
       displayName: Discord Webhook Message
       inputs:
@@ -154,9 +154,9 @@ stages:
     - task: AzureKeyVault@1
       displayName: Azure Keyvault Access for Webhook
       inputs:
-        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
-        SecretsFilter: Webhook
+        SecretsFilter: 'Webhook'
     - task: ado-discord-webhook@1
       displayName: Discord Webhook Message
       inputs:
@@ -195,9 +195,9 @@ stages:
     - task: AzureKeyVault@1
       displayName: Azure Keyvault Access for Webhook
       inputs:
-        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
-        SecretsFilter: Webhook
+        SecretsFilter: 'Webhook'
     - task: ado-discord-webhook@1
       displayName: Discord Webhook Message
       inputs:
@@ -275,7 +275,7 @@ stages:
       displayName: Azure WebApp Deployment
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         appType: 'webApp'
         WebAppName: 'dbnd'
         packageForLinux: '$(appDir)/dist/*'
@@ -287,9 +287,9 @@ stages:
     - task: AzureKeyVault@1
       displayName: Azure Keyvault Access for Webhook
       inputs:
-        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
-        SecretsFilter: Webhook
+        SecretsFilter: 'Webhook'
     - task: ado-discord-webhook@1
       displayName: Discord Webhook Message
       inputs:
@@ -327,9 +327,9 @@ stages:
     - task: AzureKeyVault@1
       displayName: Azure Keyvault Access for Webhook
       inputs:
-        azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
         KeyVaultName: 'DBnD-KeyVault'
-        SecretsFilter: Webhook
+        SecretsFilter: 'Webhook'
     - task: ado-discord-webhook@1
       displayName: Discord Webhook Message
       inputs:
