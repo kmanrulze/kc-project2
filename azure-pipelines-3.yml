@@ -39,6 +39,7 @@ jobs:
     workingDirectory: $(appDir)
 
   - script: npx ng test --browsers ChromeHeadless --no-watch --code-coverage
+    continueOnError: true
     displayName: ng test
     workingDirectory: $(appDir)
 
