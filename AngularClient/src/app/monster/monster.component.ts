@@ -19,7 +19,7 @@ export class MonsterComponent implements OnInit {
   getMonster()
   {
     this.monster = [];
-    this.rest.getMonster(60).subscribe((data:{}) => {
+    this.rest.getMonster(3).subscribe((data:{}) => {
       console.log(data);
       this.monster = data;
     });
