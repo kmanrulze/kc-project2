@@ -9,10 +9,15 @@ import { Observable } from 'rxjs';
   styleUrls: ['./listcharacters.component.css']
 })
 export class ListcharactersComponent implements OnInit {
-
+  dbndProfText: string = "";
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
-  ngOnInit() {
+
+  async ngOnInit() {
+
+    this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
+      this.dbndProfText = JSON.stringify(res);
+    });
   }
 
 }
