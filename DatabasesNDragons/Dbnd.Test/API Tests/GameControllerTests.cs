@@ -30,7 +30,7 @@ namespace Dbnd.Test.API_Tests
             Assert.Equal(3, listCount);
         }*/
 
-        [Fact]
+        /*[Fact]
         public async Task GetSingleGameHasCorrectID()
         {
             var games = SetUpGames();
@@ -103,7 +103,7 @@ namespace Dbnd.Test.API_Tests
 
             mockRepository
                 .Verify();
-        }
+        } */
 
         /* [Fact]
         public async Task GetCharactersInGameVerify()

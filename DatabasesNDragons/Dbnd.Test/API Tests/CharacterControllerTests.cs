@@ -30,7 +30,7 @@ namespace Dbnd.Test.API_Tests
             Assert.Equal(3, listCount);
         }*/
 
-        [Fact]
+        /* [Fact]
         public async Task GetCharacterByCharacterIDAsyncHasCorrectID()
         {
             var characters = SetUpCharacters();
@@ -130,6 +130,6 @@ namespace Dbnd.Test.API_Tests
                     LastName = "Bloom"
                 }
             };
-        }
+        }*/
     }
 }
