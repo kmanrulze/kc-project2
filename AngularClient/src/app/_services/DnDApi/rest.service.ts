@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
-const endpoint = 'http://dnd5eapi.co/api/';
+const endpoint = 'http://www.dnd5eapi.co/api/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
