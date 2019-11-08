@@ -58,9 +58,9 @@ export class AuthService {
       if (this.clientId !== '') {
         return this.clientId;
       }
-
+//Need to debut the res.json.toString(). Doesnt display the ID as it should. 
       await this.dbnd.getId$().toPromise().then( (res: Response) => {
-        this.clientId = res.id;
+        this.clientId = res.json.toString();
       });
     }
 
