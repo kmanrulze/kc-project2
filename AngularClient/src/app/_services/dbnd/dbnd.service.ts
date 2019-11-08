@@ -17,4 +17,8 @@ export class DbndService {
     return this.http.get(`/api/client/${id}`);
   }
 
+  getUserCharacters$(id: string): Observable<any> {
+    return this.http.get(`api/client/${id}/characters`)
+  }
+
 }

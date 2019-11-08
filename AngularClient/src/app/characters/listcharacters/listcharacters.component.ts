@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./listcharacters.component.css']
 })
 export class ListcharactersComponent implements OnInit {
-  dbndProfText: string = "";
+  dbndProfText: string = "test";
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
 
