@@ -70,7 +70,7 @@ jobs:
   - task: AzureKeyVault@1
     displayName: Azure Keyvault Access for Webhook
     inputs:
-      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: 'Webhook'
   - task: ado-discord-webhook@1
@@ -110,7 +110,7 @@ jobs:
   - task: AzureKeyVault@1
     displayName: Azure Keyvault Access for Webhook
     inputs:
-      azureSubscription: 'Free Trial(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+      azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
       KeyVaultName: 'DBnD-KeyVault'
       SecretsFilter: 'Webhook'
   - task: ado-discord-webhook@1
