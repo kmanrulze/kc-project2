@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-    - Jacob
+#    - Jacob
     - Shawn
 
 pool:
