@@ -24,8 +24,7 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let profile: string;
 
-    if (req.url.indexOf("dnd5eapi") === -1)
-    {
+    if (req.url.indexOf('dnd5eapi') === -1) {
       this.auth.userProfile$.subscribe((res) => profile = JSON.stringify(res));
 
       return this.auth.getTokenSilently$().pipe(
@@ -38,7 +37,6 @@ export class InterceptorService implements HttpInterceptor {
         }),
         catchError(err => throwError(err))
       );
-    }
-    else return next.handle(req);
+    } else { return next.handle(req); }
   }
 }
