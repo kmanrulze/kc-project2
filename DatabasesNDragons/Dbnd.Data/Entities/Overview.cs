@@ -7,6 +7,8 @@ namespace Dbnd.Data.Entities
     {
         [Key]
         public Guid OverviewID { get; set; }
+        public string Name { get; set; }
+        public string Content { get; set; }
 
         // Foreign Key for GameID
         public Guid GameID { get; set; }

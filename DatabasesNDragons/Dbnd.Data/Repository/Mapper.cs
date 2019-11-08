@@ -87,8 +87,7 @@ namespace Dbnd.Data.Repository
             Overview LogicOverview = new Overview()
             {
                 GameID = ContextOverview.GameID,
-                OverviewID = ContextOverview.OverviewID,
-                TypeID = ContextOverview.TypeID
+                OverviewID = ContextOverview.OverviewID
             };
             return LogicOverview;
         }
@@ -98,14 +97,13 @@ namespace Dbnd.Data.Repository
             Entities.Overview EntityOverview = new Entities.Overview
             {
                 GameID = ContextOverview.GameID,
-                OverviewID = ContextOverview.OverviewID,
-                TypeID = ContextOverview.TypeID
+                OverviewID = ContextOverview.OverviewID
             };
             return EntityOverview;
         }
 
-        // Not necessary yet - below:
-        public static OverviewType MapOverviewType(Entities.OverviewType ContextOverviewType)
+        // Not necessary until the type system is fleshed out (or murdered)
+        /* public static OverviewType MapOverviewType(Entities.OverviewType ContextOverviewType)
         {
             OverviewType LogicOverviewType = new OverviewType()
             {
@@ -121,7 +119,7 @@ namespace Dbnd.Data.Repository
                 TypeID = ContextOverviewType.TypeID
             };
             return EntityOverviewType;
-        }
+        } */
         #endregion
     }
 }
