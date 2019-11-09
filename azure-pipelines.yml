@@ -224,6 +224,8 @@ stages:
             }]
 ############################################################################################################################# Build and Deploy Angular proj
 - stage: Deploy_Angular
+  dependsOn:
+  - Build_and_Test_Master
   pool:
     vmImage: 'ubuntu-latest'
   variables: 
@@ -339,7 +341,7 @@ stages:
         messageType: embeds
         embeds: |
             [{
-              "title": "Web App Unsuccessfully Deployed...",
+              "title": "Master Web App Unsuccessfully Deployed...",
               "description": "Deployment failed. Updated Master API will not attempt to be deployed alongside the app.",
               "url": "https://discordapp.com",
               "color": 2247803,
@@ -353,6 +355,160 @@ stages:
                 "url": "https://dev.azure.com/kcguzman/Project-2",
                 "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
               }
+            }]
+############################################################################################################################# DEPLOY API
+- stage: Deploy_API
+  pool:
+    vmImage: 'windows-latest'
+  variables:
+    buildConfiguration: 'Release'
+  dependsOn:
+  - Build_and_Test_Master
+  - Deploy_Angular
+  condition: succeeded()
+  jobs:
+  - job: Deploy_API
+    steps:
+    - script: echo Publishing steps started
+
+    - task: DownloadBuildArtifacts@0
+      displayName: Retrieving Build Artifacts
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(System.ArtifactsDirectory)'
+        Contents: '**'
+        TargetFolder: '$(System.DefaultWorkingDirectory)'
+    - task: AzureKeyVault@1
+      continueOnError: true
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      continueOnError: true
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Master Pipeline API App Service Deployment",
+              "description": "Attempting to deploy to app service...",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              }
+            }]
+########################### DEPLOY TASK
+
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        appType: 'webApp'
+        WebAppName: 'dbndapi'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+######################################################################################################### API DEPLOY SUCCESS
+  - job: Deployment_Success
+    dependsOn: Deploy_API
+    condition: succeeded()
+    steps:
+    - script: echo Successfully deployed!
+    - task: AzureKeyVault@1
+      continueOnError: true
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      continueOnError: true
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Master API Deployment Success!",
+              "description": "Your app has been deployed!",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              },
+              "fields": 
+              [{
+                "name": "Hosted Link",
+                "value": "https://dbndapi.azurewebsites.net/"
+                    }]
+            }]
+  ######################################################################################################### API DEPLOY FAILIURE
+  - job: Deployment_Failed
+    dependsOn: Deploy_API
+    condition: failed()
+    steps:
+    - script: echo Unsuccessfully deployed...
+    - task: AzureKeyVault@1
+      continueOnError: true
+      displayName: Azure Keyvault Access for Webhook
+      inputs:
+        azureSubscription: 'Azure Portal Plan(92f11ea8-1c99-4c20-a2a9-6a3aed18291d)'
+        KeyVaultName: 'DBnD-KeyVault'
+        SecretsFilter: Webhook
+    - task: ado-discord-webhook@1
+      continueOnError: true
+      displayName: Discord Webhook Message
+      inputs:
+        channelId: '639490810336903202'
+        webhookKey: '$(Webhook)'
+        name: 'Azure Devops'
+        messageType: embeds
+        embeds: |
+            [{
+              "title": "Master API Deployment Failiure",
+              "description": "Your app has failed to be deployed. I blame Fred.",
+              "url": "https://discordapp.com",
+              "color": 2247803,
+              "thumbnail": 
+              {
+                "url": "https://static.thenounproject.com/png/266379-200.png"
+              },
+              "author": 
+              {
+                "name": "Azure Devops",
+                "url": "https://dev.azure.com/kcguzman/Project-2",
+                "icon_url": "http://www.mattruma.com/wp-content/uploads/2019/04/528389819366_e7a0672f0480b3e98d21_512.png"
+              },
+              "fields": 
+              [{
+                "name": "Hosted Link",
+                "value": "https://dbndapi.azurewebsites.net/"
+                    }]
             }]
 
 
