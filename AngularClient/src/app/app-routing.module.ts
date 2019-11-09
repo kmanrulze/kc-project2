@@ -10,7 +10,7 @@ import { TablesComponent } from './tables/tables.component';
 import { LoginSplashComponent } from './login-splash/login-splash.component';
 
 import { CharactersComponent } from './characters/characters.component';
-import { ListCharactersComponent } from './characters/listcharacters/listcharacters.component';
+import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
 import { NewFormComponent } from './characters/newform/newform.component';
 import { EditFormComponent } from './characters/editform/editform.component';
 
@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'characters/listcharacters',
-    component: ListCharactersComponent,
+    component: ListcharactersComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   templateUrl: './listcharacters.component.html',
   styleUrls: ['./listcharacters.component.css']
 })
-export class ListCharactersComponent implements OnInit {
+export class ListcharactersComponent implements OnInit {
     dbndProfText = 'test';
     loadedInfo: Promise<string>;
     showSpinner = true;

@@ -14,8 +14,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { CharactersComponent } from './characters/characters.component';
 import { TablesComponent } from './tables/tables.component';
 import { NewFormComponent } from './characters/newform/newform.component';
+import { EditFormComponent } from './characters/editform/editform.component';
 import { NewtableComponent } from './tables/newtable/newtable.component';
+import { JoinTableComponent } from './tables/jointable/jointable.component';
 import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
+import { LoadingSpinComponent } from './ui/loading-spin/loading-spin.component';
 import { MonsterComponent } from './monster/monster.component';
 
 const appRoutes: Routes = [
@@ -40,8 +43,11 @@ const appRoutes: Routes = [
     TablesComponent,
     LoginSplashComponent,
     NewFormComponent,
+    EditFormComponent,
     NewtableComponent,
+    JoinTableComponent,
     ListcharactersComponent,
+    LoadingSpinComponent,
     MonsterComponent
   ],
   imports: [

@@ -12,7 +12,8 @@ import { Observable } from 'rxjs';
 export class CharactersComponent implements OnInit {
 
   constructor(public auth: AuthService, public dbnd: DbndService) { }
-
+  mode = 'characterSelection';
+  form = 'new';
   dbndProfText = '';
 
   page = 1;

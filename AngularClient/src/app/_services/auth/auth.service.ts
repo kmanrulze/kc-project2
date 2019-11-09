@@ -53,19 +53,33 @@ export class AuthService {
     );
   }
 
-  async getClientId() {
-    if (this.loggedIn) {
-      if (this.clientId !== '') {
+  //Need to debut the res.json.toString(). Doesnt display the ID as it should.
+//   await this.dbnd.getId$().toPromise().then( (res: Response) => {
+//     this.clientId = res.json.toString();
+//   });
+// }
+
+// return this.clientId;
+// }
+
+  async getClientId()
+  {
+    if (this.loggedIn)
+    {
+      if (this.clientId != "")
         return this.clientId;
-      }
-//Need to debut the res.json.toString(). Doesnt display the ID as it should. 
+
       await this.dbnd.getId$().toPromise().then( (res: Response) => {
-        this.clientId = res.json.toString();
+        this.clientId = res["id"];
       });
     }
 
     return this.clientId;
   }
+
+
+
+
 
   localAuthSetup() {
     // This should only be called on app initialization
