@@ -78,6 +78,19 @@ body {
   background-color: var(--dnbrown)
 }
 
+/* site list sytles */
+
+.table-character .tooltip-inner {
+  background-color: var(--dngreen);
+  font-size: 14px;
+  font-family: var(--dnnormal);
+}
+
+.table-character .arrow::before {
+  border-top-color: var(--dngreen);
+  font-family: var(--dnnormal);
+}
+
 /* site form styles */
 
 form{

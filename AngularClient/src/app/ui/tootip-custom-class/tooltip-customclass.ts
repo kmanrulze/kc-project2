@@ -6,7 +6,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
   encapsulation: ViewEncapsulation.None,
   styles: [`
     .table-character .tooltip-inner {
-      background-color: white;
+      background-color: darkgreen;
       font-size: 125%;
     }
     .table-character .arrow::before {
