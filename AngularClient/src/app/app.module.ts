@@ -23,6 +23,10 @@ import { MonsterComponent } from './monster/monster.component';
 import { CurrenttablesComponent } from './tables/currenttables/currenttables.component';
 import { EdittableComponent } from './tables/edittable/edittable.component';
 import { NgbdTooltipCustomclass } from './ui/tootip-custom-class/tooltip-customclass';
+import { PlaygameComponent } from './playgame/playgame.component';
+import { CharacteroptionsComponent } from './playgame/characteroptions/characteroptions.component';
+import { OverviewoptionsComponent } from './playgame/overviewoptions/overviewoptions.component';
+import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.component';
 
 const appRoutes: Routes = [
   {
@@ -54,7 +58,11 @@ const appRoutes: Routes = [
     MonsterComponent,
     CurrenttablesComponent,
     EdittableComponent,
-    NgbdTooltipCustomclass
+    NgbdTooltipCustomclass,
+    PlaygameComponent,
+    CharacteroptionsComponent,
+    OverviewoptionsComponent,
+    GameoptionsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

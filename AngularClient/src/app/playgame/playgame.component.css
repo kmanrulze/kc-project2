@@ -1,0 +1,26 @@
+.nav-game{
+  background-color: var(--dnsalmon);
+  border-top: 2px solid var(--dnred);
+  border-bottom: 2px solid var(--dnred);
+  font-family: var(--dnnormal);
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--dnonyx);
+}
+
+.nav-game-menu{
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-game a{
+  color: var(--dnonyx);
+  }
+
+.nav-game a:hover{
+  color:white;
+}
+
+.dice {
+  color : var(--dnonyx);
+}

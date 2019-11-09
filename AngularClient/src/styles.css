@@ -80,14 +80,17 @@ body {
 
 /* site list sytles */
 
-.table-character .tooltip-inner {
+.table-character-right .tooltip-inner, .table-character-left .tooltip-inner {
   background-color: var(--dngreen);
-  font-size: 14px;
-  font-family: var(--dnnormal);
+  font-size: 125%;
 }
 
-.table-character .arrow::before {
-  border-top-color: var(--dngreen);
+.table-character-left .arrow::before {
+  border-right-color: var(--dngreen);
+}
+
+.table-character-right .arrow::before {
+  border-left-color: var(--dngreen);
 }
 
 /* site form styles */
