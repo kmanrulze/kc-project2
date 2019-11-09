@@ -1,9 +1,12 @@
 <h2>Monster List</h2>
-<ul class="monsters">
-  <div *ngFor="let m of monsters">
-      <mat-action-list>
+<mat-selection-list #SelectedMonsters>
+  <mat-list-option *ngFor="let m of monsters">
+    <mat-list-item>{{m.name}}
+    </mat-list-item>
+  </mat-list-option>
+</mat-selection-list>
 
-      </mat-action-list>
-  </div>
-</ul>
+<p>
+    Options selected: {{SelectedMonsters.selectedOptions.selected.length}}
+</p>
 
