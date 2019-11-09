@@ -20,6 +20,8 @@ import { JoinTableComponent } from './tables/jointable/jointable.component';
 import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
 import { LoadingSpinComponent } from './ui/loading-spin/loading-spin.component';
 import { MonsterComponent } from './monster/monster.component';
+import { CurrenttablesComponent } from './tables/currenttables/currenttables.component';
+import { EdittableComponent } from './tables/edittable/edittable.component';
 
 const appRoutes: Routes = [
   {
@@ -48,7 +50,9 @@ const appRoutes: Routes = [
     JoinTableComponent,
     ListcharactersComponent,
     LoadingSpinComponent,
-    MonsterComponent
+    MonsterComponent,
+    CurrenttablesComponent,
+    EdittableComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

@@ -70,6 +70,10 @@ form{
 
 }
 
+.icon-submit-use:hover, .icon-submit-edit:hover {
+  background-image : radial-gradient(ellipse, white, transparent 70%)
+}
+
 .icon-submit-use{
   width: 36px;
 }

@@ -15,6 +15,8 @@ import { NewFormComponent } from './characters/newform/newform.component';
 import { EditFormComponent } from './characters/editform/editform.component';
 
 import { JoinTableComponent } from './tables/jointable/jointable.component';
+import { CurrenttablesComponent } from './tables/currenttables/currenttables.component';
+import { EdittableComponent } from './tables/edittable/edittable.component';
 
 
 const routes: Routes = [
@@ -56,6 +58,16 @@ const routes: Routes = [
   {
     path: 'tables/jointable',
     component: JoinTableComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'tables/currenttables',
+    component: CurrenttablesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'tables/edittable',
+    component: EdittableComponent,
     canActivate: [AuthGuard]
   }
 
