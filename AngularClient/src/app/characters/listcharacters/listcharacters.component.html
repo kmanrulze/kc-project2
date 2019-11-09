@@ -2,43 +2,25 @@
 
     <div class="class cat-background">
         <div class="main-padding">
-            <div class="main-tack left"><em class="fas fa-dice-d20"></em></div>
-            <div class="main-tack right"><em class="fas fa-dice-d20"></em></div>
+            <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+            <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
         </div>
       <div class="form-title">Character List</div>
 
-
-      <table class="table table-striped table-hover">
-        <thead>
-          <th>
-
-          </th>
-          <th>
-
-          </th>
-        </thead>
+        <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
+      <table class="table table-striped table-hover" *ngIf="!showSpinner">
 
           <tbody>
             <tr > <!-- {{ country.name }} the tr needs : *ngFor="let character of char"-->
               <td class="col-4">
-                Rowan Eaglesmithers<!-- {{ country.name }} the tr needs : *ngFor="let character of char"-->
+                <!-- {{dbndProfText}} -->
+                <p>Id: {{ auth.clientId }}</p>
               </td>
               <td class="col-3">
-                  <input type="image" class="icon-submit-use" src="../../../assets/images/location_t.png" alt="iconSubmit"/>
+                  <input type="image" class="icon-submit-use" src="../../../assets/images/location_t.png" />
               </td>
               <td class="col-3">
-                  <input type="image" class="icon-submit-use" src="../../../assets/images/gear_t.png" alt="iconSubmit"/>
-              </td>
-            </tr>
-            <tr > <!-- {{ country.name }} the tr needs : *ngFor="let character of char"-->
-              <td class="col-4">
-                Darnog Lightsgrothingtons<!-- {{ country.name }} the tr needs : *ngFor="let character of char"-->
-              </td>
-              <td class="col-3">
-                  <input type="image" class="icon-submit-use" src="../../../assets/images/location_t.png" alt="iconSubmit"/>
-              </td>
-              <td class="col-3">
-                  <input type="image" class="icon-submit-use" src="../../../assets/images/gear_t.png" alt="iconSubmit"/>
+                  <input type="image" class="icon-submit-use" src="../../../assets/images/gear_t.png" />
               </td>
             </tr>
           </tbody>
@@ -66,8 +48,8 @@
 
 
       <div class="main-padding">
-          <div class="main-tack left"><em class="fas fa-dice-d20"></em></div>
-          <div class="main-tack right"><em class="fas fa-dice-d20"></em></div>
+          <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+          <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
       </div>
     </div>
 
