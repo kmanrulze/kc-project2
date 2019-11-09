@@ -73,7 +73,6 @@ const appRoutes: Routes = [
     FormsModule,
     NgbModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     MatSliderModule,
     MatListModule
   ],
