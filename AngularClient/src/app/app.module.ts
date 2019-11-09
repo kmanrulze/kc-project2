@@ -27,6 +27,8 @@ import { PlaygameComponent } from './playgame/playgame.component';
 import { CharacteroptionsComponent } from './playgame/characteroptions/characteroptions.component';
 import { OverviewoptionsComponent } from './playgame/overviewoptions/overviewoptions.component';
 import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatListModule } from '@angular/material/list';
 
 const appRoutes: Routes = [
   {
@@ -70,7 +72,10 @@ const appRoutes: Routes = [
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
