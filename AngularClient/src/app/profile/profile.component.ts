@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth/auth.service';
 import { DbndService } from '../_services/dbnd/dbnd.service';
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',

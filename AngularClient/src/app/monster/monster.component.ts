@@ -9,19 +9,19 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./monster.component.css']
 })
 export class MonsterComponent implements OnInit {
-  monsters:any = []
+  monster:any = []
 
   constructor(public rest:RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.getMonsters();
+    this.getMonster();
   }
-  getMonsters()
+  getMonster()
   {
-    this.monsters = [];
-    this.rest.getMonsters().subscribe((data:{}) => {
+    this.monster = [];
+    this.rest.getMonster(3).subscribe((data:{}) => {
       console.log(data);
-      this.monsters = data;
+      this.monster = data;
     });
   }
 

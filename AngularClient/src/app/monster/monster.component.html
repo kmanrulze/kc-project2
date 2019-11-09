@@ -1,10 +1,10 @@
 <h2>Monster List</h2>
 
 <ul class="monsters">
-    <li *ngFor="let m of monsters; let i=index;">
-        <a routerLink="/monsters/{{m._id}}">
-            <span class="badge">{{i+1}}</span>{{m.name}}
-        </a>
-    </li>
+    <li>{{monster.name}}</li>
+    <li>{{monster.size}}</li>
+    <li>{{monster.speed}}</li>
+    <li>{{monster.type}}</li>
+    <li>{{monster.languages}}</li>
 </ul>
 

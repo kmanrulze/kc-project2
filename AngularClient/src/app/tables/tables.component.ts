@@ -25,7 +25,7 @@ export class TablesComponent {
   }
 
   submitCreate() {
-    
+
   }
 
   openJoin(joinTable) {
