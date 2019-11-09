@@ -18,6 +18,7 @@ import { NewtableComponent } from './tables/newtable/newtable.component';
 import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
 import { MonsterComponent } from './monster/monster.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
 
 const appRoutes: Routes = [
   {
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     FormsModule,
     NgbModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
