@@ -19,6 +19,7 @@ import { ListcharactersComponent } from './characters/listcharacters/listcharact
 import { MonsterComponent } from './monster/monster.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import {MatListModule} from '@angular/material/list';
 
 const appRoutes: Routes = [
   {
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
