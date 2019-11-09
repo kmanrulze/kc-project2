@@ -14,7 +14,10 @@ import { CharactersComponent } from './characters/characters.component';
 import { TablesComponent } from './tables/tables.component';
 import { NewFormComponent } from './characters/newform/newform.component';
 import { NewtableComponent } from './tables/newtable/newtable.component';
-import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
+import { ListCharactersComponent } from './characters/listcharacters/listcharacters.component';
+import { LoadingSpinComponent } from './ui/loading-spin/loading-spin.component';
+import { EditFormComponent } from './characters/editform/editform.component';
+import { JoinTableComponent } from './tables/jointable/jointable.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { ListcharactersComponent } from './characters/listcharacters/listcharact
     LoginSplashComponent,
     NewFormComponent,
     NewtableComponent,
-    ListcharactersComponent
+    ListCharactersComponent,
+    LoadingSpinComponent,
+    EditFormComponent,
+    JoinTableComponent,
   ],
   imports: [
     BrowserModule,

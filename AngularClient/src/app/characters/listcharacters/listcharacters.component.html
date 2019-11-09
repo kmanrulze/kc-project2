@@ -7,13 +7,13 @@
         </div>
       <div class="form-title">Character List</div>
 
-
-      <table class="table table-striped table-hover">
+        <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
+      <table class="table table-striped table-hover" *ngIf="!showSpinner">
 
           <tbody>
             <tr > <!-- {{ country.name }} the tr needs : *ngFor="let character of char"-->
               <td class="col-4">
-                {{dbndProfText}}
+                <!-- {{dbndProfText}} -->
                 <p>Id: {{ auth.clientId }}</p>
               </td>
               <td class="col-3">

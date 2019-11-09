@@ -8,16 +8,23 @@ import { Observable } from 'rxjs';
   templateUrl: './listcharacters.component.html',
   styleUrls: ['./listcharacters.component.css']
 })
-export class ListcharactersComponent implements OnInit {
-  dbndProfText: string = "test";
+export class ListCharactersComponent implements OnInit {
+    dbndProfText = 'test';
+    loadedInfo: Promise<string>;
+    showSpinner = true;
+
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
 
   async ngOnInit() {
 
-    this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
-      this.dbndProfText = JSON.stringify(res);
-    });
+    this.dbnd.getUser$(await this.auth.getClientId())
+      .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
+                                      this.showSpinner = false;
+                                      });
+
+
+
   }
 
 }

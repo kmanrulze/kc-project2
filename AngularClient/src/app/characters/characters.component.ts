@@ -13,7 +13,9 @@ export class CharactersComponent implements OnInit {
 
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
-  dbndProfText: string = "";
+  form = 'new';
+  mode = 'characterSelection';
+  dbndProfText = '';
 
   page = 1;
   pageSize = 4;

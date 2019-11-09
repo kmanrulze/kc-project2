@@ -18,11 +18,33 @@
   height: auto;
 }
 
+.nav-link:hover {
+  background-image : radial-gradient(ellipse, var(--dngreen), transparent 70%)
+}
+
+.nav-link {
+  position: relative;
+}
+
 .navbar-icon-text {
+  font-weight: bold;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow:
+    -1px -1px 0 var(--dnonyx),
+    1px -1px 0 var(--dnonyx),
+    -1px 1px 0 var(--dnonyx),
+    1px 1px 0 var(--dnonyx);
+    color:white;
+/*
   text-align: center;
   font-family: 'Quicksand';
   font-weight: bold;
-  color: var(--dnonyx);
+  color: var(--dnonyx); */
   font-size: 20px;
 }
 
