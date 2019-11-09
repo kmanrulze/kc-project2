@@ -17,6 +17,7 @@ import { NewFormComponent } from './characters/newform/newform.component';
 import { NewtableComponent } from './tables/newtable/newtable.component';
 import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
 import { MonsterComponent } from './monster/monster.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

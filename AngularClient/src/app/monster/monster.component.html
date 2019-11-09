@@ -1,10 +1,11 @@
 <h2>Monster List</h2>
-
 <ul class="monsters">
-    <li>{{monster.name}}</li>
-    <li>{{monster.size}}</li>
-    <li>{{monster.speed}}</li>
-    <li>{{monster.type}}</li>
-    <li>{{monster.languages}}</li>
+  <div *ngFor="let m of monsters">
+    <li>{{m.name}}
+        <ul>
+            <li>{{m.url}}</li>
+        </ul>
+    </li>
+  </div>
 </ul>
 
