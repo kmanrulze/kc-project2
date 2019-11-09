@@ -22,6 +22,7 @@ import { LoadingSpinComponent } from './ui/loading-spin/loading-spin.component';
 import { MonsterComponent } from './monster/monster.component';
 import { CurrenttablesComponent } from './tables/currenttables/currenttables.component';
 import { EdittableComponent } from './tables/edittable/edittable.component';
+import { NgbdTooltipCustomclass } from './ui/tootip-custom-class/tooltip-customclass';
 
 const appRoutes: Routes = [
   {
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     LoadingSpinComponent,
     MonsterComponent,
     CurrenttablesComponent,
-    EdittableComponent
+    EdittableComponent,
+    NgbdTooltipCustomclass
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
