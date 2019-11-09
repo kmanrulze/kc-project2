@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./currenttables.component.css']
 })
 export class CurrenttablesComponent implements OnInit {
+  dbndProfText = '';
   showSpinner = true;
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
