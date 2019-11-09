@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "https://dbndapi.azurewebsites.net",
+        "target": "https://www.dbndapi.azurewebsites.net",
         "secure": false,
         "changeOrigin": true,
         "pathRewrite": {"^/proxy" : ""}
