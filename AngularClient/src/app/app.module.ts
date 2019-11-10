@@ -30,6 +30,7 @@ import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.compone
 import { MatSliderModule } from '@angular/material/slider';
 import { MatListModule } from '@angular/material/list';
 import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -76,7 +77,8 @@ const appRoutes: Routes = [
     NgbModule,
     HttpClientModule,
     MatSliderModule,
-    MatListModule
+    MatListModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
