@@ -71,7 +71,7 @@ namespace Dbnd.Api
 
             app.UseAuthorization();
 
-            app.UseCors();
+            app.UseCors("AllowAngular");
 
             app.UseEndpoints(endpoints =>
             {
