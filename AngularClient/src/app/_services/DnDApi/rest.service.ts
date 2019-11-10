@@ -29,4 +29,12 @@ export class RestService {
     return this.http.get(endpoint + 'monsters/' + id).pipe(
       map(this.extractData));
   }
+  getEpuiments(): Observable<any> {
+    return this.http.get(endpoint + 'equipment/' + id).pipe(
+      map(this.extractData));
+  }
+  getEpuimen(id): Observable<any> {
+    return this.http.get(endpoint + 'equipment/' + id).pipe(
+      map(this.extractData));
+  }
 }
