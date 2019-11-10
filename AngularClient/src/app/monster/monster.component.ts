@@ -14,7 +14,7 @@ export class MonsterComponent implements OnInit {
   monsters: any = [];
   testMonster: any = [];
 
-  constructor(public rest:RestService, private route: ActivatedRoute, private router: Router) { }
+  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.getMonsters();

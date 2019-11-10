@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['../characters.component.css']
 })
 export class NewFormComponent implements OnInit {
-  dbndProfText: string = "";
+  dbndProfText = '';
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
   async ngOnInit() {
