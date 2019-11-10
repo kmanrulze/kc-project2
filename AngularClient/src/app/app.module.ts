@@ -27,6 +27,7 @@ import { PlaygameComponent } from './playgame/playgame.component';
 import { CharacteroptionsComponent } from './playgame/characteroptions/characteroptions.component';
 import { OverviewoptionsComponent } from './playgame/overviewoptions/overviewoptions.component';
 import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.component';
+import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
 
 const appRoutes: Routes = [
   {
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
     PlaygameComponent,
     CharacteroptionsComponent,
     OverviewoptionsComponent,
-    GameoptionsComponent
+    GameoptionsComponent,
+    GamedescriptionComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

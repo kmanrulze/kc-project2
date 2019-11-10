@@ -22,6 +22,7 @@ import { PlaygameComponent } from './playgame/playgame.component';
 import { CharacteroptionsComponent } from './playgame/characteroptions/characteroptions.component';
 import { OverviewoptionsComponent } from './playgame/overviewoptions/overviewoptions.component';
 import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.component';
+import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
 
 
 const routes: Routes = [
@@ -93,6 +94,11 @@ const routes: Routes = [
   {
     path: 'playgame/gameoptions',
     component: GameoptionsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'playgame/gamedescription',
+    component: GamedescriptionComponent,
     canActivate: [AuthGuard]
   }
 ];
