@@ -1,6 +1,6 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import {RouterTestingModule} from "@angular/router/testing";
-import {Router} from "@angular/router";
+import {RouterTestingModule} from '@angular/router/testing';
+import {Router} from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { AuthGuard } from './auth.guard';
@@ -10,12 +10,12 @@ describe('AuthGuard', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([
         {
-          path: "",
+          path: '',
           component: BlankComponent
         }, {
-          path:"login-splash",
+          path: 'login-splash',
           component: BlankComponent
-        }]), 
+        }]),
         HttpClientTestingModule],
       providers: [AuthGuard]
     });

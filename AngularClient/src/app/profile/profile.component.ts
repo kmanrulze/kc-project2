@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
-  dbndProfText: string = "test";
+  dbndProfText = 'test';
 
   async ngOnInit() {
     /*this.dbnd.getId$().subscribe((res: Response) => {

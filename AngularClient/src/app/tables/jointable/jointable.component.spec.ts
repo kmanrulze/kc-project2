@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JointableComponent } from './jointable.component';
+import { JoinTableComponent } from './jointable.component';
 
 describe('JointableComponent', () => {
-  let component: JointableComponent;
-  let fixture: ComponentFixture<JointableComponent>;
+  let component: JoinTableComponent;
+  let fixture: ComponentFixture<JoinTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JointableComponent ]
+      declarations: [ JoinTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JointableComponent);
+    fixture = TestBed.createComponent(JoinTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

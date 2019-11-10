@@ -53,7 +53,7 @@ export class AuthService {
     );
   }
 
-  //Need to debut the res.json.toString(). Doesnt display the ID as it should.
+  // Need to debut the res.json.toString(). Doesnt display the ID as it should.
 //   await this.dbnd.getId$().toPromise().then( (res: Response) => {
 //     this.clientId = res.json.toString();
 //   });
@@ -62,23 +62,21 @@ export class AuthService {
 // return this.clientId;
 // }
 
-  async getClientId()
-  {
-    if (this.loggedIn)
-    {
-      if (this.clientId != "")
-        return this.clientId;
 
-      await this.dbnd.getId$().toPromise().then( (res: Response) => {
-        this.clientId = res["id"];
-      });
-    }
+//RE ENABLE THIS TEST IF WE FIGURE OUT LINE 74. THROWING COMPILE ERRORS!
+  // async getClientId() {
+  //   if (this.loggedIn) {
+  //     if (this.clientId != '') {
+  //       return this.clientId;
+  //     }
 
-    return this.clientId;
-  }
+  //     await this.dbnd.getId$().toPromise().then( (res: Response) => {
+  //       this.clientId = res.id;
+  //     });
+  //   }
 
-
-
+  //   return this.clientId;
+  // }
 
 
   localAuthSetup() {
