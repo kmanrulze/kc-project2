@@ -35,7 +35,7 @@ namespace Dbnd.Api
                 options.AddPolicy("AllowAngular",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
+                    builder.WithOrigins("http://localhost:4200", "https://dbnd.azurewebsites.net")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
@@ -71,7 +71,7 @@ namespace Dbnd.Api
 
             app.UseAuthorization();
 
-            app.UseCors();
+            app.UseCors("AllowAngular");
 
             app.UseEndpoints(endpoints =>
             {
