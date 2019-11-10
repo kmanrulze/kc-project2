@@ -29,6 +29,7 @@ import { OverviewoptionsComponent } from './playgame/overviewoptions/overviewopt
 import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatListModule } from '@angular/material/list';
+import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
 
 const appRoutes: Routes = [
   {
@@ -64,7 +65,8 @@ const appRoutes: Routes = [
     PlaygameComponent,
     CharacteroptionsComponent,
     OverviewoptionsComponent,
-    GameoptionsComponent
+    GameoptionsComponent,
+    GamedescriptionComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
