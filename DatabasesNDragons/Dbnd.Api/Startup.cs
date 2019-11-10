@@ -70,6 +70,10 @@ namespace Dbnd.Api
             app.UseHttpsRedirection();
 
             app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DBnD API V.1");
+            });
 
             app.UseRouting();
 
