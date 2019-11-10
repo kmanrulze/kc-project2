@@ -188,7 +188,6 @@ namespace Dbnd.Test.Repository_Tests
             Assert.IsType<Guid>(value.OverviewID);
             Assert.Equal(expected.TypeID, value.TypeID);
             Assert.Equal(expected.GameID, value.GameID);
-
         }
 
         [Fact]

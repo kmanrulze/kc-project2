@@ -17,21 +17,19 @@ namespace Dbnd.Api.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IRepository _repository;
-        private IHttpClientFactory _clientFactory;
-        private Authorizer _auth;
+        private IAuthorizer _auth;
 
-        #region Client
-        public ClientController(IRepository repository, IHttpClientFactory clientFactory)
+        public ClientController(IRepository repository, IAuthorizer auth)
         {
             _repository = repository;
-            _clientFactory = clientFactory;
-            _auth = new Authorizer(_clientFactory);
+            _auth = auth;
         }
 
+        #region Client
         // GET: api/client
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> GetClientId()
+        public async Task<ActionResult<object>> GetClientId()
         {
             try
             {
@@ -56,7 +54,7 @@ namespace Dbnd.Api.Controllers
         // GET: api/client/{id}
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> GetClient(Guid id)
+        public async Task<ActionResult<Client>> GetClient(Guid id)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString())))
                 return Forbid();
@@ -68,7 +66,7 @@ namespace Dbnd.Api.Controllers
         // PUT: api/client/{id}/update
         [HttpPut("{id}/update")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> PutClient(Guid id, [FromBody, Bind("UserName, Email")] Client changedClient)
+        public async Task<ActionResult<Client>> PutClient(Guid id, [FromBody, Bind("UserName, Email")] Client changedClient)
         {
             if (!await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString()))
                 return Forbid();
@@ -81,7 +79,7 @@ namespace Dbnd.Api.Controllers
         // DELETE: api/client/{id}/delete
         [HttpDelete("{id}/delete")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> DeleteClient(Guid id)
+        public async Task<ActionResult<Client>> DeleteClient(Guid id)
         {
             if (!await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), id.ToString()))
                 return Forbid();
@@ -95,7 +93,7 @@ namespace Dbnd.Api.Controllers
         // POST: Create new character: api/clients/{clientId}/characters/new
         [HttpPost("{clientId}/characters/new")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> PostCharacter(Guid clientId, [FromBody, Bind("FirstName, LastName")] Character character)
+        public async Task<ActionResult<Character>> PostCharacter(Guid clientId, [FromBody, Bind("FirstName, LastName")] Character character)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -107,7 +105,7 @@ namespace Dbnd.Api.Controllers
         // GET: Get all characters: api/clients/{clientId}/characters
         [HttpGet("{clientId}/characters")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> GetAllCharacters(Guid clientId)
+        public async Task<ActionResult<Character>> GetAllCharacters(Guid clientId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -118,7 +116,7 @@ namespace Dbnd.Api.Controllers
         // GET: Get character info: api/clients/{clientId}/characters/{characterId}
         [HttpGet("{clientId}/characters/{characterId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> GetCharacter(Guid clientId, Guid characterId)
+        public async Task<ActionResult<Character>> GetCharacter(Guid clientId, Guid characterId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId .ToString())))
                 return Forbid();
@@ -135,7 +133,7 @@ namespace Dbnd.Api.Controllers
         // PUT: Update character info: api/clients/{clientId}/characters/{characterId}/update
         [HttpPut("{clientId}/characters/{characterId}/update")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> PutCharacter(Guid clientId, Guid characterId, [FromBody, Bind("FirstName, LastName")] Character changedCharacter)
+        public async Task<ActionResult<Character>> PutCharacter(Guid clientId, Guid characterId, [FromBody, Bind("FirstName, LastName")] Character changedCharacter)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -154,7 +152,7 @@ namespace Dbnd.Api.Controllers
         // DELETE: Delete character: api/clients/{clientId}/characters/{characterId}/delete
         [HttpDelete("{clientId}/characters/{characterId}/delete")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> DeleteCharacter(Guid clientId, Guid characterId)
+        public async Task<ActionResult<Character>> DeleteCharacter(Guid clientId, Guid characterId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -174,7 +172,7 @@ namespace Dbnd.Api.Controllers
         // POST: Create new game: api/clients/{clientId}/games/new
         [HttpPost("{clientId}/games/new")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> PostGame(Guid clientId, [FromBody, Bind("ClientID, GameName")] Game game)
+        public async Task<ActionResult<Game>> PostGame(Guid clientId, [FromBody, Bind("ClientID, GameName")] Game game)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -186,7 +184,7 @@ namespace Dbnd.Api.Controllers
         // GET: Get client's games: api/clients/{clientId}/games
         [HttpGet("{clientId}/games")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> GetGames(Guid clientId)
+        public async Task<ActionResult<Game>> GetGames(Guid clientId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -197,7 +195,7 @@ namespace Dbnd.Api.Controllers
         // GET: Get game info: api/clients/{clientId}/games/{gameId}
         [HttpGet("{clientId}/games/{gameId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> GetGame(Guid clientId, Guid gameId)
+        public async Task<ActionResult<Game>> GetGame(Guid clientId, Guid gameId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -214,7 +212,7 @@ namespace Dbnd.Api.Controllers
         // PUT: Add character to game: api/clients/{clientId}/games/{gameId}/addCharacter/{characterId}
         [HttpPut("{clientId}/games/{gameId}/addCharacter/{characterId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> PutGame(Guid clientId, Guid gameId, Guid characterId)
+        public async Task<ActionResult<Game>> PutCharacterInGame(Guid clientId, Guid gameId, Guid characterId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -242,7 +240,7 @@ namespace Dbnd.Api.Controllers
         // PUT: Update game info: api/clients/{clientId}/games/{gameId}/update
         [HttpPut("{clientId}/games/{gameId}/update")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> PutGame(Guid clientId, Guid gameId, [FromBody, Bind("GameName")] Game changedGame)
+        public async Task<ActionResult<Game>> PutGame(Guid clientId, Guid gameId, [FromBody, Bind("GameName")] Game changedGame)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -259,7 +257,7 @@ namespace Dbnd.Api.Controllers
         // DELETE: Delete game: api/clients/{clientId}/games/{gameId}/delete
         [HttpDelete("{clientId}/games/{gameId}/delete")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> DeleteGame(Guid clientId, Guid gameId)
+        public async Task<ActionResult<Game>> DeleteGame(Guid clientId, Guid gameId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -277,7 +275,7 @@ namespace Dbnd.Api.Controllers
         // POST Create overview: api/client/{clientId}/games/{gameId}/overviews/new
         [HttpPost("{clientId}/games/{gameId}/overviews/new")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> PostOverview(Guid clientId, Guid gameId, [FromBody, Bind("Name, Content")] Overview overview)
+        public async Task<ActionResult<Overview>> PostOverview(Guid clientId, Guid gameId, [FromBody, Bind("Name, Content")] Overview overview)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -293,11 +291,9 @@ namespace Dbnd.Api.Controllers
         }
 
         // GET Get all overviews of a game: api/client/{clientId}/games/{gameId}/overviews
-
-        // GET Get overview info: api/client/{clientId}/games/{gameId}/overviews/{overviewId}
-        [HttpGet("{clientId}/games/{gameId}/overviews/{overviewId}")]
+        [HttpGet("{clientId}/games/{gameId}/overviews")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> GetOveview(Guid clientId, Guid gameId)
+        public async Task<ActionResult<Overview>> GetOveview(Guid clientId, Guid gameId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -308,13 +304,30 @@ namespace Dbnd.Api.Controllers
             if (game.ClientID != clientId)
                 return Forbid();
 
-            return Ok(await _repository.GetGameByIDAsync(gameId));
+            return Ok(game.Overviews);
+        }
+
+        // GET Get overview info: api/client/{clientId}/games/{gameId}/overviews/{overviewId}
+        [HttpGet("{clientId}/games/{gameId}/overviews/{overviewId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<Overview>> GetOveview(Guid clientId, Guid gameId, Guid overviewId)
+        {
+            if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
+                return Forbid();
+
+            Game game = await _repository.GetGameByIDAsync(gameId);
+            if (game == null)
+                return NotFound();
+            if (game.ClientID != clientId)
+                return Forbid();
+
+            return Ok(await _repository.GetOverviewByIDAsync(overviewId));
         }
 
         // PUT Update overview: api/client/{clientId}/games/{gameId}/overviews/update/{overviewId}
         [HttpPut("api/client/{clientId}/games/{gameId}/overviews/{overviewId}/update")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> PutOverview(Guid clientId, Guid gameId, Guid overviewId, [FromBody, Bind("Name, Content")] Overview changedOverview)
+        public async Task<ActionResult<Overview>> PutOverview(Guid clientId, Guid gameId, Guid overviewId, [FromBody, Bind("Name, Content")] Overview changedOverview)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
@@ -333,7 +346,7 @@ namespace Dbnd.Api.Controllers
         // DELETE Remove overview: api/client/{clientId}/games/{gameId}/overviews/delete/{overviewId}
         [HttpDelete("{clientId}/games/{gameId}/overviews/{overviewId}/delete")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult> DeleteOverview(Guid clientId, Guid gameId, Guid overviewId)
+        public async Task<ActionResult<Overview>> DeleteOverview(Guid clientId, Guid gameId, Guid overviewId)
         {
             if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                 return Forbid();
