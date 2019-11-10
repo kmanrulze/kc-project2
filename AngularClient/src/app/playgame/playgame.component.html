@@ -1,0 +1,30 @@
+<div class="container-flex text-center cat-heading">
+  Table Name Goes Here
+</div>
+
+<div class="container-fluid nav-game d-flex flex-row justify-content-center">
+  <div class="flex-grow-1 mx-3 d-flex align-items-center dice"><i class="fas fa-dice-d20"></i></div>
+  <div class="flex-grow-3 text-center nav-game-menu">
+      <a (click)="mode='characters'" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
+        Characters
+      </a>
+
+      <a (click)="mode='overviews'" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
+        Overviews
+      </a>
+      <a (click)="mode='gameoptions'" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
+        Options
+      </a>
+  </div>
+  <div class="flex-grow-1 text-right mx-3 d-flex align-items-center justify-content-end dice">
+    <i class="fas fa-dice-d20 align-middle"></i></div>
+  </div>
+
+<div class="container-fluid text-center">
+
+    <app-gamedescription *ngIf="mode=='description'"></app-gamedescription>
+    <app-characteroptions *ngIf="mode=='characters'"></app-characteroptions>
+    <app-overviewoptions *ngIf="mode=='overviews'"></app-overviewoptions>
+    <app-gameoptions *ngIf="mode=='gameoptions'"></app-gameoptions>
+
+</div>

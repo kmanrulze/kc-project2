@@ -1,0 +1,25 @@
+.table{
+  font-family: var(--dnnormal);
+  color: white;
+  font-weight: bold;
+
+}
+
+.icon-submit-use:hover, .icon-submit-edit:hover {
+  background-image : radial-gradient(ellipse, white, transparent 70%)
+}
+
+.icon-submit-playertype{
+  width: 42px;
+}
+.icon-submit-use{
+  width: 42px;
+}
+
+.icon-submit-use, .icon-submit-playertype :focus {
+  outline: none;
+}
+
+table.table-hover tbody tr:hover {
+  background-color: rgba(145, 195, 106, .3);
+}

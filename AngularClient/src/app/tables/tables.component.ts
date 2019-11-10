@@ -1,4 +1,7 @@
-import {Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../_services/auth/auth.service';
+import { DbndService } from '../_services/dbnd/dbnd.service';
+import { Observable } from 'rxjs';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,8 +13,9 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class TablesComponent {
   closeResult: string;
 
-  constructor(private modalService: NgbModal) {}
-
+  constructor(public auth: AuthService, public dbnd: DbndService, private modalService: NgbModal) {}
+  mode = 'gameSelection';
+  form = 'new';
   openCreate(createTable) {
     this.modalService.open(createTable, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       // POST form data to /api/games (or something)
@@ -25,7 +29,7 @@ export class TablesComponent {
   }
 
   submitCreate() {
-    
+
   }
 
   openJoin(joinTable) {

@@ -14,10 +14,10 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
-      domain: "dbnd.auth0.com",
-      client_id: "7cgrbDfEj2bunK7qBIVtKotF89U0g5eh",
+      domain: 'dbnd.auth0.com',
+      client_id: '7cgrbDfEj2bunK7qBIVtKotF89U0g5eh',
       redirect_uri: `${window.location.origin}`,
-      audience: "/dbnd"
+      audience: '/dbnd'
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -40,7 +40,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  clientId: string = "";
+  clientId = '';
 
   constructor(private router: Router, private dbnd: DbndService) { }
 
@@ -52,6 +52,15 @@ export class AuthService {
       tap(user => this.userProfileSubject$.next(user))
     );
   }
+
+  //Need to debut the res.json.toString(). Doesnt display the ID as it should.
+//   await this.dbnd.getId$().toPromise().then( (res: Response) => {
+//     this.clientId = res.json.toString();
+//   });
+// }
+
+// return this.clientId;
+// }
 
   async getClientId()
   {
@@ -67,6 +76,10 @@ export class AuthService {
 
     return this.clientId;
   }
+
+
+
+
 
   localAuthSetup() {
     // This should only be called on app initialization
@@ -136,10 +149,10 @@ export class AuthService {
   logOut() {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
-      this.clientId = "";
+      this.clientId = '';
       // Call method to log out
       client.logout({
-        client_id: "7cgrbDfEj2bunK7qBIVtKotF89U0g5eh",
+        client_id: '7cgrbDfEj2bunK7qBIVtKotF89U0g5eh',
         returnTo: `${window.location.origin}`
       });
     });

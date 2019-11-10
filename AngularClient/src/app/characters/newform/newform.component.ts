@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-newform',
   templateUrl: './newform.component.html',
-  styleUrls: ['./newform.component.css']
+  styleUrls: ['../characters.component.css']
 })
 export class NewFormComponent implements OnInit {
   dbndProfText: string = "";

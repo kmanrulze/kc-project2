@@ -47,7 +47,8 @@ namespace Dbnd.Data.Repository
                 UserName = ContextClient.UserName,
                 Email = ContextClient.Email,
                 ClientID = ContextClient.ClientID,
-                Characters = ContextClient.Characters.Select(Mapper.MapCharacter).ToList()
+                Characters = ContextClient.Characters.Select(Mapper.MapCharacter).ToList(),
+                Games = ContextClient.Games.Select(Mapper.MapGame).ToList()
             };
 
             return EntitiesClient;

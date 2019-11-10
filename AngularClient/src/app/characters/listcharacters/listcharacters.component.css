@@ -8,6 +8,11 @@ form{
   color: white;
   font-size: 24px;
   font-weight: bold;
+  text-shadow:
+  -1px -1px 0 var(--dnonyx),
+  1px -1px 0 var(--dnonyx),
+  -1px 1px 0 var(--dnonyx),
+  1px 1px 0 var(--dnonyx);
 }
 
 .icon-submit-front {
@@ -63,6 +68,10 @@ form{
   color: white;
   font-weight: bold;
 
+}
+
+.icon-submit-use:hover, .icon-submit-edit:hover {
+  background-image : radial-gradient(ellipse, white, transparent 70%)
 }
 
 .icon-submit-use{

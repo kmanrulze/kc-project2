@@ -1,10 +1,28 @@
-<h2>Monster List</h2>
+<div class="class cat-background">
+  <div class="main-padding">
+      <div class="main-tack left"><em class="fas fa-dice-d20"></em></div>
+      <div class="main-tack right"><em class="fas fa-dice-d20"></em></div>
+  </div>
+  <div class="title">Add Monsters</div>
+  <mat-selection-list #SelectedMonsters class="dyn-height">
+    <mat-list-option *ngFor="let m of monsters">
+      <mat-list-item>{{m.name}}
+      </mat-list-item>
+    </mat-list-option>
+  </mat-selection-list>
 
-<ul class="monsters">
-    <li *ngFor="let m of monsters; let i=index;">
-        <a routerLink="/monsters/{{m._id}}">
-            <span class="badge">{{i+1}}</span>{{m.name}}
-        </a>
-    </li>
-</ul>
+  <p>
+      Options selected: {{SelectedMonsters.selectedOptions.selected.length}}
+  </p>
+  <div class="class text-center">
+      <div class="icon-submit-back"><input type="image" class="icon-submit" src="../../../assets/images/feathers_t.png" alt="iconSubmit"/>
+      </div>
+        <div class="icon-submit-front">Submit</div>
+  </div>
+  <div class="main-padding">
+      <div class="main-tack left"><em class="fas fa-dice-d20"></em></div>
+      <div class="main-tack right"><em class="fas fa-dice-d20"></em></div>
+  </div>
+</div>
+
 

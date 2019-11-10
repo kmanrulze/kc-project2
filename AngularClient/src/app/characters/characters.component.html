@@ -2,15 +2,30 @@
   Characters
 </div>
 
-<div class="container-flex">
+<div *ngIf="mode=='gameSelection'" class="container-flex">
+    <div class="class row d-flex justify-content-center">
+
+        <div class="class col-5 text-center">
+            <app-jointable></app-jointable>
+          </div>
+
+    </div>
+</div>
+
+<div *ngIf="mode=='characterSelection'" class="container-flex">
   <div class="class row d-flex justify-content-center">
 
-    <div class="class col-5 text-center cat-col">
-        <app-newform></app-newform>
+      <div class="class col-5 text-center">
+        <app-listcharacters></app-listcharacters>
+      </div>
+
+    <div *ngIf="form=='new'" class="class col-5 text-center cat-col">
+      <app-newform></app-newform>
     </div>
 
-    <div class="class col-5 text-center">
-      <app-listcharacters></app-listcharacters>
+    <div *ngIf="form=='edit'" class="class col-5 text-center cat-col">
+      <app-editform></app-editform>
     </div>
+
   </div>
 </div>

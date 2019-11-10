@@ -10,11 +10,15 @@ export class DbndService {
   constructor(private http: HttpClient) { }
 
   getId$(): Observable<any> {
-    return this.http.get("/api/client");
+    return this.http.get('/api/client');
   }
 
   getUser$(id: string): Observable<any> {
     return this.http.get(`/api/client/${id}`);
+  }
+
+  getUserCharacters$(id: string): Observable<any> {
+    return this.http.get(`api/client/${id}/characters`)
   }
 
 }

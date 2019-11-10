@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { HttpClientModule } from '@angular/common/http'
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,9 +14,23 @@ import { ProfileComponent } from './profile/profile.component';
 import { CharactersComponent } from './characters/characters.component';
 import { TablesComponent } from './tables/tables.component';
 import { NewFormComponent } from './characters/newform/newform.component';
+import { EditFormComponent } from './characters/editform/editform.component';
 import { NewtableComponent } from './tables/newtable/newtable.component';
+import { JoinTableComponent } from './tables/jointable/jointable.component';
 import { ListcharactersComponent } from './characters/listcharacters/listcharacters.component';
+import { LoadingSpinComponent } from './ui/loading-spin/loading-spin.component';
 import { MonsterComponent } from './monster/monster.component';
+import { CurrenttablesComponent } from './tables/currenttables/currenttables.component';
+import { EdittableComponent } from './tables/edittable/edittable.component';
+import { NgbdTooltipCustomclass } from './ui/tootip-custom-class/tooltip-customclass';
+import { PlaygameComponent } from './playgame/playgame.component';
+import { CharacteroptionsComponent } from './playgame/characteroptions/characteroptions.component';
+import { OverviewoptionsComponent } from './playgame/overviewoptions/overviewoptions.component';
+import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatListModule } from '@angular/material/list';
+import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -40,9 +54,20 @@ const appRoutes: Routes = [
     TablesComponent,
     LoginSplashComponent,
     NewFormComponent,
+    EditFormComponent,
     NewtableComponent,
+    JoinTableComponent,
     ListcharactersComponent,
-    MonsterComponent
+    LoadingSpinComponent,
+    MonsterComponent,
+    CurrenttablesComponent,
+    EdittableComponent,
+    NgbdTooltipCustomclass,
+    PlaygameComponent,
+    CharacteroptionsComponent,
+    OverviewoptionsComponent,
+    GameoptionsComponent,
+    GamedescriptionComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -50,7 +75,10 @@ const appRoutes: Routes = [
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSliderModule,
+    MatListModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

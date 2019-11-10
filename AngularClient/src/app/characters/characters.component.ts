@@ -12,12 +12,13 @@ import { Observable } from 'rxjs';
 export class CharactersComponent implements OnInit {
 
   constructor(public auth: AuthService, public dbnd: DbndService) { }
-
-  dbndProfText: string = "";
+  mode = 'characterSelection';
+  form = 'new';
+  dbndProfText = '';
 
   page = 1;
   pageSize = 4;
-  collectionSize = 25; //Number of characters
+  collectionSize = 25; // Number of characters
 
   // get countries(): Country[] {
   //   return COUNTRIES

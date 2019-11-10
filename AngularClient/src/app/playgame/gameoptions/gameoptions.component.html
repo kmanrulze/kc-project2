@@ -1,0 +1,128 @@
+<div class="container-flex d-flex flex-wrap justify-content-center">
+  <div class="character-description col-6 my-1">
+    <div class="cat-background">
+      <div class="form-title text-center">
+        Change Table Name
+      </div>
+      <div>
+        <form>
+          <div class="form-group text-center">
+            <label for="exampleInputLastName">Change Table Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Name"
+              name="Name"
+              placeholder="Table Name"
+              required
+            />
+            <small id="nameHelp" class="form-text text-muted valid-feedback"
+              >3-20 alphanumeric characters.</small
+            >
+            <small class="invalid-feedback">
+              Sorry, but you can only use 3-20 alphanumeric characters.</small
+            >
+          </div>
+          <div class="text-center container-fluid icon-submit-container">
+            <div class="icon-submit-back">
+              <input
+                ngSubmit
+                type="image"
+                class="icon-submit"
+                src="../../../assets/images/feathers_t.png"
+                alt="Submit"
+              />
+            </div>
+            <div class="icon-submit-front">Submit</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="character-description col-6 my-1">
+    <div class="cat-background">
+      <div class="form-title text-center">
+        Delete Entire Table
+      </div>
+      <div>
+        <form>
+          <div class="form-group text-center">
+            <label for="exampleInputLastName"
+              >Are you sure? Type the table name to continue.</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="Name"
+              name="Name"
+              placeholder="You can not undo this action."
+              required
+            />
+            <small id="nameHelp" class="form-text text-muted valid-feedback"
+              >3-20 alphanumeric characters.</small
+            >
+            <small class="invalid-feedback">
+              Sorry, but you can only use 3-20 alphanumeric characters.</small
+            >
+          </div>
+          <div class="text-center container-fluid icon-submit-container">
+            <div class="icon-submit-back">
+              <input
+                ngSubmit
+                type="image"
+                class="icon-submit"
+                src="../../../assets/images/exit_t.png"
+                alt="Submit"
+              />
+            </div>
+            <div class="icon-submit-front">Delete</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="character-description col-6 my-1">
+    <div class="cat-background">
+      <div class="form-title text-center">
+        Add New Character to Table
+      </div>
+      <div>
+        <form>
+          <div class="form-group text-center">
+            <label for="exampleInputLastName"
+              >Enter Character Id to add new Character to table.</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="Name"
+              name="Name"
+              placeholder="Paste Id here."
+              required
+            />
+            <small id="nameHelp" class="form-text text-muted valid-feedback"
+              >Character Id.</small
+            >
+            <small class="invalid-feedback">
+              Sorry, but you did not enter a valid id type.</small
+            >
+          </div>
+          <div class="text-center container-fluid icon-submit-container">
+            <div class="icon-submit-back">
+              <input
+                ngSubmit
+                type="image"
+                class="icon-submit"
+                src="../../../assets/images/plus_t.png"
+                alt="Submit"
+              />
+            </div>
+            <div class="icon-submit-front">Add</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

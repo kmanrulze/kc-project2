@@ -12,13 +12,13 @@ const httpOptions = {
 
 @Injectable({
   providedIn: 'root'
-  
+
 })
 export class RestService {
-  
+
   constructor(private http: HttpClient) { }
   private extractData(res: Response) {
-    let body = res;
+    const body = res;
     return body || { };
   }
   getMonsters(): Observable<any> {
