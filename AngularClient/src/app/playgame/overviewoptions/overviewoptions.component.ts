@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class OverviewoptionsComponent implements OnInit {
   dbndProfText = '';
   showSpinner = true;
+  characterSelected = false;
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
   async ngOnInit() {
