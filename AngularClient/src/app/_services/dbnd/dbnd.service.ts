@@ -14,11 +14,11 @@ export class DbndService {
   }
 
   getUser$(id: string): Observable<any> {
-    return this.http.get(`/api/client/${id}`);
+    return this.http.get(`https://dbndapi.azurewebsites.net/api/client/${id}`);
   }
 
   getUserCharacters$(id: string): Observable<any> {
-    return this.http.get(`api/client/${id}/characters`)
+    return this.http.get(`https://dbndapi.azurewebsites.net/api/client/${id}/characters`)
   }
 
 }
