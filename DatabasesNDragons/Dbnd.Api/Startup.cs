@@ -8,8 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using System.Web.Http;
+using System.Net.Http;
 
 namespace Dbnd.Api
 {
@@ -60,15 +59,7 @@ namespace Dbnd.Api
 
             services.AddHttpClient();
 
-            GlobalConfiguration.Configuration
-              .EnableSwagger(c =>
-              {
-                  c.SingleApiVersion("v1", "SwaggerDemoApi");
-                  c.IncludeXmlComments(string.Format(@"{0}\bin\SwaggerDemoApi.XML",
-                           System.AppDomain.CurrentDomain.BaseDirectory));
-                  c.DescribeAllEnumsAsStrings();
-              })
-              .EnableSwaggerUi();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,10 +73,12 @@ namespace Dbnd.Api
             app.UseHttpsRedirection();
 
             app.UseSwagger();
+            
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "DBnD API V.1");
             });
+            
 
             app.UseRouting();
 
