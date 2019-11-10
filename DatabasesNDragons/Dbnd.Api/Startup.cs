@@ -69,6 +69,8 @@ namespace Dbnd.Api
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
+
             app.UseRouting();
 
             app.UseAuthorization();
