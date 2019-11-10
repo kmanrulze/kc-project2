@@ -14,9 +14,9 @@ namespace Dbnd.Logic.Objects
         public string GameName { get; set; }
         public Guid ClientID { get; set; }
         //Characters in game
-        public List<Character> Characters { get; set; }
+        public List<Character> Characters { get; set; } = new List<Character>();
         // Overviews in game
-        public List<Overview> Overviews { get; set; }
+        public List<Overview> Overviews { get; set; } = new List<Overview>();
 
         public Game(Guid clientID, string gameName)
         {

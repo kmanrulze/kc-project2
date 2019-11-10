@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Dbnd.Api
 {
-    public class Authorizer
+    public class Authorizer : IAuthorizer
     {
         IHttpClientFactory _clientFactory;
         public Authorizer(IHttpClientFactory clientFactory)

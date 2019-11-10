@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class PlaygameComponent implements OnInit {
   dbndProfText = '';
   showSpinner = true;
+  mode = 'description';
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
   async ngOnInit() {

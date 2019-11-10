@@ -26,7 +26,9 @@ namespace Dbnd.Api
             services.AddControllers();
             services.AddDbContext<DbndContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DBString")));
+
             services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IAuthorizer, Authorizer>();
 
             services.AddCors(options =>
             {

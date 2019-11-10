@@ -88,7 +88,8 @@ namespace Dbnd.Data.Repository
             Overview LogicOverview = new Overview()
             {
                 GameID = ContextOverview.GameID,
-                OverviewID = ContextOverview.OverviewID
+                OverviewID = ContextOverview.OverviewID,
+                TypeID = ContextOverview.TypeID
             };
             return LogicOverview;
         }
@@ -98,7 +99,8 @@ namespace Dbnd.Data.Repository
             Entities.Overview EntityOverview = new Entities.Overview
             {
                 GameID = ContextOverview.GameID,
-                OverviewID = ContextOverview.OverviewID
+                OverviewID = ContextOverview.OverviewID,
+                TypeID = ContextOverview.TypeID
             };
             return EntityOverview;
         }

@@ -1,10 +1,36 @@
 <div class="container-flex text-center cat-heading">
-  Profile
+    Profile
 </div>
-<div id="idDiv">
-    <p>Id: {{ auth.clientId }}</p>
-    <p>{{dbndProfText}}</p>
+  <div class="class col-8 text-center container-fluid">
+
+  <div class="class cat-background mx-auto">
+    <div class="main-padding">
+      <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+      <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+    </div>
+    <div class="form-title">User Name Goes HERYA</div>
+    <div class = "profile-description-info">
+      <div id="idDiv">
+        <p>Id: {{ auth.clientId }}</p>
+        <p>If you want to delete your account you can, just press the delete button below. All character, overview and table information will be gone, forever.</p>
+        <!-- <p>{{ dbndProfText }}</p> -->
+      </div>
+      <!-- <pre *ngIf="auth.userProfile$ | async as profile">
+        <code>{{ profile | json }}</code>
+    </pre> -->
+    <div class="text-center container-fluid icon-submit-container">
+        <div class="icon-submit-back">
+          <input
+            type="image"
+            class="icon-submit"
+            src="../../../assets/images/exit_t.png" />
+        </div>
+        <div class="icon-submit-front">Delete</div>
+      </div>
+    </div>
+    <div class="main-padding">
+      <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+      <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+    </div>
+  </div>
 </div>
-<pre *ngIf="auth.userProfile$ | async as profile">
-    <code>{{ profile | json }}</code>
-</pre>

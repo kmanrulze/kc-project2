@@ -11,8 +11,8 @@ namespace Dbnd.Data.Entities
         public string UserName { get; set; }
         public string Email { get; set; }
         // Owned Characters
-        public virtual ICollection<Character> Characters { get; set; }
+        public virtual ICollection<Character> Characters { get; set; } = new HashSet<Character>();
         // Owned Games
-        public virtual ICollection<Game> Games { get; set; }
+        public virtual ICollection<Game> Games { get; set; } = new HashSet<Game>();
     }
 }

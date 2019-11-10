@@ -25,10 +25,7 @@ namespace Dbnd.Test.Repository_Tests
                 context.Client.Add(new Client { UserName = "Lestat", Email = "Lestat@gmail.com" });
                 context.Client.Add(new Client { UserName = "Claudia", Email = "Claudia@gmail.com" });
                 context.SaveChanges();
-            }
 
-            using (var context = new DbndContext(options))
-            {
                 Repository repository = new Repository(context);
                 var clientbyEmail = repository.GetClientByEmailAsync(email).Result;
                 var clientbyID = repository.GetClientByIDAsync(clientbyEmail.ClientID).Result;
@@ -52,13 +49,11 @@ namespace Dbnd.Test.Repository_Tests
                 context.Client.Add(new Client { UserName = "Lestat", Email = "Lestat@gmail.com" });
                 context.Client.Add(new Client { UserName = "Claudia", Email = "Claudia@gmail.com" });
                 context.SaveChanges();
-            }
 
-            using (var context = new DbndContext(options))
-            {
                 Repository repository = new Repository(context);
 
-                Assert.Throws<AggregateException>( () => repository.GetClientByEmailAsync(email).Result );
+                var client = repository.GetClientByEmailAsync(email).Result;
+                Assert.Null(client);
             }
         }
 
