@@ -30,14 +30,16 @@ namespace Dbnd.Api
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IAuthorizer, Authorizer>();
 
+
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngular",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200", "https://dbnd.azurewebsites.net")
-                        .AllowAnyHeader()
+                    builder.WithOrigins("http://localhost:4200", "https://dbndapi.azurewebsites.net/")
                         .AllowAnyMethod()
+                        .AllowAnyHeader()
                         .AllowCredentials();
                 });
             });

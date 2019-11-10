@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from "@angular/router/testing";
-import { Router } from "@angular/router";
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CharactersComponent } from '../characters.component';
 import { FormsModule } from '@angular/forms';
@@ -18,10 +18,10 @@ describe('ListcharactersComponent', () => {
       imports: [
         RouterTestingModule.withRoutes([
           {
-            path: "",
+            path: '',
             component: BlankComponent
           }, {
-            path: "login-splash",
+            path: 'login-splash',
             component: BlankComponent
           }]),
         HttpClientTestingModule,
