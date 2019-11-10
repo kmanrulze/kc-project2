@@ -12,9 +12,13 @@ export class ListcharactersComponent implements OnInit {
     dbndProfText = 'test';
     loadedInfo: Promise<string>;
     showSpinner = true;
+    characters: any = [];
 
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
+  onSubmit() {
+    console.log( this.dbnd.getUserCharacters$(this.auth.clientId) );
+  }
 
   async ngOnInit() {
 
@@ -23,8 +27,11 @@ export class ListcharactersComponent implements OnInit {
                                       this.showSpinner = false;
                                       });
 
-
-
+    this.dbnd.getUserCharacters$(this.auth.clientId)
+      .subscribe( (data: {}) => {this.characters = data;
+                                console.log(data);
+                                this.showSpinner = false;
+                                });
   }
 
 }

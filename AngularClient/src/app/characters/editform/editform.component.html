@@ -4,16 +4,18 @@
       <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
   </div>
 <div class="form-title">Edit Character</div>
-<form>
+<form #Character="ngForm">
   <div class="form-group">
-    <label for="exampleInputFirstName">First Name</label>
-    <input type="text" class="form-control" id="FirstName" name="FirstName" aria-describedby="emailHelp" placeholder="Characters First Name">
-    <small id="nameHelp" class="form-text text-muted">3-20 alphanumeric characters.</small>
+    <label for="FirstName">First Name</label>
+    <input type="text" #firstname="ngModel" pattern="^[a-zA-Z][a-zA-Z ]+" maxlength="20" minlength="3" [class.is-invalid]="firstname.invalid && firstname.touched" class="form-control" name="FirstName" aria-describedby="firstNameHelp" placeholder="Characters First Name" [(ngModel)]="characterModel.FirstName">
+    <small id="firstNameHelp" [class.d-none]="firstname.invalid && firstname.touched" class="form-text text-muted">Please, only use 3-20 alphanumeric characters.</small>
+    <small class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">Please, only use 3-20 alphanumeric characters.</small>
   </div>
   <div class="form-group">
-    <label for="exampleInputLastName">Lastname</label>
-    <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Characters Last Name">
-    <small id="nameHelp" class="form-text text-muted">3-20 alphanumeric characters.</small>
+    <label for="LastName">Last Name</label>
+    <input type="text" #lastname="ngModel" pattern="^[a-zA-Z][a-zA-Z ]+" maxlength="20" minlength="3" [class.is-invalid]="lastname.invalid && lastname.touched" class="form-control" name="LastName" aria-describedby="LastNameHelp" placeholder="Characters Last Name" [(ngModel)]="characterModel.LastName">
+    <small id="lastNameHelp" [class.d-none]="lastname.invalid && lastname.touched" class="form-text text-muted">Please, only use 3-20 alphanumeric characters.</small>
+    <small class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">Please, only use 3-20 alphanumeric characters.</small>
   </div>
   <div class="text-center container-fluid icon-submit-container">
       <div class="icon-submit-back"><input type="image" class="icon-submit" src="../../../assets/images/feathers_t.png" /></div>
