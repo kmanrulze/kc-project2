@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "https://www.dbndapi.azurewebsites.net",
+        "target": "https://dbndapi.azurewebsites.net",
         "secure": true,
         "changeOrigin": true
     }
