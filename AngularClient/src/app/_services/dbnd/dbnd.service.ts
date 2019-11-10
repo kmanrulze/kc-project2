@@ -16,12 +16,12 @@ export class DbndService {
 // Clients:
   // GET     Get client's id from token: api/client
   getId$(): Observable<any> {
-    return this.http.get('https://dbndapi.azurewebsites.net/api/client/');
+    return this.http.get('https://dbndapi.azurewebsites.net/api/client');
   }
 
   // GET     Get client info: api/client/{clientId}
   getUser$(clientId: string): Observable<any> {
-    return this.http.get(`https://dbndapi.azurewebsites.net/api/client/${clientId}/`);
+    return this.http.get(`https://dbndapi.azurewebsites.net/api/client/${clientId}`);
   }
 
   // PUT     Update client info: api/client/update/{clientId}
@@ -37,7 +37,7 @@ export class DbndService {
   
   // GET     Get all characters: api/client/{clientId}/characters
   getUserCharacters$(clientId: string): Observable<any> {
-    return this.http.get(`https://dbndapi.azurewebsites.net/api/client/${clientId}/characters/`);
+    return this.http.get(`https://dbndapi.azurewebsites.net/api/client/${clientId}/characters`);
   }
 
   // GET     Get character info: api/client/{clientId}/characters/{characterId}

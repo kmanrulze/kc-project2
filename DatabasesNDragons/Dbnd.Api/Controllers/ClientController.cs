@@ -107,10 +107,17 @@ namespace Dbnd.Api.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Character>> GetAllCharacters(Guid clientId)
         {
-            if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
-                return Forbid();
+            try
+            {
+                if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
+                    return Forbid();
 
-            return Ok(await _repository.GetClientCharactersAsync(clientId));
+                return Ok(await _repository.GetClientCharactersAsync(clientId));
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
         }
 
         // GET: Get character info: api/clients/{clientId}/characters/{characterId}

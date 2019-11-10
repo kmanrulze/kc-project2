@@ -9,7 +9,7 @@ import { Character } from '../../_models/character';
   styleUrls: ['../characters.component.css']
 })
 export class EditFormComponent implements OnInit {
-  characterModel = new Character();
+  characterModel = new Character("", "");
   constructor(public auth: AuthService, public dbnd: DbndService) { }
 
   ngOnInit() {

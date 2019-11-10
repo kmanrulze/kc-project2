@@ -1,4 +1,5 @@
 ﻿using Dbnd.Logic.Interfaces;
+using Dbnd.Logic.Objects;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -31,9 +32,12 @@ namespace Dbnd.Api
         public async Task<bool> Authorized(IRepository context, string bearerString, string requesterId)
         {
             UserProfile userProfile = await GetUserProfile(bearerString);
-            string userId = (await context.GetClientByEmailAsync(userProfile.email)).ClientID.ToString();
+            Client client = await context.GetClientByEmailAsync(userProfile.email);
 
-            return userId == requesterId;
+            if (client == null)
+                return false;
+
+            return client.ClientID.ToString() == requesterId;
         }
     }
 }
