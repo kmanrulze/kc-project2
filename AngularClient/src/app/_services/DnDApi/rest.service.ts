@@ -30,7 +30,7 @@ export class RestService {
       map(this.extractData));
   }
   getEpuiments(): Observable<any> {
-    return this.http.get(endpoint + 'equipment/' + id).pipe(
+    return this.http.get(endpoint + 'equipment/').pipe(
       map(this.extractData));
   }
   getEpuimen(id): Observable<any> {
