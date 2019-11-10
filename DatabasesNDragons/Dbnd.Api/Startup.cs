@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Web.Http;
 
 namespace Dbnd.Api
 {
@@ -59,22 +60,15 @@ namespace Dbnd.Api
 
             services.AddHttpClient();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kitchen API", Version = "v1" });
-
-                // should be "http" type with "bearer" scheme, but swagger-ui
-                // doesn't handle that correctly.
-                c.AddSecurityDefinition("BearerAuth", new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.ApiKey,
-                    Description = "Bearer authentication scheme with JWT, e.g. \"Bearer eyJhbGciOiJIUzI1NiJ9.e30\"",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header
-                });
-
-                c.OperationFilter<AuthorizeCheckOperationFilter>();
-            });
+            GlobalConfiguration.Configuration
+              .EnableSwagger(c =>
+              {
+                  c.SingleApiVersion("v1", "SwaggerDemoApi");
+                  c.IncludeXmlComments(string.Format(@"{0}\bin\SwaggerDemoApi.XML",
+                           System.AppDomain.CurrentDomain.BaseDirectory));
+                  c.DescribeAllEnumsAsStrings();
+              })
+              .EnableSwaggerUi();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
