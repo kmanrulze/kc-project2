@@ -2,6 +2,10 @@ trigger:
   branches:
     include:
     - Feature
+  paths:
+    include:
+      - './DatabasesNDragons'
+      - './AngularClient'
 
 pool:
   vmImage: 'windows-latest'
