@@ -9,7 +9,7 @@ import { Game } from 'src/app/_models/game';
 })
 export class GameService {
 
-  constructor (private dbnd: DbndService, private auth: AuthService) {
+  constructor(private dbnd: DbndService, private auth: AuthService) {
     this.updateGames();
   }
 

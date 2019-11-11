@@ -16,7 +16,7 @@ export class CurrenttablesComponent implements OnInit {
   constructor( public gameService: GameService, public auth: AuthService ) { }
 
   async ngOnInit() {
-    
+
     await this.auth.getClientId().then( res => this.currentId = res);
 
     this.gameService.games$.subscribe( async res => {

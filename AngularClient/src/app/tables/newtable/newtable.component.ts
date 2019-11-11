@@ -20,8 +20,8 @@ export class NewtableComponent implements OnInit {
   async onSubmit(GameForm: NgForm) {
     console.log(GameForm.value);
 
-    let id = await this.auth.getClientId();
-    let game: Game = new Game(GameForm.value.GameName, id);
+    const id = await this.auth.getClientId();
+    const game: Game = new Game(GameForm.value.GameName, id);
     console.log(game);
 
     this.dbnd.createGame$(id, game).subscribe(createRes => {
@@ -30,5 +30,5 @@ export class NewtableComponent implements OnInit {
       GameForm.resetForm();
       this.gameService.updateGames();
     });
-  }  
+  }
 }

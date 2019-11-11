@@ -3,7 +3,7 @@ import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 
-import { CharacterService } from "../../_services/observables/character.service";
+import { CharacterService } from '../../_services/observables/character.service';
 
 @Component({
   selector: 'app-listcharacters',
@@ -16,7 +16,7 @@ export class ListcharactersComponent implements OnInit {
     showSpinner = true;
     characters: any = [];
     mode = 'characterSelection';
-    form = 'new'
+    form = 'new';
 
   constructor(public auth: AuthService, public dbnd: DbndService, public characterService: CharacterService) { }
 
@@ -26,9 +26,9 @@ export class ListcharactersComponent implements OnInit {
 
   async ngOnInit() {
     // Subscribe to the observable and set showSpinner to false when there is a value.
-    this.characterService.characters$.subscribe( res => { 
+    this.characterService.characters$.subscribe( res => {
       this.characters = res; // This may not be necessary
-      this.showSpinner = false; 
+      this.showSpinner = false;
     });
 
     /* this.data.currentMessage.subscribe(message => this.mode = message);
@@ -47,17 +47,17 @@ export class ListcharactersComponent implements OnInit {
   } */
 
   changeForm(form: string) {
-    //this.data.changeForm(form)
+    // this.data.changeForm(form)
   }
 
-  onClickTableHandler(targetID: string){
+  onClickTableHandler(targetID: string) {
     /* this.newMessage();
     this.changeTargetID(targetID); */
   }
 
-  onClickEditHandler(targetID: string, form: string){
+  onClickEditHandler(targetID: string, form: string) {
     /* this.changeForm(form);
     this.changeTargetID(targetID); */
-  } 
+  }
 
 }

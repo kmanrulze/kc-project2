@@ -54,7 +54,7 @@ export class AuthService {
     );
   }
 
-  async getClientId(): Promise<string> { 
+  async getClientId(): Promise<string> {
     return new Promise(async (resolve, reject) => {
       if (this.clientId != null && this.clientId !== '') {
         resolve(this.clientId);

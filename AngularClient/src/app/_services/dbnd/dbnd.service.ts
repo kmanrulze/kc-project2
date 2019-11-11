@@ -13,8 +13,8 @@ export class DbndService {
 
   constructor(private http: HttpClient) { }
 
-  //baseUrl: string = `https://localhost:44342/api/client`;
-  baseUrl: string = `https://dbndapi.azurewebsites.net/api/client`;
+  // baseUrl: string = `https://localhost:44342/api/client`;
+  baseUrl = `https://dbndapi.azurewebsites.net/api/client`;
 
 // Clients:
   // GET     Get client's id from token: api/client
@@ -37,7 +37,7 @@ export class DbndService {
   createCharacter$(clientId: string, character: Character): Observable<any> {
     return this.http.post(`${this.baseUrl}/${clientId}/characters/new`, character);
   }
-  
+
   // GET     Get all characters: api/client/{clientId}/characters
   getUserCharacters$(clientId: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${clientId}/characters`);
@@ -63,7 +63,7 @@ export class DbndService {
   createGame$(clientId: string, game: Game): Observable<any> {
     return this.http.post(`${this.baseUrl}/${clientId}/games/new`, game);
   }
-  
+
   // GET     Get client's games: api/client/{clientId}/games
   getUserGames$(clientId: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${clientId}/games`);
@@ -83,7 +83,7 @@ export class DbndService {
   updateGame$(clientId: string, gameId: string, game: Game) {
     return this.http.put(`${this.baseUrl}/${clientId}/games/${gameId}/update`, game);
   }
-  
+
   // DELETE  Delete game: api/client/{gameId}/games/{gameId}/delete
   deleteGame$(clientId: string, gameId: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${clientId}/games/${gameId}/delete`);
@@ -94,17 +94,17 @@ export class DbndService {
   createOverview$(clientId: string, gameId: string, overview: Overview): Observable<any> {
     return this.http.post(`${this.baseUrl}/${clientId}/games/${gameId}/overviews/new`, overview);
   }
-  
+
   // GET     Get all overviews of a game: api/client/{clientId}/games/{gameId}/overviews
   getGameOverviews$(clientId: string, gameId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${clientId}/games/${gameId}/overviews`)
+    return this.http.get(`${this.baseUrl}/${clientId}/games/${gameId}/overviews`);
   }
-  
+
   // GET     Get overview info: api/client/{clientId}/games/{gameId}/overviews/{overviewId}
   getOverview$(clientId: string, gameId: string, overviewId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${clientId}/games/${gameId}/overviews/${overviewId}`)
+    return this.http.get(`${this.baseUrl}/${clientId}/games/${gameId}/overviews/${overviewId}`);
   }
-  
+
   // PUT     Update overview: api/client/{clientId}/games/{gameId}/overviews/{overviewId}/update
   updateGameOverview$(clientId: string, gameId: string, overviewId: string, overview: Overview) {
     return this.http.put(`${this.baseUrl}/${clientId}/games/${gameId}/overviews/${overviewId}/update`, overview);

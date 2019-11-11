@@ -16,18 +16,18 @@ import { CharacterService } from 'src/app/_services/observables/character.servic
 export class NewFormComponent implements OnInit {
   constructor(public auth: AuthService, public dbnd: DbndService, public characterService: CharacterService) { }
 
+  dbndProfText = '';
+
   async ngOnInit() {
     /* this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
       this.dbndProfText = JSON.stringify(res);
     }); */
   }
 
-  dbndProfText: string = "";
-
   async onSubmit(CharacterForm: NgForm) {
     console.log(CharacterForm.value);
 
-    let character: Character = new Character(CharacterForm.value.FirstName, CharacterForm.value.LastName);
+    const character: Character = new Character(CharacterForm.value.FirstName, CharacterForm.value.LastName);
     console.log(character);
 
     this.dbnd.createCharacter$(await this.auth.getClientId(), character).subscribe(createRes => {
@@ -36,5 +36,5 @@ export class NewFormComponent implements OnInit {
       CharacterForm.resetForm();
       this.characterService.updateCharacters();
     });
-  }  
+  }
 }
