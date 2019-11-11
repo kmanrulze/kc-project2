@@ -32,7 +32,7 @@ export class CharacterService {
     this.formSource.next(form)
   } */
 
-  constructor (private dbnd: DbndService, private auth: AuthService) { 
+  constructor(private dbnd: DbndService, private auth: AuthService) {
     this.updateCharacters().then();
   }
 

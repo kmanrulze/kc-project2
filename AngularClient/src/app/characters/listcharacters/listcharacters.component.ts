@@ -21,8 +21,8 @@ export class ListcharactersComponent implements OnInit {
 
   async ngOnInit() {
     // Subscribe to the observable and set showSpinner to false when there is a value.
-    await this.characterService.characters$.subscribe( res => { 
-      this.showSpinner = false; 
+    await this.characterService.characters$.subscribe( res => {
+      this.showSpinner = false;
     });
   }
 
@@ -31,12 +31,12 @@ export class ListcharactersComponent implements OnInit {
   }
 
   onClickEditHandler(characterId: string) {
-    let newFormMode: string = 'edit';
+    const newFormMode = 'edit';
     this.newFormModeWithId.emit({newFormMode, characterId});
   }
 
   onClickDelete(characterId: string) {
-    let newFormMode: string = 'delete';
+    const newFormMode = 'delete';
     this.newFormModeWithId.emit({newFormMode, characterId});
-  } 
+  }
 }

@@ -22,7 +22,7 @@ export class NewFormComponent implements OnInit {
   async onSubmit(CharacterForm: NgForm) {
     console.log(CharacterForm.value);
 
-    let character: Character = new Character();
+    const character: Character = new Character();
     character.ClientID = await this.auth.getClientId();
     character.FirstName = CharacterForm.value.FirstName;
     character.LastName = CharacterForm.value.LastName;

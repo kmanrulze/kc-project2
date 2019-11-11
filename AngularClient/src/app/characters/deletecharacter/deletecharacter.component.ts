@@ -14,14 +14,14 @@ export class DeletecharacterComponent implements OnInit {
 
   @Input() characterId: string;
   @Output() newFormMode = new EventEmitter<string>();
-  
+
   constructor(public auth: AuthService, public dbnd: DbndService, private characterService: CharacterService) { }
 
   ngOnInit() { }
 
   async onSubmitDelete() {
     await this.dbnd.deleteCharacter$( await this.auth.getClientId(), this.characterId ).subscribe( async res => {
-      this.newFormMode.emit("new");
+      this.newFormMode.emit('new');
     });
   }
 }
