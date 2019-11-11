@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/_services/observables/user.service';
+
+import { PlaygameComponent } from '../playgame.component';
 
 @Component({
   selector: 'app-characteroptions',
