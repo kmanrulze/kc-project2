@@ -12,7 +12,7 @@ import { Character } from '../../_models/character';
 })
 export class NewFormComponent implements OnInit {
   dbndProfText: string = "";
-  characterModel = new Character();
+  characterModel = new Character('', '');
 
 
 

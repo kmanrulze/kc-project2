@@ -5,6 +5,11 @@
             <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
             <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
         </div>
+
+        <input type="image" (click)="onClickHandler(character.characterID)" class="icon-submit-use" src="../../../assets/images/location_t.png" placement="left" ngbTooltip="Use Character in Game" tooltipClass="table-character-right" />
+        <input type="image" (click)="onClickEditHandler('5561212testid', 'edit')" class="icon-submit-use" src="../../../assets/images/gear_t.png" placement="left" ngbTooltip="Edit Character" tooltipClass="table-character-right" />
+                   
+
       <div class="form-title">Character List</div>
 
         <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
@@ -18,10 +23,10 @@
                 <p> {{character.firstName}} {{character.lastName}}</p>
               </td>
               <td class="col-3">
-                  <input type="image" class="icon-submit-use" src="../../../assets/images/location_t.png" placement="left" ngbTooltip="Use Character in Game" tooltipClass="table-character-right" />
+                  <input type="image" (click)="onClickTableHandler(character.characterID)" class="icon-submit-use" src="../../../assets/images/location_t.png" placement="left" ngbTooltip="Use Character in Game" tooltipClass="table-character-right" />
               </td>
               <td class="col-3">
-                  <input type="image" class="icon-submit-use" src="../../../assets/images/gear_t.png" placement="left" ngbTooltip="Edit Character" tooltipClass="table-character-right" />
+                  <input type="image" (click)="onClickEditHandler(character.characterID, 'edit')" class="icon-submit-use" src="../../../assets/images/gear_t.png" placement="left" ngbTooltip="Edit Character" tooltipClass="table-character-right" />
               </td>
             </tr>
           </tbody>
