@@ -5,10 +5,10 @@
         <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
         <table class="table table-striped table-hover" *ngIf="!showSpinner">
             <tbody>
-                <tr > <!-- {{ country.name }} the tr needs : *ngFor="let character of char"-->
+                <tr *ngFor="let character of this.currentGameInfo.characters"> <!-- {{ country.name }} the tr needs : *ngFor="let character of char"-->
                 <td class="col-4">
                     <!-- {{dbndProfText}} -->
-                    <p>Id: {{ auth.clientId }}</p>
+                    <p>{{ character.firstName }} {{ character.lastName }}</p>
                 </td>
                 <td class="col-2">
                     <input type="image" (click)="characterSelected=true" class="icon-submit-use" src="../../../assets/images/target_t.png" placement="left" ngbTooltip="Select this character." tooltipClass="table-character-right" />
@@ -48,11 +48,10 @@
                 </div>
                 <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
 
-                <div class="text-center container-fluid icon-submit-container">
-                        <div class="icon-submit-back"><input ngSubmit type="image" class="icon-submit" src="../../../assets/images/exit_t.png" alt="Submit" /></div>
-                        <div class="icon-submit-front">Remove</div>
-                
-                    </div>
+                <div *ngIf="this.currentGameInfo.clientID == this.currentClientID" class="text-center container-fluid icon-submit-container">
+                    <div class="icon-submit-back"><input ngSubmit type="image" class="icon-submit" src="../../../assets/images/exit_t.png" alt="Submit" /></div>
+                    <div class="icon-submit-front">Remove</div>
+                </div>
 
             </div>
         </div>

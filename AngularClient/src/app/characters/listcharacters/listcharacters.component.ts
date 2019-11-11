@@ -26,9 +26,9 @@ export class ListcharactersComponent implements OnInit {
 
   async ngOnInit() {
     // Subscribe to the observable and set showSpinner to false when there is a value.
-    this.characterService.characters$.subscribe( res => { 
+    this.characterService.characters$.subscribe( res => {
       this.characters = res; // This may not be necessary
-      this.showSpinner = false; 
+      this.showSpinner = false;
     });
 
     /* this.data.currentMessage.subscribe(message => this.mode = message);
@@ -38,13 +38,13 @@ export class ListcharactersComponent implements OnInit {
     }); */
   }
 
-  /* newMessage() {
-    this.data.changeMessage("gameSelection")
+   newMessage() {
+    // this.characterService.changeMessage("gameSelection")
   }
 
   changeTargetID(targetID: string) {
-    this.data.changeTargetID(targetID)
-  } */
+    // this.characterService.changeTargetID(targetID)
+  }
 
   changeForm(form: string) {
     //this.data.changeForm(form)
@@ -58,6 +58,6 @@ export class ListcharactersComponent implements OnInit {
   onClickEditHandler(targetID: string, form: string){
     /* this.changeForm(form);
     this.changeTargetID(targetID); */
-  } 
+  }
 
 }
