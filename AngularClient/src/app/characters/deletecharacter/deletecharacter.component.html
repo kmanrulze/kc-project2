@@ -1,0 +1,27 @@
+<div class="class cat-background">
+    <div class="main-padding">
+        <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+        <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+    </div>
+    <div class="form-title">Delete Character</div>
+    <div class = "profile-description-info">
+    <div id="idDiv">
+        <p>Id: {{ auth.clientId }}</p>
+        <p>To delete this character, click the delete button below. Your character will be removed from all associated games.</p>
+    </div>
+    <div class="text-center container-fluid icon-submit-container">
+        <div class="icon-submit-back">
+        <input
+            (click)="onSubmitDelete()"
+            type="image"
+            class="icon-submit"
+            src="../../../assets/images/exit_t.png" alt="submit icon"/>
+        </div>
+        <div class="icon-submit-front">Delete</div>
+    </div>
+    </div>
+    <div class="main-padding">
+        <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+        <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+    </div>
+</div>

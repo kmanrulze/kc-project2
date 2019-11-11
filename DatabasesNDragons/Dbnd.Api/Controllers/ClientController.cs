@@ -14,6 +14,7 @@ namespace Dbnd.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ClientController : ControllerBase
     {
         private readonly IRepository _repository;
@@ -28,7 +29,6 @@ namespace Dbnd.Api.Controllers
         #region Client
         // GET: api/client
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<object>> GetClientId()
         {
             try
@@ -47,13 +47,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // GET: api/client/{id}
         [HttpGet("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Client>> GetClient(Guid id)
         {
             try
@@ -66,13 +65,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // PUT: api/client/{id}/update
         [HttpPut("{id}/update")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Client>> PutClient(Guid id, [FromBody, Bind("UserName, Email")] Client changedClient)
         {
             try
@@ -82,17 +80,16 @@ namespace Dbnd.Api.Controllers
 
                 await _repository.UpdateClientByIDAsync(id, changedClient);
                 var returnClient = await _repository.GetClientByIDAsync(id);
-                return AcceptedAtAction("Get", "Client", null, returnClient);
+                return Ok();
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // DELETE: api/client/{id}/delete
         [HttpDelete("{id}/delete")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Client>> DeleteClient(Guid id)
         {
             try
@@ -105,7 +102,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         #endregion
@@ -113,7 +110,6 @@ namespace Dbnd.Api.Controllers
         #region Characters
         // POST: Create new character: api/clients/{clientId}/characters/new
         [HttpPost("{clientId}/characters/new")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Character>> PostCharacter(Guid clientId, [FromBody, Bind("FirstName, LastName")] Character character)
         {
             try
@@ -126,13 +122,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // GET: Get all characters: api/clients/{clientId}/characters
         [HttpGet("{clientId}/characters")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Character>> GetAllCharacters(Guid clientId)
         {
             try
@@ -144,13 +139,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // GET: Get character info: api/clients/{clientId}/characters/{characterId}
         [HttpGet("{clientId}/characters/{characterId}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Character>> GetCharacter(Guid clientId, Guid characterId)
         {
             try
@@ -168,13 +162,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // PUT: Update character info: api/clients/{clientId}/characters/{characterId}/update
         [HttpPut("{clientId}/characters/{characterId}/update")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Character>> PutCharacter(Guid clientId, Guid characterId, [FromBody, Bind("FirstName, LastName")] Character changedCharacter)
         {
             try
@@ -190,17 +183,16 @@ namespace Dbnd.Api.Controllers
 
                 await _repository.UpdateCharacterByIDAsync(characterId, changedCharacter);
                 var returnCharacter = await _repository.GetCharacterByIDAsync(characterId);
-                return AcceptedAtAction("Get", "Client", null, returnCharacter);
+                return Ok();
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // DELETE: Delete character: api/clients/{clientId}/characters/{characterId}/delete
         [HttpDelete("{clientId}/characters/{characterId}/delete")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Character>> DeleteCharacter(Guid clientId, Guid characterId)
         {
             try
@@ -219,7 +211,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         #endregion
@@ -227,7 +219,6 @@ namespace Dbnd.Api.Controllers
         #region Games
         // POST: Create new game: api/clients/{clientId}/games/new
         [HttpPost("{clientId}/games/new")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Game>> PostGame(Guid clientId, [FromBody, Bind("ClientID, GameName")] Game game)
         {
             try
@@ -240,13 +231,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // GET: Get client's games: api/clients/{clientId}/games
         [HttpGet("{clientId}/games")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Game>> GetGames(Guid clientId)
         {
             try
@@ -258,13 +248,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // GET: Get game info: api/clients/{clientId}/games/{gameId}
         [HttpGet("{clientId}/games/{gameId}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Game>> GetGame(Guid clientId, Guid gameId)
         {
             try
@@ -282,13 +271,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // PUT: Add character to game: api/clients/{clientId}/games/{gameId}/addCharacter/{characterId}
         [HttpPut("{clientId}/games/{gameId}/addCharacter/{characterId}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Game>> PutCharacterInGame(Guid clientId, Guid gameId, Guid characterId)
         {
             try
@@ -310,20 +298,19 @@ namespace Dbnd.Api.Controllers
                 {
                     await _repository.UpdateGameAsync(gameId, game);
                     var returnGame = await _repository.GetGameByIDAsync(gameId);
-                    return AcceptedAtAction("Get", "Client", null, returnGame);
+                    return Ok();
                 }
                 else return BadRequest("Character already exists in game.");
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
 
         // PUT: Update game info: api/clients/{clientId}/games/{gameId}/update
         [HttpPut("{clientId}/games/{gameId}/update")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Game>> PutGame(Guid clientId, Guid gameId, [FromBody, Bind("GameName")] Game changedGame)
         {
             try
@@ -337,17 +324,16 @@ namespace Dbnd.Api.Controllers
 
                 await _repository.UpdateGameAsync(gameId, changedGame);
                 var returnGame = await _repository.GetGameByIDAsync(gameId);
-                return AcceptedAtAction("Get", "Client", null, returnGame);
+                return Ok();
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // DELETE: Delete game: api/clients/{clientId}/games/{gameId}/delete
         [HttpDelete("{clientId}/games/{gameId}/delete")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Game>> DeleteGame(Guid clientId, Guid gameId)
         {
             try
@@ -364,7 +350,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         #endregion
@@ -372,7 +358,6 @@ namespace Dbnd.Api.Controllers
         #region Overview
         // POST Create overview: api/client/{clientId}/games/{gameId}/overviews/new
         [HttpPost("{clientId}/games/{gameId}/overviews/new")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Overview>> PostOverview(Guid clientId, Guid gameId, [FromBody, Bind("Name, Content")] Overview overview)
         {
             try
@@ -391,13 +376,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // GET Get all overviews of a game: api/client/{clientId}/games/{gameId}/overviews
         [HttpGet("{clientId}/games/{gameId}/overviews")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Overview>> GetOveview(Guid clientId, Guid gameId)
         {
             try
@@ -415,13 +399,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // GET Get overview info: api/client/{clientId}/games/{gameId}/overviews/{overviewId}
         [HttpGet("{clientId}/games/{gameId}/overviews/{overviewId}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Overview>> GetOveview(Guid clientId, Guid gameId, Guid overviewId)
         {
             try
@@ -439,13 +422,12 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // PUT Update overview: api/client/{clientId}/games/{gameId}/overviews/update/{overviewId}
         [HttpPut("api/client/{clientId}/games/{gameId}/overviews/{overviewId}/update")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Overview>> PutOverview(Guid clientId, Guid gameId, Guid overviewId, [FromBody, Bind("Name, Content")] Overview changedOverview)
         {
             try
@@ -461,17 +443,16 @@ namespace Dbnd.Api.Controllers
 
                 await _repository.UpdateOverviewByIDAsync(overviewId, changedOverview);
                 var returnOverview = await _repository.GetOverviewByIDAsync(overviewId);
-                return AcceptedAtAction("Get", "Client", null, returnOverview);
+                return Ok();
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
         // DELETE Remove overview: api/client/{clientId}/games/{gameId}/overviews/delete/{overviewId}
         [HttpDelete("{clientId}/games/{gameId}/overviews/{overviewId}/delete")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Overview>> DeleteOverview(Guid clientId, Guid gameId, Guid overviewId)
         {
             try
@@ -490,7 +471,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         #endregion

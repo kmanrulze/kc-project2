@@ -13,7 +13,7 @@ export class DbndService {
 
   constructor(private http: HttpClient) { }
 
-  // `https://localhost:44342/api/client`;
+  //baseUrl: string = `https://localhost:44342/api/client`;
   baseUrl: string = `https://dbndapi.azurewebsites.net/api/client`;
 
 // Clients:
@@ -39,18 +39,18 @@ export class DbndService {
   }
   
   // GET     Get all characters: api/client/{clientId}/characters
-  getUserCharacters$(clientId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${clientId}/characters`);
+  getUserCharacters$(clientId: string): Observable<Character[]> {
+    return this.http.get<Character[]>(`${this.baseUrl}/${clientId}/characters`);
   }
 
   // GET     Get character info: api/client/{clientId}/characters/{characterId}
-  getCharacter$(clientId: string, characterId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${clientId}/characters/${characterId}`);
+  getCharacter$(clientId: string, characterId: string): Observable<Character> {
+    return this.http.get<Character>(`${this.baseUrl}/${clientId}/characters/${characterId}`);
   }
 
   // PUT     Update character info: api/client/{clientId}/characters/{characterId}/update
   updateCharacter$(clientId: string, characterId: string, character: Character) {
-    return this.http.put(`${this.baseUrl}/${clientId}/characters/${characterId}`, character);
+    return this.http.put(`${this.baseUrl}/${clientId}/characters/${characterId}/update`, character);
   }
 
   // DELETE  Delete character: api/client/{clientId}/characters/{characterId}/delete
