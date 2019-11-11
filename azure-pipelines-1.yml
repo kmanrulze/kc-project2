@@ -503,7 +503,7 @@ stages:
         embeds: |
             [{
               "title": "Feature Web App Unsuccessfully Deployed...",
-              "description": "Deployment failed. Updated Master API will not attempt to be deployed alongside the app.",
+              "description": "Angular website deployment failed...",
               "url": "https://discordapp.com",
               "color": 2247803,
               "thumbnail": 
