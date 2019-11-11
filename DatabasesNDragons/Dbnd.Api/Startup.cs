@@ -56,6 +56,7 @@ namespace Dbnd.Api
                     In = ParameterLocation.Header
                 });
                 c.OperationFilter<SwaggerFilter>();
+                c.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}");
             });
 
             string domain = $"https://{Configuration["Auth0:Domain"]}/";
