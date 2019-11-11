@@ -2,6 +2,10 @@ trigger:
   branches:
     include:
     - master
+  paths:
+    include:
+      - './DatabasesNDragons'
+      - './AngularClient'
 
 stages:
 - stage: Build_and_Test_Master
