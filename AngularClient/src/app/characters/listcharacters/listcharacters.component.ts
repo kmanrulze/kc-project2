@@ -3,7 +3,7 @@ import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 
-import { CharacterService } from "../../_services/dataservice/character.service";
+import { CharacterService } from "../../_services/observables/character.service";
 
 @Component({
   selector: 'app-listcharacters',
@@ -18,48 +18,46 @@ export class ListcharactersComponent implements OnInit {
     mode = 'characterSelection';
     form = 'new'
 
-  constructor(public auth: AuthService, public dbnd: DbndService, private data: CharacterService) { }
+  constructor(public auth: AuthService, public dbnd: DbndService, private characterService: CharacterService) { }
 
-  onSubmit() {
-    console.log( this.dbnd.getUserCharacters$(this.auth.clientId) );
+  async onSubmit() {
+    // console.log( this.dbnd.getUserCharacters$(await this.auth.getClientId()) );
   }
 
   async ngOnInit() {
+    // Subscribe to the observable and set showSpinner to false when there is a value.
+    this.characterService.characters$.subscribe( res => { 
+      this.characters = res; // This may not be necessary
+      this.showSpinner = false; 
+    });
 
-    this.data.currentMessage.subscribe(message => this.mode = message);
+    /* this.data.currentMessage.subscribe(message => this.mode = message);
 
-    this.dbnd.getUser$(await this.auth.getClientId())
-      .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
-                                      this.showSpinner = false;
-                                      });
-
-    this.dbnd.getUserCharacters$(this.auth.clientId)
-      .subscribe( (data: {}) => {this.characters = data;
-                                console.log(data);
-                                this.showSpinner = false;
-                                });
+    this.dbnd.getUser$(await this.auth.getClientId()).subscribe( res => {
+      this.dbndProfText = JSON.stringify(res);
+    }); */
   }
 
-  newMessage() {
+  /* newMessage() {
     this.data.changeMessage("gameSelection")
   }
 
   changeTargetID(targetID: string) {
     this.data.changeTargetID(targetID)
-  }
+  } */
 
   changeForm(form: string) {
-    this.data.changeForm(form)
+    //this.data.changeForm(form)
   }
 
   onClickTableHandler(targetID: string){
-    this.newMessage();
-    this.changeTargetID(targetID);
+    /* this.newMessage();
+    this.changeTargetID(targetID); */
   }
 
   onClickEditHandler(targetID: string, form: string){
-    this.changeForm(form);
-    this.changeTargetID(targetID);
-  }
+    /* this.changeForm(form);
+    this.changeTargetID(targetID); */
+  } 
 
 }

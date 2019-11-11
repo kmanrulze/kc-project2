@@ -1,5 +1,5 @@
 HTTP Endpoints
-11/7/2019
+11/10/2019
 
 Clients:
 	[Because of Auth0's flow, we only create clients when validated tokens with new email addresses arrive, 

@@ -48,26 +48,26 @@ export class AuthService {
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
   getUser$(options?): Observable<any> {
-    this.getClientId();
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
       tap(user => this.userProfileSubject$.next(user))
     );
   }
 
-  //RE ENABLE THIS TEST IF WE FIGURE OUT LINE 74. THROWING COMPILE ERRORS!
-  async getClientId() {
-    if (this.loggedIn) {
-      if (this.clientId !== '') {
-        return this.clientId;
+  async getClientId(): Promise<string> { 
+    return new Promise(async (resolve, reject) => {
+      if (this.clientId != null && this.clientId !== '') {
+        resolve(this.clientId);
       }
 
-      await this.dbnd.getId$().toPromise().then( (res: { id: string }) => {
-        this.clientId = res.id;
+      await this.getUser$().toPromise().then( async res => {
+          await this.dbnd.getId$().toPromise().then( (res: { id: string }) => {
+          this.clientId = res.id;
+        });
       });
-    }
 
-    return this.clientId;
+      resolve(this.clientId);
+    });
   }
 
 

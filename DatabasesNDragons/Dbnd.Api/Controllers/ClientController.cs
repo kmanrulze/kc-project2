@@ -121,7 +121,7 @@ namespace Dbnd.Api.Controllers
                 if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                     return Forbid();
 
-                Character newCharacter = await _repository.CreateCharacterAsync(character.ClientID, character.FirstName, character.LastName);
+                Character newCharacter = await _repository.CreateCharacterAsync(clientId, character.FirstName, character.LastName);
                 return Created($"api/client/{clientId}/characters/{newCharacter.CharacterID}", newCharacter);
             }
             catch (Exception e)
@@ -235,7 +235,7 @@ namespace Dbnd.Api.Controllers
                 if (!(await _auth.Authorized(_repository, Request.Headers["Authorization"].ToString(), clientId.ToString())))
                     return Forbid();
 
-                Game newGame = await _repository.CreateGameAsync(game.ClientID, game.GameName);
+                Game newGame = await _repository.CreateGameAsync(clientId, game.GameName);
                 return Created($"api/client/{clientId}/games/{newGame.GameID}", newGame);
             }
             catch (Exception e)

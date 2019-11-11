@@ -4,10 +4,10 @@
       <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
   </div>
 <div class="form-title">New Table</div>
-<form>
+<form #GameForm="ngForm" (ngSubmit)="onSubmit(GameForm)" novalidate>
   <div class="form-group">
     <label for="gameName">Table Name</label>
-    <input type="text" class="form-control" id="GameName" name="GameName" aria-describedby="help" placeholder="New Table Name">
+    <input type="text" class="form-control" ngModel #gameName="ngModel" id="GameName" name="GameName" aria-describedby="help" placeholder="New Table Name">
     <small id="help" class="form-text text-muted valid-feedback">3-20 alphanumeric characters.</small>
     <small class="invalid-feedback"> Sorry, but you can only use 3-20 alphanumeric characters.</small>
   </div>

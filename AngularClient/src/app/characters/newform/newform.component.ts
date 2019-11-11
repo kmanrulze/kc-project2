@@ -3,6 +3,9 @@ import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 import { Character } from '../../_models/character';
+import { NgForm } from '@angular/forms';
+import { HttpResponse } from '@angular/common/http';
+import { CharacterService } from 'src/app/_services/observables/character.service';
 
 
 @Component({
@@ -11,23 +14,27 @@ import { Character } from '../../_models/character';
   styleUrls: ['../characters.component.css']
 })
 export class NewFormComponent implements OnInit {
-  dbndProfText: string = "";
-  characterModel = new Character('', '');
-
-
-
-  onSubmit(){
-    console.log('submit')};
-
-  constructor(public auth: AuthService, public dbnd: DbndService) { }
+  constructor(public auth: AuthService, public dbnd: DbndService, public characterService: CharacterService) { }
 
   async ngOnInit() {
-
-    this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
+    /* this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
       this.dbndProfText = JSON.stringify(res);
-    });
-
-
-
+    }); */
   }
+
+  dbndProfText: string = "";
+
+  async onSubmit(CharacterForm: NgForm) {
+    console.log(CharacterForm.value);
+
+    let character: Character = new Character(CharacterForm.value.FirstName, CharacterForm.value.LastName);
+    console.log(character);
+
+    this.dbnd.createCharacter$(await this.auth.getClientId(), character).subscribe(createRes => {
+      console.log(createRes);
+      // Handle response here: success, failure. Suggest creating alert or third message text idk
+      CharacterForm.resetForm();
+      this.characterService.updateCharacters();
+    });
+  }  
 }

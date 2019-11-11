@@ -3,7 +3,7 @@ import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 
-import { CharacterService } from "../../_services/dataservice/character.service";
+import { CharacterService } from "../../_services/observables/character.service";
 
 @Component({
   selector: 'app-jointable',
@@ -15,7 +15,7 @@ export class JoinTableComponent implements OnInit {
   constructor(public auth: AuthService, public dbnd: DbndService, private data: CharacterService) { }
 
   ngOnInit() {
-    this.data.currentTargetID.subscribe(targetID => this.targetID = targetID);
+    // this.data.currentTargetID.subscribe(targetID => this.targetID = targetID);
   }
 
 }

@@ -3,7 +3,7 @@ import { AuthService } from '../_services/auth/auth.service';
 import { DbndService } from '../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 
-import { CharacterService } from "../_services/dataservice/character.service";
+import { CharacterService } from "../_services/observables/character.service";
 
 @Component({
   selector: 'app-characters',
@@ -34,17 +34,18 @@ export class CharactersComponent implements OnInit {
         this.dbndProfText = JSON.stringify(res);
       })
     })*/
-    this.data.currentMessage.subscribe( message => {
+
+    /* this.data.currentMessage.subscribe( message => {
       this.mode = message;
     });
 
     this.data.currentForm.subscribe( form => {
       this.form = form;
-    });
+    }); */
 
-    this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
+    /* this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
       this.dbndProfText = JSON.stringify(res);
-    });
+    }); */
   }
 
 }
