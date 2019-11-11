@@ -1,3 +1,4 @@
+using Dbnd.Api.Filters;
 using Dbnd.Data.Entities;
 using Dbnd.Data.Repository;
 using Dbnd.Logic.Interfaces;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Dbnd.Api
 {
@@ -46,7 +47,15 @@ namespace Dbnd.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Databases n Dragons API", Version = "v1" });
+                c.AddSecurityDefinition("BearerAuth", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.ApiKey,
+                    Description = "Bearer authentication scheme with JWT, e.g. \"Bearer eyJhbGciOiJIUzI1NiJ9.e30\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header
+                });
+                c.OperationFilter<SwaggerFilter>();
             });
 
         string domain = $"https://{Configuration["Auth0:Domain"]}/";
