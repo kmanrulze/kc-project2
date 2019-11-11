@@ -4,8 +4,8 @@ trigger:
     - Feature
   paths:
     include:
-      - 'DatabasesNDragons'
-      - 'AngularClient'
+      - DatabasesNDragons/*
+      - AngularClient/*
 
 pool:
   vmImage: 'windows-latest'
