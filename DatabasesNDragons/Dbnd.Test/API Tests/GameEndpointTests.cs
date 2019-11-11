@@ -56,6 +56,7 @@ namespace Dbnd.Test.API_Tests
             Guid targetClientId = helper.Clients[0].ClientID;
             Guid targetGameId = helper.Games[0].GameID;
             Game changedGame = new Game();
+            changedGame.GameName = "New Game Test Name";
 
             helper.Repository.Setup(x => x.GetGameByIDAsync(It.IsAny<Guid>()))
                 .Returns(Task.FromResult(helper.Games[0]))
@@ -64,10 +65,9 @@ namespace Dbnd.Test.API_Tests
                 .Returns(Task.FromResult(true))
                 .Verifiable();
 
-            Game game = (Game)((await helper.ClientController.PutGame(targetClientId, targetGameId, changedGame)).Result as AcceptedAtActionResult).Value;
+            await helper.ClientController.PutGame(targetClientId, targetGameId, changedGame);
 
             helper.Repository.Verify();
-            Assert.NotNull(game);
         }
 
         [Fact]

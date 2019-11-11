@@ -16,10 +16,10 @@ export class PlaygameComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.dbnd.getUser$(await this.auth.getClientId())
+    /* this.dbnd.getUser$(await this.auth.getClientId())
       .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
                                       this.showSpinner = false;
-      });
+      }); */
     }
 
 }
