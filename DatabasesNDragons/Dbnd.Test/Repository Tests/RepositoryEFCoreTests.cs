@@ -56,31 +56,6 @@ namespace Dbnd.Test.Repository_Tests
                 Assert.Null(client);
             }
         }
-        
-        /* [Fact]
-        public async Task CreateClientsSuccess()
-        {
-            var options = new DbContextOptionsBuilder<DbndContext>()
-            .UseInMemoryDatabase(databaseName: "Dbnd4")
-            .Options;
-
-            using (var context = new DbndContext(options))
-            {
-                context.Client.Add(new Client { UserName = "Aramand", Email = "Aramand@gmail.com" });
-                context.Client.Add(new Client { UserName = "Lestat", Email = "Lestat@gmail.com" });
-                context.Client.Add(new Client { UserName = "Claudia", Email = "Claudia@gmail.com" });
-                context.SaveChanges();
-            }
-
-            using (var context = new DbndContext(options))
-            {
-                Repository repository = new Repository(context);
-                await repository.CreateClientAsync("Wonderstam", "newkidsontheblock@gmail.com");
-                var clients = repository.GetClientsAsync().Result;
-                var clientCount = clients.Count();
-                Assert.Equal(4, clientCount);
-            }
-        }*/
 
         [Fact]
         public async Task UpdateClientsByIDSuccess()
