@@ -23,7 +23,7 @@ export class OverviewoptionsComponent implements OnInit {
       });
 
     //Need to add on init call to api for overview description here
-    this.dbnd.getOverview$(await this.auth.getClientId(), await this.auth.getGameId(), await this.auth.getOverviewId())
+    this.dbnd.getOverview$(await this.auth.getClientId(), 'gameId', 'overviewId')
       .subscribe( (res: Response) => {this.dbndOverview = JSON.stringify(res);
                                                             this.showSpinner = false;})
     }
