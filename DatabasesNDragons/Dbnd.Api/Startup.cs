@@ -35,11 +35,10 @@ namespace Dbnd.Api
                 options.AddPolicy("AllowAngular",
                 builder =>
                 {
-                    builder/*.WithOrigins("http://localhost:4200", "https://dbnd.azurewebsites.net")*/
+                    builder.WithOrigins("http://localhost:4200", "https://dbnd.azurewebsites.net")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowCredentials()
-                        .AllowAnyOrigin();
+                        .AllowCredentials();
                 });
             });
 
