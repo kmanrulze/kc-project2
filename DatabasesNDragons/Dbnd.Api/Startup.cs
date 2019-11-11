@@ -58,7 +58,20 @@ namespace Dbnd.Api
                 c.OperationFilter<SwaggerFilter>();
             });
 
-        string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = domain;
+                options.Audience = "https://dbnd.azurewebsites.net";
+            });
+
+            
+            
+            /*
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -69,6 +82,8 @@ namespace Dbnd.Api
                 options.Authority = domain;
                 options.Audience = Configuration["Auth0:ApiIdentifier"];
             });
+
+            */
 
             services.AddHttpClient();
         }
