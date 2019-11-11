@@ -4,6 +4,7 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 import { DbndService } from '../dbnd/dbnd.service';
 
@@ -47,36 +48,27 @@ export class AuthService {
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
   getUser$(options?): Observable<any> {
+    this.getClientId();
     return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
       tap(user => this.userProfileSubject$.next(user))
     );
   }
 
-  // Need to debut the res.json.toString(). Doesnt display the ID as it should.
-//   await this.dbnd.getId$().toPromise().then( (res: Response) => {
-//     this.clientId = res.json.toString();
-//   });
-// }
+  //RE ENABLE THIS TEST IF WE FIGURE OUT LINE 74. THROWING COMPILE ERRORS!
+  async getClientId() {
+    if (this.loggedIn) {
+      if (this.clientId !== '') {
+        return this.clientId;
+      }
 
-// return this.clientId;
-// }
+      await this.dbnd.getId$().toPromise().then( (res: { id: string }) => {
+        this.clientId = res.id;
+      });
+    }
 
-
-//RE ENABLE THIS TEST IF WE FIGURE OUT LINE 74. THROWING COMPILE ERRORS!
-  // async getClientId() {
-  //   if (this.loggedIn) {
-  //     if (this.clientId != '') {
-  //       return this.clientId;
-  //     }
-
-  //     await this.dbnd.getId$().toPromise().then( (res: Response) => {
-  //       this.clientId = res.id;
-  //     });
-  //   }
-
-  //   return this.clientId;
-  // }
+    return this.clientId;
+  }
 
 
   localAuthSetup() {

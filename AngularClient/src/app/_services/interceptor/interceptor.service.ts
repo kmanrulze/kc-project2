@@ -10,6 +10,7 @@ import {
 import { AuthService } from '../auth/auth.service';
 import { Observable, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
+import { NgbDateStructAdapter } from '@ng-bootstrap/ng-bootstrap/datepicker/adapters/ngb-date-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class InterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+
     let profile: string;
 
     this.auth.userProfile$.subscribe((res) => profile = JSON.stringify(res));
@@ -30,8 +32,9 @@ export class InterceptorService implements HttpInterceptor {
       mergeMap(token => {
         const tokenReq = req.clone({
           setHeaders: { Authorization: `Bearer ${token}`,
-            Profile: profile,
-          }
+            Profile: profile
+          },
+          withCredentials: true
         });
         return next.handle(tokenReq);
       }),

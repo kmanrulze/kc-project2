@@ -32,18 +32,6 @@ import { MatListModule } from '@angular/material/list';
 import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-const appRoutes: Routes = [
-  {
-    path: 'products',
-    component: MonsterComponent,
-    data: { title: 'Monster List' }
-  },
-  { path: '',
-    redirectTo: '/monsters',
-    pathMatch: 'full'
-  }
-];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +58,7 @@ const appRoutes: Routes = [
     GamedescriptionComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
