@@ -42,6 +42,7 @@ export class AuthService {
   loggedIn: boolean = null;
 
   clientId = '';
+  gameId ='';
 
   constructor(private router: Router, private dbnd: DbndService) { }
 
@@ -67,6 +68,20 @@ export class AuthService {
       });
 
       resolve(this.clientId);
+    });
+  }
+  //doesnt work. Needs to be a function to grab the game Id with proper authorization. 
+  async getGameId(): Promise<string> {
+    return new Promise(async (resolve, reject) => {
+      if (this.gameId != null && this.gameId !== '') {
+        resolve(this.gameId)
+      }
+      await this.getUser$().toPromise().then( async res => {
+        await this.dbnd.getGame$().toPromise().then( (res: { id: string}) => {
+          this.gameId = res.id
+        });
+      });
+      resolve(this.gameId)
     });
   }
 
