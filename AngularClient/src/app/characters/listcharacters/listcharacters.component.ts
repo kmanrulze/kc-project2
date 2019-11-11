@@ -18,7 +18,7 @@ export class ListcharactersComponent implements OnInit {
     mode = 'characterSelection';
     form = 'new'
 
-  constructor(public auth: AuthService, public dbnd: DbndService, private characterService: CharacterService) { }
+  constructor(public auth: AuthService, public dbnd: DbndService, public characterService: CharacterService) { }
 
   async onSubmit() {
     // console.log( this.dbnd.getUserCharacters$(await this.auth.getClientId()) );
