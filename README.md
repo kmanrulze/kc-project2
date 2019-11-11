@@ -4,14 +4,16 @@ Project 2 for Revature: DBnD - Databases n' Dragons
 ## Technologies Used
 - C#/.NET
 - ASP.NET
-- Angualr
+- Angular
 - Docker
 - Azure Devops
 - PostgreSQL
 - EntityFramework
+- SonarCloud
+- Azure Portal (Hosting)
 
 ## General Requirements For Project 2
-- [ ] Angular single-page application
+- [x] Angular single-page application
     - [x] client-side validation
     - [x] error handling on requests to APIs
     - [x] deployed to Azure Storage or Azure App Service
@@ -27,7 +29,7 @@ Project 2 for Revature: DBnD - Databases n' Dragons
     - [x] server-side validation
     - [ ] support filtering or pagination on at least one resource
     - [ ] logging
-    - [ ] implement hypermedia, or, implement an API Description Language, e.g. using Swashbuckle
+    - [x] implement hypermedia, or, implement an API Description Language, e.g. using Swashbuckle
     - [ ] (optional: implement a custom filter, health check, or middleware, e.g. exception-handling middleware)
 - [x] Azure Pipelines
     - [x] build definitions
@@ -40,13 +42,9 @@ Project 2 for Revature: DBnD - Databases n' Dragons
 - [x] authentication and authorization with Auth0
 - [x] Project board to track user stories across team
 - [ ] Docker (working Dockerfiles for service and for web app)
-- [ ] any other tech you want within reason
+- [x] any other tech you want within reason
 - [x] the data model (how many tables, what kind of complex relationship like N to N) must be at least as complicated as project 1.
 - [x] the user interaction model (what are the user stories, what inputs/interactions can the user make) must be at least as complicated as project 1.
 - [x] a project proposal
     - [x] MVP minimum viable product
     - [x] potentially stretch goals, extra features
-
-
-## Project Specific Functionality
-
