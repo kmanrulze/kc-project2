@@ -3,6 +3,7 @@ import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 import { GameService } from 'src/app/_services/observables/game.service';
+import { UserService } from 'src/app/_services/observables/user.service';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';

@@ -41,7 +41,7 @@ export class PlaygameComponent implements OnInit {
     this.dbnd.getUser$(await this.auth.getClientId())
       .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
                                       this.showSpinner = false;
-      });
+      }); */
     }
 
 

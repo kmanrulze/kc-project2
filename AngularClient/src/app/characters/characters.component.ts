@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { CharacterService } from "../_services/observables/character.service";
 import { ListcharactersComponent } from './listcharacters/listcharacters.component';
 import { Character } from '../_models/character';
+import { UserService } from '../_services/observables/user.service';
 
 @Component({
   selector: 'app-characters',
@@ -15,8 +16,7 @@ import { Character } from '../_models/character';
 
 export class CharactersComponent implements OnInit {
 
-  constructor(public auth: AuthService, public dbnd: DbndService, private characterService: CharacterService) { }
-
+  userId: string;
   // Options: characterSelection, gameSelection
   mode = 'characterSelection';
   editingCharacter: Character;
@@ -28,19 +28,19 @@ export class CharactersComponent implements OnInit {
   pageSize = 4;
   collectionSize = 25;
 
-  async ngOnInit() { 
-    this.auth.getClientId().then( async res => {
-      await this.characterService.updateCharacters();
-    });
+  constructor(public dbnd: DbndService, public user: UserService, private characterService: CharacterService) {
+    this.user.userId$.subscribe( id => this.userId = id );
+  }
+
+  ngOnInit() { 
+    
   }
 
   async switchMode(emission: any) {
-    await this.auth.getClientId().then( async res => {
-      this.dbnd.getCharacter$( res, emission.characterId).subscribe (res => {
-        this.editingCharacter = res;
-        this.editingCharacterId = emission.characterId;
-        this.form = emission.newFormMode;
-      });
+    this.dbnd.getCharacter$( this.userId, emission.characterId).subscribe (res => {
+      this.editingCharacter = res;
+      this.editingCharacterId = emission.characterId;
+      this.form = emission.newFormMode;
     });
   }
 

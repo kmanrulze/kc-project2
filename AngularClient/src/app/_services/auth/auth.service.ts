@@ -24,6 +24,7 @@ export class AuthService {
     shareReplay(1), // Every subscription receives the same shared value
     catchError(err => throwError(err))
   );
+
   // Define observables for SDK methods that return promises by default
   // For each Auth0 SDK method, first ensure the client instance is ready
   // concatMap: Using the client instance, call SDK method; SDK returns a promise
@@ -41,8 +42,6 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  clientId = '';
-
   constructor(private router: Router, private dbnd: DbndService) { }
 
   // When calling, options can be passed if desired
@@ -53,23 +52,6 @@ export class AuthService {
       tap(user => this.userProfileSubject$.next(user))
     );
   }
-
-  async getClientId(): Promise<string> { 
-    return new Promise(async (resolve, reject) => {
-      if (this.clientId != null && this.clientId !== '') {
-        resolve(this.clientId);
-      }
-
-      await this.getUser$().toPromise().then( async res => {
-          await this.dbnd.getId$().toPromise().then( (res: { id: string }) => {
-          this.clientId = res.id;
-        });
-      });
-
-      resolve(this.clientId);
-    });
-  }
-
 
   localAuthSetup() {
     // This should only be called on app initialization
@@ -139,7 +121,6 @@ export class AuthService {
   logOut() {
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
-      this.clientId = '';
       // Call method to log out
       client.logout({
         client_id: '7cgrbDfEj2bunK7qBIVtKotF89U0g5eh',
