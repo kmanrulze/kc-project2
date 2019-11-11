@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
-import { Observable } from 'rxjs';
 
 import { CharacterService } from '../../_services/observables/character.service';
 
@@ -11,53 +10,33 @@ import { CharacterService } from '../../_services/observables/character.service'
   styleUrls: ['./listcharacters.component.css']
 })
 export class ListcharactersComponent implements OnInit {
-    dbndProfText = 'test';
-    loadedInfo: Promise<string>;
     showSpinner = true;
-    characters: any = [];
-    mode = 'characterSelection';
-    form = 'new';
+
+    @Output() newFormModeWithId = new EventEmitter<{newFormMode: string, characterId: string}>();
+    @Output() newMode = new EventEmitter<string>();
 
   constructor(public auth: AuthService, public dbnd: DbndService, public characterService: CharacterService) { }
 
-  async onSubmit() {
-    // console.log( this.dbnd.getUserCharacters$(await this.auth.getClientId()) );
-  }
+  async onSubmit() { }
 
   async ngOnInit() {
     // Subscribe to the observable and set showSpinner to false when there is a value.
-    this.characterService.characters$.subscribe( res => {
-      this.characters = res; // This may not be necessary
-      this.showSpinner = false;
+    await this.characterService.characters$.subscribe( res => { 
+      this.showSpinner = false; 
     });
-
-    /* this.data.currentMessage.subscribe(message => this.mode = message);
-
-    this.dbnd.getUser$(await this.auth.getClientId()).subscribe( res => {
-      this.dbndProfText = JSON.stringify(res);
-    }); */
   }
 
-  /* newMessage() {
-    this.data.changeMessage("gameSelection")
+  onClickTableHandler(characterId: string) {
+    this.newMode.emit(characterId);
   }
 
-  changeTargetID(targetID: string) {
-    this.data.changeTargetID(targetID)
-  } */
-
-  changeForm(form: string) {
-    // this.data.changeForm(form)
+  onClickEditHandler(characterId: string) {
+    let newFormMode: string = 'edit';
+    this.newFormModeWithId.emit({newFormMode, characterId});
   }
 
-  onClickTableHandler(targetID: string) {
-    /* this.newMessage();
-    this.changeTargetID(targetID); */
-  }
-
-  onClickEditHandler(targetID: string, form: string) {
-    /* this.changeForm(form);
-    this.changeTargetID(targetID); */
-  }
-
+  onClickDelete(characterId: string) {
+    let newFormMode: string = 'delete';
+    this.newFormModeWithId.emit({newFormMode, characterId});
+  } 
 }

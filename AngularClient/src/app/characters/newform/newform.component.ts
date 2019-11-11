@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
@@ -14,27 +14,24 @@ import { CharacterService } from 'src/app/_services/observables/character.servic
   styleUrls: ['../characters.component.css']
 })
 export class NewFormComponent implements OnInit {
+
   constructor(public auth: AuthService, public dbnd: DbndService, public characterService: CharacterService) { }
 
-  dbndProfText = '';
-
-  async ngOnInit() {
-    /* this.dbnd.getUser$(await this.auth.getClientId()).subscribe( (res: Response) => {
-      this.dbndProfText = JSON.stringify(res);
-    }); */
-  }
+  async ngOnInit() { }
 
   async onSubmit(CharacterForm: NgForm) {
     console.log(CharacterForm.value);
 
-    const character: Character = new Character(CharacterForm.value.FirstName, CharacterForm.value.LastName);
+    let character: Character = new Character();
+    character.ClientID = await this.auth.getClientId();
+    character.FirstName = CharacterForm.value.FirstName;
+    character.LastName = CharacterForm.value.LastName;
     console.log(character);
 
-    this.dbnd.createCharacter$(await this.auth.getClientId(), character).subscribe(createRes => {
+    this.dbnd.createCharacter$(await this.auth.getClientId(), character).subscribe(async createRes => {
       console.log(createRes);
       // Handle response here: success, failure. Suggest creating alert or third message text idk
       CharacterForm.resetForm();
-      this.characterService.updateCharacters();
     });
   }
 }

@@ -31,6 +31,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatListModule } from '@angular/material/list';
 import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DeletecharacterComponent } from './characters/deletecharacter/deletecharacter.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     CharacteroptionsComponent,
     OverviewoptionsComponent,
     GameoptionsComponent,
-    GamedescriptionComponent
+    GamedescriptionComponent,
+    DeletecharacterComponent
   ],
   imports: [
     RouterModule,

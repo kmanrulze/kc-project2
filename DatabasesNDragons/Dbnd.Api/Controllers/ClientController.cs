@@ -47,7 +47,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -80,11 +80,11 @@ namespace Dbnd.Api.Controllers
 
                 await _repository.UpdateClientByIDAsync(id, changedClient);
                 var returnClient = await _repository.GetClientByIDAsync(id);
-                return AcceptedAtAction("Get", "Client", null, returnClient);
+                return Ok();
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -102,7 +102,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         #endregion
@@ -122,7 +122,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -139,7 +139,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -162,7 +162,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -183,11 +183,11 @@ namespace Dbnd.Api.Controllers
 
                 await _repository.UpdateCharacterByIDAsync(characterId, changedCharacter);
                 var returnCharacter = await _repository.GetCharacterByIDAsync(characterId);
-                return AcceptedAtAction("Get", "Client", null, returnCharacter);
+                return Ok();
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -211,7 +211,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         #endregion
@@ -231,7 +231,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -248,7 +248,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -271,7 +271,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -298,13 +298,13 @@ namespace Dbnd.Api.Controllers
                 {
                     await _repository.UpdateGameAsync(gameId, game);
                     var returnGame = await _repository.GetGameByIDAsync(gameId);
-                    return AcceptedAtAction("Get", "Client", null, returnGame);
+                    return Ok();
                 }
                 else return BadRequest("Character already exists in game.");
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -324,11 +324,11 @@ namespace Dbnd.Api.Controllers
 
                 await _repository.UpdateGameAsync(gameId, changedGame);
                 var returnGame = await _repository.GetGameByIDAsync(gameId);
-                return AcceptedAtAction("Get", "Client", null, returnGame);
+                return Ok();
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -350,7 +350,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         #endregion
@@ -376,7 +376,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -399,7 +399,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -422,7 +422,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -443,11 +443,11 @@ namespace Dbnd.Api.Controllers
 
                 await _repository.UpdateOverviewByIDAsync(overviewId, changedOverview);
                 var returnOverview = await _repository.GetOverviewByIDAsync(overviewId);
-                return AcceptedAtAction("Get", "Client", null, returnOverview);
+                return Ok();
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
 
@@ -471,7 +471,7 @@ namespace Dbnd.Api.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
         #endregion

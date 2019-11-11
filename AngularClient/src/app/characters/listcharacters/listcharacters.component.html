@@ -1,58 +1,38 @@
 
+<div class="class cat-background">
+    <div class="main-padding">
+        <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+        <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+    </div>
 
-    <div class="class cat-background">
-        <div class="main-padding">
-            <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
-            <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
-        </div>
+    <!--<input type="image" (click)="onClickHandler(character.characterID)" class="icon-submit-use" src="../../../assets/images/location_t.png" placement="left" ngbTooltip="Use Character in Game" tooltipClass="table-character-right" />
+    <input type="image" (click)="onClickEditHandler('5561212testid', 'edit')" class="icon-submit-use" src="../../../assets/images/gear_t.png" placement="left" ngbTooltip="Edit Character" tooltipClass="table-character-right" />-->
+                
 
-        <!--<input type="image" (click)="onClickHandler(character.characterID)" class="icon-submit-use" src="../../../assets/images/location_t.png" placement="left" ngbTooltip="Use Character in Game" tooltipClass="table-character-right" />
-        <input type="image" (click)="onClickEditHandler('5561212testid', 'edit')" class="icon-submit-use" src="../../../assets/images/gear_t.png" placement="left" ngbTooltip="Edit Character" tooltipClass="table-character-right" />-->
-                   
+  <div class="form-title">Character List</div>
 
-      <div class="form-title">Character List</div>
-
-        <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
-        <table class="table table-striped table-hover" *ngIf="!showSpinner">
-          <tbody>
-            <tr *ngFor="let character of characterService.characters$ | async">
-              <td class="col-4">
-                <p> {{character.firstName}} {{character.lastName}}</p>
-              </td>
-              <td class="col-3">
-                  <input type="image" (click)="onClickTableHandler(character.CharacterID)" class="icon-submit-use" src="../../../assets/images/location_t.png" placement="left" ngbTooltip="Use Character in Game" tooltipClass="table-character-right" />
-              </td>
-              <td class="col-3">
-                  <input type="image" (click)="onClickEditHandler(character.CharacterID, 'edit')" class="icon-submit-use" src="../../../assets/images/gear_t.png" placement="left" ngbTooltip="Edit Character" tooltipClass="table-character-right" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- <div class="d-flex justify-content-between p-2">
-          <ngb-pagination
-            [collectionSize]="20"
-            [(page)]="page"
-            [pageSize]="pageSize"
-          >
-          </ngb-pagination>
-
-          <select
-            class="custom-select"
-            style="width: auto"
-            [(ngModel)]="pageSize"
-          >
-            <option [ngValue]="2">2 items per page</option>
-            <option [ngValue]="4">4 items per page</option>
-            <option [ngValue]="6">6 items per page</option>
-          </select>
-          </div> -->
-
-
-
-        <div class="main-padding">
-            <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
-            <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
-        </div>
-      </div>
+    <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
+    <table class="table table-striped table-hover" *ngIf="!showSpinner">
+      <tbody>
+        <tr *ngFor="let character of characterService.characters$ | async">
+          <td class="col-4">
+            <p> {{character.firstName}} {{character.lastName}}</p>
+          </td>
+          <td class="col-3">
+              <input type="image" (click)="onClickTableHandler(character.characterID)" class="icon-submit-use" src="../../../assets/images/location_t.png" placement="left" ngbTooltip="Use Character in Game" tooltipClass="table-character-right" />
+          </td>
+          <td class="col-3">
+              <input type="image" (click)="onClickEditHandler(character.characterID)" class="icon-submit-use" src="../../../assets/images/gear_t.png" placement="left" ngbTooltip="Edit Character" tooltipClass="table-character-right" />
+          </td>
+          <td class="col-3">
+              <input type="image" (click)="onClickDelete(character.characterID)" class="icon-submit-use" src="../../../assets/images/exit_t.png" placement="left" ngbTooltip="Edit Character" tooltipClass="table-character-right" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="main-padding">
+        <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+        <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+    </div>
+  </div>
 

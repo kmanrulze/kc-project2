@@ -32,8 +32,8 @@ export class CharacterService {
     this.formSource.next(form)
   } */
 
-  constructor(private dbnd: DbndService, private auth: AuthService) {
-    this.updateCharacters();
+  constructor (private dbnd: DbndService, private auth: AuthService) { 
+    this.updateCharacters().then();
   }
 
   private _characters: BehaviorSubject<Character[]> = new BehaviorSubject([]);
@@ -41,7 +41,8 @@ export class CharacterService {
 
   public async updateCharacters() {
     this.dbnd.getUserCharacters$(await this.auth.getClientId()).subscribe( res => {
-      this._characters.next(res as Character[]);
+      console.log(res);
+      this._characters.next(res);
     });
   }
 }
