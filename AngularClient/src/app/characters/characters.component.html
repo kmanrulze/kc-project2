@@ -4,28 +4,39 @@
 
 <div *ngIf="mode=='gameSelection'" class="container-flex">
     <div class="class row d-flex justify-content-center">
-
         <div class="class col-5 text-center">
-            <app-jointable></app-jointable>
-          </div>
-
+          <app-jointable></app-jointable>
+        </div>
     </div>
 </div>
 
 <div *ngIf="mode=='characterSelection'" class="container-flex">
   <div class="class row d-flex justify-content-center">
 
-      <div class="class col-5 text-center">
-        <app-listcharacters></app-listcharacters>
-      </div>
+    <div class="class col-5 text-center">
+      <app-listcharacters 
+        (newMode)="clickJoinTable($event)" 
+        (newFormModeWithId)="switchMode($event)">
+      </app-listcharacters>
+    </div>
 
     <div *ngIf="form=='new'" class="class col-5 text-center cat-col">
       <app-newform></app-newform>
     </div>
 
     <div *ngIf="form=='edit'" class="class col-5 text-center cat-col">
-      <app-editform></app-editform>
+      <app-editform 
+        (newFormModeWithId)="submitEditAndReset($event)"
+        [character]="editingCharacter"
+        [characterId]="editingCharacterId">
+      </app-editform>
     </div>
 
+    <div *ngIf="form=='delete'" class="class col-5 text-center cat-col">
+      <app-deletecharacter
+        (newFormMode)="submitDelete($event)"
+        [characterId]="editingCharacterId">
+      </app-deletecharacter>
+    </div>
   </div>
 </div>
