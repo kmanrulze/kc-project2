@@ -22,7 +22,7 @@ export class CurrenttablesComponent implements OnInit {
 
   async ngOnInit() {
     this.userService.userId$.subscribe( res => { this.currentClientId = res; });
-    console.log(this.currentClientId)
+    console.log(this.currentClientId);
 
     this.gameService.games$.subscribe( async res => {
       console.log(res);
@@ -31,8 +31,8 @@ export class CurrenttablesComponent implements OnInit {
     });
   }
 
-  onClickPlayGameHandler(gameId: string, clientId: string){
-    console.log(gameId, clientId)
+  onClickPlayGameHandler(gameId: string, clientId: string) {
+    console.log(gameId, clientId);
     this.router.navigate(['playgame', {gameID: gameId, clientID: clientId}]);
   }
 

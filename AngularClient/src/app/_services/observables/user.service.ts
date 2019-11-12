@@ -8,11 +8,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class UserService {
 
-  constructor (private dbnd: DbndService) { 
+  constructor(private dbnd: DbndService) {
     this.updateId().then();
   }
 
-  private _userId: BehaviorSubject<string> = new BehaviorSubject("");
+  private _userId: BehaviorSubject<string> = new BehaviorSubject('');
   public readonly userId$: Observable<string> = this._userId.asObservable();
 
   public async updateId() {

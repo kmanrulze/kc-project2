@@ -18,14 +18,14 @@ export class EditFormComponent implements OnInit {
   @Output() newFormMode = new EventEmitter<string>();
 
   userId: string;
-  
+
   constructor(public dbnd: DbndService, public user: UserService, private characterService: CharacterService) {
     this.user.userId$.subscribe( id => this.userId = id );
   }
 
   ngOnInit() { }
 
-  async onEditSubmit(Character: NgForm){
+  async onEditSubmit(Character: NgForm) {
     this.dbnd.updateCharacter$( this.userId, this.characterId, this.character ).subscribe( async res => {
       Character.reset();
       this.newFormMode.emit('new');

@@ -10,7 +10,7 @@ import { UserService } from './user.service';
 })
 export class CharacterService {
 
-  constructor (private dbnd: DbndService, private user: UserService) { 
+  constructor(private dbnd: DbndService, private user: UserService) {
     this.updateCharacters().then();
   }
 

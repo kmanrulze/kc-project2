@@ -12,7 +12,7 @@ export class GameService {
 
   userId: string;
 
-  constructor (private dbnd: DbndService, private user: UserService) {
+  constructor(private dbnd: DbndService, private user: UserService) {
     user.userId$.subscribe( id => {
       this.userId = id;
       this.updateGames();

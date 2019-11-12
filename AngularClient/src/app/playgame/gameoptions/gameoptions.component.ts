@@ -29,7 +29,7 @@ export class GameoptionsComponent implements OnInit {
   constructor(public auth: AuthService, public dbnd: DbndService, public router: Router, public userService: UserService) { }
 
   async ngOnInit() {
-    console.log("currentgameid " + this.currentGameID);
+    console.log('currentgameid ' + this.currentGameID);
     }
 
     async onAddCharacterSubmit(AddCharacterForm: NgForm) {
@@ -40,7 +40,7 @@ export class GameoptionsComponent implements OnInit {
         console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
         AddCharacterForm.resetForm();
-        //this.characterService.updateCharacters();
+        // this.characterService.updateCharacters();
       });
     }
 
@@ -51,22 +51,22 @@ export class GameoptionsComponent implements OnInit {
         console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
         DeleteTableForm.resetForm();
-        this.router.navigate(['profile'])
-        //this.characterService.updateCharacters();
+        this.router.navigate(['profile']);
+        // this.characterService.updateCharacters();
       });
       }
 
     async onChangeTableSubmit(ChangeTableForm: NgForm) {
 
-      let game: Game = new Game(ChangeTableForm.value.TableName, this.currentClientID);
+      const game: Game = new Game(ChangeTableForm.value.TableName, this.currentClientID);
       console.log(game);
 
       this.dbnd.updateGame$(this.currentClientID, this.currentGameID, game)
         .subscribe(createRes => {
               console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
-        ChangeTableForm.resetForm();
-        //this.characterService.updateCharacters();
+              ChangeTableForm.resetForm();
+        // this.characterService.updateCharacters();
       });
     }
 }

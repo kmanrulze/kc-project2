@@ -17,8 +17,8 @@ export class DeletecharacterComponent implements OnInit {
   @Output() newFormMode = new EventEmitter<string>();
 
   userId: string;
-  
-  constructor(public dbnd: DbndService, public user: UserService, private characterService: CharacterService) { 
+
+  constructor(public dbnd: DbndService, public user: UserService, private characterService: CharacterService) {
     user.userId$.subscribe( id => this.userId = id );
   }
 
@@ -26,7 +26,7 @@ export class DeletecharacterComponent implements OnInit {
 
   async onSubmitDelete() {
     await this.dbnd.deleteCharacter$( this.userId, this.characterId ).subscribe( async res => {
-      this.newFormMode.emit("new");
+      this.newFormMode.emit('new');
     });
   }
 }

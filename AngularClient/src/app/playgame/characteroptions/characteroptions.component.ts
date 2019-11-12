@@ -27,7 +27,7 @@ export class CharacteroptionsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    console.log("current game info - ", this.currentGameInfo)
+    console.log('current game info - ', this.currentGameInfo);
     /*this.dbnd.getUser$(this.userId)
        .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
                                       this.showSpinner = false;

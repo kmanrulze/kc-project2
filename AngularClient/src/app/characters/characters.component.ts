@@ -32,8 +32,8 @@ export class CharactersComponent implements OnInit {
     this.user.userId$.subscribe( id => this.userId = id );
   }
 
-  ngOnInit() { 
-    
+  ngOnInit() {
+
   }
 
   async switchMode(emission: any) {

@@ -24,7 +24,7 @@ export class NewtableComponent implements OnInit {
     console.log(GameForm.value);
 
     this.user.userId$.subscribe( id => this.userId = id );
-    let game: Game = new Game(GameForm.value.GameName, this.userId);
+    const game: Game = new Game(GameForm.value.GameName, this.userId);
     console.log(game);
 
     this.dbnd.createGame$(this.userId, game).subscribe(createRes => {
