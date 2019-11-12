@@ -23,7 +23,7 @@
 
     <app-gamedescription *ngIf="mode=='description'"></app-gamedescription>
     <app-characteroptions [currentGameInfo]="currentGameInfo" [currentClientID]="currentClientID" [currentGameID]="currentGameID" *ngIf="mode=='characters'"></app-characteroptions>
-    <app-overviewoptions [currentGameInfo]="currentGameInfo" [currentClientID]="currentClientID" [currentGameID]="currentGameID" *ngIf="mode=='overviews'"></app-overviewoptions>
+    <app-overviewoptions [currentClientID]="currentClientID" [currentGameID]="currentGameID" *ngIf="mode=='overviews'"></app-overviewoptions>
     <app-gameoptions [currentGameInfo]="currentGameInfo" [currentClientID]="currentClientID" [currentGameID]="currentGameID" *ngIf="mode=='gameoptions'"></app-gameoptions>
 
 </div>

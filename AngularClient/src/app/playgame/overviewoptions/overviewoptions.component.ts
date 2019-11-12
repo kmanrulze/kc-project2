@@ -17,10 +17,8 @@ export class OverviewoptionsComponent implements OnInit {
   overviews: any = [];
   userId: string;
 
-  @Input() currentGameInfo: any;
-  @Input() currentClientID: string;
   @Input() currentGameID: string;
-  @Input() targetCharacterID: string;
+  @Input() currentClientID: string;
   
   constructor(public dbnd: DbndService, public user: UserService) {
     this.user.userId$.subscribe( id => this.userId = id );
@@ -34,8 +32,9 @@ export class OverviewoptionsComponent implements OnInit {
     
     async populateOverviews() {
       this.dbnd.getGameOverviews$(this.currentClientID, this.currentGameID).subscribe( res => {
-        console.log("THIS IS THE LOG: " + res);
+        console.log(res);
         this.overviews = res;
+        this.showSpinner = false;
       });
     }
 

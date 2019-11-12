@@ -20,10 +20,9 @@ export class CurrenttablesComponent implements OnInit {
   games: any = [];
   constructor( public gameService: GameService, public auth: AuthService, private router: Router, public userService: UserService ) { }
 
-  async ngOnInit() {
-    this.userService.userId$.subscribe( async res => { this.currentId = res; });
-    this.getGames();
-    
+  ngOnInit() {
+    this.userService.userId$.subscribe( res => { this.currentId = res; });
+    this.getGames();   
   }
   getGames() {
     this.gameService.games$.subscribe( async res => {

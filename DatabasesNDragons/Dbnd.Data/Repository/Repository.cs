@@ -105,7 +105,7 @@ namespace Dbnd.Data.Repository
         {
             try
             {
-                return Mapper.MapClient(await _context.Client.Include(c => c.Characters).Include(c => c.Games).FirstOrDefaultAsync(c => c.ClientID == clientID));
+                return Mapper.MapClient(await _context.Client.FirstOrDefaultAsync(c => c.ClientID == clientID));
             }
             catch (Exception e)
             {
