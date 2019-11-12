@@ -16,8 +16,9 @@ export class OverviewService {
   private _overviews: BehaviorSubject<Game[]> = new BehaviorSubject([]);
   public readonly overviews$: Observable<Game[]> = this._overviews.asObservable();
 
-  updateOverviews() {
-
+  public async updateOverviews() {
+    this.dbnd.getGameOverviews$(await this.auth.getClientId(), 'gameId')
+    .subscribe( res => {this._overviews.next(res as Overview[])});
   }
 
 }
