@@ -16,8 +16,13 @@ export class CharacteroptionsComponent implements OnInit {
   showSpinner = true;
   characterSelected = false;
   userId: string;
-  
-  constructor(public dbnd: DbndService, public user: UserService) { 
+
+  @Input() currentGameInfo: any;
+  @Input() currentClientID: string;
+  @Input() currentGameID: string;
+  @Input() targetCharacterID: string;
+
+  constructor(public dbnd: DbndService, public user: UserService) {
     this.user.userId$.subscribe( id => this.userId = id );
   }
 

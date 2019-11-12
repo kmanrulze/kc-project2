@@ -19,7 +19,7 @@ export class PlaygameComponent implements OnInit {
   currentClientID = '';
   currentGameInfo: any = [];
   targetCharacterID = '';
-  
+
   constructor(public auth: AuthService, public dbnd: DbndService, private route: ActivatedRoute) { }
 
   async ngOnInit() {
@@ -31,19 +31,11 @@ export class PlaygameComponent implements OnInit {
     console.log("ClientID - " + this.currentClientID);
 
     this.dbnd.getGame$(this.currentClientID, this.currentGameID)
-                            .subscribe( res  => { 
+                            .subscribe( res  => {
                               this.currentGameInfo = res;
                               console.log(this.currentGameInfo)
                             });
 
     console.log(this.currentGameInfo)
-
-    this.dbnd.getUser$(await this.auth.getClientId())
-      .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
-                                      this.showSpinner = false;
-      }); */
-    }
-
-
-
+}
 }

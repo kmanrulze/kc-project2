@@ -17,15 +17,10 @@ export class CurrenttablesComponent implements OnInit {
   dbndProfText = '';
   showSpinner = true;
   currentId: string;
-  constructor( public gameService: GameService, public auth: AuthService, private router: Router ) { 
-
-
-  }
+  constructor( public gameService: GameService, public auth: AuthService, private router: Router, public userService: UserService ) { }
 
   async ngOnInit() {
-    
-    await this.auth.getClientId().then( res => this.currentId = res);
-    console.log(this.currentId)
+    this.userService.userId$.subscribe( async res => { this.currentId = res; });
 
     this.gameService.games$.subscribe( async res => {
       console.log(res);
