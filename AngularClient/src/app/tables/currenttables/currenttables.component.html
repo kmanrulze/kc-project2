@@ -11,14 +11,17 @@
   <table class="table table-striped table-hover" *ngIf="!showSpinner">
     <tbody>
       <tr *ngFor="let game of gameService.games$ | async">
-        <th *ngIf="game.clientId === this.currentId" scope="row">
+        <th *ngIf="game.ClientId === this.currentId" scope="row">
           <input type="image" class="icon-submit-playertype" src="../../../assets/images/helmet_t.png" placement="right" ngbTooltip="You are the Dungeon Master at this table." tooltipClass="table-character-left" />
         </th>
-        <th *ngIf="game.clientId !== this.currentId" scope="row">
+        <th *ngIf="game.ClientId !== this.currentId" scope="row">
             <input type="image" class="icon-submit-playertype" src="../../../assets/images/scarecrow_t.png"  placement="right" ngbTooltip="You are a player at this table." tooltipClass="table-character-left" />
           </th>
         <td class="col-4">
-          <p> {{game.gameName}}</p>
+          <p> {{game.GameName}}</p>
+          <p> {{game.ClientID}} </p>
+          <p> {{game.GameID}}</p>
+
         </td>
         <td class="col-1">
             <input type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" placement="left" ngbTooltip="Play Game" tooltipClass="table-character-right" />
