@@ -7,28 +7,40 @@ namespace Dbnd.Logic.Interfaces
 {
     public interface IRepository
     {
-        Task<Logic.Objects.Client> GetClientByIDAsync(Guid ClientID);
-        Task CreateClientAsync(string userName, string email);
-        Task UpdateClientByIDAsync(Guid targetClientID, Client changedClient);
-        Task DeleteClientByIDAsync(Guid ClientID);
-        Task<IEnumerable<Logic.Objects.Character>> GetCharactersAsync();
-        Task<Character> GetCharacterByCharacterIDAsync(Guid CharacterID);
-        Task CreateCharacterAsync(Guid clientID, string firstName, string lastName);
-        Task UpdateCharacterByIDAsync(Guid targetCharacterID, Character changedCharacter);
-        Task DeleteCharacterByIDAsync(Guid CharacterID);
-        Task<DungeonMaster> GetDMByDungeonMasterIDAsync(Guid DungeonMasterID);
-        Task<DungeonMaster> GetDMByClientIDAsync(Guid ClientID);
-        Task CreateDungeonMasterAsync(Guid clientID);
-        Task DeleteDungeonMasterByIDAsync(Guid DungeonMasterID);
-        Task<Game> GetGameByGameIDAsync(Guid GameID);
-        Task<List<Character>> GetAllCharactersInGameByGameIDAsync(Guid gameID);
-        Task UpdateGameAsync(Guid targetGameID, Game changedGame);
-        Task AddEntryToCharacterGameXRef(Guid gameID, Guid characterID);
-        Task<IEnumerable<Logic.Objects.Client>> GetClientsAsync();
-        Task CreateGameAsync(Guid DungeonMasterID, string GameName);
-        Task<List<Game>> GetGamesByDungeonMasterIDAsync(Guid DungeonMasterID);
-        Task<IEnumerable<Logic.Objects.Game>> GetGamesAsync();
-        Task DeleteGameByIDAsync(Guid GameID);
-        Task RemoveEntryToCharacterGameXRefAsync(Guid gameID, Guid characterID);
+        #region Client
+        Task<Client> CreateClientAsync(string userName, string email);
+        // Task<IEnumerable<Logic.Objects.Client>> GetClientsAsync(); // 'get everything'-type functions are not scalable and have no practical use and are therefore bad
+        Task<Logic.Objects.Client> GetClientByIDAsync(Guid clientID);
+        Task<Logic.Objects.Client> GetClientByEmailAsync(string email);
+        Task<List<Game>> GetGamesByClientIDAsync(Guid clientID);
+        Task<bool> UpdateClientByIDAsync(Guid targetClientID, Client changedClient);
+        Task<bool> DeleteClientByIDAsync(Guid clientID);
+        #endregion
+
+        #region Character
+        Task<Character> CreateCharacterAsync(Guid clientID, string firstName, string lastName);
+        Task<IEnumerable<Logic.Objects.Character>> GetClientCharactersAsync(Guid clientId);
+        Task<Character> GetCharacterByIDAsync(Guid characterID);
+        Task<bool> UpdateCharacterByIDAsync(Guid targetCharacterID, Character changedCharacter);
+        Task<bool> DeleteCharacterByIDAsync(Guid characterID);
+        #endregion
+
+        #region Game
+        Task<Game> CreateGameAsync(Guid clientID, string gameName);
+        Task<Game> GetGameByIDAsync(Guid gameID);
+        // Task<IEnumerable<Logic.Objects.Game>> GetGamesAsync(); // 'get everything'-type functions are not scalable and have no practical use and are therefore bad
+        // Task<List<Character>> GetAllCharactersInGameByGameIDAsync(Guid gameID); // Flagged for removal - games should now have lists of associated characters in them
+        Task<bool> UpdateGameAsync(Guid targetGameID, Game changedGame);
+        // Task AddEntryToCharacterGameXRef(Guid gameID, Guid characterID);  // Flagged for removal/renaming
+        Task<bool> DeleteGameByIDAsync(Guid gameID);
+        // Task RemoveEntryToCharacterGameXRefAsync(Guid gameID, Guid characterID); // Flagged for removal/renaming
+        #endregion
+
+        #region Overview
+        Task<Overview> CreateOverviewAsync(Guid gameID, string name, string content);
+        Task<Overview> GetOverviewByIDAsync(Guid overviewID);
+        Task<bool> UpdateOverviewByIDAsync(Guid targetOverviewID, Overview changedOverview);
+        Task<bool> DeleteOverviewByIDAsync(Guid overviewID);
+        #endregion
     }
 }

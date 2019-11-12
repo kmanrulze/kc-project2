@@ -4,6 +4,9 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+
+import { DbndService } from '../dbnd/dbnd.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +15,16 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
-      domain: "dbnd.auth0.com",
-      client_id: "7cgrbDfEj2bunK7qBIVtKotF89U0g5eh",
+      domain: 'dbnd.auth0.com',
+      client_id: '7cgrbDfEj2bunK7qBIVtKotF89U0g5eh',
       redirect_uri: `${window.location.origin}`,
-      audience: "/dbnd"
+      audience: '/dbnd'
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
     catchError(err => throwError(err))
   );
+
   // Define observables for SDK methods that return promises by default
   // For each Auth0 SDK method, first ensure the client instance is ready
   // concatMap: Using the client instance, call SDK method; SDK returns a promise
@@ -38,7 +42,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dbnd: DbndService) { }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -66,7 +70,7 @@ export class AuthService {
     checkAuth$.subscribe();
   }
 
-  logIn(redirectPath: string = '/') {
+  logIn(redirectPath: string = '/profile') {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists
@@ -88,7 +92,7 @@ export class AuthService {
         // Have client, now call method to handle auth callback redirect
         tap(cbRes => {
           // Get and set target redirect route from callback results
-          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
+          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/profile';
         }),
         concatMap(() => {
           // Redirect callback complete; get user and login status
@@ -98,6 +102,7 @@ export class AuthService {
           ]);
         })
       );
+
       // Subscribe to authentication completion observable
       // Response will be an array of user and login status
       authComplete$.subscribe(([user, loggedIn]) => {
@@ -118,7 +123,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: "7cgrbDfEj2bunK7qBIVtKotF89U0g5eh",
+        client_id: '7cgrbDfEj2bunK7qBIVtKotF89U0g5eh',
         returnTo: `${window.location.origin}`
       });
     });

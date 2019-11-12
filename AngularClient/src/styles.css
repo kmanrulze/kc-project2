@@ -1,22 +1,184 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
-
+@import url('https://fonts.googleapis.com/css?family=MedievalSharp|Quicksand&display=swap');
 :root {
-    --bgColor: rgb(218, 253, 255);
+    --bgColor: #80827f;
     --frontColor: azure;
     --lineColor: white;
+    --dnred: #944444;
+    --dngreen: #91c36a;
+    --dnsalmon: #c37b7b;
+    --dngrey: #80827f;
+    --dnbrown: #786b62;
+    --dnonyx: #353839;
+    --dnfancy: MedievalSharp;
+    --dnnormal: Quicksand;
+}
+
+html {
+  overflow-y: scroll;
 }
 
 header {
-    margin: 2px 5px;
+    margin: 0px;
     background-color: var(--frontColor);
 }
 
 body {
     background-color: var(--bgColor);
+    height: 100vh;
 }
 
-.logo {
-  width: 75px;
-  height: auto;
+
+.body-splash-container {
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100vh;
 }
+
+.body-wash{
+  z-index: -2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left:0;
+  background-image: radial-gradient(var(--dngrey),var(--dnonyx));
+  opacity: .5;
+}
+
+.body-img {
+  z-index: -3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left:0;
+  background: center / 45% no-repeat url("./assets/images/chest_t.png");
+  filter: grayscale(70%) blur(3px);
+}
+
+#main-app {
+  width: 100vw;
+  height:100vh;
+}
+
+.cat-heading {
+  font-family: Quicksand;
+  font-weight: bold;
+  color : var(--dnonyx);
+  font-size: 38px;
+
+  border-bottom: 3px solid var(--dnred);
+  margin-bottom: 15px;
+
+  background-color: var(--dnbrown)
+}
+
+/* site list sytles */
+
+.table-character-right .tooltip-inner, .table-character-left .tooltip-inner {
+  background-color: var(--dngreen);
+  font-size: 125%;
+}
+
+.table-character-left .arrow::before {
+  border-right-color: var(--dngreen);
+}
+
+.table-character-right .arrow::before {
+  border-left-color: var(--dngreen);
+}
+
+/* site form styles */
+
+form{
+  font-family: var(--dnnormal);
+  color: white !important;
+}
+
+.form-title{
+  font-family: var(--dnnormal);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow:
+  -1px -1px 0 var(--dnonyx),
+  1px -1px 0 var(--dnonyx),
+  -1px 1px 0 var(--dnonyx),
+  1px 1px 0 var(--dnonyx);
+}
+
+.icon-submit-container{
+  position: relative;
+  text-align: center;
+}
+
+.icon-submit-front {
+    font-weight: bold;
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow:
+      -1px -1px 0 var(--dnonyx),
+      1px -1px 0 var(--dnonyx),
+      -1px 1px 0 var(--dnonyx),
+      1px 1px 0 var(--dnonyx);
+}
+
+.icon-submit{
+  width: 75px;
+}
+
+.icon-submit:focus {
+  outline: none;
+}
+
+.icon-submit:hover {
+  background-image : radial-gradient(ellipse, var(--dngreen), transparent 70%)
+}
+
+.cat-background{
+  padding: 5px;
+  border: 1px solid var(--dnred);
+  background-color: rgba(53,56,57, .9);
+}
+
+
+.main-padding {
+  display:flex;
+  flex-direction: row;
+  width:100%;
+}
+
+.main-tack {
+  font-size: 24px;
+  color: var(--dnred);
+  flex-grow: 1;
+}
+
+.right{
+  padding-right: 5px;
+  text-align: right;
+  align-content: right;
+}
+
+.left{
+  padding-left: 5px;
+  text-align: left;
+  align-content: left;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

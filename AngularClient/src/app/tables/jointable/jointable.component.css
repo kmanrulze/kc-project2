@@ -1,0 +1,8 @@
+.join-message {
+    text-shadow:
+    -1px -1px 0 var(--dnonyx),
+    1px -1px 0 var(--dnonyx),
+    -1px 1px 0 var(--dnonyx),
+    1px 1px 0 var(--dnonyx);
+    color:white;
+}

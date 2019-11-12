@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Dbnd.Logic.Objects
@@ -12,9 +13,11 @@ namespace Dbnd.Logic.Objects
         // . and _ can not be leading or trailing
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        // Games character is in
+        public List<Game> Games { get; set; }
         public Character(Guid clientID, string firstName, string lastName)
         {
+            CharacterID = Guid.NewGuid();
             ClientID = clientID;
             FirstName = firstName;
             LastName = lastName;

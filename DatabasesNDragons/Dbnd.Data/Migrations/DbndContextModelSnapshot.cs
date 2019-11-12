@@ -33,6 +33,9 @@ namespace Dbnd.Data.Migrations
                         .HasColumnType("character varying(75)")
                         .HasMaxLength(75);
 
+                    b.Property<Guid?>("GameID")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("character varying(75)")
@@ -41,6 +44,8 @@ namespace Dbnd.Data.Migrations
                     b.HasKey("CharacterID");
 
                     b.HasIndex("ClientID");
+
+                    b.HasIndex("GameID");
 
                     b.ToTable("Character");
                 });
@@ -78,23 +83,11 @@ namespace Dbnd.Data.Migrations
 
                     b.HasKey("ClientID");
 
+                    b.HasAlternateKey("Email");
+
+                    b.HasAlternateKey("UserName");
+
                     b.ToTable("Client");
-                });
-
-            modelBuilder.Entity("Dbnd.Data.Entities.DungeonMaster", b =>
-                {
-                    b.Property<Guid>("DungeonMasterID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ClientID")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("DungeonMasterID");
-
-                    b.HasIndex("ClientID");
-
-                    b.ToTable("DungeonMaster");
                 });
 
             modelBuilder.Entity("Dbnd.Data.Entities.Game", b =>
@@ -103,7 +96,10 @@ namespace Dbnd.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("DungeonMasterID")
+                    b.Property<Guid?>("CharacterID")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ClientID")
                         .HasColumnType("uuid");
 
                     b.Property<string>("GameName")
@@ -113,18 +109,61 @@ namespace Dbnd.Data.Migrations
 
                     b.HasKey("GameID");
 
-                    b.HasIndex("DungeonMasterID");
+                    b.HasAlternateKey("GameName");
+
+                    b.HasIndex("CharacterID");
+
+                    b.HasIndex("ClientID");
 
                     b.ToTable("Game");
+                });
+
+            modelBuilder.Entity("Dbnd.Data.Entities.Overview", b =>
+                {
+                    b.Property<Guid>("OverviewID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("OverviewTypeTypeID")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TypeID")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("OverviewID");
+
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("OverviewTypeTypeID");
+
+                    b.ToTable("Overview");
+                });
+
+            modelBuilder.Entity("Dbnd.Data.Entities.OverviewType", b =>
+                {
+                    b.Property<Guid>("TypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("TypeID");
+
+                    b.ToTable("OverviewType");
                 });
 
             modelBuilder.Entity("Dbnd.Data.Entities.Character", b =>
                 {
                     b.HasOne("Dbnd.Data.Entities.Client", "Client")
-                        .WithMany()
+                        .WithMany("Characters")
                         .HasForeignKey("ClientID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Dbnd.Data.Entities.Game", null)
+                        .WithMany("Characters")
+                        .HasForeignKey("GameID");
                 });
 
             modelBuilder.Entity("Dbnd.Data.Entities.CharacterGameXRef", b =>
@@ -142,22 +181,30 @@ namespace Dbnd.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dbnd.Data.Entities.DungeonMaster", b =>
+            modelBuilder.Entity("Dbnd.Data.Entities.Game", b =>
                 {
+                    b.HasOne("Dbnd.Data.Entities.Character", null)
+                        .WithMany("Games")
+                        .HasForeignKey("CharacterID");
+
                     b.HasOne("Dbnd.Data.Entities.Client", "Client")
-                        .WithMany()
+                        .WithMany("Games")
                         .HasForeignKey("ClientID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dbnd.Data.Entities.Game", b =>
+            modelBuilder.Entity("Dbnd.Data.Entities.Overview", b =>
                 {
-                    b.HasOne("Dbnd.Data.Entities.DungeonMaster", "DungeonMaster")
-                        .WithMany()
-                        .HasForeignKey("DungeonMasterID")
+                    b.HasOne("Dbnd.Data.Entities.Game", "Game")
+                        .WithMany("Overviews")
+                        .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Dbnd.Data.Entities.OverviewType", "OverviewType")
+                        .WithMany()
+                        .HasForeignKey("OverviewTypeTypeID");
                 });
 #pragma warning restore 612, 618
         }

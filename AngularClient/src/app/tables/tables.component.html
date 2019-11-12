@@ -1,1 +1,76 @@
-<p>tables works!</p>
+<div class="container-flex text-center cat-heading">
+  Tables
+</div>
+
+<div *ngIf="mode=='gameSelection'" class="container-flex">
+  <div class="class row d-flex justify-content-center">
+
+      <div class="class col-7 text-center">
+        <app-currenttables></app-currenttables>
+      </div>
+
+    <div *ngIf="form=='new'" class="class col-4 text-center cat-col">
+      <app-newtable></app-newtable>
+    </div>
+
+    <div *ngIf="form=='edit'" class="class col-4 text-center cat-col">
+      <app-edittable></app-edittable>
+    </div>
+
+  </div>
+
+  <!-- <ng-template #createTable let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Create Table</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="tableName">Table Name</label>
+                <div class="input-group">
+                <input id="tableName" type="text" placeholder="Table name...">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
+
+<ng-template #joinTable let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Create Table</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="tableName">Table GUID</label>
+                <div class="input-group">
+                <input id="joinTableId" type="text" placeholder="Table GUID...">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
+
+<div>
+    <div class="input-group">
+        <button class="nav" (click)="openCreate(createTable)">Create New Table</button>
+        <button class="nav" (click)="openJoin(joinTable)">Join Existing Table</button>
+    </div>
+
+    <br>
+    <div>
+        <h2>Your Tables:</h2>
+    </div>
+</div> -->

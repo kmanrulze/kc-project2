@@ -13,11 +13,14 @@ namespace Dbnd.Logic.Objects
         public string UserName { get; set; }
         public string Email { get; set; }
         public Guid ClientID { get; set; }
+        // Owned Characters
         public List<Character> Characters { get; set; } = new List<Character>();
+        // Owned Games
+        public List<Game> Games { get; set; } = new List<Game>();
 
-        //Might need to add >Guid clientID< to constructor? See Character logic class
         public Client(string userName, string email)
         {
+            ClientID = Guid.NewGuid();
             UserName = userName;
             Email = email;
         }

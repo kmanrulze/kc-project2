@@ -1,0 +1,73 @@
+<div class="container-flex d-flex">
+
+        <div class="cat-background col-6">
+            <div class="form-title">Overview List</div>
+                <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
+                <table class="table table-striped table-hover" *ngIf="!showSpinner">
+                    <tbody>
+                        <tr *ngFor="let o of overviews">
+                          <td class="col-4">
+                              <!-- {{dbndProfText}} -->
+                              <p>GameId: {{o.gameId}}</p>
+                              <p>OverviewId: {{o.overviewId}}</p>
+                          </td>
+                          <td class="col-2">
+                              <input type="image" (click)="overviewSelected=true" class="icon-submit-use" src="../../../assets/images/target_t.png" placement="left" ngbTooltip="Select this overview." tooltipClass="table-character-right" />
+                          </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- <div class="d-flex justify-content-between p-2">
+                  <ngb-pagination
+                    [collectionSize]="20"
+                    [(page)]="page"
+                    [pageSize]="pageSize"
+                  >
+                  </ngb-pagination>
+
+                  <select
+                    class="custom-select"
+                    style="width: auto"
+                    [(ngModel)]="pageSize"
+                  >
+                    <option [ngValue]="2">2 items per page</option>
+                    <option [ngValue]="4">4 items per page</option>
+                    <option [ngValue]="6">6 items per page</option>
+                  </select>
+                  </div> -->
+
+            </div>
+            <div *ngIf="overviewSelected" class="character-description col-6">
+                <div class="cat-background">
+                    <div class="form-title">
+                        OVERVIEW NAME GOES HERE
+                    </div>
+                    <div>
+                        Overview Description goes here.
+                        <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!overviewSelected" class="character-description col-6">
+                    <div class="cat-background">
+                        <div class="form-title text-center">
+                            New Overview
+                        </div>
+                        <div>
+                                <form>
+                                        <div class="form-group text-center">
+                                          <label for="exampleInputLastName">Overview Name</label>
+                                          <input type="text" class="form-control" id="Name" name="Name" placeholder="New Overviews Name" required>
+                                          <small id="nameHelp" class="form-text text-muted valid-feedback">3-20 alphanumeric characters.</small>
+                                          <small class="invalid-feedback"> Sorry, but you can only use 3-20 alphanumeric characters.</small>
+                                        </div>
+                                        <div class="text-center container-fluid icon-submit-container">
+                                            <div class="icon-submit-back"><input ngSubmit type="image" class="icon-submit" src="../../../assets/images/feathers_t.png" alt="Submit" /></div>
+                                            <div class="icon-submit-front">Submit</div>
+
+                                        </div>
+                                      </form>
+                        </div>
+                    </div>
+                </div>
