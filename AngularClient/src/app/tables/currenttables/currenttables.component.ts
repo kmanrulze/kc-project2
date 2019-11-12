@@ -22,6 +22,7 @@ export class CurrenttablesComponent implements OnInit {
 
   async ngOnInit() {
     this.userService.userId$.subscribe( async res => { this.currentId = res; });
+    this.getGames();
     
   }
   getGames() {
