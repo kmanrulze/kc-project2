@@ -5,20 +5,19 @@
         Change Table Name
       </div>
       <div>
-        <form>
+        <form #ChangeTableForm="ngForm" (ngSubmit)="onChangeTableSubmit(ChangeTableForm)" novalidate>
           <div class="form-group text-center">
-            <label for="exampleInputLastName">Change Table Name</label>
-            <input
+            <label for="TableName">Change Table Name</label>
+            <input ngModel
               type="text"
               class="form-control"
-              id="Name"
-              name="Name"
+              id="TableName"
+              name="TableName"
               placeholder="Table Name"
               required
             />
-            <small id="nameHelp" class="form-text text-muted valid-feedback"
-              >3-20 alphanumeric characters.</small
-            >
+            <small id="ChangeTableNameHelp" class="form-text text-muted valid-feedback"
+              >3-20 alphanumeric characters.</small>
             <small class="invalid-feedback">
               Sorry, but you can only use 3-20 alphanumeric characters.</small
             >
@@ -46,20 +45,20 @@
         Delete Entire Table
       </div>
       <div>
-        <form>
+        <form #DeleteTableForm="ngForm" (ngSubmit)="onDeleteTableSubmit(DeleteTableForm)" novalidate>
           <div class="form-group text-center">
-            <label for="exampleInputLastName"
+            <label for="TableName"
               >Are you sure? Type the table name to continue.</label
             >
             <input
-              type="text"
+              type="text" ngModel
               class="form-control"
-              id="Name"
-              name="Name"
+              id="TableName"
+              name="TableName"
               placeholder="You can not undo this action."
               required
             />
-            <small id="nameHelp" class="form-text text-muted valid-feedback"
+            <small id="DeleteTableNameHelp" class="form-text text-muted valid-feedback"
               >3-20 alphanumeric characters.</small
             >
             <small class="invalid-feedback">
@@ -69,7 +68,7 @@
           <div class="text-center container-fluid icon-submit-container">
             <div class="icon-submit-back">
               <input
-                ngSubmit
+                ngSubmit 
                 type="image"
                 class="icon-submit"
                 src="../../../assets/images/exit_t.png"
@@ -89,16 +88,15 @@
         Add New Character to Table
       </div>
       <div>
-        <form>
+        <form #AddCharacterForm="ngForm" (ngSubmit)="onAddCharacterSubmit(AddCharacterForm)" novalidate>
           <div class="form-group text-center">
-            <label for="exampleInputLastName"
-              >Enter Character Id to add new Character to table.</label
-            >
+            <label for="CharacterID"
+              >Enter Character Id to add new Character to table.</label>
             <input
-              type="text"
+              type="text" ngModel
               class="form-control"
-              id="Name"
-              name="Name"
+              id="CharacterID"
+              name="CharacterID"
               placeholder="Paste Id here."
               required
             />
@@ -111,13 +109,7 @@
           </div>
           <div class="text-center container-fluid icon-submit-container">
             <div class="icon-submit-back">
-              <input
-                ngSubmit
-                type="image"
-                class="icon-submit"
-                src="../../../assets/images/plus_t.png"
-                alt="Submit"
-              />
+              <input ngSubmit type="image" class="icon-submit" src="../../../assets/images/plus_t.png" alt="Submit" />
             </div>
             <div class="icon-submit-front">Add</div>
           </div>

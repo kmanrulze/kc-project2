@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
-import { OverviewService } from 'src/app/_services/observables/overview.service';
+import { UserService } from 'src/app/_services/observables/user.service';
 
 @Component({
   selector: 'app-overviewoptions',
@@ -12,11 +12,12 @@ import { OverviewService } from 'src/app/_services/observables/overview.service'
 export class OverviewoptionsComponent implements OnInit {
   dbndProfText = '';
   showSpinner = true;
-  overviewSelected = false;
-  overviews: any = [];
-
-
-  constructor(public auth: AuthService, public dbnd: DbndService, public overviewService: OverviewService) { }
+  characterSelected = false;
+  userId: string;
+  
+  constructor(public dbnd: DbndService, public user: UserService) {
+    this.user.userId$.subscribe( id => this.userId = id );
+  }
 
   async ngOnInit() {
 
@@ -35,7 +36,7 @@ export class OverviewoptionsComponent implements OnInit {
       this.dbnd.getUser$(await this.auth.getClientId())
       .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
                                       this.showSpinner = false;
-      });
+      }); */
     }
 
 }

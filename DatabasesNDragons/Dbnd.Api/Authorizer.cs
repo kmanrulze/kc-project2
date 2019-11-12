@@ -27,7 +27,8 @@ namespace Dbnd.Api
 
             HttpResponseMessage response = client.SendAsync(request).Result;
 
-            return JsonConvert.DeserializeObject<UserProfile>(await response.Content.ReadAsStringAsync());
+            string content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<UserProfile>(content);
         }
         public async Task<bool> Authorized(IRepository context, string bearerString, string requesterId)
         {

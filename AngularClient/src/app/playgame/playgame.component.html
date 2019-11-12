@@ -1,5 +1,5 @@
 <div class="container-flex text-center cat-heading">
-  Table Name Goes Here
+  {{ currentGameInfo.gameName }}
 </div>
 
 <div class="container-fluid nav-game d-flex flex-row justify-content-center">
@@ -8,7 +8,6 @@
       <a (click)="mode='characters'" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
         Characters
       </a>
-
       <a (click)="mode='overviews'" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
         Overviews
       </a>
@@ -23,8 +22,8 @@
 <div class="container-fluid text-center">
 
     <app-gamedescription *ngIf="mode=='description'"></app-gamedescription>
-    <app-characteroptions *ngIf="mode=='characters'"></app-characteroptions>
+    <app-characteroptions [currentGameInfo]="currentGameInfo" [currentClientID]="currentClientID" [currentGameID]="currentGameID" *ngIf="mode=='characters'"></app-characteroptions>
     <app-overviewoptions *ngIf="mode=='overviews'"></app-overviewoptions>
-    <app-gameoptions *ngIf="mode=='gameoptions'"></app-gameoptions>
+    <app-gameoptions [currentGameInfo]="currentGameInfo" [currentClientID]="currentClientID" [currentGameID]="currentGameID" *ngIf="mode=='gameoptions'"></app-gameoptions>
 
 </div>

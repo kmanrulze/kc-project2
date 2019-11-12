@@ -4,6 +4,7 @@ import { DbndService } from 'src/app/_services/dbnd/dbnd.service';
 import { GameService } from 'src/app/_services/observables/game.service';
 import { NgForm } from '@angular/forms';
 import { Game } from 'src/app/_models/game';
+import { UserService } from 'src/app/_services/observables/user.service';
 
 @Component({
   selector: 'app-newtable',
@@ -12,7 +13,9 @@ import { Game } from 'src/app/_models/game';
 })
 export class NewtableComponent implements OnInit {
 
-  constructor(public auth: AuthService, public dbnd: DbndService, public gameService: GameService) { }
+  userId: string;
+
+  constructor(public user: UserService, public dbnd: DbndService, public gameService: GameService) { }
 
   ngOnInit() {
   }
@@ -20,11 +23,11 @@ export class NewtableComponent implements OnInit {
   async onSubmit(GameForm: NgForm) {
     console.log(GameForm.value);
 
-    const id = await this.auth.getClientId();
-    const game: Game = new Game(GameForm.value.GameName, id);
+    this.user.userId$.subscribe( id => this.userId = id );
+    let game: Game = new Game(GameForm.value.GameName, this.userId);
     console.log(game);
 
-    this.dbnd.createGame$(id, game).subscribe(createRes => {
+    this.dbnd.createGame$(this.userId, game).subscribe(createRes => {
       console.log(createRes);
       // Handle response here: success, failure. Suggest creating alert or third message text idk
       GameForm.resetForm();

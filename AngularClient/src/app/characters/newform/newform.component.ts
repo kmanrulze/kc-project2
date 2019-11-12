@@ -6,6 +6,7 @@ import { Character } from '../../_models/character';
 import { NgForm } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
 import { CharacterService } from 'src/app/_services/observables/character.service';
+import { UserService } from 'src/app/_services/observables/user.service';
 
 
 @Component({
@@ -15,20 +16,24 @@ import { CharacterService } from 'src/app/_services/observables/character.servic
 })
 export class NewFormComponent implements OnInit {
 
-  constructor(public auth: AuthService, public dbnd: DbndService, public characterService: CharacterService) { }
+  constructor(public dbnd: DbndService, private user: UserService, public characterService: CharacterService) { }
 
-  async ngOnInit() { }
+  userId: string;
+
+  ngOnInit() {
+    this.user.userId$.subscribe( id => this.userId = id);
+  }
 
   async onSubmit(CharacterForm: NgForm) {
     console.log(CharacterForm.value);
 
-    const character: Character = new Character();
-    character.ClientID = await this.auth.getClientId();
+    let character: Character = new Character();
+    character.ClientID = this.userId;
     character.FirstName = CharacterForm.value.FirstName;
     character.LastName = CharacterForm.value.LastName;
     console.log(character);
 
-    this.dbnd.createCharacter$(await this.auth.getClientId(), character).subscribe(async createRes => {
+    this.dbnd.createCharacter$( this.userId, character).subscribe(async createRes => {
       console.log(createRes);
       // Handle response here: success, failure. Suggest creating alert or third message text idk
       CharacterForm.resetForm();
