@@ -1,49 +1,41 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from '../_services/auth/auth.service';
-import { DbndService } from '../_services/dbnd/dbnd.service';
-import { Observable } from 'rxjs';
+// import { Component, OnInit, Input } from '@angular/core';
+// import { AuthService } from '../_services/auth/auth.service';
+// import { DbndService } from '../_services/dbnd/dbnd.service';
+// import { Observable } from 'rxjs';
 
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+// import { ActivatedRoute } from '@angular/router';
+// import { switchMap } from 'rxjs/operators';
 
-@Component({
-  selector: 'app-playgame',
-  templateUrl: './playgame.component.html',
-  styleUrls: ['./playgame.component.css']
-})
-export class PlaygameComponent implements OnInit {
-  dbndProfText = '';
-  showSpinner = true;
-  mode = 'description';
-  currentGameID = '';
-  currentClientID = '';
-  currentGameInfo: any = [];
-  targetCharacterID = '';
-  
-  constructor(public auth: AuthService, public dbnd: DbndService, private route: ActivatedRoute) { }
+// @Component({
+//   selector: 'app-playgame',
+//   templateUrl: './playgame.component.html',
+//   styleUrls: ['./playgame.component.css']
+// })
+// export class PlaygameComponent implements OnInit {
+//   dbndProfText = '';
+//   showSpinner = true;
+//   mode = 'description';
+//   currentGameID = '';
+//   currentClientID = '';
+//   currentGameInfo: any = [];
+//   targetCharacterID = '';
 
-  async ngOnInit() {
+//   constructor(public auth: AuthService, public dbnd: DbndService, private route: ActivatedRoute) { }
 
-    this.currentGameID = this.route.snapshot.paramMap.get("gameID");
-    this.currentClientID = this.route.snapshot.paramMap.get("clientID");
+//   async ngOnInit() {
 
-    console.log("GameID - " + this.currentGameID);
-    console.log("ClientID - " + this.currentClientID);
+//     this.currentGameID = this.route.snapshot.paramMap.get("gameID");
+//     this.currentClientID = this.route.snapshot.paramMap.get("clientID");
 
-    this.dbnd.getGame$(this.currentClientID, this.currentGameID)
-                            .subscribe( res  => { 
-                              this.currentGameInfo = res;
-                              console.log(this.currentGameInfo)
-                            });
+//     console.log("GameID - " + this.currentGameID);
+//     console.log("ClientID - " + this.currentClientID);
 
-    console.log(this.currentGameInfo)
+//     this.dbnd.getGame$(this.currentClientID, this.currentGameID)
+//                             .subscribe( res  => {
+//                               this.currentGameInfo = res;
+//                               console.log(this.currentGameInfo)
+//                             });
 
-    /* this.dbnd.getUser$(await this.auth.getClientId())
-      .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
-                                      this.showSpinner = false;
-      }); */
-    }
-
-
-
-}
+//     console.log(this.currentGameInfo)
+//   }
+// }

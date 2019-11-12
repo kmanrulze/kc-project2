@@ -23,13 +23,13 @@ import { MonsterComponent } from './monster/monster.component';
 import { CurrenttablesComponent } from './tables/currenttables/currenttables.component';
 import { EdittableComponent } from './tables/edittable/edittable.component';
 import { NgbdTooltipCustomclass } from './ui/tootip-custom-class/tooltip-customclass';
-import { PlaygameComponent } from './playgame/playgame.component';
-import { CharacteroptionsComponent } from './playgame/characteroptions/characteroptions.component';
-import { OverviewoptionsComponent } from './playgame/overviewoptions/overviewoptions.component';
-import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatListModule } from '@angular/material/list';
-import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
+// import { PlaygameComponent } from './playgame/playgame.component';
+// import { CharacteroptionsComponent } from './playgame/characteroptions/characteroptions.component';
+// import { OverviewoptionsComponent } from './playgame/overviewoptions/overviewoptions.component';
+// import { GameoptionsComponent } from './playgame/gameoptions/gameoptions.component';
+// import { GamedescriptionComponent } from './playgame/gamedescription/gamedescription.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DeletecharacterComponent } from './characters/deletecharacter/deletecharacter.component';
 
@@ -53,10 +53,10 @@ import { DeletecharacterComponent } from './characters/deletecharacter/deletecha
     EdittableComponent,
     NgbdTooltipCustomclass,
     PlaygameComponent,
-    CharacteroptionsComponent,
-    OverviewoptionsComponent,
-    GameoptionsComponent,
-    GamedescriptionComponent,
+    // CharacteroptionsComponent,
+    // OverviewoptionsComponent,
+    // GameoptionsComponent,
+    // GamedescriptionComponent,
     DeletecharacterComponent
   ],
   imports: [
