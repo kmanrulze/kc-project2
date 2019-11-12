@@ -13,8 +13,8 @@ export class DbndService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = `https://localhost:44342/api/client`;
-  // baseUrl: string = `https://dbndapi.azurewebsites.net/api/client`;
+  //baseUrl = `https://localhost:44342/api/client`;
+   baseUrl: string = `https://dbndapi.azurewebsites.net/api/client`;
 
 // Clients:
   // GET     Get client's id from token: api/client
