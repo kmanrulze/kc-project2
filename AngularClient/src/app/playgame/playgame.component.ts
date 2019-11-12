@@ -33,6 +33,7 @@ export class PlaygameComponent implements OnInit {
     this.dbnd.getGame$(this.currentClientID, this.currentGameID)
                             .subscribe( ( res )  => {
                               this.currentGameInfo = JSON.parse( JSON.stringify(res) ); //I'm sorry
-                            });
+                            });                        
+
 }
 }

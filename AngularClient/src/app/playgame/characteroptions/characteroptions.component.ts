@@ -17,7 +17,7 @@ export class CharacteroptionsComponent implements OnInit {
   characterSelected = false;
   userId: string;
 
-  @Input() currentGameInfo: any;
+  @Input() currentGameInfo: any = {};
   @Input() currentClientID: string;
   @Input() currentGameID: string;
   @Input() targetCharacterID: string;
@@ -27,7 +27,7 @@ export class CharacteroptionsComponent implements OnInit {
   }
 
   async ngOnInit() {
-
+    console.log("current game info - ", this.currentGameInfo)
     /*this.dbnd.getUser$(this.userId)
        .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
                                       this.showSpinner = false;
