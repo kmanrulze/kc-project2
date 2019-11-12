@@ -13,7 +13,7 @@ import { UserService } from 'src/app/_services/observables/user.service';
 })
 export class EditFormComponent implements OnInit {
 
-  @Input() character: Character;
+  @Input() character: any; // Types are not helping me here
   @Input() characterId: string;
   @Output() newFormMode = new EventEmitter<string>();
 
@@ -26,6 +26,8 @@ export class EditFormComponent implements OnInit {
   ngOnInit() { }
 
   async onEditSubmit(Character: NgForm){
+    this.character.FirstName = Character.value.FirstName;
+    this.character.LastName = Character.value.LastName;
     this.dbnd.updateCharacter$( this.userId, this.characterId, this.character ).subscribe( async res => {
       Character.reset();
       this.newFormMode.emit("new");

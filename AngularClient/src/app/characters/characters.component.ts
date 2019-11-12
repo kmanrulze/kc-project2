@@ -21,7 +21,7 @@ export class CharactersComponent implements OnInit {
   mode = 'characterSelection';
   editingCharacter: Character;
   editingCharacterId: string;
-  // Options: new, edit
+  // Options: new, edit, delete
   form = 'new';
 
   page = 1;
@@ -37,16 +37,19 @@ export class CharactersComponent implements OnInit {
   }
 
   async switchMode(emission: any) {
-    this.dbnd.getCharacter$( this.userId, emission.characterId).subscribe (res => {
+    this.dbnd.getCharacter$( this.userId, emission.characterId ).subscribe (res => {
       this.editingCharacter = res;
+      console.log(`Editing:`);
+      console.log(res);
       this.editingCharacterId = emission.characterId;
       this.form = emission.newFormMode;
     });
   }
 
   async submitEditAndReset(characterId: string) {
-    this.form = 'new';
-    await this.characterService.updateCharacters();
+    this.characterService.updateCharacters().then( res => {
+      this.form = 'new';
+    });
   }
 
   async clickJoinTable(characterId: string) {
@@ -54,8 +57,9 @@ export class CharactersComponent implements OnInit {
   }
 
   async submitDelete(emission: any) {
-    this.form = emission;
-    await this.characterService.updateCharacters();
+    this.characterService.updateCharacters().then( res => {
+      this.form = emission;
+    });
   }
 }
 

@@ -25,18 +25,17 @@ export class NewFormComponent implements OnInit {
   }
 
   async onSubmit(CharacterForm: NgForm) {
-    console.log(CharacterForm.value);
 
     let character: Character = new Character();
     character.ClientID = this.userId;
     character.FirstName = CharacterForm.value.FirstName;
     character.LastName = CharacterForm.value.LastName;
-    console.log(character);
 
     this.dbnd.createCharacter$( this.userId, character).subscribe(async createRes => {
-      console.log(createRes);
       // Handle response here: success, failure. Suggest creating alert or third message text idk
-      CharacterForm.resetForm();
+      this.characterService.updateCharacters().then( res => {
+        CharacterForm.resetForm();
+      });
     });
   }  
 }

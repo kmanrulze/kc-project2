@@ -1,15 +1,15 @@
-// import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-// @Component({
-//   selector: 'app-gamedescription',
-//   templateUrl: './gamedescription.component.html',
-//   styleUrls: ['./gamedescription.component.css']
-// })
-// export class GamedescriptionComponent implements OnInit {
+@Component({
+  selector: 'app-gamedescription',
+  templateUrl: './gamedescription.component.html',
+  styleUrls: ['./gamedescription.component.css']
+})
+export class GamedescriptionComponent implements OnInit {
 
-//   constructor() { }
+  constructor() { }
 
-//   ngOnInit() {
-//   }
+  ngOnInit() {
+  }
 
-// }
+}

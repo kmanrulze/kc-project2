@@ -52,7 +52,7 @@ import { DeletecharacterComponent } from './characters/deletecharacter/deletecha
     CurrenttablesComponent,
     EdittableComponent,
     NgbdTooltipCustomclass,
-    PlaygameComponent,
+    // PlaygameComponent,
     // CharacteroptionsComponent,
     // OverviewoptionsComponent,
     // GameoptionsComponent,
