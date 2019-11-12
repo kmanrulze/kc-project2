@@ -19,7 +19,7 @@ export class PlaygameComponent implements OnInit {
   mode = 'description';
   currentGameID = '';
   currentClientID = '';
-  currentGameInfo: any[] = [];
+  currentGameInfo: any = {};
   targetCharacterID = '';
 
   constructor(public auth: AuthService, public dbnd: DbndService, private route: ActivatedRoute, public userService: UserService) { }
@@ -30,17 +30,9 @@ export class PlaygameComponent implements OnInit {
 
     this.userService.userId$.subscribe( res => this.currentClientID = res );
 
-    console.log("GameID - " + this.currentGameID);
-    console.log("ClientID - " + this.currentClientID);
-
     this.dbnd.getGame$(this.currentClientID, this.currentGameID)
                             .subscribe( ( res )  => {
-                              this.currentGameInfo = JSON.parse(res);
-                              console.log("response " + res)
-                              console.log("gameinfo "+ this.currentGameInfo)
+                              this.currentGameInfo = JSON.parse( JSON.stringify(res) ); //I'm sorry
                             });
-
-                            
-    console.log("dm? " + this.currentClientID == this.currentGameInfo.clientID)
 }
 }
