@@ -17,6 +17,7 @@ export class CurrenttablesComponent implements OnInit {
   dbndProfText = '';
   showSpinner = true;
   currentId: string;
+  games: any = [];
   constructor( public gameService: GameService, public auth: AuthService, private router: Router, public userService: UserService ) { }
 
   async ngOnInit() {
