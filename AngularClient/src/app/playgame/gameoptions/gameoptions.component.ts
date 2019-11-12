@@ -26,20 +26,17 @@ export class GameoptionsComponent implements OnInit {
   @Input() currentGameID: string;
   @Input() targetCharacterID: string;
 
-  constructor(public auth: AuthService, public dbnd: DbndService, public router: Router) { }
+  constructor(public auth: AuthService, public dbnd: DbndService, public router: Router, public userService: UserService) { }
 
   async ngOnInit() {
-
-    /*this.dbnd.getUser$(this.userId)
-      .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
-                                      this.showSpinner = false;
-      }); */
+    console.log("currentgameid " + this.currentGameID);
     }
 
     async onAddCharacterSubmit(AddCharacterForm: NgForm) {
       console.log(AddCharacterForm.value);
 
-      this.dbnd.addCharacterToGame$(this.currentClientID, this.currentGameInfo.gameId, AddCharacterForm.value.CharacterID).subscribe(createRes => {
+      this.dbnd.addCharacterToGame$(this.currentClientID, this.currentGameID, AddCharacterForm.value.CharacterID)
+        .subscribe(createRes => {
         console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
         AddCharacterForm.resetForm();
@@ -50,7 +47,7 @@ export class GameoptionsComponent implements OnInit {
     async onDeleteTableSubmit(DeleteTableForm: NgForm) {
       console.log(DeleteTableForm.value);
 
-      this.dbnd.deleteGame$(this.currentClientID, this.currentGameInfo.gameId).subscribe(createRes => {
+      this.dbnd.deleteGame$(this.currentClientID, this.currentGameID).subscribe(createRes => {
         console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
         DeleteTableForm.resetForm();
@@ -59,27 +56,17 @@ export class GameoptionsComponent implements OnInit {
       });
       }
 
-
-    // deleteGame$(clientId: string, gameId: string): Observable<any> {
-    //   return this.http.delete(`${this.baseUrl}/${clientId}/games/${gameId}/delete`);
-    // }
-
     async onChangeTableSubmit(ChangeTableForm: NgForm) {
-      console.log(ChangeTableForm.value);
 
       let game: Game = new Game(ChangeTableForm.value.TableName, this.currentClientID);
       console.log(game);
 
-      this.dbnd.updateGame$(this.currentClientID, this.currentGameInfo.gameId, game).subscribe(createRes => {
-        console.log(createRes);
+      this.dbnd.updateGame$(this.currentClientID, this.currentGameID, game)
+        .subscribe(createRes => {
+              console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
         ChangeTableForm.resetForm();
         //this.characterService.updateCharacters();
       });
     }
-
-    // updateGame$(clientId: string, gameId: string, game: Game) {
-    //   return this.http.put(`${this.baseUrl}/${clientId}/games/${gameId}/update`, game);
-    // }
-
 }

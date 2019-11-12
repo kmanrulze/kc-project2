@@ -11,18 +11,18 @@
   <table class="table table-striped table-hover" *ngIf="!showSpinner">
     <tbody>
       <tr *ngFor="let game of gameService.games$ | async">
-        <th *ngIf="game.clientID === this.currentId" scope="row">
+        <th *ngIf="game.clientID === this.currentClientId" scope="row">
           <img class="icon-submit-playertype" src="../../../assets/images/helmet_t.png" placement="right" ngbTooltip="You are the Dungeon Master at this table." tooltipClass="table-character-left" />
         </th>
-        <th *ngIf="game.clientID !== this.currentId" scope="row">
+        <th *ngIf="game.clientID !== this.currentClientId" scope="row">
           <img class="icon-submit-playertype" src="../../../assets/images/scarecrow_t.png"  placement="right" ngbTooltip="You are a player at this table." tooltipClass="table-character-left" />
         </th>
         <td class="col-4">
-          <p> {{game.gameName}} </p>
+          <p> {{ game.gameName }} </p>
 
         </td>
         <td class="col-1">
-            <input (click)="onClickPlayGameHandler(game.gameID, this.currentId)" type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" placement="left" ngbTooltip="Play Game" tooltipClass="table-character-right" />
+            <input (click)="onClickPlayGameHandler(game.gameID, this.currentClientId)" type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" placement="left" ngbTooltip="Play Game" tooltipClass="table-character-right" />
           </td>
       </tr>
     </tbody>
