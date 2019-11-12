@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
-import { GameService } from 'src/app/_services/observables/game.service';
+import { OverviewService } from 'src/app/_services/observables/overview.service';
 
 @Component({
   selector: 'app-overviewoptions',
@@ -16,7 +16,7 @@ export class OverviewoptionsComponent implements OnInit {
   overviews: any = [];
 
 
-  constructor(public auth: AuthService, public dbnd: DbndService, public gameService: GameService) { }
+  constructor(public auth: AuthService, public dbnd: DbndService, public overviewService: OverviewService) { }
 
   async ngOnInit() {
 
@@ -25,7 +25,7 @@ export class OverviewoptionsComponent implements OnInit {
 
     }
     async populateOverviews() {
-      this.gameService.games$.subscribe( async res => {
+      this.overviewService.overviews$.subscribe( async res => {
         this.showSpinner = false;
         this.overviews = res;
       });
