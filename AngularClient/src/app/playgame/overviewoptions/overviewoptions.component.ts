@@ -24,13 +24,13 @@ export class OverviewoptionsComponent implements OnInit {
     this.user.userId$.subscribe( id => this.userId = id );
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.populateOverviews();
     console.log("THIS IS THE CURRENT CLIENT: " + this.currentClientID);
     console.log("THIS IS THE CURRENT GAME: " + this.currentGameID);
     }
     
-    async populateOverviews() {
+    populateOverviews() {
       this.dbnd.getGameOverviews$(this.currentClientID, this.currentGameID).subscribe( res => {
         console.log(res);
         this.overviews = res;

@@ -30,12 +30,11 @@ export class PlaygameComponent implements OnInit {
     console.log("GameID - " + this.currentGameID);
     console.log("ClientID - " + this.currentClientID);
 
-    this.dbnd.getGame$(this.currentClientID, this.currentGameID)
-                            .subscribe( res  => {
-                              this.currentGameInfo = res;
-                              console.log(this.currentGameInfo)
-                            });
+    this.dbnd.getGame$(this.currentClientID, this.currentGameID).subscribe( res  => {
+      this.currentGameInfo = res;
+      console.log(this.currentGameInfo)
+      });
 
     console.log(this.currentGameInfo)
-}
+  }
 }
