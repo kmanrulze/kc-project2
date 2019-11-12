@@ -1,87 +1,86 @@
 <div class="class cat-background">
-  <div class="main-padding">
-      <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
-      <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
-  </div>
-
-  <div class="form-title">Table List</div>
-
-  <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
-
-  <table class="table table-striped table-hover" *ngIf="!showSpinner">
-    <tbody>
-      <tr *ngFor="let game of gameService.games$ | async">
-        <th *ngIf="game.clientID === this.currentId" scope="row">
-          <img class="icon-submit-playertype" src="../../../assets/images/helmet_t.png" placement="right" ngbTooltip="You are the Dungeon Master at this table." tooltipClass="table-character-left" />
-        </th>
-        <th *ngIf="game.clientID !== this.currentId" scope="row">
-          <img class="icon-submit-playertype" src="../../../assets/images/scarecrow_t.png"  placement="right" ngbTooltip="You are a player at this table." tooltipClass="table-character-left" />
-        </th>
-        <td class="col-4">
-          <p> {{game.GameName}}</p>
-          <p> {{game.ClientID}} </p>
-          <p> {{game.GameID}}</p>
-
-        </td>
-        <td class="col-1">
-            <input (click)="onClickPlayGameHandler(game.gameID, this.currentId)" type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" placement="left" ngbTooltip="Play Game" tooltipClass="table-character-right" />
+    <div class="main-padding">
+        <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+        <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+    </div>
+  
+    <div class="form-title">Table List</div>
+  
+    <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
+  
+    <table class="table table-striped table-hover" *ngIf="!showSpinner">
+      <tbody>
+        <tr *ngFor="let game of gameService.games$ | async">
+          <th *ngIf="game.clientID === this.currentId" scope="row">
+            <img class="icon-submit-playertype" src="../../../assets/images/helmet_t.png" placement="right" ngbTooltip="You are the Dungeon Master at this table." tooltipClass="table-character-left" />
+          </th>
+          <th *ngIf="game.clientID !== this.currentId" scope="row">
+            <img class="icon-submit-playertype" src="../../../assets/images/scarecrow_t.png"  placement="right" ngbTooltip="You are a player at this table." tooltipClass="table-character-left" />
+          </th>
+          <td class="col-4">
+            <p> {{game.gameName}} </p>
+  
           </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="main-padding">
-      <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
-      <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+          <td class="col-1">
+              <input (click)="onClickPlayGameHandler(game.gameID, this.currentId)" type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" placement="left" ngbTooltip="Play Game" tooltipClass="table-character-right" />
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="main-padding">
+        <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
+        <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
+    </div>
   </div>
-</div>
-
-<!-- <img class="icon-submit-playertype" src="../../../assets/images/scarecrow_t.png" /> -->
-        <!--<tbody>
-          <tr > {{ country.name }} the tr needs : *ngFor="let character of char"
-            <th scope="row">
-              <input type="image" class="icon-submit-playertype" src="../../../assets/images/helmet_t.png" placement="right" ngbTooltip="You are the Dungeon Master at this table." tooltipClass="table-character-left" />
-            </th>
-            <td class="col-8">
-              {{dbndProfText}}
-              <p>Id: {{ auth.clientId }}</p>
-            </td>
-            <td class="col-1">
-              <input type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" placement="left" ngbTooltip="Play Game" tooltipClass="table-character-right" />
-            </td>
-          </tr>
-          <tr > {{ country.name }} the tr needs : *ngFor="let character of char"
-            <th scope="row">
-              <input type="image" class="icon-submit-playertype" src="../../../assets/images/scarecrow_t.png"  placement="right" ngbTooltip="You are a player at this table." tooltipClass="table-character-left" />
-            </th>
-            <td class="col-8">
-              {{dbndProfText}}
-              <p>Id: {{ auth.clientId }}</p>
-            </td>
-            <td class="col-1">
-                <input type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" />
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
-
-      <!-- <div class="d-flex justify-content-between p-2">
-        <ngb-pagination
-          [collectionSize]="20"
-          [(page)]="page"
-          [pageSize]="pageSize"
-        >
-        </ngb-pagination>
-
-        <select
-          class="custom-select"
-          style="width: auto"
-          [(ngModel)]="pageSize"
-        >
-          <option [ngValue]="2">2 items per page</option>
-          <option [ngValue]="4">4 items per page</option>
-          <option [ngValue]="6">6 items per page</option>
-        </select>
-        </div> -->
-
-
+  
+  <!-- <img class="icon-submit-playertype" src="../../../assets/images/scarecrow_t.png" /> -->
+          <!--<tbody>
+            <tr > {{ country.name }} the tr needs : *ngFor="let character of char"
+              <th scope="row">
+                <input type="image" class="icon-submit-playertype" src="../../../assets/images/helmet_t.png" placement="right" ngbTooltip="You are the Dungeon Master at this table." tooltipClass="table-character-left" />
+              </th>
+              <td class="col-8">
+                {{dbndProfText}}
+                <p>Id: {{ auth.clientId }}</p>
+              </td>
+              <td class="col-1">
+                <input type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" placement="left" ngbTooltip="Play Game" tooltipClass="table-character-right" />
+              </td>
+            </tr>
+            <tr > {{ country.name }} the tr needs : *ngFor="let character of char"
+              <th scope="row">
+                <input type="image" class="icon-submit-playertype" src="../../../assets/images/scarecrow_t.png"  placement="right" ngbTooltip="You are a player at this table." tooltipClass="table-character-left" />
+              </th>
+              <td class="col-8">
+                {{dbndProfText}}
+                <p>Id: {{ auth.clientId }}</p>
+              </td>
+              <td class="col-1">
+                  <input type="image" class="icon-submit-use" src="../../../assets/images/portal_t.png" />
+              </td>
+            </tr>
+          </tbody>
+        </table> -->
+  
+        <!-- <div class="d-flex justify-content-between p-2">
+          <ngb-pagination
+            [collectionSize]="20"
+            [(page)]="page"
+            [pageSize]="pageSize"
+          >
+          </ngb-pagination>
+  
+          <select
+            class="custom-select"
+            style="width: auto"
+            [(ngModel)]="pageSize"
+          >
+            <option [ngValue]="2">2 items per page</option>
+            <option [ngValue]="4">4 items per page</option>
+            <option [ngValue]="6">6 items per page</option>
+          </select>
+          </div> -->
+  
+  
+  

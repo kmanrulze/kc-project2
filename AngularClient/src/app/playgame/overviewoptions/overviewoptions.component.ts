@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
@@ -16,19 +16,25 @@ export class OverviewoptionsComponent implements OnInit {
   characterSelected = false;
   overviews: any = [];
   userId: string;
+
+  @Input() currentGameInfo: any;
+  @Input() currentClientID: string;
+  @Input() currentGameID: string;
+  @Input() targetCharacterID: string;
   
-  constructor(public dbnd: DbndService, public user: UserService, public overviewService: OverviewService) {
+  constructor(public dbnd: DbndService, public user: UserService) {
     this.user.userId$.subscribe( id => this.userId = id );
   }
 
   async ngOnInit() {
-
     this.populateOverviews();
+    console.log("THIS IS THE CURRENT CLIENT: " + this.currentClientID);
+    console.log("THIS IS THE CURRENT GAME: " + this.currentGameID);
     }
     
     async populateOverviews() {
-      this.overviewService.overviews$.subscribe( async res => {
-        this.showSpinner = false;
+      this.dbnd.getGameOverviews$(this.currentClientID, this.currentGameID).subscribe( res => {
+        console.log("THIS IS THE LOG: " + res);
         this.overviews = res;
       });
     }
