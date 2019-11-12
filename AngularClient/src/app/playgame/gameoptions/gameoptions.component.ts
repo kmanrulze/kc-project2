@@ -20,16 +20,18 @@ import { PlaygameComponent } from '../playgame.component';
 })
 export class GameoptionsComponent implements OnInit {
   dbndProfText = '';
+  userId: string;
   showSpinner = true;
   @Input() currentGameInfo: any;
   @Input() currentClientID: string;
   @Input() currentGameID: string;
   @Input() targetCharacterID: string;
 
-  constructor(public auth: AuthService, public dbnd: DbndService, public router: Router) { }
+  constructor(public dbnd: DbndService, public user: UserService, public router: Router) { }
 
   async ngOnInit() {
 
+    this.user.userId$.subscribe( id => this.userId = id );
     /*this.dbnd.getUser$(this.userId)
       .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
                                       this.showSpinner = false;
@@ -39,7 +41,7 @@ export class GameoptionsComponent implements OnInit {
     async onAddCharacterSubmit(AddCharacterForm: NgForm) {
       console.log(AddCharacterForm.value);
   
-      this.dbnd.addCharacterToGame$(await this.auth.getClientId(), this.currentGameInfo.gameId, AddCharacterForm.value.CharacterID).subscribe(createRes => {
+      this.dbnd.addCharacterToGame$(this.userId, this.currentGameInfo.gameId, AddCharacterForm.value.CharacterID).subscribe(createRes => {
         console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
         AddCharacterForm.resetForm();
@@ -50,7 +52,7 @@ export class GameoptionsComponent implements OnInit {
     async onDeleteTableSubmit(DeleteTableForm: NgForm) {
       console.log(DeleteTableForm.value);
 
-      this.dbnd.deleteGame$(await this.auth.getClientId(), this.currentGameInfo.gameId).subscribe(createRes => {
+      this.dbnd.deleteGame$(this.userId, this.currentGameInfo.gameId).subscribe(createRes => {
         console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
         DeleteTableForm.resetForm();
@@ -70,7 +72,7 @@ export class GameoptionsComponent implements OnInit {
       let game: Game = new Game(ChangeTableForm.value.TableName, this.currentClientID);
       console.log(game);
 
-      this.dbnd.updateGame$(await this.auth.getClientId(), this.currentGameInfo.gameId, game).subscribe(createRes => {
+      this.dbnd.updateGame$(this.userId, this.currentGameInfo.gameId, game).subscribe(createRes => {
         console.log(createRes);
         // Handle response here: success, failure. Suggest creating alert or third message text idk
         ChangeTableForm.resetForm();
