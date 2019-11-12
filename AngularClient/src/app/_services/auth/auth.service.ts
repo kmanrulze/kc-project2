@@ -42,7 +42,6 @@ export class AuthService {
   loggedIn: boolean = null;
 
   clientId = '';
-  gameId ='';
 
   constructor(private router: Router, private dbnd: DbndService) { }
 

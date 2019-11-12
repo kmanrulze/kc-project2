@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
+import { GameService } from 'src/app/_services/observables/game.service';
 
 @Component({
   selector: 'app-overviewoptions',
@@ -11,21 +12,30 @@ import { Observable } from 'rxjs';
 export class OverviewoptionsComponent implements OnInit {
   dbndProfText = '';
   showSpinner = true;
-  characterSelected = false;
-  dbndOverview = '';
-  constructor(public auth: AuthService, public dbnd: DbndService) { }
+  overviewSelected = false;
+  overviews: any = [];
+
+
+  constructor(public auth: AuthService, public dbnd: DbndService, public gameService: GameService) { }
 
   async ngOnInit() {
 
-    this.dbnd.getUser$(await this.auth.getClientId())
+    this.getUser();
+    this.populateOverviews();
+
+    }
+    async populateOverviews() {
+      this.gameService.games$.subscribe( async res => {
+        this.showSpinner = false;
+        this.overviews = res;
+      });
+    }
+
+    async getUser() {
+      this.dbnd.getUser$(await this.auth.getClientId())
       .subscribe( (res: Response) => {this.dbndProfText = JSON.stringify(res);
                                       this.showSpinner = false;
       });
-
-    //Need to add on init call to api for overview description here
-    this.dbnd.getOverview$(await this.auth.getClientId(), 'gameId', 'overviewId')
-      .subscribe( (res: Response) => {this.dbndOverview = JSON.stringify(res);
-                                                            this.showSpinner = false;})
     }
 
 }
