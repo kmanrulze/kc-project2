@@ -8,8 +8,8 @@
                         <tr *ngFor="let o of overviews">
                           <td class="col-4">
                               <!-- {{dbndProfText}} -->
-                              <p>Id: {{o.Id}}</p>
-                              <p>Id: {{o.Id}}</p>
+                              <p>GameId: {{o.gameId}}</p>
+                              <p>OverviewId: {{o.overviewId}}</p>
                           </td>
                           <td class="col-2">
                               <input type="image" (click)="overviewSelected=true" class="icon-submit-use" src="../../../assets/images/target_t.png" placement="left" ngbTooltip="Select this overview." tooltipClass="table-character-right" />
