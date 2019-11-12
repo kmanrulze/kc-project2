@@ -5,7 +5,7 @@
         <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
         <table class="table table-striped table-hover" *ngIf="!showSpinner">
             <tbody>
-                <tr *ngFor="let character of this.currentGameInfo.characters"> <!-- {{ country.name }} the tr needs : *ngFor="let character of char"-->
+                <tr *ngFor="let character of this.currentGameInfo.characters">
                 <td class="col-4">
                     <!-- {{dbndProfText}} -->
                     <p>{{ character.firstName }} {{ character.lastName }}</p>

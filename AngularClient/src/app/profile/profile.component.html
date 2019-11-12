@@ -7,7 +7,7 @@
       <div class="main-tack left"><i class="fas fa-dice-d20"></i></div>
       <div class="main-tack right"><i class="fas fa-dice-d20"></i></div>
     </div>
-    <div class="form-title">User Name Goes HERYA</div>
+    <div class="form-title">Welcome to DnD Truck.</div>
     <div class = "profile-description-info">
       <div id="idDiv">
         <p>Id: {{ this.userId }}</p>
@@ -15,10 +15,12 @@
       </div>
       <div class="text-center container-fluid icon-submit-container">
         <div class="icon-submit-back">
-          <input
+          <form #DeleteCharacterForm="ngForm" novalidate>
+          <input ngSubmit
             type="image"
             class="icon-submit"
             src="../../../assets/images/exit_t.png" alt="submit icon"/>
+            </form>
         </div>
         <div class="icon-submit-front">Delete</div>
       </div>

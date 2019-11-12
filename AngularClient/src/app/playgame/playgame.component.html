@@ -11,7 +11,7 @@
       <a (click)="mode='overviews'" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
         Overviews
       </a>
-      <a (click)="mode='gameoptions'" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
+      <a *ngIf="this.currentClientID == this.currentGameInfo.clientID" (click)="mode='gameoptions'" class="nav-link" style="cursor: pointer" role="button" id="navbarCharacters">
         Options
       </a>
   </div>

@@ -16,19 +16,18 @@ import { switchMap } from 'rxjs/operators';
 export class CurrenttablesComponent implements OnInit {
   dbndProfText = '';
   showSpinner = true;
-  currentId: string;
-  games: any = [];
+  currentClientId: string;
+  game: any[];
   constructor( public gameService: GameService, public auth: AuthService, private router: Router, public userService: UserService ) { }
 
-  ngOnInit() {
-    this.userService.userId$.subscribe( res => { this.currentId = res; });
-    this.getGames();   
-  }
-  getGames() {
+  async ngOnInit() {
+    this.userService.userId$.subscribe( res => { this.currentClientId = res; });
+    console.log(this.currentClientId)
+
     this.gameService.games$.subscribe( async res => {
       console.log(res);
+      this.game = res;
       this.showSpinner = false;
-      this.games = res;
     });
   }
 
