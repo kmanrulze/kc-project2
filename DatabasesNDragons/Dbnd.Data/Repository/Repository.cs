@@ -188,7 +188,10 @@ namespace Dbnd.Data.Repository
         {
             try
             {
-                return Mapper.MapGame(await _context.Game.FirstAsync(g => g.GameID == gameID));
+                return Mapper.MapGame(await _context.Game
+                    .Include(g => g.Overviews)
+                    .Include(g => g.Characters)
+                    .FirstAsync(g => g.GameID == gameID));
             }
             catch(Exception e)
             {

@@ -382,7 +382,7 @@ namespace Dbnd.Api.Controllers
 
         // GET Get all overviews of a game: api/client/{clientId}/games/{gameId}/overviews
         [HttpGet("{clientId}/games/{gameId}/overviews")]
-        public async Task<ActionResult<Overview>> GetOveview(Guid clientId, Guid gameId)
+        public async Task<ActionResult<IEnumerable<Overview>>> GetOveviews(Guid clientId, Guid gameId)
         {
             try
             {

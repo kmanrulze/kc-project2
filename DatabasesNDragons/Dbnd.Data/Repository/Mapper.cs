@@ -62,9 +62,7 @@ namespace Dbnd.Data.Repository
             {
                 ClientID = ContextGame.ClientID,
                 GameID = ContextGame.GameID,
-                GameName = ContextGame.GameName,
-                Characters = ContextGame.Characters.Select(Mapper.MapCharacter).ToList(),
-                Overviews = ContextGame.Overviews.Select(Mapper.MapOverview).ToList()
+                GameName = ContextGame.GameName
             };
             return LogicGame;
         }
