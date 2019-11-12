@@ -33,5 +33,5 @@ export class NewtableComponent implements OnInit {
       GameForm.resetForm();
       this.gameService.updateGames();
     });
-  }  
+  }
 }

@@ -1,7 +1,7 @@
 import { Game } from './game';
 
 export class Character {
-    constructor () { }
+    constructor() { }
 
     public CharacterID: string;
     public ClientID: string;

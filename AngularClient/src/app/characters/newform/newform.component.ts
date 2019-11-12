@@ -38,5 +38,5 @@ export class NewFormComponent implements OnInit {
       // Handle response here: success, failure. Suggest creating alert or third message text idk
       CharacterForm.resetForm();
     });
-  }  
+  }
 }

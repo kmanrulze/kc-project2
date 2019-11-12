@@ -3,7 +3,7 @@ import { AuthService } from '../../_services/auth/auth.service';
 import { DbndService } from '../../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 import { Character } from '../../_models/character';
-import { CharacterService } from "../../_services/observables/character.service";
+import { CharacterService } from '../../_services/observables/character.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/_services/observables/user.service';
 @Component({
@@ -28,7 +28,7 @@ export class EditFormComponent implements OnInit {
   async onEditSubmit(Character: NgForm){
     this.dbnd.updateCharacter$( this.userId, this.characterId, this.character ).subscribe( async res => {
       Character.reset();
-      this.newFormMode.emit("new");
+      this.newFormMode.emit('new');
     });
   }
 }

@@ -97,12 +97,12 @@ export class DbndService {
 
   // GET     Get all overviews of a game: api/client/{clientId}/games/{gameId}/overviews
   getGameOverviews$(clientId: string, gameId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${clientId}/games/${gameId}/overviews`)
+    return this.http.get(`${this.baseUrl}/${clientId}/games/${gameId}/overviews`);
   }
 
   // GET     Get overview info: api/client/{clientId}/games/{gameId}/overviews/{overviewId}
   getOverview$(clientId: string, gameId: string, overviewId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${clientId}/games/${gameId}/overviews/${overviewId}`)
+    return this.http.get(`${this.baseUrl}/${clientId}/games/${gameId}/overviews/${overviewId}`);
   }
 
   // PUT     Update overview: api/client/{clientId}/games/{gameId}/overviews/{overviewId}/update

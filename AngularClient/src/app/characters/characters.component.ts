@@ -3,7 +3,7 @@ import { AuthService } from '../_services/auth/auth.service';
 import { DbndService } from '../_services/dbnd/dbnd.service';
 import { Observable } from 'rxjs';
 
-import { CharacterService } from "../_services/observables/character.service";
+import { CharacterService } from '../_services/observables/character.service';
 import { ListcharactersComponent } from './listcharacters/listcharacters.component';
 import { Character } from '../_models/character';
 import { UserService } from '../_services/observables/user.service';
